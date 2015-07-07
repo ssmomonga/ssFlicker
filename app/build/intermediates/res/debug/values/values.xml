@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/development/workspace/ssFlicker/app/src/main/res/values/arrays.xml -->
+    <eat-comment/>
+    <integer-array name="color_pallet">
+	    <item>@color/material_red</item>
+	    <item>@color/material_pink</item>
+		<item>@color/material_purple</item>
+		<item>@color/material_deep_purple</item>
+		<item>@color/material_indigo</item>
+		<item>@color/material_blue</item>
+	    <item>@color/material_light_blue</item>
+	    <item>@color/material_cyan</item>
+		<item>@color/material_teal</item>
+		<item>@color/material_green</item>
+		<item>@color/material_light_green</item>
+		<item>@color/material_lime</item>
+		<item>@color/material_yellow</item>
+	    <item>@color/material_amber</item>
+	    <item>@color/material_orange</item>
+		<item>@color/material_deep_orange</item>
+		<item>@color/material_brown</item>
+		<item>@color/material_gray</item>
+		<item>@color/material_blue_gray</item>
+		<item>@color/material_black</item>
+		<item>@color/material_white</item>
+	</integer-array>
+    <string-array name="dock_window_position_landscape_entries">
+		<item>@string/left_of_pointer_window</item>
+		<item>@string/right_of_pointer_window</item>
+	</string-array>
+    <string-array name="dock_window_position_landscape_entryvalues">
+		<item>3</item>
+		<item>5</item>
+	</string-array>
+    <string-array name="dock_window_position_portrait_entries">
+		<item>@string/above_pointer_window</item>
+		<item>@string/below_pointer_window</item>
+	</string-array>
+    <string-array name="dock_window_position_portrait_entryvalues">
+		<item>48</item>
+		<item>80</item>
+	</string-array>
+    <string-array name="home_key_click_interval_entries">
+		<item>@string/int_200_ms</item>
+		<item>@string/int_300_ms</item>
+		<item>@string/int_400_ms</item>
+		<item>@string/int_500_ms</item>
+		<item>@string/int_600_ms</item>
+		<item>@string/int_700_ms</item>
+		<item>@string/int_800_ms</item>
+		<item>@string/int_900_ms</item>
+		<item>@string/int_1000_ms</item>
+		</string-array>
+    <string-array name="home_key_click_interval_entryvalues">
+		<item>200</item>
+		<item>300</item>
+		<item>400</item>
+		<item>500</item>
+		<item>600</item>
+		<item>700</item>
+		<item>800</item>
+		<item>900</item>
+		<item>1000</item>
+	</string-array>
+    <string-array name="home_key_click_mode_entries">
+		<item>@string/home_key_click_mode_single</item>
+		<item>@string/home_key_click_mode_double</item>
+	</string-array>
+    <string-array name="home_key_click_mode_entryvalues">
+		<item>1</item>
+		<item>2</item>
+	</string-array>
+    <string-array name="icon_size_entries">
+		<item>@string/icon_size_tiny</item>
+		<item>@string/icon_size_small</item>
+		<item>@string/icon_size_medium</item>
+		<item>@string/icon_size_large</item>
+		<item>@string/icon_size_huge</item>
+	</string-array>
+    <string-array name="icon_size_entryvalues">
+		<item>24</item>
+		<item>32</item>
+		<item>40</item>
+		<item>48</item>
+		<item>56</item>
+	</string-array>
+    <string-array name="overlay_point_action_entries">
+		<item>@string/swipe</item>
+		<item>@string/tap</item>
+	</string-array>
+    <string-array name="overlay_point_action_entryvalues">
+		<item>0</item>
+		<item>1</item>
+	</string-array>
+    <string-array name="overlay_point_position_entries">
+		<item>@string/overlay_point_position_0</item>
+		<item>@string/overlay_point_position_1</item>
+		<item>@string/overlay_point_position_2</item>
+		<item>@string/overlay_point_position_3</item>
+		<item>@string/overlay_point_position_4</item>
+		<item>@string/overlay_point_position_5</item>
+		<item>@string/overlay_point_position_6</item>
+		<item>@string/overlay_point_position_7</item>
+		<item>@string/overlay_point_position_8</item>
+		<item>@string/overlay_point_position_9</item>
+		<item>@string/overlay_point_position_10</item>
+		<item>@string/overlay_point_position_11</item>
+	</string-array>
+    <string-array name="overlay_point_position_entryvalues">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+		<item>8</item>
+		<item>9</item>
+		<item>10</item>
+		<item>11</item>
+	</string-array>
+    <string-array name="overlay_point_side_entries">
+		<item>@string/left</item>
+		<item>@string/upper</item>
+		<item>@string/right</item>
+		<item>@string/lower</item>
+	</string-array>
+    <string-array name="overlay_point_side_entryvalues">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+	</string-array>
+    <string-array name="overlay_point_width_entries">
+	    <item>@string/overlay_point_width_thin</item>
+		<item>@string/overlay_point_width_midium</item>
+		<item>@string/overlay_point_width_thick</item>
+		<item>@string/overlay_point_width_thickest</item>
+	</string-array>
+    <string-array name="overlay_point_width_entryvalues">
+		<item>8</item>
+		<item>16</item>
+		<item>24</item>
+		<item>32</item>
+	</string-array>
+    <string-array name="pointer_window_position_entries">
+		<item>@string/upper_left</item>
+		<item>@string/upper</item>
+		<item>@string/upper_right</item>
+		<item>@string/left</item>
+		<item>@string/center</item>
+		<item>@string/right</item>
+		<item>@string/lower_left</item>
+		<item>@string/lower</item>
+		<item>@string/lower_right</item>
+	</string-array>
+    <string-array name="pointer_window_position_entryvalues">
+		<item>51</item>
+		<item>49</item>
+		<item>53</item>
+		<item>19</item>
+		<item>17</item>
+		<item>21</item>
+		<item>83</item>
+		<item>81</item>
+		<item>85</item>
+	</string-array>
+    <string-array name="shake_sensitivity_entries">
+		<item>@string/shake_most_sensitive</item>
+		<item>@string/shake_sensitive</item>
+		<item>@string/shake_middle</item>
+		<item>@string/shake_insensitive</item>
+		<item>@string/shake_most_insensitive</item>
+	</string-array>
+    <string-array name="shake_sensitivity_entryvalues">
+		<item>12</item>
+		<item>18</item>
+		<item>24</item>
+		<item>30</item>
+		<item>36</item>
+	</string-array>
+    <string-array name="text_size_entries">
+		<item>@string/text_size_small</item>
+		<item>@string/text_size_medium</item>
+		<item>@string/text_size_large</item>
+	</string-array>
+    <string-array name="text_size_entryvalues">
+		<item>10</item>
+		<item>12</item>
+		<item>14</item>
+	</string-array>
+    <!-- From: file:/development/workspace/ssFlicker/app/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="blue">#0000FF</color>
+    <color name="color_accent">#00B0FF</color>
+    <color name="color_accent_light">#FF3D00</color>
+    <color name="color_primary">#03A9F4</color>
+    <color name="color_primary_dark">#0288D1</color>
+    <color name="green">#00FF00</color>
+    <color name="material_amber">#FFC107</color>
+    <color name="material_black">#000000</color>
+    <color name="material_blue">#2196F3</color>
+    <color name="material_blue_gray">#607D8B</color>
+    <color name="material_brown">#795548</color>
+    <color name="material_cyan">#00BCD4</color>
+    <color name="material_deep_orange">#FF5722</color>
+    <color name="material_deep_purple">#673AB7</color>
+    <color name="material_gray">#9E9E9E</color>
+    <color name="material_green">#4CAF50</color>
+    <color name="material_indigo">#3F51B5</color>
+    <color name="material_light_blue">#03A9F4</color>
+    <color name="material_light_green">#8BC34A</color>
+    <color name="material_lime">#CDDC39</color>
+    <color name="material_orange">#FF9800</color>
+    <color name="material_pink">#E91E63</color>
+    <color name="material_purple">#9C27B0</color>
+    <color name="material_red">#F44336</color>
+    <color name="material_teal">#009688</color>
+    <color name="material_white">#FFFFFF</color>
+    <color name="material_yellow">#FFEB3B</color>
+    <color name="overlay_point_background_color_default_value">#80FFEB3B</color>
+    <color name="red">#FF0000</color>
+    <color name="wallpaper">#40000000</color>
+    <color name="window_background_color_default_value">#802196F3</color>
+    <!-- From: file:/development/workspace/ssFlicker/app/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+    <dimen name="app_widget_preview_image_height">96dp</dimen>
+    <dimen name="app_widget_preview_image_width">128dp</dimen>
+    <dimen name="cell_size">80dp</dimen>
+    <dimen name="cell_size_height_landscape">74dp</dimen>
+    <dimen name="cell_size_height_portrait">100dp</dimen>
+    <dimen name="cell_size_minus">16dp</dimen>
+    <dimen name="cell_size_minus_old">0dp</dimen>
+    <dimen name="cell_size_old">80dp</dimen>
+    <dimen name="cell_size_width_landscape">106dp</dimen>
+    <dimen name="cell_size_width_portrait">80dp</dimen>
+    <dimen name="corner_radius">8dp</dimen>
+    <dimen name="flick_distance">40dp</dimen>
+    <dimen name="icon_size">48dp</dimen>
+    <dimen name="int_12_dp">12dp</dimen>
+    <dimen name="int_160_dp">160dp</dimen>
+    <dimen name="int_16_dp">16dp</dimen>
+    <dimen name="int_240_dp">240dp</dimen>
+    <dimen name="int_32_dp">32dp</dimen>
+    <dimen name="int_48_dp">48dp</dimen>
+    <dimen name="int_80_dp">80dp</dimen>
+    <dimen name="int_8_dp">8dp</dimen>
+    <!-- From: file:/development/workspace/ssFlicker/app/src/main/res/values/integer.xml -->
+    <eat-comment/>
+    <integer name="cell_count_x">4</integer>
+    <integer name="cell_count_y">4</integer>
+    <integer name="vibrate_time">30</integer>
+    <!-- From: file:/development/workspace/ssFlicker/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="about">About ssFlicker</string>
+    <string name="above_pointer_window">Above pointer window</string>
+    <string name="activity_name_donate">ssFlicker - Donate</string>
+    <string name="activity_name_edit">ssFlicker - Edit mode</string>
+    <string name="activity_name_flick">ssFlicker</string>
+    <string name="activity_name_home_key">ssFlicker</string>
+    <string name="activity_name_pref">ssFlicker - Settings</string>
+    <string name="add">Add</string>
+    <string name="airplane_mode">Airplane mode</string>
+    <string name="airplane_mode_error">Can\'t change airplane mode at Android 4.2 or later</string>
+    <string name="app_appwidget">Widget</string>
+    <string name="app_function">Function</string>
+    <string name="app_home">Home app</string>
+    <string name="app_icon">App icon</string>
+    <string name="app_info">App information</string>
+    <string name="app_launcher">App</string>
+    <string name="app_name">ssFlicker</string>
+    <string name="app_send">Share app</string>
+    <string name="app_shortcut">Shortcut</string>
+    <string name="background_color">Background color</string>
+    <string name="backup">Backup</string>
+    <string name="backup_complete">Backup completed</string>
+    <string name="backup_error">Backup failed</string>
+    <string name="backup_restore">Backup / Restore</string>
+    <string name="below_pointer_window">Below pointer window</string>
+    <string name="blog">- Blog</string>
+    <string name="blog_url">http://ssmomonga.blogspot.com/</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="bluetooth_off">Turn off bluetooth</string>
+    <string name="bluetooth_on">Turn on bluetooth</string>
+    <string name="can_not_clear_default">Can\'t change each launch by default.\nOnly can clear all launch by default from switch on top of screen.</string>
+    <string name="cancel">Cancel</string>
+    <string name="center">Center</string>
+    <string name="clear">Clear</string>
+    <string name="clear_default">Clear to launch ssFlicker by default for some actions?</string>
+    <string name="close">Close</string>
+    <string name="cloud_backup">Cloud backup</string>
+    <string name="cloud_backup_0">- You can backup/restore your settings as set in ssFlicker settings to and from cloud.</string>
+    <string name="cloud_backup_1">- Cloud backup is performed automatically. Restore is performed automatically when you re-install ssFlicker. No action is required.</string>
+    <string name="cloud_backup_2">- To perform cloud backup, you need to enable “Back up my data” and “Automatic restore” in android settings.</string>
+    <string name="cloud_backup_3">- Depending on the device, cloud backup is not available.</string>
+    <string name="colon">: </string>
+    <string name="delete">Delete</string>
+    <string name="delete_app">Delete this app?</string>
+    <string name="delete_pointer">Delete this pointer?</string>
+    <string name="dev_info">Developer information</string>
+    <string name="dev_name">©2011 ss.momonga</string>
+    <string name="display_position_landscape">Display position on horizontal screen</string>
+    <string name="display_position_portrait">Display position on vertical screen</string>
+    <string name="dock_window">Dock</string>
+    <string name="donate">Donate</string>
+    <string name="donation">Donation</string>
+    <string name="dont_support_iab">This device doesn\'t support in-app purchases</string>
+    <string name="edit">Edit</string>
+    <string name="edit_appwidget_position">Position</string>
+    <string name="edit_appwidget_size">Size</string>
+    <string name="edit_send_text_template">Text template</string>
+    <string name="email">- Email</string>
+    <string name="email_address">ss.momonga@gmail.com</string>
+    <string name="enable">Enable</string>
+    <string name="enter_edit_mode">Enter edit mode</string>
+    <string name="enter_flick_mode">Enter flick mode</string>
+    <string name="error_iab">An error occurred at in-app purchases</string>
+    <string name="etc">Etc</string>
+    <string name="etc...">Etc…</string>
+    <string name="height">Height</string>
+    <string name="hint">- Hint</string>
+    <string name="hint_0">- You can set the template of share apps in edit mode. Some share apps will not start unless you set the template.</string>
+    <string name="hint_1">- When you flick a widget, it is toggeled between show/hide.</string>
+    <string name="hint_2">- You can set display position and size of the widget in edit mode. Widget that supported resizing can only resized.</string>
+    <string name="home_key_another_home">Another home</string>
+    <string name="home_key_click_interval">Click interval</string>
+    <string name="home_key_click_mode">Click mode</string>
+    <string name="home_key_click_mode_double">Double click</string>
+    <string name="home_key_click_mode_single">Single click</string>
+    <string name="horizontal">Horizontal</string>
+    <string name="icon">Icon</string>
+    <string name="icon_color">Icon color</string>
+    <string name="icon_size">Icon size</string>
+    <string name="icon_size_huge">Huge</string>
+    <string name="icon_size_large">Large</string>
+    <string name="icon_size_medium">Medium</string>
+    <string name="icon_size_small">Small</string>
+    <string name="icon_size_tiny">Tiny</string>
+    <string name="icon_text">Icon / Text</string>
+    <string name="image">Image</string>
+    <string name="initial">Initial</string>
+    <string name="insert_app_error">Failed to register app</string>
+    <string name="insert_pointer_error">Failed to register pointer</string>
+    <string name="int_1000_ms">1000 msec</string>
+    <string name="int_200_ms">200 msec</string>
+    <string name="int_300_ms">300 msec</string>
+    <string name="int_400_ms">400 msec</string>
+    <string name="int_500_ms">500 msec</string>
+    <string name="int_600_ms">600 msec</string>
+    <string name="int_700_ms">700 msec</string>
+    <string name="int_800_ms">800 msec</string>
+    <string name="int_900_ms">900 msec</string>
+    <string name="invisible">Invisible</string>
+    <string name="invisible_appwidget_background_visibility">Invisible widget background visibility</string>
+    <string name="launch">Launch</string>
+    <string name="launch_app_error">Cannot launch this app</string>
+    <string name="launch_by_default">Launch by default</string>
+    <string name="launch_by_home_key">Launch by home key</string>
+    <string name="launch_by_now">Launch by now</string>
+    <string name="launch_by_search_key">Launch by search key</string>
+    <string name="launch_by_sensor">Launch by sensor</string>
+    <string name="launch_by_sensor_summary">Launch using accelerometer or proximity sensor.</string>
+    <string name="launch_by_shaking">Launch by shaking</string>
+    <string name="launch_by_shaking_summary">Launch by shaking phone</string>
+    <string name="launch_by_waving">Launch by waving</string>
+    <string name="launch_by_waving_summary">Launch by waving your hands near the proximity sensor by the earpiece</string>
+    <string name="launch_from_overlay">Launch from overlay</string>
+    <string name="launch_from_statusbar">Launch from status bar</string>
+    <string name="left">Left</string>
+    <string name="left_of_pointer_window">Left of pointer window</string>
+    <string name="lower">Lower</string>
+    <string name="lower_left">Lower left</string>
+    <string name="lower_right">Lower right</string>
+    <string name="menu">Menu</string>
+    <string name="menu_item_android_settings">Android settings</string>
+    <string name="menu_item_edit_mode">Edit mode</string>
+    <string name="menu_item_flick_mode">Flick mode</string>
+    <string name="menu_item_ssflicker_settings">ssFlicker settings</string>
+    <string name="move">Move</string>
+    <string name="multi_app_icon">Multi apps icon</string>
+    <string name="no_accel_sensor">No accelerometer</string>
+    <string name="no_bluetooth">No bluetooth</string>
+    <string name="no_invisible_appwidget">No invisible widget</string>
+    <string name="no_prox_sensor">No proximity sensor</string>
+    <string name="no_restore_file">No restore file</string>
+    <string name="no_sensor">No sensor</string>
+    <string name="no_storage">No storage</string>
+    <string name="no_vibrator">No vibrator</string>
+    <string name="no_wifi">No Wi-Fi</string>
+    <string name="open">Open</string>
+    <string name="original_icon">Original icon</string>
+    <string name="overlay_point_0">Overlay point 1</string>
+    <string name="overlay_point_1">Overlay point 2</string>
+    <string name="overlay_point_action">Swipe / Tap</string>
+    <string name="overlay_point_position">Position</string>
+    <string name="overlay_point_position_0">Corner 1</string>
+    <string name="overlay_point_position_1">Corner 2</string>
+    <string name="overlay_point_position_10">Center 2</string>
+    <string name="overlay_point_position_11">Center 3</string>
+    <string name="overlay_point_position_2">Quarter 1</string>
+    <string name="overlay_point_position_3">Quarter 2</string>
+    <string name="overlay_point_position_4">Quarter 3</string>
+    <string name="overlay_point_position_5">Quarter 4</string>
+    <string name="overlay_point_position_6">Half 1</string>
+    <string name="overlay_point_position_7">Half 2</string>
+    <string name="overlay_point_position_8">Full</string>
+    <string name="overlay_point_position_9">Center 1</string>
+    <string name="overlay_point_side">Side</string>
+    <string name="overlay_point_width">Width</string>
+    <string name="overlay_point_width_midium">Midium</string>
+    <string name="overlay_point_width_thick">Thick</string>
+    <string name="overlay_point_width_thickest">Thickness</string>
+    <string name="overlay_point_width_thin">Thin</string>
+    <string name="permission">Permissions</string>
+    <string name="play_store">- Google Play Store</string>
+    <string name="play_store_url">https://play.google.com/store/apps/details?id=com.ssmomonga.ssflicker</string>
+    <string name="please_donation">I\'ll be glad if you make a donation !</string>
+    <string name="pointer_custom">Pointer</string>
+    <string name="pointer_home">Home pointer</string>
+    <string name="pointer_recent">Recent pointer</string>
+    <string name="pointer_task">Tasks pointer</string>
+    <string name="pointer_window">Pointer window</string>
+    <string name="prm_1">- read phone status and identity: To stop launch by sensor, due to an incoming call or during a call.</string>
+    <string name="prm_2">- modify or delete the contents of your USB storage / read the contents of your USB storage: For backup / restore.</string>
+    <string name="prm_3">- connect and disconnect from Wi-Fi / view Wi-Fi connections / access Bluetooth settings / pair with Bluetooth devices / read sync settings / toggle sync on and off / modify system settings: For various functions.</string>
+    <string name="prm_4">- reorder running apps / retrieve running apps: For recent pointer and tasks pointer.</string>
+    <string name="prm_6">- draw over other apps: For launch from overlay.</string>
+    <string name="prm_7">- control vibration: For vibration.</string>
+    <string name="qa">- Q&amp;A site</string>
+    <string name="qa_url">http://ssmomonga.blogspot.jp/2012/06/ssflicker-qa.html</string>
+    <string name="receiver_name_boot">ssFlicker</string>
+    <string name="receiver_name_invisible_appwidget">ssFlicker - Invisible widget</string>
+    <string name="recent_pointer_error">Can\'t use recent pointer at Android 5.0 or later</string>
+    <string name="restore">Restore</string>
+    <string name="restore_complete">Restore completed</string>
+    <string name="restore_error">Restore failed</string>
+    <string name="right">Right</string>
+    <string name="right_of_pointer_window">Right of pointer window</string>
+    <string name="rotate">Rotate</string>
+    <string name="rotate_off">Turn off auto rotate</string>
+    <string name="rotate_on">Turn on auto rotate</string>
+    <string name="run">Run</string>
+    <string name="run_backup">Run backup?</string>
+    <string name="run_restore">Run restore?</string>
+    <string name="running_foreground">Run in foreground</string>
+    <string name="running_foreground_summary">Run service as high priority, will be hard to kill</string>
+    <string name="search">Search</string>
+    <string name="select_backup_restore">Select backup or restore</string>
+    <string name="select_file">Select file</string>
+    <string name="sensor_toast">Message view</string>
+    <string name="sensor_toast_summary">Show message when launched by sensor</string>
+    <string name="service_name_overlay">ssFlicker - Overlay service</string>
+    <string name="settings">Settings</string>
+    <string name="shake_insensitive">Insensitive (30)</string>
+    <string name="shake_middle">Middle (24)</string>
+    <string name="shake_most_insensitive">Most insensitive (36)</string>
+    <string name="shake_most_sensitive">Most sensitive (12)</string>
+    <string name="shake_sensitive">Sensitive (18)</string>
+    <string name="shake_sensitivity">Shake sensitivity</string>
+    <string name="silent_mode">Silent mode</string>
+    <string name="silent_mode_off">Turn off silent mode</string>
+    <string name="silent_mode_on">Turn on silent mode</string>
+    <string name="start_overlay_service">Turn on launch from overlay</string>
+    <string name="start_sensor_service">Turn on launch by sensor</string>
+    <string name="statusbar_visibility">Hide status bar</string>
+    <string name="statusbar_visibility_summary">During launching of ssFlicker hides the status bar</string>
+    <string name="stop_overlay_service">Turn off launch from overlay</string>
+    <string name="stop_sensor_service">Turn off launch by sensor</string>
+    <string name="storage_backup">Storage backup</string>
+    <string name="storage_backup_0">- You can backup/restore your settings as set in edit mode (pointer settings, etc) to and from storage.</string>
+    <string name="storage_backup_1">- To perform storage backup/restore, please select “Backup“ or “Restore“ (In the case of restore, also select a restore file), and tap the “Run“ button at the bottom of the screen.</string>
+    <string name="storage_backup_2">- Storage backup/restore is performed in following directory.</string>
+    <string name="storage_backup_3">- You can backup/restore widgets, but they will not be shown after you restore. Please reconfigure the widgets manually.</string>
+    <string name="storage_backup_4">- You must not rename backup files.</string>
+    <string name="storage_backup_5">- To perform storage backup/restore you need to install the latest version.</string>
+    <string name="swipe">Swipe</string>
+    <string name="sync">Sync</string>
+    <string name="sync_off">Turn off sync</string>
+    <string name="sync_on">Turn on Sync</string>
+    <string name="tap">Tap</string>
+    <string name="task_pointer_error">Can\'t use task pointer at Android 5.0 or later</string>
+    <string name="text">Text</string>
+    <string name="text_color">Text color</string>
+    <string name="text_size">Text size</string>
+    <string name="text_size_large">Large</string>
+    <string name="text_size_medium">Medium</string>
+    <string name="text_size_small">Small</string>
+    <string name="text_visibility">Visibility of pointer name and app name</string>
+    <string name="thanks">Special thanks</string>
+    <string name="thanks_0">- English translation: Ian Long</string>
+    <string name="thanks_donation">Thank you for your donation !</string>
+    <string name="twitter">- Twitter</string>
+    <string name="twitter_account">https://twitter.com/ssmomonga</string>
+    <string name="unknown">Unknown</string>
+    <string name="upper">Upper</string>
+    <string name="upper_left">Upper left</string>
+    <string name="upper_right">Upper right</string>
+    <string name="ver_0">- After the end of development, you can continue to use ssFlicker in old version, but can not update.</string>
+    <string name="ver_4">- Android 4.0 : The end of development is in v1.3.3.</string>
+    <string name="ver_5">- Android 4.x : The end of development is in v1.4.4.</string>
+    <string name="ver_info">Version</string>
+    <string name="versionup_history">- Version update history</string>
+    <string name="versionup_history_url">http://ssmomonga.blogspot.jp/2012/05/versionup-history-of-ssflicker.html</string>
+    <string name="vertical">Vertical</string>
+    <string name="vibrate_mode_on">Turn on vibrate mode</string>
+    <string name="vibrate_when_tapping">Vibrate when tapping</string>
+    <string name="view_action">View / Action</string>
+    <string name="view_appwidget_error">Cannot show this widget</string>
+    <string name="volume">Volume</string>
+    <string name="volume_alarm">Alarms</string>
+    <string name="volume_media">Music, video, games, &amp; other media</string>
+    <string name="volume_ringtone_notification">Ringtone &amp; otifications</string>
+    <string name="width">Width</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="wifi_off">Turn off Wi-Fi</string>
+    <string name="wifi_on">Turn on Wi-Fi</string>
+    <string name="wifi_unknown">Wi-Fi status is unknown</string>
+    <string name="window">Window</string>
+    <!-- From: file:/development/workspace/ssFlicker/app/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="ActionBarStyle" parent="android:Widget.Material.ActionBar">
+        <item name="android:titleTextStyle">@style/ActionBarTitle</item>
+        <item name="android:background">?android:colorPrimary</item>
+   	</style>
+    <style name="ActionBarTitle" parent="android:TextAppearance.Material.Widget.ActionBar.Title">
+		<item name="android:textColor">@android:color/white</item>
+   	</style>
+    <style name="AlertDialogTheme" parent="android:Theme.Material.Dialog.Alert">
+   	    <item name="android:colorAccent">@color/color_accent</item>
+   	</style>
+    <style name="AlertDialogTheme.Light" parent="android:Theme.Material.Light.Dialog.Alert">
+   	    <item name="android:colorAccent">@color/color_accent_light</item>  
+   	</style>
+    <style name="SeekBar.ARGB" parent="android:Widget.Material.Light.SeekBar">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_weight">1</item>
+	    <item name="android:max">255</item>
+	</style>
+    <style name="SeekBar.Alpha" parent="SeekBar.ARGB">
+		<item name="android:progressDrawable">@drawable/seekbar_progress_alpha</item>
+	    <item name="android:thumb">@drawable/seekbar_thumb_alpha</item>
+	</style>
+    <style name="SeekBar.Blue" parent="SeekBar.ARGB">
+	    <item name="android:progressDrawable">@drawable/seekbar_progress_blue</item>
+	    <item name="android:thumb">@drawable/seekbar_thumb_blue</item>
+	</style>
+    <style name="SeekBar.Green" parent="SeekBar.ARGB">
+	    <item name="android:progressDrawable">@drawable/seekbar_progress_green</item>
+	    <item name="android:thumb">@drawable/seekbar_thumb_green</item>
+	</style>
+    <style name="SeekBar.Red" parent="SeekBar.ARGB">
+	    <item name="android:progressDrawable">@drawable/seekbar_progress_red</item>
+	    <item name="android:thumb">@drawable/seekbar_thumb_red</item>
+	</style>
+    <style name="Theme.Base" parent="android:Theme.Material">
+		<item name="android:colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="android:colorPrimary">@color/color_primary</item>
+        <item name="android:colorAccent">@color/color_accent</item>
+		<item name="android:actionBarStyle">@style/ActionBarStyle</item>
+		<item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+		<item name="android:windowEnableSplitTouch">false</item> 
+	</style>
+    <style name="Theme.Base.Light" parent="android:Theme.Material.Light">
+		<item name="android:colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="android:colorPrimary">@color/color_primary</item>
+        <item name="android:colorAccent">@color/color_accent_light</item>
+		<item name="android:actionBarStyle">@style/ActionBarStyle</item>
+		<item name="android:alertDialogTheme">@style/AlertDialogTheme.Light</item>
+		<item name="android:windowEnableSplitTouch">false</item> 
+	</style>
+    <style name="Theme.Editor" parent="Theme.Base">
+		<item name="android:colorPrimaryDark">@android:color/transparent</item>
+	   	<item name="android:windowBackground">@color/wallpaper</item>
+		<item name="android:navigationBarColor">@android:color/transparent</item>
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+	</style>
+    <style name="Theme.Flicker" parent="Theme.Base.Light">
+		<item name="android:colorPrimaryDark">@android:color/transparent</item>
+	   	<item name="android:windowBackground">@color/wallpaper</item>
+		<item name="android:navigationBarColor">@android:color/transparent</item>
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+	</style>
+    <style name="Theme.Pref" parent="Theme.Base.Light"/>
+    <style name="divider">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">1dp</item>
+		<item name="android:layout_marginLeft">8dp</item>
+		<item name="android:layout_marginRight">8dp</item>
+		<item name="android:background">?android:colorForeground</item>				
+		<item name="android:alpha">0.12</item>
+	</style>
+    <style name="lp_0_wc">
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
+    <style name="lp_128_96">
+		<item name="android:layout_width">128dp</item>
+		<item name="android:layout_height">96dp</item>
+	</style>
+    <style name="lp_16_mp">
+		<item name="android:layout_width">16dp</item>
+		<item name="android:layout_height">match_parent</item>
+	</style>
+    <style name="lp_32_32">
+		<item name="android:layout_width">32dp</item>
+		<item name="android:layout_height">32dp</item>
+	</style>
+    <style name="lp_40_40">
+		<item name="android:layout_width">40dp</item>
+		<item name="android:layout_height">40dp</item>
+	</style>
+    <style name="lp_48_wc">
+		<item name="android:layout_width">48dp</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
+    <style name="lp_mp_0">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">0dp</item>
+	</style>
+    <style name="lp_mp_128">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">128dp</item>
+	</style>
+    <style name="lp_mp_mp">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+	</style>
+    <style name="lp_mp_wc">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
+    <style name="lp_wc_0">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">0dp</item>
+	</style>
+    <style name="lp_wc_wc">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
+</resources>

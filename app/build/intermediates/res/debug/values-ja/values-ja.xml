@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/development/workspace/ssFlicker/app/src/main/res/values-ja/arrays.xml -->
+    <eat-comment/>
+    <integer-array name="color_pallet">
+	    <item>@color/material_red</item>
+	    <item>@color/material_pink</item>
+		<item>@color/material_purple</item>
+		<item>@color/material_deep_purple</item>
+		<item>@color/material_indigo</item>
+		<item>@color/material_blue</item>
+	    <item>@color/material_light_blue</item>
+	    <item>@color/material_cyan</item>
+		<item>@color/material_teal</item>
+		<item>@color/material_green</item>
+		<item>@color/material_light_green</item>
+		<item>@color/material_lime</item>
+		<item>@color/material_yellow</item>
+	    <item>@color/material_amber</item>
+	    <item>@color/material_orange</item>
+		<item>@color/material_deep_orange</item>
+		<item>@color/material_brown</item>
+		<item>@color/material_gray</item>
+		<item>@color/material_blue_gray</item>
+		<item>@color/material_black</item>
+		<item>@color/material_white</item>
+	</integer-array>
+    <string-array name="dock_window_position_landscape_entries">
+		<item>@string/left_of_pointer_window</item>
+		<item>@string/right_of_pointer_window</item>
+	</string-array>
+    <string-array name="dock_window_position_landscape_entryvalues">
+		<item>3</item>
+		<item>5</item>
+	</string-array>
+    <string-array name="dock_window_position_portrait_entries">
+		<item>@string/above_pointer_window</item>
+		<item>@string/below_pointer_window</item>
+	</string-array>
+    <string-array name="dock_window_position_portrait_entryvalues">
+		<item>48</item>
+		<item>80</item>
+	</string-array>
+    <string-array name="home_key_click_interval_entries">
+		<item>@string/int_200_ms</item>
+		<item>@string/int_300_ms</item>
+		<item>@string/int_400_ms</item>
+		<item>@string/int_500_ms</item>
+		<item>@string/int_600_ms</item>
+		<item>@string/int_700_ms</item>
+		<item>@string/int_800_ms</item>
+		<item>@string/int_900_ms</item>
+		<item>@string/int_1000_ms</item>
+		</string-array>
+    <string-array name="home_key_click_interval_entryvalues">
+		<item>200</item>
+		<item>300</item>
+		<item>400</item>
+		<item>500</item>
+		<item>600</item>
+		<item>700</item>
+		<item>800</item>
+		<item>900</item>
+		<item>1000</item>
+	</string-array>
+    <string-array name="home_key_click_mode_entries">
+		<item>@string/home_key_click_mode_single</item>
+		<item>@string/home_key_click_mode_double</item>
+	</string-array>
+    <string-array name="home_key_click_mode_entryvalues">
+		<item>1</item>
+		<item>2</item>
+	</string-array>
+    <string-array name="icon_size_entries">
+		<item>@string/icon_size_tiny</item>
+		<item>@string/icon_size_small</item>
+		<item>@string/icon_size_medium</item>
+		<item>@string/icon_size_large</item>
+		<item>@string/icon_size_huge</item>
+	</string-array>
+    <string-array name="icon_size_entryvalues">
+		<item>24</item>
+		<item>32</item>
+		<item>40</item>
+		<item>48</item>
+		<item>56</item>
+	</string-array>
+    <string-array name="overlay_point_action_entries">
+		<item>@string/swipe</item>
+		<item>@string/tap</item>
+	</string-array>
+    <string-array name="overlay_point_action_entryvalues">
+		<item>0</item>
+		<item>1</item>
+	</string-array>
+    <string-array name="overlay_point_position_entries">
+		<item>@string/overlay_point_position_0</item>
+		<item>@string/overlay_point_position_1</item>
+		<item>@string/overlay_point_position_2</item>
+		<item>@string/overlay_point_position_3</item>
+		<item>@string/overlay_point_position_4</item>
+		<item>@string/overlay_point_position_5</item>
+		<item>@string/overlay_point_position_6</item>
+		<item>@string/overlay_point_position_7</item>
+		<item>@string/overlay_point_position_8</item>
+		<item>@string/overlay_point_position_9</item>
+		<item>@string/overlay_point_position_10</item>
+		<item>@string/overlay_point_position_11</item>
+	</string-array>
+    <string-array name="overlay_point_position_entryvalues">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+		<item>8</item>
+		<item>9</item>
+		<item>10</item>
+		<item>11</item>
+	</string-array>
+    <string-array name="overlay_point_side_entries">
+		<item>@string/left</item>
+		<item>@string/upper</item>
+		<item>@string/right</item>
+		<item>@string/lower</item>
+	</string-array>
+    <string-array name="overlay_point_side_entryvalues">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+	</string-array>
+    <string-array name="overlay_point_width_entries">
+	    <item>@string/overlay_point_width_thin</item>
+		<item>@string/overlay_point_width_midium</item>
+		<item>@string/overlay_point_width_thick</item>
+		<item>@string/overlay_point_width_thickest</item>
+	</string-array>
+    <string-array name="overlay_point_width_entryvalues">
+		<item>8</item>
+		<item>16</item>
+		<item>24</item>
+		<item>32</item>
+	</string-array>
+    <string-array name="pointer_window_position_entries">
+		<item>@string/upper_left</item>
+		<item>@string/upper</item>
+		<item>@string/upper_right</item>
+		<item>@string/left</item>
+		<item>@string/center</item>
+		<item>@string/right</item>
+		<item>@string/lower_left</item>
+		<item>@string/lower</item>
+		<item>@string/lower_right</item>
+	</string-array>
+    <string-array name="pointer_window_position_entryvalues">
+		<item>51</item>
+		<item>49</item>
+		<item>53</item>
+		<item>19</item>
+		<item>17</item>
+		<item>21</item>
+		<item>83</item>
+		<item>81</item>
+		<item>85</item>
+	</string-array>
+    <string-array name="shake_sensitivity_entries">
+		<item>@string/shake_most_sensitive</item>
+		<item>@string/shake_sensitive</item>
+		<item>@string/shake_middle</item>
+		<item>@string/shake_insensitive</item>
+		<item>@string/shake_most_insensitive</item>
+	</string-array>
+    <string-array name="shake_sensitivity_entryvalues">
+		<item>12</item>
+		<item>18</item>
+		<item>24</item>
+		<item>30</item>
+		<item>36</item>
+	</string-array>
+    <string-array name="text_size_entries">
+		<item>@string/text_size_small</item>
+		<item>@string/text_size_medium</item>
+		<item>@string/text_size_large</item>
+	</string-array>
+    <string-array name="text_size_entryvalues">
+		<item>10</item>
+		<item>12</item>
+		<item>14</item>
+	</string-array>
+    <!-- From: file:/development/workspace/ssFlicker/app/src/main/res/values-ja/strings.xml -->
+    <eat-comment/>
+    <string name="about">ssFlickerについて</string>
+    <string name="above_pointer_window">ポインタウィンドウの上</string>
+    <string name="activity_name_donate">ssFlicker - 寄付</string>
+    <string name="activity_name_edit">ssFlicker - 編集モード</string>
+    <string name="activity_name_flick">ssFlicker</string>
+    <string name="activity_name_home_key">ssFlicker</string>
+    <string name="activity_name_pref">ssFlicker - 設定</string>
+    <string name="add">追加</string>
+    <string name="airplane_mode">機内モード</string>
+    <string name="airplane_mode_error">Android 4.2以降では機内モードを変更できません</string>
+    <string name="app_appwidget">ウィジェット</string>
+    <string name="app_function">ファンクション</string>
+    <string name="app_home">ホームアプリ</string>
+    <string name="app_icon">アプリアイコン</string>
+    <string name="app_info">アプリ情報</string>
+    <string name="app_launcher">アプリ</string>
+    <string name="app_name">ssFlicker</string>
+    <string name="app_send">共有アプリ</string>
+    <string name="app_shortcut">ショートカット</string>
+    <string name="background_color">背景色</string>
+    <string name="backup">バックアップ</string>
+    <string name="backup_complete">バックアップが完了しました</string>
+    <string name="backup_error">バックアップに失敗しました</string>
+    <string name="backup_restore">バックアップ／リストア</string>
+    <string name="below_pointer_window">ポインタウィンドウの下</string>
+    <string name="blog">・Blog：バージョンアップ情報やAndroid開発に関する情報などを投稿しています。</string>
+    <string name="blog_url">http://ssmomonga.blogspot.com/</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="bluetooth_off">BluetoothをOFFにしました</string>
+    <string name="bluetooth_on">BluetoothをONにしました</string>
+    <string name="can_not_clear_default">各デフォルト起動を変更することはできません。\n画面右上のスイッチから全デフォルト起動を解除することのみできます。</string>
+    <string name="cancel">キャンセル</string>
+    <string name="center">中心</string>
+    <string name="clear">解除</string>
+    <string name="clear_default">ssFlickerのデフォルト設定を解除しますか？</string>
+    <string name="close">閉じる</string>
+    <string name="cloud_backup">クラウドバックアップ</string>
+    <string name="cloud_backup_0">・設定画面で設定した内容はクラウドにバックアップ／クラウドからリストアされます。</string>
+    <string name="cloud_backup_1">・クラウドバックアップは自動で行われます。リストアはssFlickerの再インストール時に自動で行われます。操作は必要ありません。</string>
+    <string name="cloud_backup_2">・クラウドバックアップを利用するためには、Androidの設定の「データのバックアップ」と「自動復元」を有効にしておく必要があります。</string>
+    <string name="cloud_backup_3">・デバイスによってはクラウドバックアップは利用できません。</string>
+    <string name="colon">：</string>
+    <string name="delete">削除</string>
+    <string name="delete_app">このアプリを削除しますか？</string>
+    <string name="delete_pointer">このポインタを削除しますか？</string>
+    <string name="dev_info">開発者情報</string>
+    <string name="dev_name">©2011 ss.momonga</string>
+    <string name="display_position_landscape">横画面時の表示位置</string>
+    <string name="display_position_portrait">縦画面時の表示位置</string>
+    <string name="dock_window">ドック</string>
+    <string name="donate">寄付する</string>
+    <string name="donation">寄付</string>
+    <string name="dont_support_iab">このデバイスではアプリ内課金をサポートしていません</string>
+    <string name="edit">編集</string>
+    <string name="edit_appwidget_position">位置</string>
+    <string name="edit_appwidget_size">サイズ</string>
+    <string name="edit_send_text_template">テキストテンプレート</string>
+    <string name="email">・Email：感想、質問、要望、不具合情報などをお寄せください。</string>
+    <string name="email_address">ss.momonga@gmail.com</string>
+    <string name="enable">有効</string>
+    <string name="enter_edit_mode">編集モードに変更しました</string>
+    <string name="enter_flick_mode">フリックモードに変更しました</string>
+    <string name="error_iab">アプリ内課金でエラーが発生しました</string>
+    <string name="etc">その他</string>
+    <string name="etc...">その他…</string>
+    <string name="height">高</string>
+    <string name="hint">ヒント</string>
+    <string name="hint_0">・共有アプリは、編集モードのアプリの編集からテンプレートを設定できます。テンプレートを設定しないと起動しない場合があります。</string>
+    <string name="hint_1">・ウィジェットはフリックすると表示／非表示が切替わります。</string>
+    <string name="hint_2">・ウィジェットの表示位置、サイズは編集モードのアプリの編集から設定できます。サイズ変更は対応しているウィジェットのみ可能です。</string>
+    <string name="home_key_another_home">アナザーホーム</string>
+    <string name="home_key_click_interval">クリック間隔</string>
+    <string name="home_key_click_mode">クリックモード</string>
+    <string name="home_key_click_mode_double">ダブルクリック</string>
+    <string name="home_key_click_mode_single">シングルクリック</string>
+    <string name="horizontal">横</string>
+    <string name="icon">アイコン</string>
+    <string name="icon_color">アイコンカラー</string>
+    <string name="icon_size">アイコンサイズ</string>
+    <string name="icon_size_huge">最大</string>
+    <string name="icon_size_large">大</string>
+    <string name="icon_size_medium">中</string>
+    <string name="icon_size_small">小</string>
+    <string name="icon_size_tiny">最小</string>
+    <string name="icon_text">アイコン／文字</string>
+    <string name="image">画像</string>
+    <string name="initial">初期化</string>
+    <string name="insert_app_error">アプリの登録に失敗しました</string>
+    <string name="insert_pointer_error">ポインタの登録に失敗しました</string>
+    <string name="int_1000_ms">1000 msec</string>
+    <string name="int_200_ms">200 msec</string>
+    <string name="int_300_ms">300 msec</string>
+    <string name="int_400_ms">400 msec</string>
+    <string name="int_500_ms">500 msec</string>
+    <string name="int_600_ms">600 msec</string>
+    <string name="int_700_ms">700 msec</string>
+    <string name="int_800_ms">800 msec</string>
+    <string name="int_900_ms">900 msec</string>
+    <string name="invisible">透明</string>
+    <string name="invisible_appwidget_background_visibility">透明ウィジェットの背景</string>
+    <string name="launch">起動</string>
+    <string name="launch_app_error">アプリを起動できませんでした</string>
+    <string name="launch_by_default">デフォルト起動</string>
+    <string name="launch_by_home_key">ホームキー起動</string>
+    <string name="launch_by_now">Now起動</string>
+    <string name="launch_by_search_key">検索キー起動</string>
+    <string name="launch_by_sensor">センサー起動</string>
+    <string name="launch_by_sensor_summary">加速度センサーや近接センサーを利用して起動します。</string>
+    <string name="launch_by_shaking">シェイク起動</string>
+    <string name="launch_by_shaking_summary">スマートフォンを振って起動する</string>
+    <string name="launch_by_waving">ウェイブ起動</string>
+    <string name="launch_by_waving_summary">受話口近くにある近接センサーに手を振って起動する</string>
+    <string name="launch_from_overlay">オーバーレイ起動</string>
+    <string name="launch_from_statusbar">ステータスバー起動</string>
+    <string name="left">左</string>
+    <string name="left_of_pointer_window">ポインタウィンドウの左</string>
+    <string name="lower">下</string>
+    <string name="lower_left">左下</string>
+    <string name="lower_right">右下</string>
+    <string name="menu">メニュー</string>
+    <string name="menu_item_android_settings">Androidの設定</string>
+    <string name="menu_item_edit_mode">編集モード</string>
+    <string name="menu_item_flick_mode">フリックモード</string>
+    <string name="menu_item_ssflicker_settings">ssFlickerの設定</string>
+    <string name="move">移動</string>
+    <string name="multi_app_icon">マルチアプリアイコン</string>
+    <string name="no_accel_sensor">加速度センサーがありません</string>
+    <string name="no_bluetooth">Bluetoothがありません</string>
+    <string name="no_invisible_appwidget">透明ウィジェットがありません</string>
+    <string name="no_prox_sensor">近接センサーがありません</string>
+    <string name="no_restore_file">リストアファイルがありません</string>
+    <string name="no_sensor">センサーがありません</string>
+    <string name="no_storage">ストレージがありません</string>
+    <string name="no_vibrator">バイブがありません</string>
+    <string name="no_wifi">Wi-Fiがありません</string>
+    <string name="open">開く</string>
+    <string name="original_icon">オリジナルアイコン</string>
+    <string name="overlay_point_0">オーバーレイポイント１</string>
+    <string name="overlay_point_1">オーバーレイポイント２</string>
+    <string name="overlay_point_action">スワイプ／タップ</string>
+    <string name="overlay_point_position">位置</string>
+    <string name="overlay_point_position_0">コーナー１</string>
+    <string name="overlay_point_position_1">コーナー２</string>
+    <string name="overlay_point_position_10">センター２</string>
+    <string name="overlay_point_position_11">センター３</string>
+    <string name="overlay_point_position_2">クォーター１</string>
+    <string name="overlay_point_position_3">クォーター２</string>
+    <string name="overlay_point_position_4">クォーター３</string>
+    <string name="overlay_point_position_5">クォーター４</string>
+    <string name="overlay_point_position_6">ハーフ１</string>
+    <string name="overlay_point_position_7">ハーフ２</string>
+    <string name="overlay_point_position_8">フル</string>
+    <string name="overlay_point_position_9">センター１</string>
+    <string name="overlay_point_side">辺</string>
+    <string name="overlay_point_width">幅</string>
+    <string name="overlay_point_width_midium">中</string>
+    <string name="overlay_point_width_thick">厚い</string>
+    <string name="overlay_point_width_thickest">最厚</string>
+    <string name="overlay_point_width_thin">薄い</string>
+    <string name="permission">パーミッション</string>
+    <string name="play_store">・Google Play ストア</string>
+    <string name="play_store_url">https://play.google.com/store/apps/details?id=com.ssmomonga.ssflicker</string>
+    <string name="please_donation">寄付をお願いします！</string>
+    <string name="pointer_custom">ポインタ</string>
+    <string name="pointer_home">ホームポインタ</string>
+    <string name="pointer_recent">履歴ポインタ</string>
+    <string name="pointer_task">タスクポインタ</string>
+    <string name="pointer_window">ポインタウィンドウ</string>
+    <string name="prm_1">・電話番号発信：ショートカットで直接発信を利用するため。</string>
+    <string name="prm_2">・USBストレージのコンテンツの変更または削除／USBストレージの読み取り：バックアップ／リストアのため。</string>
+    <string name="prm_3">・Wi-Fiからの接続と切断／Wi-Fi接続の表示／Bluetoothデバイスのペアの設定／Bluetoothの設定へのアクセス／同期のON/OFFの切り替え／同期設定の読み取り／システム設定の変更：各種ファンクションを利用するため。</string>
+    <string name="prm_4">・起動時の実行：端末起動時にオーバーレイ起動、センサー起動などを起動するため。</string>
+    <string name="prm_6">・他のアプリの上に重ねて表示：オーバーレイ起動を利用するため。</string>
+    <string name="prm_7">・バイブレーションの制御：バイブを利用するため。</string>
+    <string name="qa">・Q&amp;Aサイト：感想、質問、要望、不具合情報などをお寄せください。</string>
+    <string name="qa_url">http://ssmomonga.blogspot.jp/2012/06/ssflicker-qa.html</string>
+    <string name="receiver_name_boot">ssFlicker</string>
+    <string name="receiver_name_invisible_appwidget">ssFlicker（透明ウィジェット）</string>
+    <string name="recent_pointer_error">Android 5.0以降では履歴ポインタは利用できません</string>
+    <string name="restore">リストア</string>
+    <string name="restore_complete">リストアが完了しました</string>
+    <string name="restore_error">リストアに失敗しました</string>
+    <string name="right">右</string>
+    <string name="right_of_pointer_window">ポインタウィンドウの右</string>
+    <string name="rotate">画面回転</string>
+    <string name="rotate_off">画面の自動回転をOFFにしました</string>
+    <string name="rotate_on">画面の自動回転をONにしました</string>
+    <string name="run">実行</string>
+    <string name="run_backup">バックアップを実行しますか？</string>
+    <string name="run_restore">リストアを実行しますか？</string>
+    <string name="running_foreground">フォアグラウンド実行</string>
+    <string name="running_foreground_summary">優先度高でサービスを実行してkillされにくくする</string>
+    <string name="search">検索</string>
+    <string name="select_backup_restore">バックアップかリストアを選択してください</string>
+    <string name="select_file">ファイルを選択</string>
+    <string name="sensor_toast">メッセージ表示</string>
+    <string name="sensor_toast_summary">センサー起動時にメッセージを表示する</string>
+    <string name="service_name_overlay">ssFlicker - オーバーレイサービス</string>
+    <string name="settings">設定</string>
+    <string name="shake_insensitive">低（30）</string>
+    <string name="shake_middle">中（24）</string>
+    <string name="shake_most_insensitive">最低（36）</string>
+    <string name="shake_most_sensitive">最高（12）</string>
+    <string name="shake_sensitive">高（18）</string>
+    <string name="shake_sensitivity">シェイク感度</string>
+    <string name="silent_mode">マナーモード</string>
+    <string name="silent_mode_off">マナーモードをOFFにしました</string>
+    <string name="silent_mode_on">マナーモードをONにしました</string>
+    <string name="start_overlay_service">オーバーレイ起動を開始しました</string>
+    <string name="start_sensor_service">センサー起動を開始しました</string>
+    <string name="statusbar_visibility">ステータスバーを隠す</string>
+    <string name="statusbar_visibility_summary">ssFlickerの起動中にステータスバーを隠す</string>
+    <string name="stop_overlay_service">オーバーレイ起動を終了しました</string>
+    <string name="stop_sensor_service">センサー起動を終了しました</string>
+    <string name="storage_backup">ストレージバックアップ</string>
+    <string name="storage_backup_0">・編集モードで設定した内容（ポインタの登録内容など）をストレージにバックアップ／ストレージからリストアします。</string>
+    <string name="storage_backup_1">・ストレージバックアップ／リストアを行うには、画面下の「バックアップ」、または「リストア」を選択し（リストアの場合はリストアファイルも選択してください）、「実行」ボタンをタップしてください。</string>
+    <string name="storage_backup_2">・ストレージバックアップ／リストアは以下のディレクトリで行います。</string>
+    <string name="storage_backup_3">・ウィジェットもバックアップ／リストアできますが、リストア後は表示ができません。ウィジェットを再設定してください。</string>
+    <string name="storage_backup_4">・バックアップファイルはリネームをしないでください。</string>
+    <string name="storage_backup_5">・ストレージバックアップ／リストアは最新バージョンで行ってください。</string>
+    <string name="swipe">スワイプ</string>
+    <string name="sync">同期</string>
+    <string name="sync_off">同期をOFFにしました</string>
+    <string name="sync_on">同期をONにしました</string>
+    <string name="tap">タップ</string>
+    <string name="task_pointer_error">Android 5.0以降ではタスクポインタは利用できません</string>
+    <string name="text">文字</string>
+    <string name="text_color">文字色</string>
+    <string name="text_size">文字サイズ</string>
+    <string name="text_size_large">大</string>
+    <string name="text_size_medium">中</string>
+    <string name="text_size_small">小</string>
+    <string name="text_visibility">ポインタ名、アプリ名の表示</string>
+    <string name="thanks">協力</string>
+    <string name="thanks_0">・英訳：Ian Long</string>
+    <string name="thanks_donation">寄付をいただきありがとうございます！</string>
+    <string name="twitter">・Twitter：バージョンアップ情報や開発状況などをつぶやいています。</string>
+    <string name="twitter_account">https://twitter.com/ssmomonga</string>
+    <string name="unknown">不明</string>
+    <string name="upper">上</string>
+    <string name="upper_left">左上</string>
+    <string name="upper_right">右上</string>
+    <string name="ver_0">・開発の終了後も引き続き旧バージョンで利用できますが、バージョンアップは行われません。</string>
+    <string name="ver_4">・Android 4.0：v1.3.3をもって開発を終了しています。</string>
+    <string name="ver_5">・Android 4.x：v1.4.4をもって開発を終了しています。</string>
+    <string name="ver_info">バージョン</string>
+    <string name="versionup_history">・更新履歴</string>
+    <string name="versionup_history_url">http://ssmomonga.blogspot.jp/2011/12/ssflicker.html</string>
+    <string name="vertical">縦</string>
+    <string name="vibrate_mode_on">バイブモードをONにしました</string>
+    <string name="vibrate_when_tapping">タップ時のバイブ</string>
+    <string name="view_action">表示／動作</string>
+    <string name="view_appwidget_error">ウィジェットを表示できませんでした</string>
+    <string name="volume">音量</string>
+    <string name="volume_alarm">アラーム</string>
+    <string name="volume_media">音楽、動画、ゲーム、その他メディア</string>
+    <string name="volume_ringtone_notification">着信音と通知音</string>
+    <string name="width">幅</string>
+    <string name="wifi">Wi-Fi</string>
+    <string name="wifi_off">Wi-FiをOFFにしました</string>
+    <string name="wifi_on">Wi-FiをONにしました</string>
+    <string name="wifi_unknown">Wi-Fiの状態の取得に失敗しました</string>
+    <string name="window">ウィンドウ</string>
+</resources>

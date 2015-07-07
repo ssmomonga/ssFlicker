@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/lp_mp_wc"
+	android:gravity="center"
+	android:padding="8dp"
+	android:orientation="vertical" >
+
+	<ImageView android:id="@+id/iv_preview_image"
+		style="@style/lp_128_96"
+		android:paddingLeft="4dp"
+		android:paddingTop="4dp"
+		android:scaleType="centerInside"
+		android:background="@drawable/appwidget_chooser_background" />
+
+	<LinearLayout
+	    style="@style/lp_mp_wc"
+	    android:paddingTop="4dp" >
+    
+		<TextView android:id="@+id/tv_label"
+			style="@style/lp_wc_wc"
+			android:layout_weight="1"
+			android:gravity="left|center"
+			android:maxLines="1"
+			android:ellipsize="end"
+			android:textSize="12sp"
+			android:textColor="?android:textColorPrimary" />
+		<TextView android:id="@+id/tv_size"
+			style="@style/lp_wc_wc"
+			android:gravity="right|center"
+			android:maxLines="1"
+			android:ellipsize="end"
+			android:textSize="12sp" />
+	</LinearLayout>
+	
+				
+</LinearLayout>

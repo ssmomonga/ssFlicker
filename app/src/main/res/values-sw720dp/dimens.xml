@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+	<dimen name="cell_size_width_portrait">96dp</dimen>
+	<dimen name="cell_size_height_portrait">96dp</dimen>
+	<dimen name="cell_size_width_landscape">96dp</dimen>
+	<dimen name="cell_size_height_landscape">96dp</dimen>
+
+	<dimen name="cell_size_old">96dp</dimen>
+	<dimen name="cell_size_minus_old">0dp</dimen>
+	<dimen name="cell_size">96dp</dimen>
+	<dimen name="cell_size_minus">24dp</dimen>
+
+
+</resources>

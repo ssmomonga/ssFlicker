@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout android:id="@+id/fl_invisiblewidget"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/lp_mp_mp"
+	android:gravity="center" >
+	
+	<ImageView android:id="@+id/iv_invisiblewidget"
+		style="@style/lp_mp_mp"
+		android:scaleType="fitCenter" />
+		
+	<LinearLayout
+		style="@style/lp_mp_mp"
+		android:gravity="center"
+		android:orientation="vertical" />
+
+</FrameLayout>

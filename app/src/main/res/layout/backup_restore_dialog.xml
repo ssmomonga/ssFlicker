@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/lp_mp_mp"
+	android:orientation="vertical">
+
+	<ScrollView
+	    style="@style/lp_mp_0"
+		android:layout_weight="1">
+	    <LinearLayout
+	        style="@style/lp_mp_wc"
+			android:padding="16dp"
+	        android:orientation="vertical" >
+
+			<LinearLayout
+			   	style="@style/lp_mp_wc"
+		        android:orientation="vertical" >
+				<TextView
+				   	style="@style/lp_mp_wc"
+				   	android:text="@string/storage_backup"
+					android:textColor="?android:colorAccent" />
+				<LinearLayout
+		        	style="@style/lp_mp_wc"
+					android:padding="8dp"
+	        		android:orientation="vertical" >
+					<TextView
+				    	style="@style/lp_mp_wc"
+						android:paddingBottom="8dp"
+					    android:text="@string/storage_backup_0" />
+					<TextView
+					    style="@style/lp_mp_wc"
+						android:paddingBottom="8dp"
+					    android:text="@string/storage_backup_1" />
+					<TextView
+					    style="@style/lp_mp_wc"
+					    android:text="@string/storage_backup_2" />
+					<TextView android:id="@+id/tv_backup_dir"
+					    style="@style/lp_mp_wc"
+					    android:paddingLeft="8dp"
+						android:paddingBottom="8dp" />
+					<TextView
+					    style="@style/lp_mp_wc"
+						android:paddingBottom="8dp"
+					    android:text="@string/storage_backup_3" />
+					<TextView
+					    style="@style/lp_mp_wc"
+						android:paddingBottom="8dp"
+					    android:text="@string/storage_backup_4" />
+					<TextView
+					    style="@style/lp_mp_wc"
+						android:paddingBottom="8dp"
+					    android:text="@string/storage_backup_5" />
+				</LinearLayout>
+			</LinearLayout>
+			
+			<LinearLayout
+			   	style="@style/lp_mp_wc"
+		        android:orientation="vertical" >
+				<TextView
+		   			style="@style/lp_mp_wc"
+				   	android:text="@string/cloud_backup"
+					android:textColor="?android:colorAccent" />
+				<LinearLayout
+		        	style="@style/lp_mp_wc"
+					android:paddingLeft="8dp"
+					android:paddingTop="8dp"
+					android:paddingRight="8dp"
+	        		android:orientation="vertical" >
+					<TextView
+					    style="@style/lp_mp_wc"
+						android:paddingBottom="8dp"
+					    android:text="@string/cloud_backup_0" />
+					<TextView
+					    style="@style/lp_mp_wc"
+						android:paddingBottom="8dp"
+					    android:text="@string/cloud_backup_1" />
+					<TextView
+					    style="@style/lp_mp_wc"
+						android:paddingBottom="8dp"
+					    android:text="@string/cloud_backup_2" />
+					<TextView
+					    style="@style/lp_mp_wc"
+					    android:text="@string/cloud_backup_3" />
+				</LinearLayout>			
+			</LinearLayout>
+
+		</LinearLayout>
+	</ScrollView>
+	
+	<LinearLayout style="@style/divider" />
+
+	<LinearLayout android:id="@+id/ll_select_restore_file"
+		style="@style/lp_mp_wc"
+		android:padding="16dp"
+		android:orientation="vertical" >
+	    <RadioGroup android:id="@+id/rg_backup_restore"
+	        style="@style/lp_mp_wc" >
+	        <RadioButton android:id="@+id/rb_backup"
+	            style="@style/lp_mp_wc"
+	            android:text="@string/backup" />
+	        <RadioButton android:id="@+id/rb_restore"
+	            style="@style/lp_mp_wc"
+	            android:text="@string/restore" />
+		</RadioGroup>
+		<Spinner android:id="@+id/sp_select_restore_file"
+			style="@style/lp_wc_wc"
+			android:prompt="@string/select_file"
+	        android:layout_marginTop="8dp"
+	        android:layout_gravity="right" />
+	</LinearLayout>
+
+</LinearLayout>

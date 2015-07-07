@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+	<dimen name="cell_size_width_portrait">80dp</dimen>
+	<dimen name="cell_size_height_portrait">100dp</dimen>
+	<dimen name="cell_size_width_landscape">106dp</dimen>
+	<dimen name="cell_size_height_landscape">74dp</dimen>
+
+	<dimen name="cell_size_old">80dp</dimen>
+	<dimen name="cell_size_minus_old">0dp</dimen>
+	<dimen name="cell_size">80dp</dimen>
+	<dimen name="cell_size_minus">16dp</dimen>
+
+	<dimen name="flick_distance">40dp</dimen>
+	<dimen name="icon_size">48dp</dimen>
+
+	<dimen name="app_widget_preview_image_width">128dp</dimen>
+	<dimen name="app_widget_preview_image_height">96dp</dimen>
+
+	<dimen name="corner_radius">8dp</dimen>
+
+	<dimen name="int_8_dp">8dp</dimen>
+	<dimen name="int_12_dp">12dp</dimen>
+	<dimen name="int_16_dp">16dp</dimen>
+	<dimen name="int_32_dp">32dp</dimen>
+	<dimen name="int_48_dp">48dp</dimen>
+	<dimen name="int_80_dp">80dp</dimen>
+	<dimen name="int_160_dp">160dp</dimen>
+	<dimen name="int_240_dp">240dp</dimen>
+
+</resources>

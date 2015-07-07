@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<integer name="_cell_count_x">8</integer>
+	<integer name="_cell_count_y">7</integer>
+    
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen android:key="launch_by_default" xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory android:title="@string/launch_by_home_key">
+		<SwitchPreference android:key="home_key" android:title="@string/launch_by_home_key" />	
+    	<ListPreference
+			android:key="home_key_another_home"
+			android:title="@string/home_key_another_home"
+			android:dialogTitle="@string/home_key_another_home"
+			android:dependency="home_key" />
+	   	<ListPreference
+			android:key="home_key_click_mode"
+			android:title="@string/home_key_click_mode"
+			android:dialogTitle="@string/home_key_click_mode"
+			android:entries="@array/home_key_click_mode_entries"
+			android:entryValues="@array/home_key_click_mode_entryvalues"
+			android:defaultValue="1"
+			android:dependency="home_key" />
+		<ListPreference
+			android:key="home_key_click_interval"
+			android:title="@string/home_key_click_interval"
+			android:dialogTitle="@string/home_key_click_interval"
+			android:entries="@array/home_key_click_interval_entries"
+			android:entryValues="@array/home_key_click_interval_entryvalues"
+			android:defaultValue="500"
+			android:dependency="home_key" />
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/launch_by_now">
+		<SwitchPreference android:key="now" android:title="@string/launch_by_now" />
+	</PreferenceCategory>
+	
+	<PreferenceCategory android:title="@string/launch_by_search_key">
+		<SwitchPreference android:key="search_key" android:title="@string/launch_by_search_key" />
+	</PreferenceCategory>
+	
+</PreferenceScreen>

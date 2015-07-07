@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/lp_mp_mp"
+	android:orientation="vertical" >
+	
+   	<GridView android:id="@+id/gv_apps"
+		style="@style/lp_wc_wc"
+		android:numColumns="6"
+		android:horizontalSpacing="8dp"
+		android:verticalSpacing="8dp"
+		android:stretchMode="columnWidth"
+		android:gravity="center" />
+
+</LinearLayout><!-- From: file:/development/workspace/ssFlicker/app/src/main/res/layout-sw600dp/app_chooser.xml -->

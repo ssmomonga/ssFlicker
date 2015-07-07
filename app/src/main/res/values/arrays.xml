@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string-array name="home_key_click_mode_entries">
+		<item>@string/home_key_click_mode_single</item>
+		<item>@string/home_key_click_mode_double</item>
+	</string-array>
+	<string-array name="home_key_click_mode_entryvalues">
+		<item>1</item>
+		<item>2</item>
+	</string-array>
+
+	<string-array name="home_key_click_interval_entries">
+		<item>@string/int_200_ms</item>
+		<item>@string/int_300_ms</item>
+		<item>@string/int_400_ms</item>
+		<item>@string/int_500_ms</item>
+		<item>@string/int_600_ms</item>
+		<item>@string/int_700_ms</item>
+		<item>@string/int_800_ms</item>
+		<item>@string/int_900_ms</item>
+		<item>@string/int_1000_ms</item>
+		</string-array>
+	<string-array name="home_key_click_interval_entryvalues">
+		<item>200</item>
+		<item>300</item>
+		<item>400</item>
+		<item>500</item>
+		<item>600</item>
+		<item>700</item>
+		<item>800</item>
+		<item>900</item>
+		<item>1000</item>
+	</string-array>
+	
+	<string-array name="overlay_point_action_entries">
+		<item>@string/swipe</item>
+		<item>@string/tap</item>
+	</string-array>
+	<string-array name="overlay_point_action_entryvalues">
+		<item>0</item>
+		<item>1</item>
+	</string-array>
+	
+	<string-array name="overlay_point_side_entries">
+		<item>@string/left</item>
+		<item>@string/upper</item>
+		<item>@string/right</item>
+		<item>@string/lower</item>
+	</string-array>
+	<string-array name="overlay_point_side_entryvalues">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+	</string-array>
+
+	<string-array name="overlay_point_position_entries">
+		<item>@string/overlay_point_position_0</item>
+		<item>@string/overlay_point_position_1</item>
+		<item>@string/overlay_point_position_2</item>
+		<item>@string/overlay_point_position_3</item>
+		<item>@string/overlay_point_position_4</item>
+		<item>@string/overlay_point_position_5</item>
+		<item>@string/overlay_point_position_6</item>
+		<item>@string/overlay_point_position_7</item>
+		<item>@string/overlay_point_position_8</item>
+		<item>@string/overlay_point_position_9</item>
+		<item>@string/overlay_point_position_10</item>
+		<item>@string/overlay_point_position_11</item>
+	</string-array>
+	<string-array name="overlay_point_position_entryvalues">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+		<item>8</item>
+		<item>9</item>
+		<item>10</item>
+		<item>11</item>
+	</string-array>
+	
+	<string-array name="overlay_point_width_entries">
+	    <item>@string/overlay_point_width_thin</item>
+		<item>@string/overlay_point_width_midium</item>
+		<item>@string/overlay_point_width_thick</item>
+		<item>@string/overlay_point_width_thickest</item>
+	</string-array>
+	<string-array name="overlay_point_width_entryvalues">
+		<item>8</item>
+		<item>16</item>
+		<item>24</item>
+		<item>32</item>
+	</string-array>
+	
+	<string-array name="shake_sensitivity_entries">
+		<item>@string/shake_most_sensitive</item>
+		<item>@string/shake_sensitive</item>
+		<item>@string/shake_middle</item>
+		<item>@string/shake_insensitive</item>
+		<item>@string/shake_most_insensitive</item>
+	</string-array>
+	<string-array name="shake_sensitivity_entryvalues">
+		<item>12</item>
+		<item>18</item>
+		<item>24</item>
+		<item>30</item>
+		<item>36</item>
+	</string-array>
+
+	<string-array name="pointer_window_position_entries">
+		<item>@string/upper_left</item>
+		<item>@string/upper</item>
+		<item>@string/upper_right</item>
+		<item>@string/left</item>
+		<item>@string/center</item>
+		<item>@string/right</item>
+		<item>@string/lower_left</item>
+		<item>@string/lower</item>
+		<item>@string/lower_right</item>
+	</string-array>
+	<string-array name="pointer_window_position_entryvalues">
+		<item>51</item>
+		<item>49</item>
+		<item>53</item>
+		<item>19</item>
+		<item>17</item>
+		<item>21</item>
+		<item>83</item>
+		<item>81</item>
+		<item>85</item>
+	</string-array>
+
+	<string-array name="dock_window_position_portrait_entries">
+		<item>@string/above_pointer_window</item>
+		<item>@string/below_pointer_window</item>
+	</string-array>
+	<string-array name="dock_window_position_portrait_entryvalues">
+		<item>48</item>
+		<item>80</item>
+	</string-array>
+	
+	<string-array name="dock_window_position_landscape_entries">
+		<item>@string/left_of_pointer_window</item>
+		<item>@string/right_of_pointer_window</item>
+	</string-array>
+	<string-array name="dock_window_position_landscape_entryvalues">
+		<item>3</item>
+		<item>5</item>
+	</string-array>
+
+	<string-array name="icon_size_entries">
+		<item>@string/icon_size_tiny</item>
+		<item>@string/icon_size_small</item>
+		<item>@string/icon_size_medium</item>
+		<item>@string/icon_size_large</item>
+		<item>@string/icon_size_huge</item>
+	</string-array>
+	<string-array name="icon_size_entryvalues">
+		<item>24</item>
+		<item>32</item>
+		<item>40</item>
+		<item>48</item>
+		<item>56</item>
+	</string-array>
+
+	<string-array name="text_size_entries">
+		<item>@string/text_size_small</item>
+		<item>@string/text_size_medium</item>
+		<item>@string/text_size_large</item>
+	</string-array>
+	<string-array name="text_size_entryvalues">
+		<item>10</item>
+		<item>12</item>
+		<item>14</item>
+	</string-array>
+	
+	<integer-array name="color_pallet">
+	    <item>@color/material_red</item>
+	    <item>@color/material_pink</item>
+		<item>@color/material_purple</item>
+		<item>@color/material_deep_purple</item>
+		<item>@color/material_indigo</item>
+		<item>@color/material_blue</item>
+	    <item>@color/material_light_blue</item>
+	    <item>@color/material_cyan</item>
+		<item>@color/material_teal</item>
+		<item>@color/material_green</item>
+		<item>@color/material_light_green</item>
+		<item>@color/material_lime</item>
+		<item>@color/material_yellow</item>
+	    <item>@color/material_amber</item>
+	    <item>@color/material_orange</item>
+		<item>@color/material_deep_orange</item>
+		<item>@color/material_brown</item>
+		<item>@color/material_gray</item>
+		<item>@color/material_blue_gray</item>
+		<item>@color/material_black</item>
+		<item>@color/material_white</item>
+	</integer-array>
+
+</resources>

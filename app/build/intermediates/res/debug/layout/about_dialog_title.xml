@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/lp_mp_wc"
+	android:background="@color/color_primary"
+	android:padding="16dp"
+	android:orientation="horizontal" >
+
+	<ImageView
+		style="@style/lp_40_40"
+		android:layout_gravity="center"
+		android:src="@mipmap/icon_launcher" />
+	<TextView
+		style="@style/lp_wc_wc"
+		android:paddingLeft="4dp"
+		android:layout_gravity="center|left"
+		android:textSize="24sp"
+		android:text="@string/app_name"
+		android:textColor="@android:color/white" />
+	<LinearLayout
+		style="@style/lp_mp_wc"
+		android:gravity="right|bottom"
+		android:orientation="vertical" >
+		<TextView android:id="@+id/tv_app_ver"
+			style="@style/lp_wc_wc"
+			android:layout_weight="1"
+			android:textColor="@android:color/white" />
+		<TextView
+			style="@style/lp_wc_wc"
+			android:text="@string/dev_name"
+			android:layout_weight="1"
+			android:textColor="@android:color/white" />
+	</LinearLayout>
+    
+</LinearLayout>
+<!-- From: file:/development/workspace/ssFlicker/app/src/main/res/layout/about_dialog_title.xml -->

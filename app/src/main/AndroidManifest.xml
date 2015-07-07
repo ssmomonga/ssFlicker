@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ssmomonga.ssflicker"
+    android:installLocation="internalOnly"
+    android:versionCode="76"
+    android:versionName="v1.5.7" >
+
+    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="22" />
+    
+    <supports-screens android:largeScreens="true" android:xlargeScreens="true" />
+
+    <uses-feature android:name="android.hardware.touchscreen" android:required="true" />
+	<uses-feature android:name="android.hardware.wifi" android:required="false" />
+	<uses-feature android:name="android.hardware.bluetooth" android:required="false" />
+	<uses-feature android:name="android.hardware.telephony" android:required="false" />
+
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<uses-permission android:name="android.permission.VIBRATE" />
+	<!-- uses-permission android:name="android.permission.GET_TASKS" /-->
+	<!-- uses-permission android:name="android.permission.REORDER_TASKS" /-->
+	<uses-permission android:name="android.permission.CALL_PHONE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+	<uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+	<uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+	<uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="com.android.vending.BILLING" />  
+
+	<application
+        android:allowBackup="true"
+        android:backupAgent="com.ssmomonga.ssflicker.proc.CloudBackup"
+        android:icon="@mipmap/icon_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Flicker" >
+        <meta-data
+            android:name="com.google.android.backup.api_key"
+            android:value="AEdPqrEAAAAIZynaJuLP8DjsyR571_gZvE-VyZTuPt29h5Ok9Q" />
+
+        <activity
+            android:name="com.ssmomonga.ssflicker.HomeKeyClickListener"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="@string/activity_name_home_key"
+            android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.ssmomonga.ssflicker.FlickerActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:label="@string/activity_name_flick"
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH_LONG_PRESS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.ASSIST" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="com.android.systemui.action_assist_icon"
+                android:resource="@mipmap/icon_assist" />
+        </activity>
+        <activity
+            android:name="com.ssmomonga.ssflicker.EditorActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:label="@string/activity_name_edit"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.Editor" />
+        <activity
+            android:name="com.ssmomonga.ssflicker.PrefActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:label="@string/activity_name_pref"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.Pref" />
+        <activity
+            android:name="com.ssmomonga.ssflicker.PrefSubActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:label="@string/activity_name_pref"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.Pref" />
+        <activity
+            android:name="com.ssmomonga.ssflicker.DonateActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:label="@string/activity_name_donate"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.Pref" />
+
+		<service
+			android:name="com.ssmomonga.ssflicker.OverlayService"
+			android:exported="false"
+			android:label="@string/service_name_overlay"
+			android:process=":OverlayService" >
+		</service>
+
+		<receiver
+			android:name="com.ssmomonga.ssflicker.Boot"
+			android:exported="false"
+			android:label="@string/receiver_name_boot"
+			android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.PACKAGE_ADDED" />
+				<data android:scheme="package"/>
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.PACKAGE_CHANGED" />
+				<data android:scheme="package"/>
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.PACKAGE_FULLY_REMOVED" />
+				<data android:scheme="package"/>
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.PACKAGE_REPLACED" />
+				<data android:scheme="package"/>
+			</intent-filter>
+		</receiver>
+		<receiver
+            android:name="com.ssmomonga.ssflicker.InvisibleAppWidget"
+            android:exported="true"
+            android:label="@string/receiver_name_invisible_appwidget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/invisible_appwidget" />
+        </receiver>
+
+    </application>
+
+</manifest>

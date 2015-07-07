@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout android:id="@+id/fl_all"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/lp_mp_mp" >
+
+	<com.ssmomonga.ssflicker.view.AppWidgetLayer android:id="@+id/app_widget_layer"
+	    style="@style/lp_mp_mp"
+	    android:paddingTop="16dp" />
+  
+	<RelativeLayout
+	    style="@style/lp_mp_mp">
+	    
+		<com.ssmomonga.ssflicker.view.DockWindow android:id="@+id/dock_window"
+		    style="@style/lp_wc_wc"
+	    	android:gravity="center"
+			android:baselineAligned="false" />
+
+		<com.ssmomonga.ssflicker.view.PointerWindow android:id="@+id/pointer_window"
+			style="@style/lp_wc_wc"
+			android:padding="4dp" />
+		
+		<com.ssmomonga.ssflicker.view.ActionWindow android:id="@+id/action_window"
+			style="@style/lp_wc_wc"
+			android:padding="4dp"
+			android:visibility="gone" />
+
+	</RelativeLayout>
+	
+</FrameLayout><!-- From: file:/development/workspace/ssFlicker/app/src/main/res/layout/flicker_activity.xml -->
