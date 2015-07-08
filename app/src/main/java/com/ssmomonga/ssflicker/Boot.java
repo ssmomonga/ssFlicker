@@ -1,6 +1,10 @@
 package com.ssmomonga.ssflicker;
 
-import java.util.List;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.AppList;
@@ -11,14 +15,13 @@ import com.ssmomonga.ssflicker.db.SQLiteDAO;
 import com.ssmomonga.ssflicker.proc.Launch;
 import com.ssmomonga.ssflicker.set.BootSettings;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
+import java.util.List;
 
 public class Boot extends BroadcastReceiver {
 
+/*
+ *	onReceive()
+ */
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		
@@ -48,15 +51,19 @@ public class Boot extends BroadcastReceiver {
 	}
 	
 	
-	//rebuildAppCacheTable()
-	private void rebuildAppCacheTable (Context context) {
+/*
+ *	rebuildAppCacheTable()
+ */
+	private void rebuildAppCacheTable(Context context) {
 		new SQLiteDAO(context).deleteAppCacheTable();
 		AppList.getIntentAppList(context, IntentAppInfo.INTENT_APP_TYPE_LAUNCHER, 0);
 	}
 	
 	
-	//rebuildAppTable()
-	private void rebuildAppTable (Context context, Intent intent) {
+/*
+ *	rebuildAppTable()
+ */
+	private void rebuildAppTable(Context context, Intent intent) {
 		
 		String targetPackageName = intent.getData().getSchemeSpecificPart();
 		SQLiteDAO sdao = new SQLiteDAO(context);
@@ -94,9 +101,10 @@ public class Boot extends BroadcastReceiver {
 		}
 	}
 	
-	
-	//updateApp()
-	private void updateApp (Context context, int pointerId, int appId, App app) {
+/*
+ * updateApp()
+ */
+	private void updateApp(Context context, int pointerId, int appId, App app) {
 		
 		boolean b = false;
 		switch (app.getAppType()) {
@@ -132,10 +140,11 @@ public class Boot extends BroadcastReceiver {
 		if (b) new SQLiteDAO(context).editAppTable(pointerId, appId, app);
 
 	}
-	
-	
-	//deleteApp()
-	private void deleteApp (Context context, int pointerId, int appId) {
+
+/*
+ *	deleteApp()
+ */
+	private void deleteApp(Context context, int pointerId, int appId) {
 		new SQLiteDAO(context).deleteAppTable(pointerId, appId);
 	}
 	

@@ -61,7 +61,9 @@ public class FlickerActivity extends Activity {
 		}
 	};
 
-	
+/*
+ *	onCreate()
+ */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -79,7 +81,9 @@ public class FlickerActivity extends Activity {
 
 	}
 
-
+/*
+ *	onResume()
+ */
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -94,6 +98,9 @@ public class FlickerActivity extends Activity {
 		viewAppWidgetAll();
 	}
 
+/*
+ *	onConfigurationChanged()
+ */
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
@@ -106,8 +113,11 @@ public class FlickerActivity extends Activity {
 		dock_window.setOnFlickListener(new OnDockFlickListener(this), new OnMenuFlickListener(this));
 		
 		viewAppWidgetAll();
-  }
+	}
 
+/*
+ *	onPause()
+ */
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -117,13 +127,20 @@ public class FlickerActivity extends Activity {
 		if (drawer != null && drawer.isShowing()) drawer.dismiss();
 		if (!isFinishing()) finish();
 	}
-	
+
+/*
+ *	onDestroy()
+ */
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		app_widget_layer.stopListening();
 	}
 
+
+/*
+ *	onInitialLayout()
+ */
 	private void setInitialLayout() {
 		fl_all = (FrameLayout) findViewById(R.id.fl_all);
 		app_widget_layer = (AppWidgetLayer) findViewById(R.id.app_widget_layer);
@@ -133,7 +150,9 @@ public class FlickerActivity extends Activity {
 		setOnFlickListener();
 	}
 	
-
+/*
+ *	setOnFlickListener()
+ */
 	private void setOnFlickListener() {
 		fl_all.setOnTouchListener(new OnTouchListener() {
 			@Override
@@ -146,7 +165,9 @@ public class FlickerActivity extends Activity {
 		pointer_window.setOnFlickListener(new OnPointerFlickListener(this));
 	}
 	
-
+/*
+ *	setLayout()
+ */
 	private void setLayout() {
 		WindowParams params = new WindowParams(this);
 		if (params.isStatusbarVisibility()) getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -155,7 +176,9 @@ public class FlickerActivity extends Activity {
 		action_window.setLayout(params);
 	}
 	
-
+/*
+ *	setOrientationLayout()
+ */
 	private void setOrientationLayout() {
 		WindowOrientationParams params = new WindowOrientationParams(this);
 		app_widget_layer.setLayoutParams(params.getAppWidgetLayerLP());
@@ -164,23 +187,27 @@ public class FlickerActivity extends Activity {
 		pointer_window.setLayoutParams(params.getPointerWindowLP());
 		action_window.setLayoutParams(params.getActionWindowLP());
 	}
-	
-	
+
+/*
+ *	viewAppWidgetAll
+ */
 	private void viewAppWidgetAll() {
 		app_widget_layer.removeAllViews();
 
 		int appWidgetList[][] = sdao.selectAppWidgets();
-		for (int[] appWidget: appWidgetList) {
+		for (int[] appWidget : appWidgetList) {
 			int pointerId = appWidget[0];
 			int appId = appWidget[1];
 			AppWidgetInfo appWidgetInfo = appListList[pointerId][appId].getAppWidgetInfo();
 			viewAppWidget(pointerId, appId, appWidgetInfo, false);
-			
+
 		}
 	}
-	
 
-	private void viewAppWidget (int pointerId, int appId, AppWidgetInfo appWidgetInfo, boolean update) {
+/*
+ *	viewAppWidget()
+ */
+	private void viewAppWidget(int pointerId, int appId, AppWidgetInfo appWidgetInfo, boolean update) {
 		
 		if (appWidgetInfo.getAppWidgetProviderInfo() != null) {
 
@@ -192,16 +219,7 @@ public class FlickerActivity extends Activity {
 			}
 
 			if (update) {
-				long updateTime;
-				
-				updateTime = appWidgetInfo.getAppWidgetUpdateTime() == 0 ? updateTime = System.currentTimeMillis() : 0;
-				
-//				if (appWidgetInfo.getAppWidgetUpdateTime() == 0) {
-//					updateTime = System.currentTimeMillis();
-//				} else {
-//					updateTime = 0;
-//				}
-
+				long updateTime = appWidgetInfo.getAppWidgetUpdateTime() == 0 ? updateTime = System.currentTimeMillis() : 0;
 				appListList[pointerId][appId].getAppWidgetInfo().setAppWidgetUpdateTime(updateTime);
 				sdao.updateAppWidgetUpdateTime(appWidgetInfo.getAppWidgetId(), updateTime);
 			}
@@ -221,7 +239,7 @@ public class FlickerActivity extends Activity {
 	}
 
 /*
- * 		OnDockFlickListener
+ * 	OnDockFlickListener
  */
 	private class OnDockFlickListener extends OnFlickListener {
 
@@ -278,7 +296,7 @@ public class FlickerActivity extends Activity {
 
 
 /*
- * 		OnPointerFlickListener
+ * 	OnPointerFlickListener
  */
 	private class OnPointerFlickListener extends OnFlickListener {
 
@@ -361,10 +379,8 @@ public class FlickerActivity extends Activity {
 	}
 	
 /*
- * OnMenuFlickListener
+ *	OnMenuFlickListener
  */
-	
-	//OnMenuFlickListener
 	private class OnMenuFlickListener extends OnFlickListener {
 
 		public OnMenuFlickListener(Context context) {
@@ -408,7 +424,10 @@ public class FlickerActivity extends Activity {
 			action_window.setVisibility(View.INVISIBLE);
 		}
 	}
-	
+
+/*
+ *	menu()
+ */
 	private void menu(int position) {
 		switch (position) {
 			case MenuList.MENU_DRAWER:

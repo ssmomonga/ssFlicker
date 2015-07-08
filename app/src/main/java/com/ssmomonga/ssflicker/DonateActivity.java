@@ -1,14 +1,5 @@
 package com.ssmomonga.ssflicker;
 
-import java.util.ArrayList;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.android.vending.billing.IInAppBillingService;
-import com.ssmomonga.ssflicker.db.PrefDAO;
-import com.ssmomonga.ssflicker.proc.Launch;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.PendingIntent;
@@ -30,6 +21,15 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.vending.billing.IInAppBillingService;
+import com.ssmomonga.ssflicker.db.PrefDAO;
+import com.ssmomonga.ssflicker.proc.Launch;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class DonateActivity extends Activity {
 	
@@ -88,6 +88,9 @@ public class DonateActivity extends Activity {
 		}  
 	};
 
+/*
+ *	onCreate()
+ */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -104,17 +107,19 @@ public class DonateActivity extends Activity {
 		
 	}
 
-
-	//isBillingSupported()
+/*
+ *	isBillingSupported()
+ */
 	private boolean isBillingSupported() throws RemoteException {
 		//課金をサポートしているか確認
 		int isBillingSupported = mService.isBillingSupported(API_VERSION, packageName, ITEM_TYPE_INAPP);
 		return isBillingSupported == BILLING_RESPONSE_RESULT_OK;
 			
 	}
-	
-	
-	//GetSkuDetailsTask
+
+/*
+ *	GetSkuDetailsTask
+ */
 	private class GetSkuDetailsTask extends AsyncTask<Void, Void, Bundle> {
 		
 		private Context context;
@@ -199,9 +204,10 @@ public class DonateActivity extends Activity {
 	    	}
 	    }
 	}
-	
-	
-	//getSkuDetails()
+
+/*
+ *	getSkuDetails()
+ */
 	private Bundle getSkuDetails(String productId) throws RemoteException {
 		//商品詳細を取得
 		ArrayList<String> skuList = new ArrayList<String>();
@@ -213,8 +219,10 @@ public class DonateActivity extends Activity {
 	}
 	
 	
-	//isOwned()
-	private boolean isOwned (String productId) throws RemoteException, JSONException {
+/*
+ *	isOwned()
+ */
+	private boolean isOwned(String productId) throws RemoteException, JSONException {
 		
 		//購入済か確認
 		Bundle ownedItems = mService.getPurchases(API_VERSION, packageName, ITEM_TYPE_INAPP, null);
@@ -232,13 +240,13 @@ public class DonateActivity extends Activity {
 			return false;
 					
 		}
-	
-		
+
 	}
-	
-	
-	//setLayout()
-	private void setLayout (String price) {
+
+/*
+ * setLayout()
+ */
+	private void setLayout(String price) {
 		
 		setContentView(R.layout.donate_activity);
 		
@@ -304,7 +312,9 @@ public class DonateActivity extends Activity {
 
 	}
 	
-	
+/*
+ *	setVisibility()
+ */
 	private void setVisibility(boolean isOwned) {
 		if (!isOwned) {
 			tv_please.setVisibility(View.VISIBLE);
@@ -321,9 +331,11 @@ public class DonateActivity extends Activity {
 		
 	}
 	
-	
+/*
+ *	onActivityResult()
+ */
 	@Override
-	public void onActivityResult (final int requestCode, int resultCode, Intent data) {
+	public void onActivityResult(final int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		switch (resultCode) {
@@ -347,21 +359,28 @@ public class DonateActivity extends Activity {
 				break;
 		}
 	}
-	
+
+/*
+ *	errorIab()
+ */
 	private void errorIab(int responseCode) {
 		Toast.makeText(DonateActivity.this, R.string.error_iab, Toast.LENGTH_SHORT).show();
 		finish();
 		l.launchPrefActivity();
 	}
 
-	
+/*
+ *	onDestroy()
+ */
 	@Override  
 	public void onDestroy() {  
 		super.onDestroy();
 		if (mServiceConn != null) unbindService(mServiceConn);
 	}
-	
-	//onKeyDown()
+
+/*
+ *	onKeyDown()
+ */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
