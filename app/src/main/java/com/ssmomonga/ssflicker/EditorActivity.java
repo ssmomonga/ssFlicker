@@ -120,7 +120,9 @@ public class EditorActivity extends Activity {
 	};
 	
 	
-	//onCreate()
+/*
+ *	onCreate()
+ */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
