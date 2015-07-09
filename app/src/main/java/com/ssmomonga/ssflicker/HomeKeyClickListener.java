@@ -1,10 +1,11 @@
 package com.ssmomonga.ssflicker;
 
-import com.ssmomonga.ssflicker.proc.Launch;
-import com.ssmomonga.ssflicker.set.HomeKeySettings;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.ssmomonga.ssflicker.proc.Launch;
+import com.ssmomonga.ssflicker.set.HomeKeySettings;
 
 public class HomeKeyClickListener extends Activity {
 
@@ -13,10 +14,12 @@ public class HomeKeyClickListener extends Activity {
 
 	private static boolean b;
 
-	//onCreate()
+/*
+ *	onCreate()
+ */
 	@Override
-	public void onCreate (Bundle savedInstanceState) {
-		super.onCreate (savedInstanceState);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		
 		b = false;
 		l = new Launch(this);
@@ -49,15 +52,17 @@ public class HomeKeyClickListener extends Activity {
 				break;
 		}
 	}
-	
 
-	//onResume
+/*
+ *	onResume
+ */
 	public void onResume() {
 		super.onResume();
 	}
 	
-	
-	//onNewIntent()
+/*
+ *	onNewIntent()
+ */
 	@Override
 	public void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
@@ -65,11 +70,12 @@ public class HomeKeyClickListener extends Activity {
 		l.launchFlickerActivity();
 		finish();
 	}
-	
-	
-	//onActivityResult
+
+/*
+ *	onActivityResult
+ */
 	@Override
-	public void onActivityResult (int requestCode, int resultCode, Intent data) {
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 }

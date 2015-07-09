@@ -1,7 +1,5 @@
 package com.ssmomonga.ssflicker;
 
-import com.ssmomonga.ssflicker.set.InvisibleAppWidgetSettings;
-
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -9,15 +7,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+import com.ssmomonga.ssflicker.set.InvisibleAppWidgetSettings;
+
 public class InvisibleAppWidget extends AppWidgetProvider {
 
-	//onUpdate()
+/*
+ *	onUpdate()
+ */
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 		viewInvisibleAppWidget(context, appWidgetManager, appWidgetIds, new InvisibleAppWidgetSettings(context));
 	}
 	
-	//viewInvisibleAppWidget()
+/*
+ * viewInvisibleAppWidget()
+ */
 	public void viewInvisibleAppWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, InvisibleAppWidgetSettings settings) {
 
 		Intent intent = new Intent(Intent.ACTION_MAIN)

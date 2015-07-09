@@ -141,8 +141,9 @@ public class EditorActivity extends Activity {
 
 	}
 
-
-	//onResume()
+/*
+ *	onResume()
+ */
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -155,7 +156,10 @@ public class EditorActivity extends Activity {
 		setLayout();
 		setOrientationLayout();
 	}
-	
+
+/*
+ *	onConfigurationChanged()
+ */
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
     	super.onConfigurationChanged(newConfig);
@@ -167,13 +171,18 @@ public class EditorActivity extends Activity {
 		dock_window.setOnFlickListener(new OnDockFlickListener(this), new OnMenuFlickListener(this));
 	}
 	
-	//onPause()
+/*
+ *	onPause()
+ */
 	@Override
 	public void onPause() {
 		super.onPause();
 		if (homeKey) unregisterReceiver(mReceiver);
 	}
-	
+
+/*
+ *	onDestroy()
+ */
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
@@ -183,10 +192,11 @@ public class EditorActivity extends Activity {
 		deleteTrimmingCacheFile();
 	}
 	
-	
-	//onActivityResult()
+/*
+ *	onActivityResult()
+ */
 	@Override
-	public void onActivityResult (final int requestCode, int resultCode, Intent data) {
+	public void onActivityResult(final int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		Intent intent = null;
@@ -429,8 +439,9 @@ public class EditorActivity extends Activity {
 
 	}
 	
-	
-	//deleteTrimmingCacheFile()
+/*
+ *	deleteTrimmingCacheFile()
+ */
 	private void deleteTrimmingCacheFile() {
 		(new Thread (new Runnable() {
 			@Override
@@ -459,14 +470,15 @@ public class EditorActivity extends Activity {
 							getContentResolver().delete(uri, null, null);
 						}
 						c.close();
-//						file.delete();
 					}
 				}
 			}
 		})).start();
 	}
 	
-	//setInitialLayout()
+/*
+ *	setInitialLayout()
+ */
 	private void setInitialLayout() {
 		rl_all = (RelativeLayout) findViewById(R.id.rl_all);
 		dock_window = (DockWindow) findViewById(R.id.dock_window);
@@ -476,9 +488,10 @@ public class EditorActivity extends Activity {
 		setOnFlickListener();
 	}
 	
-
-	//setOnFlickListener()
-	private void setOnFlickListener () {
+/*
+ *	//setOnFlickListener()
+ */
+	private void setOnFlickListener() {
 		rl_all.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -491,7 +504,9 @@ public class EditorActivity extends Activity {
 		app_window.setOnFlickListener(new OnPointerFlickListener(this), new OnAppFlickListener(this));
 	}
 	
-	
+/*
+ *	removeOnFlickListener()
+ */
 	private void removeOnFlickListener() {
 		rl_all.setOnTouchListener(null);
 		dock_window.setOnFlickListener(null, null);
@@ -499,8 +514,9 @@ public class EditorActivity extends Activity {
 		app_window.setOnFlickListener(null, null);		
 	}
 	
-
-	//setLayout()
+/*
+ *	setLayout()
+ */
 	private void setLayout() {
 		WindowParams params = new WindowParams(this);
 		if (params.isStatusbarVisibility()) getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -509,9 +525,10 @@ public class EditorActivity extends Activity {
 		app_window.setLayout(params);
 		action_window.setLayout(params);
 	}
-	
 
-
+/*
+ * setOrientationLayout()
+ */
 	private void setOrientationLayout() {
 		WindowOrientationParams params = new WindowOrientationParams(this);
 		orientation = params.getOrientation();
@@ -524,9 +541,8 @@ public class EditorActivity extends Activity {
 	
 
 /*
- * 		Dock
+ * 	onDockFlickListener
  */
-	//OnDockFlickListener
 	private class OnDockFlickListener extends OnFlickListener {
 
 		public OnDockFlickListener(Context context) {
@@ -572,9 +588,8 @@ public class EditorActivity extends Activity {
 	
 	
 /*
- * 		Pointer
+ * 	OnPointerFlickListener
  */
-	//OnPointerFlickListener
 	private class OnPointerFlickListener extends OnFlickListener {
 
 		public OnPointerFlickListener(Context context) {
@@ -592,7 +607,7 @@ public class EditorActivity extends Activity {
 		}
 
 		@Override
-		public void onDown (int position) {
+		public void onDown(int position) {
 			pointer_window.setPointerPointed(true, pointerId);
 			app_window.setPointerPointed(true);
 			action_window.setActionPointed(true, -1, position);
@@ -619,8 +634,9 @@ public class EditorActivity extends Activity {
 		
 	}
 	
-	
-	//editPointer()
+/*
+ *	editPointer()
+ */
 	private void editPointer(int position) {
 	
 		Pointer pointer = pointerList[pointerId];
@@ -630,29 +646,29 @@ public class EditorActivity extends Activity {
 			switch (position) {
 				case EditList.ADD_POINTER_CUSTOM:
 					addPointer(new Pointer(Pointer.POINTER_TYPE_CUSTOM, getString(R.string.pointer_custom),
-							getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null), IconList.LABEL_ICON_TYPE_ORIGINAL, 0
-							));
+							getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null),
+							IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
 					break;
 			
 				case EditList.ADD_POINTER_HOME:
 					addPointer(new Pointer(Pointer.POINTER_TYPE_HOME, getString(R.string.pointer_home),
-							getResources().getDrawable(R.mipmap.icon_01_pointer_home, null), IconList.LABEL_ICON_TYPE_ORIGINAL, 0
-							));
+							getResources().getDrawable(R.mipmap.icon_01_pointer_home, null),
+							IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
 					break;
 			
 				case EditList.ADD_POINTER_RECENT:
 					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 						addPointer(new Pointer(Pointer.POINTER_TYPE_RECENT, getString(R.string.pointer_recent),
-								getResources().getDrawable(R.mipmap.icon_51_unused_recent, null), IconList.LABEL_ICON_TYPE_ORIGINAL, 0
-								));
+								getResources().getDrawable(R.mipmap.icon_51_unused_recent, null),
+								IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
 					}
 					break;
 			
 				case EditList.ADD_POINTER_TASK:
 					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 						addPointer(new Pointer(Pointer.POINTER_TYPE_TASK, getString(R.string.pointer_task),
-								getResources().getDrawable(R.mipmap.icon_52_unused_task, null), IconList.LABEL_ICON_TYPE_ORIGINAL, 0
-								));
+								getResources().getDrawable(R.mipmap.icon_52_unused_task, null),
+								IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
 					}
 					break;
 				default:
@@ -716,9 +732,10 @@ public class EditorActivity extends Activity {
 		}
 		
 	}
-		
 	
-	//viewEditPointerDialog()
+/*
+ *	viewEditPointerDialog()
+ */
 	private void viewEditPointerDialog() {
 		
 		editDialog = new EditDialog(this, pointerList[pointerId], new EditPointerIf() {
@@ -750,7 +767,9 @@ public class EditorActivity extends Activity {
 
 	}
 	
-	
+/*
+ *	getImageTrimming()
+ */
 	private void getImageTrimming(int iconTarget, int iconType) {
 		editDialog.setCancelable(false);
 		editDialog.setCanceledOnTouchOutside(false);
@@ -768,8 +787,9 @@ public class EditorActivity extends Activity {
 		
 	}
 	
-	
-	//viewDeletePointerDialog()
+/*
+ *	viewDeletePointerDialog()
+ */
 	private void viewDeletePointerDialog() {
 		deleteDialog = new DeleteDialog(this,
 				DeleteDialog.DELETE_POINTER,
@@ -793,8 +813,9 @@ public class EditorActivity extends Activity {
 		deleteDialog.show();
 	}
 	
-	
-	//getToPointerId()
+/*
+ *	getToPointerId()
+ */
 	private int getToPointerId(int fromPointerId, int direction) {
 		
 		int X = fromPointerId % 4;
@@ -823,17 +844,19 @@ public class EditorActivity extends Activity {
 		return Y * 4 + X;
 		
 	}
-	
-	
-	//addPointer()
+
+/*
+ *	addPointer()
+ */
 	private void addPointer(Pointer pointer) {
 		sdao.insertPointerTable(pointerId, pointer);
 		pointerList = sdao.selectPointerTable();
 		pointer_window.setPointerForEdit(pointerList);
 	}
-	
-	
-	//editPointer()
+
+/*
+ *	editPointer()
+ */
 	private void editPointer(Pointer pointer) {
 		sdao.editPointerTable(pointerId, pointer);
 		pointerList = sdao.selectPointerTable();
@@ -842,23 +865,26 @@ public class EditorActivity extends Activity {
 			app_window.setAppForEdit(pointerId, pointerList[pointerId], appListList[pointerId]);
 		}
 	}
-	
-	
-	//deletePointer()
+
+/*
+ *	deletePointer()
+ */
 	private void deletePointer() {
 		sdao.deletePointerTable(pointerId);
 		changePointer();
 	}
 	
-	
-	//sortPointer()
+/*
+ *	sortPointer()
+ */
 	private void sortPointer(int toPointerId) {
 		sdao.sortPointerTable(pointerId, toPointerId);
 		changePointer();
 	}
 	
-	
-	//changePointer()
+/*
+ *	changePointer()
+ */
 	private void changePointer() {
 		pointerList = sdao.selectPointerTable();
 		appListList = sdao.selectAppTable();
@@ -866,8 +892,9 @@ public class EditorActivity extends Activity {
 		closeAppWindow();
 	}
 	
-	
-	//openWindow()
+/*
+ *	openWindow()
+ */
 	private void openAppWindow() {
 		app_window.setTag(pointerId);
 		app_window.setAppForEdit(pointerId, pointerList[pointerId], appListList[pointerId]);
@@ -876,8 +903,9 @@ public class EditorActivity extends Activity {
 		app_window.setPointerPointed(false);
 	}
 
-
-	//closeAppWindow()
+/*
+ *	closeAppWindow()
+ */
 	private void closeAppWindow() {
 		if (app_window.getVisibility() == View.VISIBLE) {
 			app_window.setVisibility(View.INVISIBLE);
@@ -887,12 +915,10 @@ public class EditorActivity extends Activity {
 			}
 		}
 	}
-	
 
 /*
- * 		App
+ * 	OnAppFlickListener
  */
-	//OnAppFlickListener
 	private class OnAppFlickListener extends OnFlickListener {
 
 		public OnAppFlickListener(Context context) {
@@ -935,8 +961,9 @@ public class EditorActivity extends Activity {
 		}
 	}
 
-	
-	//editApp()
+/*
+ *	editApp()
+ */
 	private void editApp(int position) {
 	
 		App app = appListList[pointerId][appId];
@@ -1069,8 +1096,10 @@ public class EditorActivity extends Activity {
 		}
 	}
 	
-	
-	private void viewAppChooser (int appType, int intentAppType) {
+/*
+ *	viewAppChooser
+ */
+	private void viewAppChooser(int appType, int intentAppType) {
 		appChooser = new AppChooser (this, appType, intentAppType) {
 			@Override
 			public void onSelectIntentApp (App app) {
@@ -1121,7 +1150,9 @@ public class EditorActivity extends Activity {
 	
 	}
 
-	
+/*
+ *	viewEditAppDialog()
+ */
 	private void viewEditAppDialog() {
 		
 		editDialog = new EditDialog(this, appListList[pointerId][appId], new EditDialog.EditAppIf() {
@@ -1151,7 +1182,9 @@ public class EditorActivity extends Activity {
 		
 	}
 	
-	//viewDeleteAppDialog()
+/*
+ *	viewDeleteAppDialog()
+ */
 	private void viewDeleteAppDialog() {
 		deleteDialog = new DeleteDialog(this,
 				DeleteDialog.DELETE_APP, appListList[pointerId][appId].getAppIcon(),
@@ -1176,14 +1209,14 @@ public class EditorActivity extends Activity {
 		};
 		deleteDialog.show();
 	}
-	
-	
-	//getToAppId()
+
+/*
+ *	getToAppId()
+ */
 	private int getToAppId(int direction) {
 		
 		int toAppId = 0;
 		
-		//�h�b�N����Ȃ��ꍇ
 		if (pointerId != Pointer.DOCK_POINTER_ID) {
 		
 			int X;
@@ -1263,8 +1296,9 @@ public class EditorActivity extends Activity {
 		
 	}
 
-	
-	//addApp()			insert
+/*
+ *	addApp()
+ */
 	private void addApp(App app) {
 		if (pointerId != Pointer.DOCK_POINTER_ID) {
 			app_window.setAppPointed(false, appId);
@@ -1276,30 +1310,34 @@ public class EditorActivity extends Activity {
 			resetAppForEdit();
 		}
 	}
-	
-	
-	//editApp
+
+/*
+ * editApp
+ */
 	private void editApp(App app) {
 		sdao.editAppTable(pointerId, appId, app);
 		resetAppForEdit();
 	}
-	
-	
-	//deleteApp()
+
+/*
+ *	deleteApp()
+ */
 	private void deleteApp() {
 		sdao.deleteAppTable(pointerId, appId);
 		resetAppForEdit();
 	}
-	
-	
-	//sortApp()
+
+/*
+ *	sortApp()
+ */
 	private void sortApp(int toAppId) {
 		sdao.sortAppTable(pointerId, appId, toAppId);
 		resetAppForEdit();
 	}
-	
-	
-	//resetAppForEdit()
+
+/*
+ *	resetAppForEdit()
+ */
 	private void resetAppForEdit() {
 		pointerList = sdao.selectPointerTable();
 		pointer_window.setPointerForEdit(pointerList);
@@ -1313,11 +1351,8 @@ public class EditorActivity extends Activity {
 
 	
 /*
- * 		Common
+ * 	backWindow()
  */
-
-	
-	//backWindow()
 	private void backWindow() {
 		if (app_window.getVisibility() == View.VISIBLE) {
 			closeAppWindow();
@@ -1328,20 +1363,18 @@ public class EditorActivity extends Activity {
 		}
 	}
 	
-	
-	//onKeyDown()
+/*
+ *	onKeyDown()
+ */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) backWindow();
 		return false;
 	}
-	
-	
-/*
- * 		Menu
- */
 
-	//OnMenuFlickListener
+/*
+ * 	OnMenuFlickListener
+ */
 	private class OnMenuFlickListener extends OnFlickListener {
 
 		public OnMenuFlickListener(Context context) {
@@ -1382,7 +1415,10 @@ public class EditorActivity extends Activity {
 		public void onCancel(int position) {
 		}
 	}
-		
+
+/*
+ *	menu()
+ */
 	private void menu(int position) {
 		switch (position) {
 			case MenuList.MENU_ANDROID_SETTINGS:
