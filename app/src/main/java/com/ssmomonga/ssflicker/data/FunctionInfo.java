@@ -1,10 +1,10 @@
 package com.ssmomonga.ssflicker.data;
 
-import com.ssmomonga.ssflicker.R;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+
+import com.ssmomonga.ssflicker.R;
 
 public class FunctionInfo {
 	
@@ -18,15 +18,24 @@ public class FunctionInfo {
 	public static final int FUNCTION_TYPE_AIRPLANE_MODE = 7;
 	
 	private int functionType;
-	
+
+/*
+ *	Constructor
+ */
 	public FunctionInfo(int functionType) {
 		this.functionType = functionType;
 	}
 	
+/*
+ *	getFunctionType()
+ */
 	public int getFunctionType() {
 		return functionType;
 	}
-	
+
+/*
+ *	getFunctionRawLabel()
+ */
 	public String getFunctionRawLabel(Context context) {
 		Resources r = context.getResources();
 		
@@ -51,7 +60,10 @@ public class FunctionInfo {
 				return null;
 		}
 	}
-	
+
+/*
+ *	getFunctionRawIcon()
+ */
 	public Drawable getFunctionRawIcon(Context context) {
 		Resources r = context.getResources();
 

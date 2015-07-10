@@ -1,8 +1,9 @@
 package com.ssmomonga.ssflicker.data;
 
-import com.ssmomonga.ssflicker.R;
 import android.content.Context;
 import android.content.res.Resources;
+
+import com.ssmomonga.ssflicker.R;
 
 public class MenuList {
 	
@@ -14,7 +15,10 @@ public class MenuList {
 	public static final int MENU_FLICK_MODE = 4;
 	public static final int MENU_ANDROID_SETTINGS = 6;
 
-	public static BaseData[] getFlickerMenuList (Context context) {
+/*
+ *	getFlickerMenuList()
+ */
+	public static BaseData[] getFlickerMenuList(Context context) {
 		Resources r = context.getResources();
 		BaseData[] menu = new BaseData[MENU_COUNT];
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
@@ -35,7 +39,10 @@ public class MenuList {
 		}
 		return menu;
 	}
-	
+
+/*
+ *	getEditorMenuList()
+ */
 	public static BaseData[] getEditorMenuList(Context context) {
 		Resources r = context.getResources();
 		BaseData[] menu = new BaseData[MENU_COUNT];

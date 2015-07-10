@@ -83,14 +83,18 @@ public class PrefSubActivity extends Activity {
 		}
 	};
 
-	
+/*
+ *	onCreate()
+ */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefSubFragment()).commit();
 	}
 	
-	//onKeyDown()
+/*
+ *	onKeyDown()
+ */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -99,9 +103,14 @@ public class PrefSubActivity extends Activity {
 		return false;
 	}
 	
-	//PrefFragment
+/*
+ *	PrefFragment
+ */
 	public static class PrefSubFragment extends PreferenceFragment {
 
+/*
+ *	onCreate()
+ */
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -117,8 +126,11 @@ public class PrefSubActivity extends Activity {
 			}
 
 			setInitialLayout();
-	    }
-	    
+		}
+
+/*
+ *	onResume()
+ */
 		@Override
 		public void onResume() {
 			super.onResume();
@@ -128,7 +140,9 @@ public class PrefSubActivity extends Activity {
 			setLayout();
 		}
 		
-		
+/*
+ *	onPause()
+ */
 		@Override
 		public void onPause() {
 			super.onPause();
@@ -141,16 +155,10 @@ public class PrefSubActivity extends Activity {
 
 			activity.finish();
 		}
-		
-		
-		//onDestroy()
-		@Override
-		public void onDestroy() {
-			super.onDestroy();
-		}
 
-	    
-		//setInitialLayout()
+/*
+ *	setInitialLayout()
+ */
 		private void setInitialLayout() {
 			switch (key) {
 				case KEY_DEFAULT_PREF:
@@ -158,7 +166,8 @@ public class PrefSubActivity extends Activity {
 				
 					sw_default = new Switch(activity);
 					sw_default.setPadding(0, 0, 16, 0);
-					sw_default.setChecked(DeviceSettings.isDefault(activity));		//リスナを設定する前に、初期値を設定する。リスナ設定後だと、リスナが動作してしまうため。
+					//リスナを設定する前に、初期値を設定する。リスナ設定後だと、リスナが動作してしまうため。
+					sw_default.setChecked(DeviceSettings.isDefault(activity));
 					sw_default.setOnCheckedChangeListener(new CheckedChangeListener());
 					activity.getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM);
 					activity.getActionBar().setCustomView(sw_default, new ActionBar.LayoutParams(
@@ -190,7 +199,8 @@ public class PrefSubActivity extends Activity {
 				
 					sw_overlay = new Switch(activity);
 					sw_overlay.setPadding(0, 0, 16, 0);
-					sw_overlay.setChecked(pdao.isOverlay());		//リスナを設定する前に、初期値を設定する。リスナ設定後だと、リスナが動作してしまうため。
+					//リスナを設定する前に、初期値を設定する。リスナ設定後だと、リスナが動作してしまうため。
+					sw_overlay.setChecked(pdao.isOverlay());
 					sw_overlay.setOnCheckedChangeListener(new CheckedChangeListener());
 					activity.getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM);
 					activity.getActionBar().setCustomView(sw_overlay, new ActionBar.LayoutParams(
@@ -227,13 +237,15 @@ public class PrefSubActivity extends Activity {
 			}
 		}
 		
-		//setLayout()
+/*
+ *	setLayout()
+ */
 		private void setLayout() {
 			switch (key) {
 				case KEY_DEFAULT_PREF:
 					boolean b_default = DeviceSettings.isDefault(activity);
 					sw_default.setEnabled(b_default);
-					launch_by_default.setEnabled(b_default);
+//					launch_by_default.setEnabled(b_default);
 				
 					boolean homeKey = DeviceSettings.isHomeKey(activity);
 					home_key.setChecked(homeKey);
@@ -250,11 +262,9 @@ public class PrefSubActivity extends Activity {
 					home_key_another_home.setEntries(entriesList);
 					home_key_another_home.setEntryValues(entryValuesList);
 					if (entryValuesList.length > 0) home_key_another_home.setDefaultValue(entryValuesList[0].toString());
-				
 					setSummary(home_key_another_home, pdao.getHomeKeyAnotherHome());
 					setSummary(home_key_click_mode, pdao.getRawHomeKeyClickMode());
-				
-					setSummary(home_key_click_interval, pdao.getRawHomeKeyClickInterval());	
+					setSummary(home_key_click_interval, pdao.getRawHomeKeyClickInterval());
 					if (pdao.getHomeKeyClickMode() == 1) home_key_click_interval.setEnabled(false);
 				
 					boolean b_now = DeviceSettings.isNow(activity); 
@@ -266,7 +276,7 @@ public class PrefSubActivity extends Activity {
 					setSummary(search_key, searchKey);
 				
 					break;
-				
+
 				case KEY_OVERLAY_PREF:
 					boolean b_overlay = pdao.isOverlay();
 					launch_from_overlay.setEnabled(b_overlay);
@@ -277,6 +287,7 @@ public class PrefSubActivity extends Activity {
 						setSummary(overlay_point_position[i], pdao.getRawOverlayPointPosition(i));
 						setSummary(overlay_point_width[i], pdao.getRawOverlayPointWidth(i));			
 					}
+					setSummary(overlay_point_background_color, null);
 					setSummary(overlay_point_action, pdao.getRawOverlayPointAction());
 					setSummary(overlay_foreground, pdao.isOverlayForeground());
 
@@ -285,8 +296,9 @@ public class PrefSubActivity extends Activity {
 			}
 		}
 		
-		
-		//PreferenceClickListener()
+/*
+ *	PreferenceClickListener()
+ */
 		private class PreferenceClickListener implements OnPreferenceClickListener {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
@@ -296,8 +308,9 @@ public class PrefSubActivity extends Activity {
 			}
 		}
 
-		
-		//CheckedChangeListener
+/*
+ *	CheckedChangeListener
+ */
 		private class CheckedChangeListener implements OnCheckedChangeListener {
 			@Override
 			public void onCheckedChanged(CompoundButton button, final boolean newValue) {
@@ -321,13 +334,13 @@ public class PrefSubActivity extends Activity {
 								sw_default.setChecked(true);
 							}
 						};
-						dialog.show();						
+						dialog.show();
 					}
 				
 				} else if (button == sw_overlay) {
 					pdao.setOverlay(newValue);
 					launch_from_overlay.setEnabled(newValue);
-					overlay_point_background_color.setEnabled(newValue);				//丸色のsetEnable呼び出し
+					overlay_point_background_color.setEnabled(newValue);
 					for (int i = 0; i < OverlaySettings.OVERLAY_POINT_COUNT; i ++) {
 						overlay_point[i].setChecked(newValue);
 						overlay_point[i].getOnPreferenceChangeListener().onPreferenceChange(overlay_point[i], newValue);
@@ -342,13 +355,13 @@ public class PrefSubActivity extends Activity {
 				}
 			}
 		}
-		
 
-		//PeferenceChangeListener
+/*
+ *	PeferenceChangeListener
+ */
 		private class PreferenceChangeListener implements OnPreferenceChangeListener {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				
 				setSummary(preference, newValue);
 
 				Message msg = Message.obtain();
@@ -416,13 +429,15 @@ public class PrefSubActivity extends Activity {
 						e.printStackTrace();
 					}
 				}
+
 				return true;
 			}
 		}
 		
-		
-		//setSummary()
-		private void setSummary (Preference preference, Object value) {
+/*
+ *	setSummary()
+ */
+		private void setSummary(Preference preference, Object value) {
 			if (preference == home_key) {
 			} else if (preference == home_key_another_home) {
 				if (value != null) {
@@ -478,6 +493,7 @@ public class PrefSubActivity extends Activity {
 				
 			} else if (preference == now) {
 			} else if (preference == search_key) {
+
 			} else if (preference == overlay_point[0] || preference == overlay_point[1]) {
 			} else if (preference == overlay_point_side[0] || preference == overlay_point_side[1]) {
 				switch (Integer.valueOf((String) value)) {
@@ -566,5 +582,5 @@ public class PrefSubActivity extends Activity {
 
 			}
 		}
-	}	
+	}
 }

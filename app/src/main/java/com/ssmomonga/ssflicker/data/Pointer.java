@@ -18,47 +18,77 @@ public class Pointer {
 	private Drawable pointerIcon;
 	private int pointerIconType;
 	private int pointerIconTypeAppAppId;
-		
-	public Pointer (int pointerType, String pointerLabel, Drawable pointerIcon, int pointerIconType, int pointerIconTypeAppAppId) {
+
+/*
+ *	Constructor
+ */
+	public Pointer(int pointerType, String pointerLabel, Drawable pointerIcon, int pointerIconType, int pointerIconTypeAppAppId) {
 		this.pointerType = pointerType;
 		this.pointerLabel = pointerLabel;
 		this.pointerIconType = pointerIconType;
 		this.pointerIconTypeAppAppId = pointerIconTypeAppAppId;
 		this.pointerIcon = pointerIcon;
 	}
-		
+
+/*
+ *	getPointerType()
+ */
 	public int getPointerType() {
 		return pointerType;
 	}
-		
+
+/*
+ *	getPointerLabel()
+ */
 	public String getPointerLabel() {
 		return pointerLabel;
 	}
-		
+
+/*
+ *	getPointerIcon()
+ */
 	public Drawable getPointerIcon() {
 		return pointerIcon;
 	}
-	
+
+/*
+ *	getPointerIconType()
+ */
 	public int getPointerIconType() {
 		return pointerIconType;
 	}
-	
+
+/*
+ *	getPointerIconTypeAppAppId()
+ */
 	public int getPointerIconTypeAppAppId() {
 		return pointerIconTypeAppAppId;
 	}
 
-	public void setPointerLabel (String pointerLabel) {
+/*
+ *	setPointerLabel()
+ */
+	public void setPointerLabel(String pointerLabel) {
 		this.pointerLabel = pointerLabel;
 	}
 
+/*
+ *	setPointerIcon()
+ */
 	public void setPointerIcon(Drawable pointerIcon) {
 		this.pointerIcon = pointerIcon;
 	}
 
+/*
+ *	setPointerIconType()
+ */
 	public void setPointerIconType(int iconType) {
 		this.pointerIconType = iconType;
 	}
 
+/*
+ *	setPointerIconTypeAppAppId()
+ */
 	public void setPointerIconTypeAppAppId(int appId) {
 		pointerIconTypeAppAppId = appId;
 	}

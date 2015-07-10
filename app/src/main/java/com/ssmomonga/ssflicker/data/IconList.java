@@ -1,9 +1,9 @@
 package com.ssmomonga.ssflicker.data;
 
-import com.ssmomonga.ssflicker.R;
-
 import android.content.Context;
 import android.content.res.Resources;
+
+import com.ssmomonga.ssflicker.R;
 
 public class IconList {
 	
@@ -25,7 +25,9 @@ public class IconList {
 	public static final int LABEL_ICON_TYPE_APPWIDGET = 5;		//アプリのウィジェットアイコン、ラベル
 	public static final int LABEL_ICON_TYPE_CUSTOM = 6;			//ポインタ、アプリのカスタム
 
-	//getIconTypeList
+/*
+ *	getIconTypeList()
+ */
 	public static CharSequence[] getIconTypeList(Context context, int iconTarget, int pointerType) {
 		Resources r = context.getResources();
 		
@@ -45,7 +47,9 @@ public class IconList {
 		}
 	}
 
-	
+/*
+ *	getOriginalIconList()
+ */
 	public static BaseData[] getOriginalIconList(Context context) {
 		Resources r = context.getResources();
 		return new BaseData[] {
@@ -80,7 +84,10 @@ public class IconList {
 		};
 	}
 
-	public static BaseData[] getAppIconsList (App[] appList) {
+/*
+ *	getAppIconsList()
+ */
+	public static BaseData[] getAppIconsList(App[] appList) {
 		BaseData[] icons = new BaseData[App.FLICK_APP_COUNT];
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
 			App app = appList[i];

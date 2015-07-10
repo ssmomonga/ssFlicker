@@ -1,11 +1,5 @@
 package com.ssmomonga.ssflicker.data;
 
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RecentTaskInfo;
 import android.appwidget.AppWidgetManager;
@@ -23,14 +17,23 @@ import com.ssmomonga.ssflicker.db.SQLiteDAO;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
 import com.ssmomonga.ssflicker.set.HomeKeySettings;
 
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+
 public class AppList {
 
 	private static final int RECENT_COUNT = 12;					//APP_COUNT + ssFlicker + anotherHome + 2
 	private static final int TASK_COUNT = 99;
 	private static final String TEXT_PLAIN = "text/plain";
 
-	//getIntentAppList()
-	public static App[] getIntentAppList (Context context, int intentType, int count) {
+/*
+ *	getIntentAppList()
+ */
+	public static App[] getIntentAppList(Context context, int intentType, int count) {
 		
 		ArrayList<App> appList = new ArrayList<App>();
 		SQLiteDAO sdao = null;
@@ -105,10 +108,11 @@ public class AppList {
 		
 		return appList.toArray(new App[count]);
 	}
-	
 
-	//getTaskAppList()
-	public static App[] getTaskAppList (Context context, int intentType) {
+/*
+ *	getTaskAppList()
+ */
+	public static App[] getTaskAppList(Context context, int intentType) {
 		ArrayList<App> appList = new ArrayList<App>();
 
 		PackageManager pm = context.getPackageManager();
@@ -116,14 +120,13 @@ public class AppList {
 		List<RecentTaskInfo> recentTaskList = null;
 		switch (intentType) {
 			case (IntentAppInfo.INTENT_APP_TYPE_RECENT):
-				recentTaskList = am.getRecentTasks(RECENT_COUNT, 0);			
+				recentTaskList = am.getRecentTasks(RECENT_COUNT, 0);
 				break;
 			case (IntentAppInfo.INTENT_APP_TYPE_TASK):
-				recentTaskList = am.getRecentTasks(TASK_COUNT, 0);			
+				recentTaskList = am.getRecentTasks(TASK_COUNT, 0);
 				break;
 		}
 		
-		//ssFlickerとアナザーホームのパッケージ名を取得
 		String thisPackageName = context.getPackageName();
 		String anotherHomePackageName = null;
 		App anotherHome = new HomeKeySettings(context).getAnotherHome();
@@ -169,11 +172,11 @@ public class AppList {
 		}
 		return appList.toArray(new App[App.FLICK_APP_COUNT]);
 	}
-	
 
-	//getAppWidgetList()
+/*
+ *	getAppWidgetList()
+ */
 	public static App[] getAppWidgetList(Context context) {
-
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 		List<AppWidgetProviderInfo> appWidgetProviderInfoList = appWidgetManager.getInstalledProviders();
 		Collections.sort(appWidgetProviderInfoList, new WidgetNameComparator(context));
@@ -209,9 +212,10 @@ public class AppList {
 		return appWidgetList.toArray(new App[0]);
 
 	}
-	
 
-	//WidgetNameComparator
+/*
+ *	WidgetNameComparator
+ */
 	public static class WidgetNameComparator implements Comparator<Object> {
 
 		private Context context;
@@ -244,7 +248,9 @@ public class AppList {
 		}
 	}
 	
-	//setFunctionList()
+/*
+ *	setFunctionList()
+ */
 	public static App[] getFunctionList(Context context) {
 		Resources r = context.getResources();
 		App[] functionAppList = {

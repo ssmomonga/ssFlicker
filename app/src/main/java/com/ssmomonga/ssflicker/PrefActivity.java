@@ -1,13 +1,5 @@
 package com.ssmomonga.ssflicker;
 
-import com.ssmomonga.ssflicker.db.PrefDAO;
-import com.ssmomonga.ssflicker.dlg.AboutDialog;
-import com.ssmomonga.ssflicker.dlg.BackupRestoreDialog;
-import com.ssmomonga.ssflicker.preference.ColorPreference;
-import com.ssmomonga.ssflicker.proc.Launch;
-import com.ssmomonga.ssflicker.set.DeviceSettings;
-import com.ssmomonga.ssflicker.set.InvisibleAppWidgetSettings;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.backup.BackupManager;
@@ -22,16 +14,23 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.SwitchPreference;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.ssmomonga.ssflicker.db.PrefDAO;
+import com.ssmomonga.ssflicker.dlg.AboutDialog;
+import com.ssmomonga.ssflicker.dlg.BackupRestoreDialog;
+import com.ssmomonga.ssflicker.preference.ColorPreference;
+import com.ssmomonga.ssflicker.proc.Launch;
+import com.ssmomonga.ssflicker.set.DeviceSettings;
+import com.ssmomonga.ssflicker.set.InvisibleAppWidgetSettings;
 
 public class PrefActivity extends Activity {
 
@@ -76,13 +75,18 @@ public class PrefActivity extends Activity {
 		}
 	};
 
+/*
+ *	oNCreate()
+ */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefFragment()).commit();
 	}
 	
-	//onKeyDown()
+/*
+ *	onKeyDown()
+ */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -91,7 +95,10 @@ public class PrefActivity extends Activity {
 		}
 		return false;
 	}
-	
+
+/*
+ *	onCreateOptionsMenu()
+ */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -99,17 +106,26 @@ public class PrefActivity extends Activity {
 		return true;
 	}
 
+/*
+ *	onOptionsItemSelected()
+ */
 	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.about) {
 			dialog = new AboutDialog(activity);
 			dialog.show();
 		}
 		return true;
-    }
+	}
 	
+/*
+ *	PrefFragment
+ */
 	public static class PrefFragment extends PreferenceFragment {
 
+/*
+ *	onCreate()
+ */
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -117,23 +133,29 @@ public class PrefActivity extends Activity {
 			activity = getActivity();
 			pdao = new PrefDAO(activity);
 			l = new Launch(activity);
-	      
+
 			bindOverlayServiceIntent = new Intent().setClass(activity, OverlayService.class);
-			
+
 			l.startStatusbar(pdao.isStatusbar());
 			l.startOverlayService(pdao.isOverlay());
 
 			setInitialLayout();
-	    }
-	    
+		}
+
+/*
+ *	onResume()
+ */
 		@Override
 		public void onResume() {
 			super.onResume();
-			if (pdao.isOverlay()) activity.bindService(bindOverlayServiceIntent, overlayServiceConn, BIND_AUTO_CREATE);
+			if (pdao.isOverlay()) activity.bindService(bindOverlayServiceIntent,
+					overlayServiceConn, BIND_AUTO_CREATE);
 			setLayout();
 		}
 		
-		
+/*
+ *	onPause()
+ */
 		@Override
 		public void onPause() {
 			super.onPause();
@@ -145,17 +167,19 @@ public class PrefActivity extends Activity {
 
 			activity.finish();
 		}
-		
-		
-		//onDestroy()
+
+/*
+ *	onDestry()
+ */
 		@Override
 		public void onDestroy() {
 			super.onDestroy();
 			new BackupManager(activity).dataChanged();
 		}
 
-
-		//PreferenceClickListener
+/*
+ *	PreferenceClickListener
+ */
 		private class PreferenceClickListener implements OnPreferenceClickListener {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
@@ -168,10 +192,11 @@ public class PrefActivity extends Activity {
 				return false;
 			}
 		}
-		
-		//setInitialLayout()
+
+/*
+ *	setInitialLayout()
+ */
 		private void setInitialLayout() {
-			
 			addPreferencesFromResource(R.xml.pref_activity);
 			
 			launch_by_default = (PreferenceScreen) findPreference(PrefDAO.LAUNCH_BY_DEFAULT);
@@ -227,11 +252,13 @@ public class PrefActivity extends Activity {
 				}
 			});
 		}
-		
-		
-		//setLayout()
-		private void setLayout() {
 
+/*
+ *	setLayout()
+ */
+		private void setLayout() {
+			setSummary(launch_by_default, null);
+			setSummary(launch_from_overlay, null);
 			setSummary(statusbar, pdao.isStatusbar());
 			setSummary(window_background_color, pdao.getWindowBackgroundColor());
 			setSummary(pointer_window_position_portrait, pdao.getRawPointerWindowPositionPortrait());
@@ -244,7 +271,7 @@ public class PrefActivity extends Activity {
 			setSummary(text_size, pdao.getRawTextSize());
 			
 			if (DeviceSettings.hasVibrator(activity)) {
-				setSummary(vibrate, pdao.isVibrate());			
+				setSummary(vibrate, pdao.isVibrate());
 			} else {
 				vibrate.setEnabled(false);
 				setSummary(vibrate, null);
@@ -253,7 +280,8 @@ public class PrefActivity extends Activity {
 			setSummary(statusbar_visibility, pdao.isStatusbarVisibility());
 
 			if (DeviceSettings.isInvisibleAppWidget(activity)) {
-				setSummary(invisible_appwidget_background_visibility, pdao.isInvisibleAppWidgetBackgroundVisibility());
+				setSummary(invisible_appwidget_background_visibility,
+						pdao.isInvisibleAppWidgetBackgroundVisibility());
 			} else {
 				invisible_appwidget_background_visibility.setEnabled(false);
 				setSummary(invisible_appwidget_background_visibility, null);
@@ -267,24 +295,23 @@ public class PrefActivity extends Activity {
 			}
 			
 			setSummary(donation, null);
-			
 		}
-		
-		
-		//PeferenceChangeListener
-		private class PreferenceChangeListener implements OnPreferenceChangeListener {
+
+/*
+ *	PreferenceChangeListener
+ */
+		private class PreferenceChangeListener implements Preference.OnPreferenceChangeListener {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				
 				setSummary(preference, newValue);
-				
+
 				if (preference == launch_by_default) {
 				} else if (preference == launch_from_overlay) {
 				} else if (preference == statusbar) {
-					if ((Boolean) newValue) {						
+					if ((Boolean) newValue) {
 						l.startStatusbar(true);
 					} else {
-						l.stopStatusbar();						
+						l.stopStatusbar();
 					}
 
 				} else if (preference == window_background_color) {
@@ -296,7 +323,6 @@ public class PrefActivity extends Activity {
 				} else if (preference == text_visibility) {
 				} else if (preference == text_color) {
 				} else if (preference == text_size) {
-
 				} else if (preference == vibrate) {
 					if (pdao.isOverlay()) {
 						Message msg = Message.obtain();
@@ -314,31 +340,30 @@ public class PrefActivity extends Activity {
 						}
 					}
 
+				} else if (preference == statusbar_visibility) {
 				} else if (preference == invisible_appwidget_background_visibility) {
-
 					AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(activity);
 					ComponentName compName = new ComponentName(activity, InvisibleAppWidget.class);
 					int appWidgetIds[] = appWidgetManager.getAppWidgetIds(compName);
 					InvisibleAppWidgetSettings settings = new InvisibleAppWidgetSettings((Boolean) newValue);
 					new InvisibleAppWidget().viewInvisibleAppWidget(activity, appWidgetManager, appWidgetIds, settings);
-					
+
 				} else if (preference == backup_restore) {
 				} else if (preference == donation) {
 				}
-				
+
 				return true;
 			}
 		}
-		
 
-		//setSummary()
-		private void setSummary (Preference preference, Object value) {
-
+/*
+ *	setSummary()
+ */
+		private void setSummary(Preference preference, Object value) {
 			if (preference == launch_by_default) {
 			} else if (preference == launch_from_overlay) {
 			} else if (preference == statusbar) {
 			} else if (preference == window_background_color || preference == text_color) {
-
 			} else if (preference == pointer_window_position_portrait || preference == pointer_window_position_landscape) {
 				switch (Integer.parseInt((String) value)) {
 					case 19:
@@ -369,7 +394,7 @@ public class PrefActivity extends Activity {
 						preference.setSummary(getString(R.string.center));
 						break;
 				}
-			
+
 			} else if (preference == dock_window_position_portrait || preference == dock_window_position_landscape) {
 				switch (Integer.parseInt((String) value)) {
 					case 3:
@@ -406,7 +431,7 @@ public class PrefActivity extends Activity {
 				}
 				
 			} else if (preference == text_visibility) {
-
+			} else if (preference == text_color) {
 			} else if (preference == text_size) {
 				switch (Integer.parseInt((String) value)) {
 					case 10:
@@ -419,14 +444,13 @@ public class PrefActivity extends Activity {
 						text_size.setSummary(getString(R.string.text_size_large));
 						break;
 				}
-				
+
 			} else if (preference == vibrate) {
 				if (value == null) {
 					preference.setSummary(R.string.no_vibrator);
 				}
 
 			} else if (preference == statusbar_visibility) {
-				
 			} else if (preference == invisible_appwidget_background_visibility) {
 				if (value != null) {
 					if ((Boolean) value) {

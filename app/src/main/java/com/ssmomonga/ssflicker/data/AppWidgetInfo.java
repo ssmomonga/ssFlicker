@@ -1,9 +1,5 @@
 package com.ssmomonga.ssflicker.data;
 
-import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.proc.ImageConverter;
-import com.ssmomonga.ssflicker.set.DeviceSettings;
-
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
@@ -14,6 +10,10 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+
+import com.ssmomonga.ssflicker.R;
+import com.ssmomonga.ssflicker.proc.ImageConverter;
+import com.ssmomonga.ssflicker.set.DeviceSettings;
 
 public class AppWidgetInfo {
 
@@ -27,8 +27,11 @@ public class AppWidgetInfo {
 	private Bitmap previewImage;
 
 	private AppWidgetProviderInfo appWidgetProviderInfo;
-	
-	public AppWidgetInfo (Context context, int appWidgetId, int appWidgetCellPositionX, int appWidgetCellPositionY, 
+
+/*
+ *	Constructor
+ */
+	public AppWidgetInfo(Context context, int appWidgetId, int appWidgetCellPositionX, int appWidgetCellPositionY,
 			int appWidgetCellWidth, int appWidgetCellHeight, long appWidgetUpdateTime) {
 		this.context = context;
 		this.appWidgetId = appWidgetId;
@@ -39,19 +42,27 @@ public class AppWidgetInfo {
 		this.appWidgetUpdateTime = appWidgetUpdateTime;
 		appWidgetProviderInfo = AppWidgetManager.getInstance(context).getAppWidgetInfo(appWidgetId);
 	}
-	
-	public AppWidgetInfo (Context context, AppWidgetProviderInfo info) {
+
+/*
+ *	Constructor
+ */
+	public AppWidgetInfo(Context context, AppWidgetProviderInfo info) {
 		this.context = context;
 		this.appWidgetProviderInfo = info;
 	}
-	
-	public AppWidgetInfo (Context context, AppWidgetProviderInfo info, int flag) {
+
+/*
+ *	Constructor
+ */
+	public AppWidgetInfo(Context context, AppWidgetProviderInfo info, int flag) {
 		this.context = context;
 		this.appWidgetProviderInfo = info;
 		this.previewImage = createAppWidgetPreviewImage();
 	}
 	
-	
+/*
+ *	getAppWidgetRawLabel()
+ */
 	public String getAppWidgetRawLabel() {
 		if (appWidgetProviderInfo != null) {
 			return appWidgetProviderInfo.loadLabel(context.getPackageManager()).replaceAll("\n", " ");
@@ -60,58 +71,96 @@ public class AppWidgetInfo {
 		}
 	}
 
+/*
+ *	getAppWidgetRawIcon()
+ */
 	public Drawable getAppWidgetRawIcon() {
-		if (appWidgetProviderInfo != null) {
+		return appWidgetProviderInfo != null ?
+				context.getPackageManager().getDrawable(appWidgetProviderInfo.provider.getPackageName(), appWidgetProviderInfo.icon, null) :
+						context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
+
+/*		if (appWidgetProviderInfo != null) {
 			return context.getPackageManager().getDrawable(appWidgetProviderInfo.provider.getPackageName(), appWidgetProviderInfo.icon, null);
 		} else {
 			return context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
-		}
+		} */
 	}
 
-	//getAppWidgetProviderInfo()
+/*
+ *	getAppWidgetProviderInfo()
+ */
 	public AppWidgetProviderInfo getAppWidgetProviderInfo() {
 		return appWidgetProviderInfo;
 	}
 
-	//getAppWidgetId()
+/*
+ *	getAppWidgetId()
+ */
 	public int getAppWidgetId() {
 		return appWidgetId;
 	}
 
+/*
+ *	getAppWidgetCellPosition()
+ */
 	public int[] getAppWidgetCellPosition() {
 		return new int[] {appWidgetCellPositionX, appWidgetCellPositionY};
 	}
-	
+
+/*
+ *	getAppWidgetCellSize()
+ */
 	public int[] getAppWidgetCellSize() {
 		return new int[] {appWidgetCellWidth, appWidgetCellHeight};
 	}
-		
+
+/*
+ *	getAppWidgetUpdateTime()
+ */
 	public long getAppWidgetUpdateTime() {
 		return appWidgetUpdateTime;
 	}
-		
-	public void setAppWidgetCellPosition (int appWidgetCellPositionX, int appWidgetCellPositionY) {
+
+/*
+ *	setAppWidgetCellPosition()
+ */
+	public void setAppWidgetCellPosition(int appWidgetCellPositionX, int appWidgetCellPositionY) {
 		this.appWidgetCellPositionX = appWidgetCellPositionX;
 		this.appWidgetCellPositionY = appWidgetCellPositionY;
 	}
 
-	public void setAppWidgetCellSize (int appWidgetCellWidth, int appWidgetCellHeight) {
+/*
+ *	setAppWidgetCellSize()
+ */
+	public void setAppWidgetCellSize(int appWidgetCellWidth, int appWidgetCellHeight) {
 		this.appWidgetCellWidth = appWidgetCellWidth;
 		this.appWidgetCellHeight = appWidgetCellHeight;
 	}
 
+/*
+ *	setAppWidgetUpdateTime()
+ */
 	public void setAppWidgetUpdateTime(long appWidgetUpdateTime) {
 		this.appWidgetUpdateTime = appWidgetUpdateTime;
 	}
-	
+
+/*
+ *	getAppWidgetResizeMode()
+ */
 	public int getAppWidgetResizeMode() {
-		if (appWidgetProviderInfo != null) {
+		return appWidgetProviderInfo != null ?
+				appWidgetProviderInfo.resizeMode : AppWidgetProviderInfo.RESIZE_NONE;
+
+/*		if (appWidgetProviderInfo != null) {
 			return appWidgetProviderInfo.resizeMode;
 		} else {
 			return AppWidgetProviderInfo.RESIZE_NONE;
-		}
+		} */
 	}
-	
+
+/*
+ *	getAppWidgetMinResizeCellSize()
+ */
 	public int[] getAppWidgetMinResizeCellSize() {
 		if (appWidgetProviderInfo != null) {
 			try {
@@ -124,7 +173,10 @@ public class AppWidgetInfo {
 			return new int[] {1, 1};
 		}
 	}
-	
+
+/*
+ *	getAppWidgetMinCellSize()
+ */
 	public int[] getAppWidgetMinCellSize() {
 		if (appWidgetProviderInfo != null) {
 			try {
@@ -138,12 +190,17 @@ public class AppWidgetInfo {
 		}		
 	}
 	
-	
+/*
+ *	getAppWidgetMinCellSizeString()
+ */
 	public String getAppWidgetMinCellSizeString() {
 		int[] minCellSize = getAppWidgetMinCellSize();
 		return minCellSize[0] + " × " + minCellSize[1];
 	}
 
+/*
+ *	createAppWidgetPreviewImage()
+ */
 	private Bitmap createAppWidgetPreviewImage() {
 		if (appWidgetProviderInfo != null) {
 			if (appWidgetProviderInfo.previewImage != 0) {
@@ -160,18 +217,25 @@ public class AppWidgetInfo {
 		}
 		
 	}
-	
+
+/*
+ *	getAppWidgetPreviewImage()
+ */
 	public Bitmap getAppWidgetPreviewImage() {
-		if (previewImage != null) {
+		return previewImage != null ? previewImage : createAppWidgetPreviewImage();
+
+/*		if (previewImage != null) {
 			return previewImage;
 		} else {
 			return createAppWidgetPreviewImage();
-		}
+		} */
 	
 	}
 	
-	
-	private int[] toCellSize (double width, double height) throws NameNotFoundException {
+/*
+ *	toCellSize()
+ */
+	private int[] toCellSize(double width, double height) throws NameNotFoundException {
 
 		PackageManager manager = context.getPackageManager();
 		ApplicationInfo ai = manager.getApplicationInfo(appWidgetProviderInfo.provider.getPackageName(), PackageManager.GET_META_DATA);
