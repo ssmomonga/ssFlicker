@@ -24,8 +24,10 @@ public class ColorPickerSettings {
 	private static boolean overlay;
 	private static int overlayPointBackgroundColor;
 	
-	//コンストラクタ
-	public ColorPickerSettings (Context context) {
+	/*
+	 * Constructor
+	 */
+	public ColorPickerSettings(Context context) {
 		this.context = context;
 		PrefDAO pdao = new PrefDAO(context);
 		fillLP(pdao);
@@ -38,8 +40,10 @@ public class ColorPickerSettings {
 		overlayPointBackgroundColor = pdao.getOverlayPointBackgroundColor();
 	}
 	
-	//コンストラクタ
-	public ColorPickerSettings (Context context, int iconColor) {
+	/*
+	 * Constructor
+	 */
+	public ColorPickerSettings(Context context, int iconColor) {
 		this.context = context;
 		PrefDAO pdao = new PrefDAO(context);
 		fillLP(pdao);
@@ -52,7 +56,9 @@ public class ColorPickerSettings {
 		overlayPointBackgroundColor = pdao.getOverlayPointBackgroundColor();
 	}
 	
-	//fillLP
+	/*
+	 * fillLP()
+	 */
 	private void fillLP(PrefDAO pdao) {
 		int iconSize = pdao.getIconSize();
 		int textSize = pdao.getTextSize();
@@ -60,22 +66,30 @@ public class ColorPickerSettings {
 		textLP =  new LinearLayout.LayoutParams(iconSize + textSize, LayoutParams.WRAP_CONTENT);
 	}
 
-	//getIconLP()
+	/*
+	 * getIconLP()
+	 */
 	public LinearLayout.LayoutParams getIconLP() {
 		return iconLP;
 	}
 	
-	//getTextLP()
+	/*
+	 * getTextLP()
+	 */
 	public LinearLayout.LayoutParams getTextLP() {
 		return textLP;
 	}
 	
-	//getWindowBackgroundColor()
+	/*
+	 * getWindowBackgroundColor()
+	 */
 	public int getWindowBackgroundColor() {
 		return windowBackgroundColor;
 	}
 	
-	//getWindowBackground()
+	/*
+	 * getWindowBackground()
+	 */
 	public Drawable getWindowBackground() {
 		int strokeThickness = 0;
 		int strokeRGB = 16777215;
@@ -88,58 +102,80 @@ public class ColorPickerSettings {
 		return windowBackground;
 	}
 	
-	//getIconColor()
+	/*
+	 * getIconColor()
+	 */
 	public int getIconColor() {
 		return iconColor;
 	}
 
-	//getIcon()
+	/*
+	 * getIcon()
+	 */
 	public Drawable getIcon() {
 		return context.getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null);
 //		return ImageConverter.changeIconColor(context, context.getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null), iconColor);
 	}
 	
-	//isTextVisibility()
+	/*
+	 * isTextVisibility()
+	 */
 	public boolean isTextVisibility() {
 		return textVisibility;
 	}
 	
-	//getTextColor()
+	/*
+	 * getTextColor()
+	 */
 	public int getTextColor() {
 		return textColor;
 	}
 	
-	//getTextSize()
+	/*
+	 * getTextSize()
+	 */
 	public int getTextSize() {
 		return textSize;
 	}
 	
-	//isOverlay()
+	/*
+	 * isOverlay()
+	 */
 	public boolean isOverlay() {
 		return overlay;
 	}
 	
-	//getOverlayPointBackgroundColor()
+	/*
+	 * getOverlayPointBackgroundColor()
+	 */
 	public int getOverlayPointBackgroundColor() {
 		return overlayPointBackgroundColor;
 	}
 	
-	//setIconColor()
+	/*
+	 * setIconColor()
+	 */
 	public void setIconColor(int newColor) {
 		iconColor = newColor;
 	}
 	
-	//setTextColor()
+	/*
+	 * setTextColor()
+	 */
 	public void setTextColor(int newColor) {
 		textColor = newColor;
 	}
 	
-	//getWindowBackground()
-	public void setWindowBackgroundColor (int newColor) {
+	/*
+	 * getWindowBackground()
+	 */
+	public void setWindowBackgroundColor(int newColor) {
 		windowBackgroundColor = newColor;
 	}
 	
-	//setOverlayPointBackgroundColor()
+	/*
+	 * setOverlayPointBackgroundColor()
+	 */
 	public void setOverlayPointBackgroundColor(int newColor) {
 		overlayPointBackgroundColor = newColor;
 	}

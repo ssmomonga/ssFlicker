@@ -88,9 +88,9 @@ public class DonateActivity extends Activity {
 		}  
 	};
 
-/*
- *	onCreate()
- */
+	/*
+	 * onCreate()
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -107,9 +107,9 @@ public class DonateActivity extends Activity {
 		
 	}
 
-/*
- *	isBillingSupported()
- */
+	/*
+	 * isBillingSupported()
+	 */
 	private boolean isBillingSupported() throws RemoteException {
 		//課金をサポートしているか確認
 		int isBillingSupported = mService.isBillingSupported(API_VERSION, packageName, ITEM_TYPE_INAPP);
@@ -117,9 +117,9 @@ public class DonateActivity extends Activity {
 			
 	}
 
-/*
- *	GetSkuDetailsTask
- */
+	/*
+	 * GetSkuDetailsTask
+	 */
 	private class GetSkuDetailsTask extends AsyncTask<Void, Void, Bundle> {
 		
 		private Context context;
@@ -205,9 +205,9 @@ public class DonateActivity extends Activity {
 	    }
 	}
 
-/*
- *	getSkuDetails()
- */
+	/*
+	 * getSkuDetails()
+	 */
 	private Bundle getSkuDetails(String productId) throws RemoteException {
 		//商品詳細を取得
 		ArrayList<String> skuList = new ArrayList<String>();
@@ -219,9 +219,9 @@ public class DonateActivity extends Activity {
 	}
 	
 	
-/*
- *	isOwned()
- */
+	/*
+	 * isOwned()
+	 */
 	private boolean isOwned(String productId) throws RemoteException, JSONException {
 		
 		//購入済か確認
@@ -243,9 +243,9 @@ public class DonateActivity extends Activity {
 
 	}
 
-/*
- * setLayout()
- */
+	/*
+	 * setLayout()
+	 */
 	private void setLayout(String price) {
 		
 		setContentView(R.layout.donate_activity);
@@ -312,9 +312,9 @@ public class DonateActivity extends Activity {
 
 	}
 	
-/*
- *	setVisibility()
- */
+	/*
+	 * setVisibility()
+	 */
 	private void setVisibility(boolean isOwned) {
 		if (!isOwned) {
 			tv_please.setVisibility(View.VISIBLE);
@@ -331,9 +331,9 @@ public class DonateActivity extends Activity {
 		
 	}
 	
-/*
- *	onActivityResult()
- */
+	/*
+	 * onActivityResult()
+	 */
 	@Override
 	public void onActivityResult(final int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -360,27 +360,27 @@ public class DonateActivity extends Activity {
 		}
 	}
 
-/*
- *	errorIab()
- */
+	/*
+	 * errorIab()
+	 */
 	private void errorIab(int responseCode) {
 		Toast.makeText(DonateActivity.this, R.string.error_iab, Toast.LENGTH_SHORT).show();
 		finish();
 		l.launchPrefActivity();
 	}
 
-/*
- *	onDestroy()
- */
+	/*
+	 * onDestroy()
+	 */
 	@Override  
 	public void onDestroy() {  
 		super.onDestroy();
 		if (mServiceConn != null) unbindService(mServiceConn);
 	}
 
-/*
- *	onKeyDown()
- */
+	/*
+	 * onKeyDown()
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {

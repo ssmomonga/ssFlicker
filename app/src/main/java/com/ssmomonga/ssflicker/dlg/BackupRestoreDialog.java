@@ -1,11 +1,5 @@
 package com.ssmomonga.ssflicker.dlg;
 
-import java.io.IOException;
-
-import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.proc.BackupRestore;
-import com.ssmomonga.ssflicker.set.DeviceSettings;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -19,6 +13,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ssmomonga.ssflicker.R;
+import com.ssmomonga.ssflicker.proc.BackupRestore;
+import com.ssmomonga.ssflicker.set.DeviceSettings;
+
+import java.io.IOException;
+
 public class BackupRestoreDialog extends AlertDialog{
 	
 	private Context context;
@@ -28,7 +28,10 @@ public class BackupRestoreDialog extends AlertDialog{
 	private static BackupRestore backup;
 	
 	private static Dialog confirmDialog;
-	
+
+	/*
+	 * Constructor
+	 */
 	public BackupRestoreDialog (Context context) {
 		super(context);
 		this.context = context;
@@ -36,8 +39,10 @@ public class BackupRestoreDialog extends AlertDialog{
 		backup = new BackupRestore(context);
 		setInitialLayout();
 	}
-			
-	//setInitialLyout()
+
+	/*
+	 * setInitialLayout()
+	 */
 	private void setInitialLayout() {
 
 		setTitle(R.string.backup_restore);
@@ -96,7 +101,10 @@ public class BackupRestoreDialog extends AlertDialog{
 		});
 		
 	}
-		
+
+	/*
+	 * setAdapter()
+	 */
 	private void setAdapter() {
 		ArrayAdapter<String> adapter = backup.getBackupFileList();
 		sp_select_restore_file = (Spinner) view.findViewById(R.id.sp_select_restore_file);
@@ -104,7 +112,9 @@ public class BackupRestoreDialog extends AlertDialog{
 		sp_select_restore_file.setAdapter(adapter);
 	}
 	
-	
+	/*
+	 * dismiss()
+	 */
 	@Override
 	public void dismiss() {
 		super.dismiss();
@@ -113,9 +123,9 @@ public class BackupRestoreDialog extends AlertDialog{
 	
 		
 	
-/*
- * 		ConfirmDialog
- */
+	/*
+	 * ConfirmDialog
+	 */
 	private class ComfirmDialog extends AlertDialog {
 		
 		private ComfirmDialog(int radioButtonId) {

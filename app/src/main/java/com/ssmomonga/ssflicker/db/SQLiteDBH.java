@@ -40,9 +40,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	public static final String APP_TABLE_8 = "app_table_8";
 	public static final String APP_CACHE_TABLE_8 = "app_cache_table_8";
 	
-/*
- * PointerTableColumnName_1
- */
+	/*
+	 * PointerTableColumnName_1
+	 */
 	public class PointerTableColumnName_1 {
 		public static final String POINTER_ID = "column0";								//integer	primary key
 		public static final String POINTER_TYPE = "column1";							//integer	not null
@@ -58,9 +58,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		public static final String FLOAT_POINT_WIDTH = "column10";						//integer	未使用
 	}
 
-/*
- * AppTableColumnName_1
- */
+	/*
+	 * AppTableColumnName_1
+	 */
 	public class AppTableColumnName_1 {
 		public static final String POINTER_ID = "column0";						//integer	primary key
 		public static final String APP_ID = "column1";							//integer	primary key
@@ -84,9 +84,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		public static final String FLOAT_POINT_WIDTH = "column17";				//integer	未使用
 	}
 	
-/*
- * PointerTableColumnName_8
- */
+	/*
+	 * PointerTableColumnName_8
+	 */
 	public class PointerTableColumnName_8 {
 		public static final String POINTER_ID = "column_0";								//integer	primary key
 		public static final String POINTER_TYPE = "column_1";							//integer	not null
@@ -96,9 +96,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		public static final String POINTER_ICON_TYPE_APP_APP_ID = "column_5";			//integer
 	}
 
-/*
- * AppTableColumnName_8
- */
+	/*
+	 * AppTableColumnName_8
+	 */
 	public class AppTableColumnName_8 {
 		public static final String POINTER_ID = "column_0";						//integer	primary key
 		public static final String APP_ID = "column_1";							//integer	primary key
@@ -119,9 +119,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		public static final String FUNCTION_TYPE = "column_16";					//integer
 	}
 
-/*
- * AppCacheTableColumnName_8
- */
+	/*
+	 * AppCacheTableColumnName_8
+	 */
 	public class AppCacheTableColumnName_8 {
 		public static final String PACKAGE_NAME = "column_0";					//text	not null
 		public static final String APP_LABEL = "column_1";						//text	not null
@@ -129,17 +129,17 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		public static final String INTENT_URI = "column_3";						//text	not null
 	}
 
-/*
- *	Constructor
- */
+	/*
+	 * Constructor
+	 */
 	public SQLiteDBH(Context context) {
 		super(context, DATABASE_FILE_NAME, null, DATABASE_VERSION);
 		this.context = context;
 	}
 
-/*
- * onCreate()
- */
+	/*
+	 * onCreate()
+	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
@@ -160,9 +160,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		
 	}
 
-/*
- * onUpdate()
- */
+	/*
+	 * onUpdate()
+	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		
@@ -234,34 +234,34 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	private static final String DROP_APP_TABLE_TEMPLATE_3 = "drop table if exists " + APP_TABLE_1;
 	
 	private static final String CREATE_POINTER_TABLE_TEMPLATE_3 =
-		"create table " + POINTER_TABLE_1 + " (" + 
-		PointerTableColumnName_1.POINTER_ID + " integer primary key," +
-		PointerTableColumnName_1.POINTER_TYPE + " integer not null," +
-		PointerTableColumnName_1.POINTER_LABEL + " text," +
-		PointerTableColumnName_1.POINTER_ICON + " blob," +
-		PointerTableColumnName_1.POINTER_ICON_PRESSED + " blob" +
-		")";
+			"create table " + POINTER_TABLE_1 + " (" +
+			PointerTableColumnName_1.POINTER_ID + " integer primary key," +
+			PointerTableColumnName_1.POINTER_TYPE + " integer not null," +
+			PointerTableColumnName_1.POINTER_LABEL + " text," +
+			PointerTableColumnName_1.POINTER_ICON + " blob," +
+			PointerTableColumnName_1.POINTER_ICON_PRESSED + " blob" +
+			")";
 	
 	private static final String CREATE_APP_TABLE_TEMPLATE_3 =
-		"create table " + APP_TABLE_1 + " (" + 
-		AppTableColumnName_1.POINTER_ID + " integer," +
-		AppTableColumnName_1.APP_ID + " integer," +
-		AppTableColumnName_1.APP_TYPE + " integer not null," +
-		AppTableColumnName_1.APP_LABEL + " text," +
-		AppTableColumnName_1.APP_ICON + " blob," +
-		AppTableColumnName_1.INTENT_APP_TYPE + " integer," +
-		AppTableColumnName_1.INTENT_URI + " text," +
-		AppTableColumnName_1.APPWIDGET_ID + " integer," +
-		AppTableColumnName_1.APPWIDGET_CELL_POSITION_X + " integer," +
-		AppTableColumnName_1.APPWIDGET_CELL_POSITION_Y + " integer," +
-		AppTableColumnName_1.APPWIDGET_UPDATE_TIME + " integer," +
-		AppTableColumnName_1.FUNCTION_TYPE + " integer," +
-		"primary key (" + AppTableColumnName_1.POINTER_ID + "," + AppTableColumnName_1.APP_ID + ")" +
-		")";
+			"create table " + APP_TABLE_1 + " (" +
+			AppTableColumnName_1.POINTER_ID + " integer," +
+			AppTableColumnName_1.APP_ID + " integer," +
+			AppTableColumnName_1.APP_TYPE + " integer not null," +
+			AppTableColumnName_1.APP_LABEL + " text," +
+			AppTableColumnName_1.APP_ICON + " blob," +
+			AppTableColumnName_1.INTENT_APP_TYPE + " integer," +
+			AppTableColumnName_1.INTENT_URI + " text," +
+			AppTableColumnName_1.APPWIDGET_ID + " integer," +
+			AppTableColumnName_1.APPWIDGET_CELL_POSITION_X + " integer," +
+			AppTableColumnName_1.APPWIDGET_CELL_POSITION_Y + " integer," +
+			AppTableColumnName_1.APPWIDGET_UPDATE_TIME + " integer," +
+			AppTableColumnName_1.FUNCTION_TYPE + " integer," +
+			"primary key (" + AppTableColumnName_1.POINTER_ID + "," + AppTableColumnName_1.APP_ID + ")" +
+			")";
 
-/*
- *	createTable_3()
- */
+	/*
+	 * createTable_3()
+	 */
 	private void createTable_3(SQLiteDatabase db) {
 		db.execSQL(DROP_POINTER_TABLE_TEMPLATE_3);
 		db.execSQL(DROP_APP_TABLE_TEMPLATE_3);
@@ -269,9 +269,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		db.execSQL(CREATE_APP_TABLE_TEMPLATE_3);
 	}
 
-/*
- * insertPointerTable_3()
- */
+	/*
+	 * insertPointerTable_3()
+	 */
 	public void insertPointerTable_3(SQLiteDatabase db) {
 		ContentValues[] cv = new ContentValues[Pointer.FLICK_POINTER_COUNT];
 		Resources r = context.getResources();
@@ -320,9 +320,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		}
 	}
 
-/*
- * insertAppTable_3()
- */
+	/*
+	 * insertAppTable_3()
+	 */
 	private void insertAppTable_3(SQLiteDatabase db) {
 		ContentValues cv = new ContentValues();
 		Resources r = context.getResources();
@@ -405,24 +405,24 @@ public class SQLiteDBH extends SQLiteOpenHelper {
  * DATABASE_VERSION_4
  */
 	private static final String[] ALTER_POINTER_TABLE_TEMPLATE_4 = {
-		"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_TYPE + " integer",
-		"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_TYPE_APP_APP_ID + " integer",
-		"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_PRESSED_TYPE + " integer",
-		"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_PRESSED_TYPE_APP_APP_ID + " integer",
-		"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.FLOAT_POINT_PATTERN + " integer",
-		"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.FLOAT_POINT_WIDTH + " integer" };
+			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_TYPE + " integer",
+			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_TYPE_APP_APP_ID + " integer",
+			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_PRESSED_TYPE + " integer",
+			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_PRESSED_TYPE_APP_APP_ID + " integer",
+			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.FLOAT_POINT_PATTERN + " integer",
+			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.FLOAT_POINT_WIDTH + " integer" };
 
 	private static final String[] ALTER_APP_TABLE_TEMPLATE_4 = {
-		"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.APPWIDGET_CELL_WIDTH + " integer",
-		"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.APPWIDGET_CELL_HEIGHT + " integer",
-		"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.APP_LABEL_TYPE + " integer",
-		"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.APP_ICON_TYPE + " integer",
-		"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.FLOAT_POINT_PATTERN + " integer",
-		"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.FLOAT_POINT_WIDTH + " integer" };
+			"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.APPWIDGET_CELL_WIDTH + " integer",
+			"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.APPWIDGET_CELL_HEIGHT + " integer",
+			"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.APP_LABEL_TYPE + " integer",
+			"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.APP_ICON_TYPE + " integer",
+			"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.FLOAT_POINT_PATTERN + " integer",
+			"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.FLOAT_POINT_WIDTH + " integer" };
 
-/*
- * alterTable_4(9
- */
+	/*
+	 * alterTable_4()
+	 */
 	private void alterTable_4(SQLiteDatabase db) {
 		for (String str: ALTER_POINTER_TABLE_TEMPLATE_4) db.execSQL(str);
 		for (String str: ALTER_APP_TABLE_TEMPLATE_4) db.execSQL(str);
@@ -434,9 +434,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	private static final String[] ALTER_APP_TABLE_TEMPLATE_5 = {
 		"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.PACKAGE_NAME + " text"};
 
-/*
- * updateTable_5()
- */
+	/*
+	 * updateTable_5()
+	 */
 	private void updateTable_5(SQLiteDatabase db) {
 
 		//タスクポインタ削除 v60で削除させていたけど、v61で復活
@@ -525,9 +525,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 /*
  * DATABASE_VERSION_6
  */
-/*
- * clearPref_6()
- */
+	/*
+	 * clearPref_6()
+	 */
 	private void clearPref_6() {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		Editor editor = prefs.edit();
@@ -543,9 +543,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 /*
  * DATABASE_VERSION_7
  */
-/*
- * updateTable_7()
- */
+	/*
+	 * updateTable_7()
+	 */
 	private void updateTable_7(SQLiteDatabase db) {
 
 		String whereClause;
@@ -599,36 +599,36 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	private static final String DROP_APP_CACHE_TABLE_TEMPLATE_8 = "drop table if exists " + APP_CACHE_TABLE_8;
 	
 	private static final String CREATE_POINTER_TABLE_TEMPLATE_8 =
-		"create table " + POINTER_TABLE_8 + " (" + 
-		PointerTableColumnName_8.POINTER_ID + " integer primary key," +
-		PointerTableColumnName_8.POINTER_TYPE + " integer not null," +
-		PointerTableColumnName_8.POINTER_LABEL + " text not null," +
-		PointerTableColumnName_8.POINTER_ICON + " blob not null," +
-		PointerTableColumnName_8.POINTER_ICON_TYPE + " integer not null," +
-		PointerTableColumnName_8.POINTER_ICON_TYPE_APP_APP_ID + " integer" +
-		")";
+			"create table " + POINTER_TABLE_8 + " (" +
+			PointerTableColumnName_8.POINTER_ID + " integer primary key," +
+			PointerTableColumnName_8.POINTER_TYPE + " integer not null," +
+			PointerTableColumnName_8.POINTER_LABEL + " text not null," +
+			PointerTableColumnName_8.POINTER_ICON + " blob not null," +
+			PointerTableColumnName_8.POINTER_ICON_TYPE + " integer not null," +
+			PointerTableColumnName_8.POINTER_ICON_TYPE_APP_APP_ID + " integer" +
+			")";
 
 	private static final String CREATE_APP_TABLE_TEMPLATE_8 =
-		"create table " + APP_TABLE_8 + " (" + 
-		AppTableColumnName_8.POINTER_ID + " integer," +
-		AppTableColumnName_8.APP_ID + " integer," +
-		AppTableColumnName_8.APP_TYPE + " integer not null," +
-		AppTableColumnName_8.PACKAGE_NAME + " text," +
-		AppTableColumnName_8.APP_LABEL + " text not null," +
-		AppTableColumnName_8.APP_LABEL_TYPE + " integer not null," +
-		AppTableColumnName_8.APP_ICON + " blob not null," +
-		AppTableColumnName_8.APP_ICON_TYPE + " integer not null," +
-		AppTableColumnName_8.INTENT_APP_TYPE + " integer," +
-		AppTableColumnName_8.INTENT_URI + " text," +
-		AppTableColumnName_8.APPWIDGET_ID + " integer," +
-		AppTableColumnName_8.APPWIDGET_CELL_POSITION_X + " integer," +
-		AppTableColumnName_8.APPWIDGET_CELL_POSITION_Y + " integer," +
-		AppTableColumnName_8.APPWIDGET_CELL_WIDTH + " integer," +
-		AppTableColumnName_8.APPWIDGET_CELL_HEIGHT + " integer," +
-		AppTableColumnName_8.APPWIDGET_UPDATE_TIME + " integer," +
-		AppTableColumnName_8.FUNCTION_TYPE + " integer," +
-		"primary key (" + AppTableColumnName_8.POINTER_ID + "," + AppTableColumnName_8.APP_ID + ")" +
-		")";
+			"create table " + APP_TABLE_8 + " (" +
+			AppTableColumnName_8.POINTER_ID + " integer," +
+			AppTableColumnName_8.APP_ID + " integer," +
+			AppTableColumnName_8.APP_TYPE + " integer not null," +
+			AppTableColumnName_8.PACKAGE_NAME + " text," +
+			AppTableColumnName_8.APP_LABEL + " text not null," +
+			AppTableColumnName_8.APP_LABEL_TYPE + " integer not null," +
+			AppTableColumnName_8.APP_ICON + " blob not null," +
+			AppTableColumnName_8.APP_ICON_TYPE + " integer not null," +
+			AppTableColumnName_8.INTENT_APP_TYPE + " integer," +
+			AppTableColumnName_8.INTENT_URI + " text," +
+			AppTableColumnName_8.APPWIDGET_ID + " integer," +
+			AppTableColumnName_8.APPWIDGET_CELL_POSITION_X + " integer," +
+			AppTableColumnName_8.APPWIDGET_CELL_POSITION_Y + " integer," +
+			AppTableColumnName_8.APPWIDGET_CELL_WIDTH + " integer," +
+			AppTableColumnName_8.APPWIDGET_CELL_HEIGHT + " integer," +
+			AppTableColumnName_8.APPWIDGET_UPDATE_TIME + " integer," +
+			AppTableColumnName_8.FUNCTION_TYPE + " integer," +
+			"primary key (" + AppTableColumnName_8.POINTER_ID + "," + AppTableColumnName_8.APP_ID + ")" +
+			")";
 
 	private static final String CREATE_APP_CACHE_TABLE_TEMPLATE_8 =
 			"create table " + APP_CACHE_TABLE_8 + " (" + 
@@ -638,9 +638,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 			AppCacheTableColumnName_8.INTENT_URI + " text not null" +
 			")";
 
-/*
- * createTable_8()
- */
+	/*
+	 * createTable_8()
+	 */
 	private void createTable_8(SQLiteDatabase db) {
 		db.execSQL(DROP_POINTER_TABLE_TEMPLATE_8);
 		db.execSQL(DROP_APP_TABLE_TEMPLATE_8);
@@ -650,9 +650,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		db.execSQL(CREATE_APP_CACHE_TABLE_TEMPLATE_8);
 	}
 
-/*
- * insertPointerTable_8()
- */
+	/*
+	 * insertPointerTable_8()
+	 */
 	public void insertPointerTable_8(SQLiteDatabase db) {
 		ContentValues[] cv = new ContentValues[Pointer.FLICK_POINTER_COUNT];
 		Resources r = context.getResources();
@@ -701,9 +701,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		}
 	}
 
-/*
- * insertAppTable_8()
- */
+	/*
+	 * insertAppTable_8()
+	 */
 	private void insertAppTable_8(SQLiteDatabase db) {
 		ContentValues cv = new ContentValues();
 		Resources r = context.getResources();
@@ -796,9 +796,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		}
 	}
 	
-/*
- * backupPointerTable()
- */
+	/*
+	 * backupPointerTable()
+	 */
 	private Pointer[] backupPointerTable_8(SQLiteDatabase db) {
 		
 		Cursor c = db.query(SQLiteDBH.POINTER_TABLE_1, null, null, null, null, null, null);
@@ -815,9 +815,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		
 	}
 
-/*
- * backupAppTable()
- */
+	/*
+	 * backupAppTable()
+	 */
 	private App[][] backupAppTable_8(SQLiteDatabase db) {
 		
 		Cursor c = db.query(SQLiteDBH.APP_TABLE_1, null, null, null, null, null, null);
@@ -835,9 +835,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		
 	}
 	
-/*
- * createPointer()
- */
+	/*
+	 * createPointer()
+	 */
 	private Pointer createPointer(Cursor c) {
 	
 		return new Pointer(
@@ -849,9 +849,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 				);
 	}
 
-/*
- * createApp
- */
+	/*
+	 * createApp()
+	 */
 	private App createApp(Cursor c) {
 		
 		int AppType = c.getInt(c.getColumnIndex(AppTableColumnName_1.APP_TYPE));
@@ -903,9 +903,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		}
 	}
 	
-/*
- * restorePointerTable_8()
- */
+	/*
+	 * restorePointerTable_8()
+	 */
 	private void restorePointerTable_8(SQLiteDatabase db, Pointer[] pointerList) {
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
 			if (pointerList[i] != null) {
@@ -914,9 +914,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		}
 	}
 	
-/*
- * restoreAppTable_8()
- */
+	/*
+	 * restoreAppTable_8()
+	 */
 	private void restoreAppTable_8(SQLiteDatabase db, App[][] appListList) {
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT + Pointer.DOCK_POINTER_COUNT; i ++) {
 			for (int j = 0; j < App.FLICK_APP_COUNT; j ++ ) {
@@ -926,10 +926,10 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 			}
 		}
 	}
-	
-/*
- * createPointerCV
- */
+
+	/*
+	 * createPointerCV
+	 */
 	private ContentValues createPointerCV(int pointerId, Pointer pointer) {
 		
 		ContentValues cv = new ContentValues();
@@ -944,9 +944,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		return cv;
 	}
 	
-/*
- * createAppCV
- */
+	/*
+	 * createAppCV
+	 */
 	private ContentValues createAppCV(int pointerId, int appId, App app) {
 		
 		ContentValues cv = new ContentValues();

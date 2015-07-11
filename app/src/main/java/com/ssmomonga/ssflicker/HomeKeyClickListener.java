@@ -14,9 +14,9 @@ public class HomeKeyClickListener extends Activity {
 
 	private static boolean b;
 
-/*
- *	onCreate()
- */
+	/*
+	 * onCreate()
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,16 +53,16 @@ public class HomeKeyClickListener extends Activity {
 		}
 	}
 
-/*
- *	onResume
- */
+	/*
+	 * onResume
+	 */
 	public void onResume() {
 		super.onResume();
 	}
 	
-/*
- *	onNewIntent()
- */
+	/*
+	 * onNewIntent()
+	 */
 	@Override
 	public void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
@@ -71,9 +71,9 @@ public class HomeKeyClickListener extends Activity {
 		finish();
 	}
 
-/*
- *	onActivityResult
- */
+	/*
+	 * onActivityResult
+	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);

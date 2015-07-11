@@ -50,7 +50,9 @@ public abstract class ColorPicker extends AlertDialog {
 	private static final TextView[] tv_pointer_preview = new TextView[PREVIEW_COUNT];
 	private static final LinearLayout[] ll_overlay_point_preview = new LinearLayout[PREVIEW_COUNT];
 
-	//コンストラクタ
+	/*
+	 * Constructor
+	 */
 	public ColorPicker(Context context, int colorType) {
 		super(context);
 		this.context = context;
@@ -59,7 +61,9 @@ public abstract class ColorPicker extends AlertDialog {
 		setInitialLayout();
 	}
 	
-	//コンストラクタ
+	/*
+	 * Constructor
+	 */
 	public ColorPicker(Context context, int colorType, int iconColor) {
 		super(context);
 		this.context = context;
@@ -68,7 +72,9 @@ public abstract class ColorPicker extends AlertDialog {
 		setInitialLayout();
 	}
 	
-	//setInitialLayout()
+	/*
+	 * setInitialLayout()
+	 */
 	private void setInitialLayout() {
 
 		LayoutInflater inflater = LayoutInflater.from(context);
@@ -196,7 +202,9 @@ public abstract class ColorPicker extends AlertDialog {
 		
 	}
 	
-	//setNewColor()
+	/*
+	 * setNewColor()
+	 */
 	private void setPreview(int i) {		
 		switch (colorType) {
 			case COLOR_TYPE_WINDOW_BACKGROUND:
@@ -222,7 +230,9 @@ public abstract class ColorPicker extends AlertDialog {
 		}
 	}
 	
-	//ClickListener
+	/*
+	 * ClickListener
+	 */
 	private class ClickListener implements View.OnClickListener {
 
 		@Override
@@ -238,9 +248,10 @@ public abstract class ColorPicker extends AlertDialog {
 			}
 		}
 	}
-	
-	
-	//SeekBarChangeListener
+
+	/*
+	 * SeekBarChangeListener
+	 */
 	private class SeekBarChangeListener implements OnSeekBarChangeListener {
 
 		private int index;
@@ -267,8 +278,9 @@ public abstract class ColorPicker extends AlertDialog {
 		}
 	};
 
-	
-	//FocusChengeListener
+	/*
+	 * FocusChengeListener
+	 */
 	private class FocusChengeListener implements OnFocusChangeListener {
 
 		private int index;
@@ -294,8 +306,9 @@ public abstract class ColorPicker extends AlertDialog {
 		
 	}
 	
-	
+	/*
+	 * onSettings()
+	 */
 	abstract public void onSettings(int newColor);
 
-	
 }

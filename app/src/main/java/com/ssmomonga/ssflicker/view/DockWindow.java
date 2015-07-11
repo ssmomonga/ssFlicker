@@ -1,6 +1,5 @@
 package com.ssmomonga.ssflicker.view;
 
-import com.ssmomonga.ssflicker.R;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -8,6 +7,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.set.WindowParams;
 
@@ -25,14 +26,18 @@ public class DockWindow extends LinearLayout {
 	private static Animation anim_menu_focused;
 	private static Animation anim_menu_unfocused;
 
-	//コンストラクタ
-	public DockWindow (Context context, AttributeSet attrs) {
+	/*
+	 * Constructor
+	 */
+	public DockWindow(Context context, AttributeSet attrs) {
 		super (context, attrs);
 		this.context = context;
 		setInitialLayout();
 	}
 
-	//setInitialLayout()
+	/*
+	 * setInitialLayout()
+	 */
 	public void setInitialLayout() {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.dock_window, this, true);
@@ -60,20 +65,26 @@ public class DockWindow extends LinearLayout {
 		
 	}
 	
-	//setOnFlickListener()
+	/*
+	 * setOnFlickListener()
+	 */
 	public void setOnFlickListener (OnFlickListener listener, OnFlickListener listener2) {
 		for (LinearLayout ll: ll_dock) ll.setOnTouchListener(listener);
 		ll_menu.setOnTouchListener(listener2);
 	}
-		
-	//setLayout()
+
+	/*
+	 * setLayout()
+	 */
 	public void setLayout(WindowParams lp) {
 		for (ImageView iv: iv_dock) iv.setLayoutParams(lp.getIconLP());
 		iv_menu.setLayoutParams(lp.getIconLP());
 	}
 	
-	//setApp()
-	public void setApp (App[] appList) {
+	/*
+	 * setApp()
+	 */
+	public void setApp(App[] appList) {
 		for (int i = 0; i < App.DOCK_APP_COUNT; i ++) {
 			App app = appList[i];
 			if (app != null) {
@@ -82,8 +93,10 @@ public class DockWindow extends LinearLayout {
 		}		
 	}
 	
-	//setAppForEdit()
-	public void setAppForEdit (App[] appList) {
+	/*
+	 * setAppForEdit()
+	 */
+	public void setAppForEdit(App[] appList) {
 		for (int i = 0; i < App.DOCK_APP_COUNT; i ++) {
 			App app = appList[i];
 			if (app != null) {
@@ -94,8 +107,10 @@ public class DockWindow extends LinearLayout {
 		}
 	}
 
-	//setDockPointed()
-	public void setDockPointed (boolean pointed, int appId) {
+	/*
+	 * setDockPointed()
+	 */
+	public void setDockPointed(boolean pointed, int appId) {
 		if (pointed) {
 			ll_dock[appId].startAnimation(anim_dock_pointed[appId]);
 		} else {
@@ -103,8 +118,10 @@ public class DockWindow extends LinearLayout {
 		}
 	}
 
-	//setMenuPointed()
-	public void setMenuPointed (boolean b) {
+	/*
+	 * setMenuPointed()
+	 */
+	public void setMenuPointed(boolean b) {
 		if (b) {
 			ll_menu.startAnimation(anim_menu_focused);
 		} else {

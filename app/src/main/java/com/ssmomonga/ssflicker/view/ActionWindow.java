@@ -1,7 +1,5 @@
 package com.ssmomonga.ssflicker.view;
 
-import com.ssmomonga.ssflicker.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -13,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.BaseData;
 import com.ssmomonga.ssflicker.data.EditList;
@@ -34,14 +33,18 @@ public class ActionWindow extends TableLayout {
 	private static final Animation[] anim_icon_unpointed = new Animation[App.FLICK_APP_COUNT];
 	private static Animation anim_window_open;
 	
-	//コンストラクタ
-	public ActionWindow (Context context, AttributeSet attrs) {
+	/*
+	 * Constructor
+	 */
+	public ActionWindow(Context context, AttributeSet attrs) {
 		super (context, attrs);
 		this.context = context;
 		setInitialLayout();
 	}
 	
-	//setInitialLayout()
+	/*
+	 * setInitialLayout()
+	 */
 	private void setInitialLayout() {
 
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -85,7 +88,9 @@ public class ActionWindow extends TableLayout {
 
 	}
 	
-	//setLayout()
+	/*
+	 * setLayout()
+	 */
 	public void setLayout(WindowParams settings) {
 
 		LinearLayout.LayoutParams iconLP = settings.getIconLP();
@@ -118,8 +123,10 @@ public class ActionWindow extends TableLayout {
 		setBackground(settings.getActionWindowBackground());
 	}
 	
-	//setApp()
-	public void setApp (Pointer pointer, App[] appList) {
+	/*
+	 * setApp()
+	 */
+	public void setApp(Pointer pointer, App[] appList) {
 		tv_center.setText(pointer.getPointerLabel());
 		iv_center.setImageDrawable(pointer.getPointerIcon());
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
@@ -135,7 +142,9 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 	
-	//setEditPointer()
+	/*
+	 * setEditPointer()
+	 */
 	public void setEditPointer(Context context, Pointer pointer, int pointerWindowVisibility) {
 		if (pointer == null) {
 			tv_center.setText(R.string.add);
@@ -148,7 +157,9 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 	
-	//setEditApp()
+	/*
+	 * setEditApp()
+	 */
 	public void setEditApp(Context context, App app) {
 		if (app == null) {
 			tv_center.setText(R.string.add);
@@ -161,7 +172,9 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 	
-	//setEditDock()
+	/*
+	 * setEditDock()
+	 */
 	public void setEditDock(Context context, App app, int orientation) {
 		if (app == null) {
 			tv_center.setText(R.string.add);
@@ -174,7 +187,9 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 	
-	//setEdit()
+	/*
+	 * setEdit()
+	 */
 	private void setEdit(BaseData[] edit) {
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
 			if (edit[i] != null) {
@@ -187,17 +202,23 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 	
-	//setMenuForEdit()
+	/*
+	 * setMenuForEdit()
+	 */
 	public void setMenuForEdit(Context context) {
 		setMenu(MenuList.getEditorMenuList(context));
 	}
 	
-	//setMenuForFlick()
+	/*
+	 * setMenuForFlick()
+	 */
 	public void setMenuForFlick(Context context) {
 		setMenu(MenuList.getFlickerMenuList(context));
 	}
 	
-	//setMenu()
+	/*
+	 * setMenu()
+	 */
 	private void setMenu(BaseData[] menuList) {
 		tv_center.setText(getResources().getString(R.string.menu));
 		iv_center.setImageResource(R.mipmap.icon_30_etc_menu);
@@ -208,13 +229,15 @@ public class ActionWindow extends TableLayout {
 				iv_action[i].setImageDrawable(menu.getIcon());
 			} else {
 				tv_action[i].setText(null);
-				iv_action[i].setImageDrawable(null);				
+				iv_action[i].setImageDrawable(null);
 			}
-		}		
+		}
 	}
-		
-	//setPointed()
-	public void setActionPointed (boolean pointed, int oldPosition, int position) {
+
+	/*
+	 * setPointed()
+	 */
+	public void setActionPointed(boolean pointed, int oldPosition, int position) {
 		if (pointed) {
 			if (oldPosition != -1) ll_action[oldPosition].startAnimation(anim_icon_unpointed[oldPosition]);
 			if (position != -1) ll_action[position].startAnimation(anim_icon_pointed[position]);
@@ -224,11 +247,13 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 	
-	//setVisibility()
+	/*
+	 * setVisibility()
+	 */
 	@Override
-	public void setVisibility (int visibility) {
+	public void setVisibility(int visibility) {
 		super.setVisibility(visibility);
-		if (visibility == View.VISIBLE) startAnimation(anim_window_open);		
+		if (visibility == View.VISIBLE) startAnimation(anim_window_open);
 	}
 	
 }

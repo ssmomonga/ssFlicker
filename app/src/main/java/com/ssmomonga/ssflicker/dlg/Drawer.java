@@ -1,12 +1,5 @@
 package com.ssmomonga.ssflicker.dlg;
 
-import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.data.App;
-import com.ssmomonga.ssflicker.data.IntentAppInfo;
-import com.ssmomonga.ssflicker.dlg.CustomAdapters.AppAdapter;
-import com.ssmomonga.ssflicker.proc.GetAppListTask;
-import com.ssmomonga.ssflicker.proc.Launch;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Rect;
@@ -15,19 +8,31 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.ssmomonga.ssflicker.R;
+import com.ssmomonga.ssflicker.data.App;
+import com.ssmomonga.ssflicker.data.IntentAppInfo;
+import com.ssmomonga.ssflicker.dlg.CustomAdapters.AppAdapter;
+import com.ssmomonga.ssflicker.proc.GetAppListTask;
+import com.ssmomonga.ssflicker.proc.Launch;
+
 public class Drawer extends AlertDialog {
 
 	private Context context;
 	private static AppAdapter adapter;
 	private static GridView gv_apps;
-	
+
+	/*
+	 * Constructor
+	 */
 	public Drawer(Context context) {
 		super(context);
 		this.context = context;
 		setInitialLayout();
 	}
 	
-	
+	/*
+	 * setInitialLayout()
+	 */
 	private void setInitialLayout() {
 		
 		LayoutInflater inflater = LayoutInflater.from(context);
@@ -47,7 +52,9 @@ public class Drawer extends AlertDialog {
 
 	}
 	
-
+	/*
+	 * execute()
+	 */
 	public void execute() {
 		
 		new GetAppListTask(context) {

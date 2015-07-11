@@ -1,7 +1,5 @@
 package com.ssmomonga.ssflicker.set;
 
-import java.net.URISyntaxException;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -11,6 +9,8 @@ import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
 import com.ssmomonga.ssflicker.db.PrefDAO;
 
+import java.net.URISyntaxException;
+
 public class HomeKeySettings {
 
 	private static boolean homeKey;
@@ -18,8 +18,10 @@ public class HomeKeySettings {
 	private static int clickMode;
 	private static int clickInterval;
 	
-	//コンストラクタ
-	public HomeKeySettings (Context context) {
+	/*
+	 * Constructor
+	 */
+	public HomeKeySettings(Context context) {
 		PrefDAO pdao = new PrefDAO(context);
 		homeKey = DeviceSettings.isHomeKey(context);
 		fillAnotherHome(context, pdao.getHomeKeyAnotherHome());
@@ -27,8 +29,10 @@ public class HomeKeySettings {
 		clickInterval = pdao.getHomeKeyClickInterval();
 	}
 	
-	//getHomeKeyAnotherHome()
-	private void fillAnotherHome (Context context, String anotherHomeName) {
+	/*
+	 * getHomeKeyAnotherHome()
+	 */
+	private void fillAnotherHome(Context context, String anotherHomeName) {
 		
 		if (homeKey && anotherHomeName != null) {
 			if (anotherHomeName != null) {
@@ -69,17 +73,23 @@ public class HomeKeySettings {
 
 	}
 	
-	//getAnotherHome()
+	/*
+	 * getAnotherHome()
+	 */
 	public App getAnotherHome() {
 		return anotherHome;
 	}
 
-	//getClickMode()
+	/*
+	 * getClickMode()
+	 */
 	public int getClickMode() {
 		return clickMode;
 	}
 	
-	//getClickInterval()
+	/*
+	 * getClickInterval()
+	 */
 	public int getClickInterval() {
 		return clickInterval;
 	}

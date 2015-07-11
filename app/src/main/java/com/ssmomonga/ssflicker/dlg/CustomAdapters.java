@@ -18,14 +18,19 @@ import com.ssmomonga.ssflicker.db.PrefDAO;
 
 public class CustomAdapters {
 
-	//AppAdapter
+	/*
+	 * AppAdapter
+	 */
 	public static class AppAdapter extends ArrayAdapter<App> {
 	
 		private Context context;
 		private int resource;
 		private static LinearLayout.LayoutParams params;
-		
-		public AppAdapter (Context context, int resource) {
+
+		/*
+		 * Constructor
+		 */
+		public AppAdapter(Context context, int resource) {
 			super(context, resource);
 			this.context = context;
 			this.resource = resource;
@@ -33,9 +38,11 @@ public class CustomAdapters {
 			params = new LinearLayout.LayoutParams(iconSize, iconSize);
 		}
 
-		//getView()
+		/*
+		 * getView()
+		 */
 		@Override
-		public View getView (int position, View convertView, ViewGroup parent) {
+		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
 			if (convertView == null) {
 				LayoutInflater inflater = LayoutInflater.from(context);
@@ -58,16 +65,19 @@ public class CustomAdapters {
 			return convertView;
 		}
 
-		//ViewHolder
+		/*
+		 * ViewHolder
+		 */
 		private class ViewHolder {
 			ImageView iv_icon;
 			TextView tv_label;
 		}
 
 	}
-	
-	
-	//AppWidgetAdapter
+
+	/*
+	 * AppWidgetAdapter
+	 */
 	public static class AppWidgetAdapter extends ArrayAdapter<App> {
 		
 		private Context context;
@@ -80,9 +90,11 @@ public class CustomAdapters {
 			this.resource = resource;
 		}
 		
-		//getView()
+		/*
+		 * getView()
+		 */
 		@Override
-		public View getView (int position, View convertView, ViewGroup parent) {
+		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
 			if (convertView == null) {
 				LayoutInflater inflater = LayoutInflater.from(context);
@@ -106,7 +118,9 @@ public class CustomAdapters {
 			return convertView;
 		}
 
-		//ViewHolder
+		/*
+		 * ViewHolder
+		 */
 		private class ViewHolder {
 			ImageView iv_preview_image;
 			TextView tv_label;
@@ -115,8 +129,9 @@ public class CustomAdapters {
 
 	}
 	
-	
-	//IconAdapter
+	/*
+	 * IconAdapter
+	 */
 	public static class IconAdapter extends ArrayAdapter<BaseData> {
 		
 		private Context context;
@@ -124,8 +139,10 @@ public class CustomAdapters {
 		private int iconColor;
 		private LinearLayout.LayoutParams params;
 
-		//コンストラクタ
-		public IconAdapter (Context context, int resource, int iconColor) {
+		/*
+		 * Consructor
+		 */
+		public IconAdapter(Context context, int resource, int iconColor) {
 			super(context, resource);
 			this.context = context;
 			this.resource = resource;
@@ -134,9 +151,11 @@ public class CustomAdapters {
 			params = new LinearLayout.LayoutParams(iconSize, iconSize);
 		}
 
-		//getView()
+		/*
+		 * getView()
+		 */
 		@Override
-		public View getView (int position, View convertView, ViewGroup parent) {
+		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
 			if (convertView == null) {
 				LayoutInflater inflater = LayoutInflater.from(context);
@@ -156,7 +175,9 @@ public class CustomAdapters {
 			return convertView;
 		}
 
-		//ViewHolder
+		/*
+		 * ViewHolder
+		 */
 		private class ViewHolder {
 			ImageView iv_icon;
 		}

@@ -25,9 +25,9 @@ public class App {
 	private AppWidgetInfo appWidget;		
 	private FunctionInfo function;
 
-/*
- *	Constructor(IntentApp)
- */
+	/*
+	 * Constructor(IntentApp)
+	 */
 	public App (Context context, int appType, String packageName, String appLabel, int appLabelType,
 			Drawable appIcon, int appIconType, IntentAppInfo intentApp) {
 		this.context = context;
@@ -40,9 +40,9 @@ public class App {
 		this.intentApp = intentApp;
 	}
 		
-/*
- *	Constructor(Function)
- */
+	/*
+	 * Constructor(Function)
+	 */
 	public App(Context context, int appType, String packageName, String appLabel, int appLabelType,
 			Drawable appIcon, int appIconType, FunctionInfo function) {
 		this.context = context;
@@ -55,9 +55,9 @@ public class App {
 		this.function = function;
 	}
 
-/*
- *	Constructor(AppWidget)
- */
+	/*
+	 * Constructor(AppWidget)
+	 */
 	public App(Context context, int appType, String packageName, String appLabel, int appLabelType,
 			Drawable appIcon, int appIconType, AppWidgetInfo appWidget) {
 		this.context = context;
@@ -70,32 +70,32 @@ public class App {
 		this.appWidget = appWidget;
 	}
 
-/*
- *	getAppType()
- */
+	/*
+	 * getAppType()
+	 */
 	public int getAppType() {
 		return appType;
 	}
 	
-/*
- *	getPackageName()
- */
+	/*
+	 * getPackageName()
+	 */
 	public String getPackageName() {
 		return packageName;
 	}
 
-/*
- *	getAppLabel()
- */
+	/*
+	 * getAppLabel()
+	 */
 	public String getAppLabel() {
 		return appLabel != null ? appLabel : getAppRawLabel();
 //		if (appLabel == null) appLabel = getAppRawLabel();
 //		return appLabel;
 	}
 
-/*
- *	getAppRawLabel()
- */
+	/*
+	 * getAppRawLabel()
+	 */
 	public String getAppRawLabel() {
 		switch (appType) {
 			case APP_TYPE_INTENT_APP:
@@ -109,25 +109,25 @@ public class App {
 		}
 	}
 
-/*
- *	getAppLabelType()
- */
+	/*
+	 * getAppLabelType()
+	 */
 	public int getAppLabelType() {
 		return appLabelType;
 	}
 
-/*
- *	geAppIcon()
- */
+	/*
+	 * geAppIcon()
+	 */
 	public Drawable getAppIcon() {
 		return appIcon != null ? appIcon : getAppRawIcon();
 //		if (appIcon == null) appIcon = getAppRawIcon();
 //		return appIcon;
 	}
 
-/*
- *	getAppRawIcon()
- */
+	/*
+	 * getAppRawIcon()
+	 */
 	public Drawable getAppRawIcon() {
 		switch (appType) {
 			case APP_TYPE_INTENT_APP:
@@ -141,37 +141,37 @@ public class App {
 		}
 	}
 
-/*
- *	getAppIconType()
- */
+	/*
+	 * getAppIconType()
+	 */
 	public int getAppIconType() {
 		return appIconType;
 	}
 
-/*
- *	setAppLabel()
- */
+	/*
+	 * setAppLabel()
+	 */
 	public void setAppLabel(String appLabel) {
 		this.appLabel = appLabel;
 	}
 
-/*
- *	setAppLabelType()
- */
+	/*
+	 * setAppLabelType()
+	 */
 	public void setAppLabelType(int appLabelType) {
 		this.appLabelType = appLabelType;
 	}
 
-/*
- *	setAppIcon()
- */
+	/*
+	 * setAppIcon()
+	 */
 	public void setAppIcon(Drawable appIcon) {
 		this.appIcon = appIcon;
 	}
 
-/*
- *	setAppIconType()
- */
+	/*
+	 * setAppIconType()
+	 */
 	public void setAppIconType(int appIconType) {
 		this.appIconType = appIconType;
 	}
@@ -180,16 +180,16 @@ public class App {
 		return intentApp;
 	}
 
-/*
- *	getAppWidgetInfo()
- */
+	/*
+	 * getAppWidgetInfo()
+	 */
 	public AppWidgetInfo getAppWidgetInfo() {
 		return appWidget;
 	}
 
-/*
- *	getFunctionInfo()
- */
+	/*
+	* getFunctionInfo()
+	 */
 	public FunctionInfo getFunctionInfo() {
 		return function;
 	}

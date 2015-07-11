@@ -1,8 +1,8 @@
 package com.ssmomonga.ssflicker.set;
 
-import com.ssmomonga.ssflicker.db.PrefDAO;
-
 import android.content.Context;
+
+import com.ssmomonga.ssflicker.db.PrefDAO;
 
 public class BootSettings {
 
@@ -10,7 +10,9 @@ public class BootSettings {
 	private static boolean statusbar;
 	private static boolean overlay;
 
-	//コンストラクタ
+	/*
+	 * Constructor
+	 */
 	public BootSettings(Context context) {
 		PrefDAO pdao = new PrefDAO(context);
 		homeKey = DeviceSettings.isHomeKey(context);
@@ -18,17 +20,23 @@ public class BootSettings {
 		overlay = pdao.isOverlay();
 	}
 	
-	//isHomeKey()
+	/*
+	 * isHomeKey()
+	 */
 	public boolean isHomeKey() {
 		return homeKey;
 	}
 	
-	//isStatusbar()
+	/*
+	 * isStatusbar()
+	 */
 	public boolean isStatusbar() {
 		return statusbar;
 	}
 	
-	//isOverlay()
+	/*
+	 * isOverlay()
+	 */
 	public boolean isOverlay() {
 		return overlay;
 	}

@@ -1,12 +1,12 @@
 package com.ssmomonga.ssflicker.dlg;
 
-import com.ssmomonga.ssflicker.R;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+
+import com.ssmomonga.ssflicker.R;
 
 public abstract class DeleteDialog extends AlertDialog {
 	
@@ -14,12 +14,17 @@ public abstract class DeleteDialog extends AlertDialog {
 	public static final int DELETE_APP = 1;
 	public static final int CLEAR_DEFAULT = 2;
 
+	/*
+	 * Constructor
+	 */
 	public DeleteDialog(Context context, int data, Drawable icon, String name) {
 		super(context);
 		setInitialLayout(context.getResources(), data, icon, name);
 	}
 	
-	
+	/*
+	 * setInitialLayout()
+	 */
 	private void setInitialLayout(Resources r, int data, Drawable icon, String title) {
 		setTitle(title);
 
@@ -73,9 +78,20 @@ public abstract class DeleteDialog extends AlertDialog {
 		});
 
 	}
-	
+
+	/*
+	 * onDelete()
+	 */
 	public abstract void onDelete();
+
+	/*
+	 * onDismissDialog()
+	 */
 	public abstract void onDismissDialog();
+
+	/*
+	 * onCancelDialog()
+	 */
 	public abstract void onCancelDialog();
 
 }

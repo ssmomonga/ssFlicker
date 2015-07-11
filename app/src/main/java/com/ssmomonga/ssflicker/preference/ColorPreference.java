@@ -21,8 +21,10 @@ public class ColorPreference extends Preference {
 	private int color;
 	private GradientDrawable gd_color;
 	
-	//コンストラクタ
-	public ColorPreference (Context context, AttributeSet attrs) {
+	/*
+	 * Constructor
+	 */
+	public ColorPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		this.context = context;
 		setWidgetLayoutResource(R.layout.color_preference);
@@ -30,15 +32,18 @@ public class ColorPreference extends Preference {
 		gd_color.setShape(GradientDrawable.OVAL);
 	}
 	
-	
-	//onGetDefaultValue()
+	/*
+	 * onGetDefaultValue()
+	 */
 	 @Override
      protected Object onGetDefaultValue(TypedArray a, int index) {
 		int defaultValue = a.getInteger(index, 0);
 		return defaultValue;
      }
 	
-	//onSetInitialValue()
+	/*
+	 * onSetInitialValue()
+	 */
 	@Override
 	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
 		//設定済の場合は設定を復元
@@ -52,8 +57,9 @@ public class ColorPreference extends Preference {
 		}
 	}
 	
-	
-	//onBindView()
+	/*
+	 * onBindView()
+	 */
 	@Override
 	protected void onBindView(View view) {
 		super.onBindView(view);
@@ -91,7 +97,10 @@ public class ColorPreference extends Preference {
 			}
 		});
 	}
-	
+
+	/*
+	 * onDependencyChanged
+	 */
 	@Override
 	public void onDependencyChanged(Preference dependency, boolean disableDependent) {
 		super.onDependencyChanged(dependency, disableDependent);
@@ -102,8 +111,11 @@ public class ColorPreference extends Preference {
 		}		
 	}
 
+	/*
+	 * setEnabled()
+	 */
 	@Override
-	public void setEnabled (boolean enabled) {
+	public void setEnabled(boolean enabled) {
 		super.setEnabled(enabled);
 		if (enabled) {
 			gd_color.setAlpha(255);
@@ -112,14 +124,16 @@ public class ColorPreference extends Preference {
 		}
 	}
 
-	
-	//dismissColorPicker()
+	/*
+	 * dismissColorPicker()
+	 */
 	public void dismissColorPicker() {
 		if (colorPicker != null && colorPicker.isShowing()) colorPicker.dismiss();
 	}
 	
-	
-	//setColor()
+	/*
+	 * setColor()
+	 */
 	private void setColor(int color) {
 		gd_color.setColor(color);
 	}

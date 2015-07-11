@@ -75,18 +75,18 @@ public class PrefActivity extends Activity {
 		}
 	};
 
-/*
- *	oNCreate()
- */
+	/*
+	 * oNCreate()
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefFragment()).commit();
 	}
 	
-/*
- *	onKeyDown()
- */
+	/*
+	 * onKeyDown()
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -96,9 +96,9 @@ public class PrefActivity extends Activity {
 		return false;
 	}
 
-/*
- *	onCreateOptionsMenu()
- */
+	/*
+	 * onCreateOptionsMenu()
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -106,9 +106,9 @@ public class PrefActivity extends Activity {
 		return true;
 	}
 
-/*
- *	onOptionsItemSelected()
- */
+	/*
+	 * onOptionsItemSelected()
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.about) {
@@ -118,14 +118,14 @@ public class PrefActivity extends Activity {
 		return true;
 	}
 	
-/*
- *	PrefFragment
- */
+	/*
+	 * PrefFragment
+	 */
 	public static class PrefFragment extends PreferenceFragment {
 
-/*
- *	onCreate()
- */
+		/*
+		 * onCreate()
+		 */
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -142,9 +142,9 @@ public class PrefActivity extends Activity {
 			setInitialLayout();
 		}
 
-/*
- *	onResume()
- */
+		/*
+		 * onResume()
+		 */
 		@Override
 		public void onResume() {
 			super.onResume();
@@ -153,9 +153,9 @@ public class PrefActivity extends Activity {
 			setLayout();
 		}
 		
-/*
- *	onPause()
- */
+		/*
+		 * onPause()
+		 */
 		@Override
 		public void onPause() {
 			super.onPause();
@@ -168,18 +168,18 @@ public class PrefActivity extends Activity {
 			activity.finish();
 		}
 
-/*
- *	onDestry()
- */
+		/*
+		 * onDestry()
+		 */
 		@Override
 		public void onDestroy() {
 			super.onDestroy();
 			new BackupManager(activity).dataChanged();
 		}
 
-/*
- *	PreferenceClickListener
- */
+		/*
+		 * PreferenceClickListener
+		 */
 		private class PreferenceClickListener implements OnPreferenceClickListener {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
@@ -193,9 +193,9 @@ public class PrefActivity extends Activity {
 			}
 		}
 
-/*
- *	setInitialLayout()
- */
+		/*
+		 * setInitialLayout()
+		 */
 		private void setInitialLayout() {
 			addPreferencesFromResource(R.xml.pref_activity);
 			
@@ -253,9 +253,9 @@ public class PrefActivity extends Activity {
 			});
 		}
 
-/*
- *	setLayout()
- */
+		/*
+		 * setLayout()
+		 */
 		private void setLayout() {
 			setSummary(launch_by_default, null);
 			setSummary(launch_from_overlay, null);
@@ -297,9 +297,9 @@ public class PrefActivity extends Activity {
 			setSummary(donation, null);
 		}
 
-/*
- *	PreferenceChangeListener
- */
+		/*
+		 * PreferenceChangeListener
+		 */
 		private class PreferenceChangeListener implements Preference.OnPreferenceChangeListener {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -356,9 +356,9 @@ public class PrefActivity extends Activity {
 			}
 		}
 
-/*
- *	setSummary()
- */
+		/*
+		 * setSummary()
+		 */
 		private void setSummary(Preference preference, Object value) {
 			if (preference == launch_by_default) {
 			} else if (preference == launch_from_overlay) {

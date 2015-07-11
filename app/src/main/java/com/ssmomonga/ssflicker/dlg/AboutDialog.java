@@ -1,7 +1,5 @@
 package com.ssmomonga.ssflicker.dlg;
 
-import com.ssmomonga.ssflicker.R;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,16 +9,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.ssmomonga.ssflicker.R;
+
 public class AboutDialog extends AlertDialog {
 
 	private Context context;
-	
+
+	/*
+	 * Constructor
+	 */
 	public AboutDialog(Context context) {
 		super(context);
 		this.context = context;
 		setInitialLayout();
 	}
-	
+
+	/*
+	 * setInitialLayout()
+	 */
 	private void setInitialLayout() {
 
 		LayoutInflater inflater = LayoutInflater.from(context);

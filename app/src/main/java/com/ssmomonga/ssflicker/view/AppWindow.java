@@ -32,13 +32,17 @@ public class AppWindow extends TableLayout {
 	private static Animation anim_pointer_unpointed;
 	private static Animation anim_window_open;
 
-	//コンストラクタ
-	public AppWindow (Context context, AttributeSet _attrs) {
+	/*
+	 * Constructor
+	 */
+	public AppWindow(Context context, AttributeSet _attrs) {
 		super (context, _attrs);
 		setInitialLayout(context);
 	}
 	
-	//setInitialLayout()
+	/*
+	 * setInitialLayout()
+	 */
 	private void setInitialLayout(Context context) {
 		
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -85,13 +89,17 @@ public class AppWindow extends TableLayout {
 
 	}
 
-	//setOnFlickListener()
+	/*
+	 * setOnFlickListener()
+	 */
 	public void setOnFlickListener(OnFlickListener pointerListener, OnFlickListener appListener) {
 		ll_pointer.setOnTouchListener(pointerListener);
 		for (LinearLayout ll: ll_app) ll.setOnTouchListener(appListener);
 	}
 	
-	//setLayout()
+	/*
+	 * setLayout()
+	 */
 	public void setLayout(WindowParams settings) {
 		
 		LinearLayout.LayoutParams iconLP = settings.getIconLP();
@@ -128,7 +136,9 @@ public class AppWindow extends TableLayout {
 
 	}
 	
-	//viewWindow()
+	/*
+	 * viewWindow()
+	 */
 	public void setApp(Pointer pointer, App[] appList) {
 		
 		tv_pointer.setText(pointer.getPointerLabel());
@@ -146,7 +156,9 @@ public class AppWindow extends TableLayout {
 		}
 	}
 	
-	//setAppForEdit()
+	/*
+	 * setAppForEdit()
+	 */
 	public void setAppForEdit(int pointerId, Pointer pointer, App[] appList) {
 		
 		ll_pointer.setTag(String.valueOf(pointerId));
@@ -168,22 +180,27 @@ public class AppWindow extends TableLayout {
 		}
 	}
 	
-	//setPointerIcon()
-	public void setPointerIcon (Drawable d) {
+	/*
+	 * setPointerIcon()
+	 */
+	public void setPointerIcon(Drawable d) {
 		iv_pointer.setImageDrawable(d);
 	}
 	
-	//setPointed()
-	public void setAppPointed (boolean pointed, int appId) {
+	/*
+	 * setPointed()
+	 */
+	public void setAppPointed(boolean pointed, int appId) {
 		if (pointed) {
 			ll_app[appId].startAnimation(anim_app_pointed[appId]);
 		} else {
 			ll_app[appId].startAnimation(anim_app_unpointed[appId]);
 		}
 	}
-	
 
-	//setPointerPointed()
+	/*
+	 * setPointerPointed()
+	 */
 	public void setPointerPointed (boolean pointed) {
 //		if (animation) {
 			if (pointed) {
@@ -196,7 +213,9 @@ public class AppWindow extends TableLayout {
 //		}
 	}
 	
-	//setVisibility()
+	/*
+	 * setVisibility()
+	 */
 	@Override
 	public void setVisibility (int visibility) {
 		super.setVisibility(visibility);

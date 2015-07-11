@@ -1,16 +1,5 @@
 package com.ssmomonga.ssflicker.dlg;
 
-import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.data.App;
-import com.ssmomonga.ssflicker.data.AppWidgetInfo;
-import com.ssmomonga.ssflicker.data.BaseData;
-import com.ssmomonga.ssflicker.data.IconList;
-import com.ssmomonga.ssflicker.data.IntentAppInfo;
-import com.ssmomonga.ssflicker.data.Pointer;
-import com.ssmomonga.ssflicker.db.PrefDAO;
-import com.ssmomonga.ssflicker.proc.ImageConverter;
-import com.ssmomonga.ssflicker.set.DeviceSettings;
-
 import android.app.AlertDialog;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
@@ -27,9 +16,20 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.ssmomonga.ssflicker.R;
+import com.ssmomonga.ssflicker.data.App;
+import com.ssmomonga.ssflicker.data.AppWidgetInfo;
+import com.ssmomonga.ssflicker.data.BaseData;
+import com.ssmomonga.ssflicker.data.IconList;
+import com.ssmomonga.ssflicker.data.IntentAppInfo;
+import com.ssmomonga.ssflicker.data.Pointer;
+import com.ssmomonga.ssflicker.db.PrefDAO;
+import com.ssmomonga.ssflicker.proc.ImageConverter;
+import com.ssmomonga.ssflicker.set.DeviceSettings;
+
 public class EditDialog extends AlertDialog {
 	
-	private Context context;	
+	private Context context;
 	private static Resources r;
 	
 	private static LinearLayout.LayoutParams params;
@@ -45,7 +45,10 @@ public class EditDialog extends AlertDialog {
 	private static EditText et_send_template;
 	private static Spinner sp_appwidget_position_x, sp_appwidget_position_y;
 	private static Spinner sp_appwidget_cell_width, sp_appwidget_cell_height;
-	
+
+	/*
+	 * Constructor
+	 */
 	public EditDialog(Context context, Pointer pointer, EditPointerIf editPointerIf) {
 		super(context);
 		this.context = context;
@@ -54,7 +57,10 @@ public class EditDialog extends AlertDialog {
 		setInitialLayout();
 		setPointerLayout();
 	}
-	
+
+	/*
+	 * Constructor
+	 */
 	public EditDialog(Context context, App app, EditAppIf editAppIf) {
 		super(context);
 		this.context = context;
@@ -64,7 +70,9 @@ public class EditDialog extends AlertDialog {
 		setAppLayout();
 	}
 
-	//setInitialLayout()
+	/*
+	 * setInitialLayout()
+	 */
 	private void setInitialLayout() {
 
 		r = context.getResources();
@@ -82,12 +90,15 @@ public class EditDialog extends AlertDialog {
 		
 		setButton(BUTTON_NEGATIVE, r.getText(R.string.cancel), new DialogInterface.OnClickListener() {
 			@Override
-			public void onClick(DialogInterface dialog, int id){
+			public void onClick(DialogInterface dialog, int id) {
 			}
 		});
 		
 	}
-		
+
+	/*
+	 * setPointerLayout()
+	 */
 	private void setPointerLayout() {
 		
 		ib_icon.setImageDrawable(pointer.getPointerIcon());
@@ -119,13 +130,11 @@ public class EditDialog extends AlertDialog {
 			}
 		});
 
-		
 	}
 
-
-/*
- * 		EditAppDialog	
- */
+	/*
+	 * setAppLayout()
+	 */
 	private void setAppLayout() {	
 		ib_icon.setImageDrawable(app.getAppIcon());
 		ib_icon.setOnClickListener(new View.OnClickListener() {
@@ -267,13 +276,12 @@ public class EditDialog extends AlertDialog {
 				}
 			});
 		}
-			
-		//�ݒ�{�^��
+
 		setButton(BUTTON_POSITIVE, r.getText(R.string.settings), new DialogInterface.OnClickListener() {
 			@Override
-			public void onClick(DialogInterface dialog, int id){
+			public void onClick(DialogInterface dialog, int id) {
 				app.setAppIcon(ib_icon.getDrawable());
-				
+
 				String label = et_label.getText().toString();
 				app.setAppLabel(label);
 
@@ -283,32 +291,33 @@ public class EditDialog extends AlertDialog {
 						if (app.getIntentAppInfo().getIntentAppType() != IntentAppInfo.INTENT_APP_TYPE_SHORTCUT) {
 							if (label.equals(app.getAppRawLabel())) {
 								appLabelType = IconList.LABEL_ICON_TYPE_ACTIVITY;
-							};
+							}
+							;
 						}
 						break;
-				
+
 					case App.APP_TYPE_APPWIDGET:
 						if (label.equals(app.getAppRawLabel())) {
 							appLabelType = IconList.LABEL_ICON_TYPE_APPWIDGET;
-						};
+						}
+						;
 						break;
-				
+
 					case App.APP_TYPE_FUNCTION:
 						if (label.equals(app.getAppRawLabel())) {
-							appLabelType = IconList.LABEL_ICON_TYPE_ORIGINAL;						
-						};
+							appLabelType = IconList.LABEL_ICON_TYPE_ORIGINAL;
+						}
+						;
 						break;
 				}
 				app.setAppLabelType(appLabelType);
 
-				//���L�A�v��
-				if (app.getAppType() == App.APP_TYPE_INTENT_APP && 
+				if (app.getAppType() == App.APP_TYPE_INTENT_APP &&
 						app.getIntentAppInfo().getIntentAppType() == IntentAppInfo.INTENT_APP_TYPE_SEND) {
 					app.getIntentAppInfo().setSendTemplate(et_send_template.getText().toString());
 				}
-				
-				//�E�B�W�F�b�g
-				if (app.getAppType() == App.APP_TYPE_APPWIDGET && 
+
+				if (app.getAppType() == App.APP_TYPE_APPWIDGET &&
 						app.getAppWidgetInfo().getAppWidgetProviderInfo() != null) {
 					app.getAppWidgetInfo().setAppWidgetCellPosition(
 							sp_appwidget_position_x.getSelectedItemPosition(),
@@ -317,11 +326,11 @@ public class EditDialog extends AlertDialog {
 							((Integer) sp_appwidget_cell_width.getSelectedItem()).intValue(),
 							((Integer) sp_appwidget_cell_height.getSelectedItem()).intValue());
 				}
-				
+
 				editAppIf.onSettings(app);
 			}
 		});
-		
+
 		setOnDismissListener(new OnDismissListener() {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
@@ -334,7 +343,9 @@ public class EditDialog extends AlertDialog {
 /*
  * 		Common
  */
-	//viewSelectIconTypeDialog()
+	/*
+	 * viewSelectIconTypeDialog()
+	 */
 	private void viewSelectIconTypeDialog(final int iconTarget, int pointerType) {
 		new IconDialog.SelectIconTypeDialog(context, iconTarget, pointerType) {
 			@Override
@@ -375,8 +386,11 @@ public class EditDialog extends AlertDialog {
 			}
 		}.show();
 	}
-	
-	private void viewIconChooser (Context context, BaseData[] iconList, final int iconTarget, final int iconType) {
+
+	/*
+	 * viewIconChooser()
+	 */
+	private void viewIconChooser(Context context, BaseData[] iconList, final int iconTarget, final int iconType) {
 		new IconDialog.IconChooser(context, iconList, iconType) {
 			@Override
 			public void onSelectedIcon(Drawable icon, int appId) {
@@ -384,11 +398,17 @@ public class EditDialog extends AlertDialog {
 			}
 		}.show();
 	}
-	
+
+	/*
+	 * setIconBitmap()
+	 */
 	public void setIconBitmap(Bitmap icon, int iconTarget, int iconType, int appId) {
 		setIconDrawable(ImageConverter.createDrawable(context, icon), iconTarget, iconType, appId);
 	}
 
+	/*
+	 * setIconDrawable()
+	 */
 	public void setIconDrawable(Drawable icon, int iconTarget, int iconType, int appId) {
 
 		switch (iconTarget) {
@@ -408,14 +428,19 @@ public class EditDialog extends AlertDialog {
 		
 	}
 	
-	
+	/*
+	 * EditPointerIf
+	 */
 	public interface EditPointerIf {
 		public abstract App[] getAppList();
 		public abstract void onImageTrimmingIcon(int iconTarget, int iconType);
 		public abstract void onSettings(Pointer pointer);		
 		public abstract void onDismissDialog();
 	}
-	
+
+	/*
+	 * EditAppIf
+	 */
 	public interface EditAppIf {
 		public abstract void onImageTrimmingIcon(int iconTarget, int iconType);
 		public abstract void onSettings(App app);

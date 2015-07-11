@@ -1,24 +1,5 @@
 package com.ssmomonga.ssflicker;
 
-import com.ssmomonga.ssflicker.proc.Launch;
-import com.ssmomonga.ssflicker.set.BootSettings;
-import com.ssmomonga.ssflicker.set.WindowOrientationParams;
-import com.ssmomonga.ssflicker.set.WindowParams;
-import com.ssmomonga.ssflicker.view.ActionWindow;
-import com.ssmomonga.ssflicker.view.AppWidgetLayer;
-import com.ssmomonga.ssflicker.view.DockWindow;
-import com.ssmomonga.ssflicker.view.OnFlickListener;
-import com.ssmomonga.ssflicker.view.PointerWindow;
-import com.ssmomonga.ssflicker.data.App;
-import com.ssmomonga.ssflicker.data.AppList;
-import com.ssmomonga.ssflicker.data.AppWidgetInfo;
-import com.ssmomonga.ssflicker.data.IntentAppInfo;
-import com.ssmomonga.ssflicker.data.MenuList;
-import com.ssmomonga.ssflicker.data.Pointer;
-import com.ssmomonga.ssflicker.db.SQLiteDAO;
-import com.ssmomonga.ssflicker.dlg.Drawer;
-import com.ssmomonga.ssflicker.dlg.VolumeDialog;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -34,6 +15,25 @@ import android.view.View.OnTouchListener;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+
+import com.ssmomonga.ssflicker.data.App;
+import com.ssmomonga.ssflicker.data.AppList;
+import com.ssmomonga.ssflicker.data.AppWidgetInfo;
+import com.ssmomonga.ssflicker.data.IntentAppInfo;
+import com.ssmomonga.ssflicker.data.MenuList;
+import com.ssmomonga.ssflicker.data.Pointer;
+import com.ssmomonga.ssflicker.db.SQLiteDAO;
+import com.ssmomonga.ssflicker.dlg.Drawer;
+import com.ssmomonga.ssflicker.dlg.VolumeDialog;
+import com.ssmomonga.ssflicker.proc.Launch;
+import com.ssmomonga.ssflicker.set.BootSettings;
+import com.ssmomonga.ssflicker.set.WindowOrientationParams;
+import com.ssmomonga.ssflicker.set.WindowParams;
+import com.ssmomonga.ssflicker.view.ActionWindow;
+import com.ssmomonga.ssflicker.view.AppWidgetLayer;
+import com.ssmomonga.ssflicker.view.DockWindow;
+import com.ssmomonga.ssflicker.view.OnFlickListener;
+import com.ssmomonga.ssflicker.view.PointerWindow;
 
 public class FlickerActivity extends Activity {
 
@@ -61,9 +61,9 @@ public class FlickerActivity extends Activity {
 		}
 	};
 
-/*
- *	onCreate()
- */
+	/*
+	 * onCreate()
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -81,9 +81,9 @@ public class FlickerActivity extends Activity {
 
 	}
 
-/*
- *	onResume()
- */
+	/*
+	 * onResume()
+	 */
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -98,9 +98,9 @@ public class FlickerActivity extends Activity {
 		viewAppWidgetAll();
 	}
 
-/*
- *	onConfigurationChanged()
- */
+	/*
+	 * onConfigurationChanged()
+	 */
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
@@ -115,9 +115,9 @@ public class FlickerActivity extends Activity {
 		viewAppWidgetAll();
 	}
 
-/*
- *	onPause()
- */
+	/*
+	 * onPause()
+	 */
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -128,9 +128,9 @@ public class FlickerActivity extends Activity {
 		if (!isFinishing()) finish();
 	}
 
-/*
- *	onDestroy()
- */
+	/*
+	 * onDestroy()
+	 */
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
@@ -138,9 +138,9 @@ public class FlickerActivity extends Activity {
 	}
 
 
-/*
- *	onInitialLayout()
- */
+	/*
+	 * onInitialLayout()
+	 */
 	private void setInitialLayout() {
 		fl_all = (FrameLayout) findViewById(R.id.fl_all);
 		app_widget_layer = (AppWidgetLayer) findViewById(R.id.app_widget_layer);
@@ -150,9 +150,9 @@ public class FlickerActivity extends Activity {
 		setOnFlickListener();
 	}
 	
-/*
- *	setOnFlickListener()
- */
+	/*
+	 * setOnFlickListener()
+	 */
 	private void setOnFlickListener() {
 		fl_all.setOnTouchListener(new OnTouchListener() {
 			@Override
@@ -165,9 +165,9 @@ public class FlickerActivity extends Activity {
 		pointer_window.setOnFlickListener(new OnPointerFlickListener(this));
 	}
 	
-/*
- *	setLayout()
- */
+	/*
+	 * setLayout()
+	 */
 	private void setLayout() {
 		WindowParams params = new WindowParams(this);
 		if (params.isStatusbarVisibility()) getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -176,9 +176,9 @@ public class FlickerActivity extends Activity {
 		action_window.setLayout(params);
 	}
 	
-/*
- *	setOrientationLayout()
- */
+	/*
+	 * setOrientationLayout()
+	 */
 	private void setOrientationLayout() {
 		WindowOrientationParams params = new WindowOrientationParams(this);
 		app_widget_layer.setLayoutParams(params.getAppWidgetLayerLP());
@@ -188,9 +188,9 @@ public class FlickerActivity extends Activity {
 		action_window.setLayoutParams(params.getActionWindowLP());
 	}
 
-/*
- *	viewAppWidgetAll
- */
+	/*
+	 * viewAppWidgetAll
+	 */
 	private void viewAppWidgetAll() {
 		app_widget_layer.removeAllViews();
 
@@ -204,9 +204,9 @@ public class FlickerActivity extends Activity {
 		}
 	}
 
-/*
- *	viewAppWidget()
- */
+	/*
+	 * viewAppWidget()
+	 */
 	private void viewAppWidget(int pointerId, int appId, AppWidgetInfo appWidgetInfo, boolean update) {
 		
 		if (appWidgetInfo.getAppWidgetProviderInfo() != null) {
@@ -238,9 +238,9 @@ public class FlickerActivity extends Activity {
 		}
 	}
 
-/*
- * 	OnDockFlickListener
- */
+	/*
+	 * OnDockFlickListener
+	 */
 	private class OnDockFlickListener extends OnFlickListener {
 
 		public OnDockFlickListener(Context context) {
@@ -295,9 +295,9 @@ public class FlickerActivity extends Activity {
 	}
 
 
-/*
- * 	OnPointerFlickListener
- */
+	/*
+	 * OnPointerFlickListener
+	 */
 	private class OnPointerFlickListener extends OnFlickListener {
 
 		public OnPointerFlickListener(Context context) {
@@ -378,9 +378,9 @@ public class FlickerActivity extends Activity {
 		public void onCancel(int position) {}
 	}
 	
-/*
- *	OnMenuFlickListener
- */
+	/*
+	 * OnMenuFlickListener
+	 */
 	private class OnMenuFlickListener extends OnFlickListener {
 
 		public OnMenuFlickListener(Context context) {
@@ -425,9 +425,9 @@ public class FlickerActivity extends Activity {
 		}
 	}
 
-/*
- *	menu()
- */
+	/*
+	 * menu()
+	 */
 	private void menu(int position) {
 		switch (position) {
 			case MenuList.MENU_DRAWER:

@@ -1,7 +1,5 @@
 package com.ssmomonga.ssflicker.dlg;
 
-import com.ssmomonga.ssflicker.R;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,18 +8,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.SeekBar;
 
+import com.ssmomonga.ssflicker.R;
+
 public class VolumeDialog extends AlertDialog {
 	
 	private Context context;
 	
-	//コンストラクタ
+	/*
+	 * Constructor
+	 */
 	public VolumeDialog (Context context) {
 		super(context);
 		this.context = context;
 		setInitialLayout();
 	}
 	
-	//setInitialLayout()
+	/*
+	 * setInitialLayout()
+	 */
 	private void setInitialLayout() {
 		LayoutInflater inflater = LayoutInflater.from(context);
 		View view = inflater.inflate(R.layout.volume_dialog, null);

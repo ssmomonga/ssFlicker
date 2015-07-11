@@ -5,12 +5,16 @@ import android.widget.LinearLayout;
 
 public class OverlayPoint extends LinearLayout {
 
-	//コンストラクタ
+	/*
+	 * Constructor
+	 */
 	public OverlayPoint(Context context) {
 		super(context);
 	}
 
-	//setOnFlickListener()
+	/*
+	 * setOnFlickListener()
+	 */
 	public void setOnFlickListener(OnFlickListener listener) {
 		setOnTouchListener(listener);
 	}

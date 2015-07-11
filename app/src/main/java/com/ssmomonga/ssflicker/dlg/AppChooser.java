@@ -1,11 +1,5 @@
 package com.ssmomonga.ssflicker.dlg;
 
-import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.data.App;
-import com.ssmomonga.ssflicker.dlg.CustomAdapters.AppAdapter;
-import com.ssmomonga.ssflicker.dlg.CustomAdapters.AppWidgetAdapter;
-import com.ssmomonga.ssflicker.proc.GetAppListTask;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
+import com.ssmomonga.ssflicker.R;
+import com.ssmomonga.ssflicker.data.App;
+import com.ssmomonga.ssflicker.dlg.CustomAdapters.AppAdapter;
+import com.ssmomonga.ssflicker.dlg.CustomAdapters.AppWidgetAdapter;
+import com.ssmomonga.ssflicker.proc.GetAppListTask;
 
 public abstract class AppChooser extends AlertDialog {
 	
@@ -24,8 +24,11 @@ public abstract class AppChooser extends AlertDialog {
 	private static GridView gv_apps;
 	private static AppWidgetAdapter widgetAdapter;
 	private static GridView gv_app_widgets;
-	
-	public AppChooser (Context context, int appType, int intentAppType) {
+
+	/*
+	 * Constructor
+	 */
+	public AppChooser(Context context, int appType, int intentAppType) {
 		super(context);
 		this.context = context;
 		this.appType = appType;
@@ -33,7 +36,9 @@ public abstract class AppChooser extends AlertDialog {
 		setInitialLayout();
 	}
 	
-	
+	/*
+	 * setInitialLayout()
+	 */
 	private void setInitialLayout() {
 
 		View view = null;
@@ -63,7 +68,10 @@ public abstract class AppChooser extends AlertDialog {
 		});
 		
 	}
-	
+
+	/*
+	 * execute()
+	 */
 	public void execute() {
 		
 		new GetAppListTask(context) {
@@ -116,9 +124,23 @@ public abstract class AppChooser extends AlertDialog {
 		}
 	};
 
-	
-	public abstract void onSelectIntentApp (App app);		//アプリを選択した時に動作
-	public abstract void onSelectAppWidget (App app);		//アプリを選択した時に動作
-	public abstract void onSelectFunction (App app);		//アプリを選択した時に動作
+	/*
+	 * onSelectIntentApp()
+	 */
+	public abstract void onSelectIntentApp(App app);		//アプリを選択した時に動作
+
+	/*
+	 * onSelectAppWidget()
+	 */
+	public abstract void onSelectAppWidget(App app);		//アプリを選択した時に動作
+
+	/*
+	 * onSelectFunction()
+	 */
+	public abstract void onSelectFunction(App app);		//アプリを選択した時に動作
+
+	/*
+	 * onDismissDialog()
+	 */
 	public abstract void onDismissDialog();					//キャンセル
 }

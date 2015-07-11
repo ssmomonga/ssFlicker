@@ -1,12 +1,9 @@
 package com.ssmomonga.ssflicker.proc;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
-import java.util.Date;
+import android.appwidget.AppWidgetHost;
+import android.content.Context;
+import android.text.format.DateFormat;
+import android.widget.ArrayAdapter;
 
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.AppList;
@@ -16,10 +13,13 @@ import com.ssmomonga.ssflicker.db.SQLiteDBH;
 import com.ssmomonga.ssflicker.set.AppWidgetHostSettings;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
 
-import android.appwidget.AppWidgetHost;
-import android.content.Context;
-import android.text.format.DateFormat;
-import android.widget.ArrayAdapter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
+import java.util.Date;
 
 public class BackupRestore {
 	
@@ -28,16 +28,19 @@ public class BackupRestore {
 	private static String backupDirPath;
 	private static String backupDirPath2;
 
-	//コンストラクタ
-	public BackupRestore (Context context) {
+	/*
+	 * Constructor
+	 */
+	public BackupRestore(Context context) {
 		this.context = context;
 		dbFileName = context.getDatabasePath(SQLiteDBH.DATABASE_FILE_NAME).getPath();
 		backupDirPath = DeviceSettings.getExternalDir(context);
 		backupDirPath2 = DeviceSettings.getExternalDir2(context);
 	}
 	
-
-	//backup()
+	/*
+	 * backup()
+	 */
 	public String backup() throws IOException {
 		String date = (String) DateFormat.format("_yyyyMMdd_kkmmss_", new Date());
 		String backupFileName = SQLiteDBH.DATABASE_VERSION + date + SQLiteDBH.DATABASE_FILE_NAME;
@@ -45,10 +48,11 @@ public class BackupRestore {
 		fileCopy(dbFileName, fullBackupFileName);
 		return backupFileName;
 	}
-	
-	
-	//restore()
-	public boolean restore (String fileName) {
+
+	/*
+	 * restore()
+	 */
+	public boolean restore(String fileName) {
 
 		boolean b = false;
 		
@@ -77,10 +81,11 @@ public class BackupRestore {
 
 		return b;
 	}
-	
 
-	//fileCopy()
-	private void fileCopy (String inputFileName, String outputFileName) throws IOException {
+	/*
+	 * fileCopy()
+	 */
+	private void fileCopy(String inputFileName, String outputFileName) throws IOException {
 		FileInputStream fis = new FileInputStream(inputFileName);
 		FileOutputStream fos = new FileOutputStream(outputFileName);
 		
@@ -93,8 +98,9 @@ public class BackupRestore {
 	    fos.close();
 	}
 	
-	
-	//getBackupFileList()
+	/*
+	 * getBackupFileList()
+	 */
 	public ArrayAdapter<String> getBackupFileList() {
 		FilenameFilter filter = new FilenameFilter() {
 			@Override

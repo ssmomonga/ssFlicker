@@ -16,11 +16,17 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 
 	private Context context;
 	private static Dialog progressDialog;
-	
+
+	/*
+	 * Constructor
+	 */
 	public GetAppListTask(Context context) {
 		this.context = context;
 	}
-		
+
+	/*
+	 * onPreExecute()
+	 */
 	@Override
 	protected void onPreExecute() {
 
@@ -44,6 +50,9 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 			
 	}
 
+	/*
+	 * doInBackground()
+	 */
 	@Override
 	protected App[] doInBackground(Integer... integer) {
 		int appType = integer[0];
@@ -65,15 +74,24 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 		}
 		return appList;
 	}
-		
+
+	/*
+	 * onPostExecute()
+	 */
 	@Override
 	protected void onPostExecute(App[] appList) {
 		progressDialog.dismiss();
 		asyncComplete(appList);
 	}
-	
+
+	/*
+	 * asyncCancel()
+	 */
 	public abstract void asyncCancel();
+
+	/*
+	 * asyncComplete()
+	 */
 	public abstract void asyncComplete(App[] appList);
 
 }
-	

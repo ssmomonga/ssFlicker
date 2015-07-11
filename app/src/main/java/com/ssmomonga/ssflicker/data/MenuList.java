@@ -15,9 +15,9 @@ public class MenuList {
 	public static final int MENU_FLICK_MODE = 4;
 	public static final int MENU_ANDROID_SETTINGS = 6;
 
-/*
- *	getFlickerMenuList()
- */
+	/*
+	 * getFlickerMenuList()
+	 */
 	public static BaseData[] getFlickerMenuList(Context context) {
 		Resources r = context.getResources();
 		BaseData[] menu = new BaseData[MENU_COUNT];
@@ -40,9 +40,9 @@ public class MenuList {
 		return menu;
 	}
 
-/*
- *	getEditorMenuList()
- */
+	/*
+	 * getEditorMenuList()
+	 */
 	public static BaseData[] getEditorMenuList(Context context) {
 		Resources r = context.getResources();
 		BaseData[] menu = new BaseData[MENU_COUNT];

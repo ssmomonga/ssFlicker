@@ -25,9 +25,9 @@ public class IconList {
 	public static final int LABEL_ICON_TYPE_APPWIDGET = 5;		//アプリのウィジェットアイコン、ラベル
 	public static final int LABEL_ICON_TYPE_CUSTOM = 6;			//ポインタ、アプリのカスタム
 
-/*
- *	getIconTypeList()
- */
+	/*
+	 * getIconTypeList()
+	 */
 	public static CharSequence[] getIconTypeList(Context context, int iconTarget, int pointerType) {
 		Resources r = context.getResources();
 		
@@ -47,9 +47,9 @@ public class IconList {
 		}
 	}
 
-/*
- *	getOriginalIconList()
- */
+	/*
+	 * getOriginalIconList()
+	 */
 	public static BaseData[] getOriginalIconList(Context context) {
 		Resources r = context.getResources();
 		return new BaseData[] {
@@ -84,9 +84,9 @@ public class IconList {
 		};
 	}
 
-/*
- *	getAppIconsList()
- */
+	/*
+	 * getAppIconsList()
+	 */
 	public static BaseData[] getAppIconsList(App[] appList) {
 		BaseData[] icons = new BaseData[App.FLICK_APP_COUNT];
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {

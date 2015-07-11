@@ -1,13 +1,13 @@
 package com.ssmomonga.ssflicker.set;
 
-import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.db.PrefDAO;
-
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+
+import com.ssmomonga.ssflicker.R;
+import com.ssmomonga.ssflicker.db.PrefDAO;
 
 public class OverlaySettings {
 	
@@ -22,7 +22,9 @@ public class OverlaySettings {
 	private static OverlayWindowParams overlayWindowParams;
 	private static OverlayFlickListenerParams overlayFlickListenerParams;
 	
-	//�R���X�g���N�^
+	/*
+	 * Constructor
+	 */
 	public OverlaySettings(Context context) {
 		this.context = context;
 		pdao = new PrefDAO(context);
@@ -33,42 +35,58 @@ public class OverlaySettings {
 		overlayFlickListenerParams = new OverlayFlickListenerParams(context);
 	}
 	
-	//isForeground()
+	/*
+	 * isForeground()
+	 */
 	public boolean isForeground() {
 		return foreground;
 	}
 	
-	//setForeground()
+	/*
+	 * setForeground()
+	 */
 	public void setForeground(boolean b) {
 		this.foreground = b;
 	}
 	
-	//setOverlayPointBackgroundColor()
-	public void setOverlayPointBackgroundColor (int overlayPointBackgroundColor) {
+	/*
+	 * setOverlayPointBackgroundColor()
+	 */
+	public void setOverlayPointBackgroundColor(int overlayPointBackgroundColor) {
 		this.overlayPointBackgroundColor = overlayPointBackgroundColor;
 	}
 	
-	//getOverlayPointBackgroundColor()
+	/*
+	 * getOverlayPointBackgroundColor()
+	 */
 	public int getOverlayPointBackgroundColor() {
 		return overlayPointBackgroundColor;
 	}
 	
-	//getOverlayPointParams()
+	/*
+	 * getOverlayPointParams()
+	 */
 	public OverlayPointParams[] getOverlayPointParams(){
 		return overlayPointParams;
 	}
-	
+
+	/*
+	 * getOverlayWindowParams()
+	 */
 	public OverlayWindowParams getOverlayWindowParams() {
 		return overlayWindowParams;
 	}
 	
-	//getOverlayFlickListenerParams()
+	/*
+	 * getOverlayFlickListenerParams()
+	 */
 	public OverlayFlickListenerParams getOverlayFlickListenerParams() {
 		return overlayFlickListenerParams;
 	}
 	
-	
-	//OverlayPointParams
+	/*
+	 * OverlayPointParams
+	 */
 	public class OverlayPointParams {
 
 		private int windowWidth;
@@ -81,7 +99,9 @@ public class OverlaySettings {
 		private int position;
 		private int width;
 
-		//�R���X�g���N�^
+		/*
+		 * Constructor
+		 */
 		public OverlayPointParams(int overlayPointNumber) {
 			windowWidth = DeviceSettings.getWindowWidth(context);
 			windowHeight = DeviceSettings.getWindowHeight(context);
@@ -92,24 +112,32 @@ public class OverlaySettings {
 			fillLP();
 		}
 		
-		//isOverlayPoint()
+		/*
+		  * isOverlayPoint()
+		 */
 		public boolean isOverlayPoint() {
 			return overlayPoint;
 		}
 		
-		//setOverlayPoint()
-		public void setOverlayPoint (boolean overlayPoint) {
+		/*
+		 * setOverlayPoint()
+		 */
+		public void setOverlayPoint(boolean overlayPoint) {
 			this.overlayPoint = overlayPoint;
 		}
 
-		//rotate
+		/*
+		 * rotate
+		 */
 		public void rotate() {
 			windowWidth = DeviceSettings.getWindowWidth(context);
 			windowHeight = DeviceSettings.getWindowHeight(context);
 			fillLP();
 		}
 		
-		//fillLP()
+		/*
+		 * fillLP()
+		 */
 		private void fillLP() {
 			overlayPointLP = new WindowManager.LayoutParams(
 					getOverlayPointXLength(),
@@ -146,30 +174,40 @@ public class OverlaySettings {
 			
 		}
 		
-		//setSide()
-		public void setSide (int side) {
+		/*
+		 * setSide()
+		 */
+		public void setSide(int side) {
 			this.side = side;
 			fillLP();
 		}
 		
-		//setPattern()
-		public void setPattern (int position) {
+		/*
+		 * setPattern()
+		 */
+		public void setPattern(int position) {
 			this.position = position;
 			fillLP();
 		}
 		
-		//setWidth()
-		public void setWidth (int width) {
+		/*
+		 * setWidth()
+		 */
+		public void setWidth(int width) {
 			this.width = width;
 			fillLP();
 		}
 		
-		//getOverlayPointLP()
-		public WindowManager.LayoutParams getOverlayPointLP () {
+		/*
+		 * getOverlayPointLP()
+		 */
+		public WindowManager.LayoutParams getOverlayPointLP() {
 			return overlayPointLP;
 		}
 		
-		//getOverlayPointXLength()
+		/*
+		 * getOverlayPointXLength()
+		 */
 		private int getOverlayPointXLength() {
 			switch (side) {
 				case 0:
@@ -211,7 +249,9 @@ public class OverlaySettings {
 			}
 		}
 		
-		//getOverlayPointYLength()
+		/*
+		 * getOverlayPointYLength()
+		 */
 		private int getOverlayPointYLength() {
 			switch (side) {
 				case 0:
@@ -253,7 +293,9 @@ public class OverlaySettings {
 			}
 		}
 		
-		//getOverlayPointPadding()
+		/*
+		 * getOverlayPointPadding()
+		 */
 		private int getOverlayPointPadding() {
 			
 			int windowSize = 0;
@@ -304,12 +346,16 @@ public class OverlaySettings {
 		}
 	}
 	
-	
-	//OverlayWindowParams
+	/*
+	 * overlayWindowParams
+	 */
 	public class OverlayWindowParams {
 		
 		private WindowManager.LayoutParams overlayWindowLP;
-		
+
+		/*
+		 * Constructor
+		 */
 		public OverlayWindowParams() {
 			overlayWindowLP = new WindowManager.LayoutParams(
 					ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -322,42 +368,55 @@ public class OverlaySettings {
 					PixelFormat.TRANSPARENT);
 		}
 		
-		//getOverlayLP()
+		/*
+		 * getOverlayLP()
+		 */
 		public WindowManager.LayoutParams getOverlayWindowLP() {
 			return overlayWindowLP;
 		}
 
 	}
 	
-	
-	//OverlayFlickListenerParams
+	/*
+	 * OverlayFlickListenerParams
+	 */
 	public class OverlayFlickListenerParams {
 
 		private int vibrateTime;
 		private int overlayPointAction;
 		
-		//�R���X�g���N�^
+		/*
+		 * Constructor
+		 */
 		public OverlayFlickListenerParams(Context context) {
 			vibrateTime = pdao.getVibrateTime();
 			overlayPointAction = pdao.getOverlayPointAction();
 		}
 
-		//getVibrateTime()
+		/*
+		 * getVibrateTime()
+		 */
 		public int getVibrateTime() {
 			return vibrateTime;
 		}
 
-		//setVibrateTime()
+		/*
+		 * setVibrateTime()
+		 */
 		public void setVibrateTime(int time) {
 			vibrateTime = time;
 		}
 		
-		//getOverlayPointAction()
+		/*
+		 * getOverlayPointAction()
+		 */
 		public int getOverlayPointAction() {
 			return overlayPointAction;
 		}
 		
-		//setOverlayPointAction()
+		/*
+		 * setOverlayPointAction()
+		 */
 		public void setOverlayPointAction(int action) {
 			overlayPointAction = action;
 		}

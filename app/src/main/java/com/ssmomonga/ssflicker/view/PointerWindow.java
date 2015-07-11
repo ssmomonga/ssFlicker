@@ -25,13 +25,17 @@ public class PointerWindow extends TableLayout {
 	private static final Animation[] anim_pointer_unpointed = new Animation[Pointer.FLICK_POINTER_COUNT];
 	private static Animation anim_window_open;
 
-	//コンストラクタ
-	public PointerWindow (Context context, AttributeSet attrs) {
+	/*
+	 * Constructor
+	 */
+	public PointerWindow(Context context, AttributeSet attrs) {
 		super (context, attrs);
 		setInitialLayout(context);
 	}
 	
-	//setInitialLayout()
+	/*
+	 * setInitialLayout()
+	 */
 	private void setInitialLayout(Context context) {
 
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -95,12 +99,16 @@ public class PointerWindow extends TableLayout {
 		anim_window_open = AnimationUtils.loadAnimation(context, R.anim.window_open);
 	}
 
-	//setOnFlickListener()
-	public void setOnFlickListener (OnFlickListener listener) {
+	/*
+	/ * /setOnFlickListener()
+	 */
+	public void setOnFlickListener(OnFlickListener listener) {
 		for (LinearLayout ll: ll_pointer) ll.setOnTouchListener(listener);
 	}
 	
-	//setLayout()
+	/*
+	 * setLayout()
+	 */
 	public void setLayout(WindowParams params) {
 
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
@@ -117,9 +125,10 @@ public class PointerWindow extends TableLayout {
 		setBackground(params.getPointerWindowBackground());
 	}
 
-	
-	//setPointer()
-	public void setPointer (Pointer[] pointerList) {
+	/*
+	 * setPointer()
+	 */
+	public void setPointer(Pointer[] pointerList) {
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
 			Pointer pointer = pointerList[i];
 			if (pointer != null) {
@@ -139,9 +148,10 @@ public class PointerWindow extends TableLayout {
 		}
 	}
 	
-	
-	//setPointerForEdit()
-	public void setPointerForEdit (Pointer[] pointerList) {
+	/*
+	 * setPointerForEdit()
+	 */
+	public void setPointerForEdit(Pointer[] pointerList) {
 
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
 			Pointer pointer = pointerList[i];
@@ -157,9 +167,10 @@ public class PointerWindow extends TableLayout {
 		}
 	}
 
-	
-	//setPointed()
-	public void setPointerPointed (boolean pointed, int pointerId) {
+	/*
+	 * setPointed()
+	 */
+	public void setPointerPointed(boolean pointed, int pointerId) {
 //		if (animation) {
 			if (pointed) {
 				ll_pointer[pointerId].startAnimation(anim_pointer_pointed[pointerId]);
@@ -170,12 +181,14 @@ public class PointerWindow extends TableLayout {
 //			ll_pointer[pointerId].clearAnimation();
 //		}
 	}
-		
-	//setVisibility()
+
+	/*
+	 * setVisibility()
+	 */
 	@Override
 	public void setVisibility (int visibility) {
 		super.setVisibility(visibility);
-		if (visibility == View.VISIBLE) startAnimation(anim_window_open);		
+		if (visibility == View.VISIBLE) startAnimation(anim_window_open);
 	}
 
 }

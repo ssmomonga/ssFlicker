@@ -19,23 +19,23 @@ public class FunctionInfo {
 	
 	private int functionType;
 
-/*
- *	Constructor
- */
+	/*
+	 * Constructor
+	 */
 	public FunctionInfo(int functionType) {
 		this.functionType = functionType;
 	}
 	
-/*
- *	getFunctionType()
- */
+	/*
+	 * getFunctionType()
+	 */
 	public int getFunctionType() {
 		return functionType;
 	}
 
-/*
- *	getFunctionRawLabel()
- */
+	/*
+	 * getFunctionRawLabel()
+	 */
 	public String getFunctionRawLabel(Context context) {
 		Resources r = context.getResources();
 		
@@ -61,9 +61,9 @@ public class FunctionInfo {
 		}
 	}
 
-/*
- *	getFunctionRawIcon()
- */
+	/*
+	 * getFunctionRawIcon()
+	 */
 	public Drawable getFunctionRawIcon(Context context) {
 		Resources r = context.getResources();
 

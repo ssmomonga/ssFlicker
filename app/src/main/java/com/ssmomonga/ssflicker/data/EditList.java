@@ -38,9 +38,9 @@ public class EditList {
 	public static final int EDIT_APP_DOWN = 6;
 	public static final int EDIT_APP_DELETE = 7;
 
-/*
- *	getAddPointerList()
- */
+	/*
+	 * getAddPointerList()
+	 */
 	public static BaseData[] getAddPointerList(Context context) {
 		Resources r = context.getResources();
 		BaseData[] edit = new BaseData[App.FLICK_APP_COUNT];
@@ -70,9 +70,9 @@ public class EditList {
 		return edit;
 	}
 
-/*
- *	getEditPointerList()
- */
+	/*
+	 * getEditPointerList()
+	 */
 	public static BaseData[] getEditPointerList(Context context, Pointer pointer, int pointerWindowVisibility) {
 		Resources r = context.getResources();
 		BaseData[] edit = new BaseData[App.FLICK_APP_COUNT];
@@ -116,9 +116,9 @@ public class EditList {
 		return edit;
 	}
 
-/*
- *	getAddAppList()
- */
+	/*
+	 * getAddAppList()
+	 */
 	public static BaseData[] getAddAppList(Context context) {
 		Resources r = context.getResources();
 		BaseData[] edit = new BaseData[App.FLICK_APP_COUNT];
@@ -147,9 +147,9 @@ public class EditList {
 		return edit;
 	}
 
-/*
- *	getEditAppList()
- */
+	/*
+	 * getEditAppList()
+	 */
 	public static BaseData[] getEditAppList(Context context) {
 		Resources r = context.getResources();
 		BaseData[] edit = new BaseData[App.FLICK_APP_COUNT];
@@ -178,16 +178,16 @@ public class EditList {
 		return edit;
 	}
 
-/*
- *	getAddDockList()
- */
+	/*
+	 * getAddDockList()
+	 */
 	public static BaseData[] getAddDockList(Context context) {
 		return getAddAppList(context);
 	}
 
-/*
- *	getEditDockList()
- */
+	/*
+	 * getEditDockList()
+	 */
 	public static BaseData[] getEditDockList(Context context, int orientation) {
 		BaseData[] edit = getEditAppList(context);
 		if (orientation == Configuration.ORIENTATION_PORTRAIT) {

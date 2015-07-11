@@ -1,13 +1,13 @@
 package com.ssmomonga.ssflicker.view;
 
-import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.db.PrefDAO;
-import com.ssmomonga.ssflicker.proc.Launch;
-
 import android.content.Context;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.ssmomonga.ssflicker.R;
+import com.ssmomonga.ssflicker.db.PrefDAO;
+import com.ssmomonga.ssflicker.proc.Launch;
 
 abstract public class OnFlickListener implements View.OnTouchListener {
 
@@ -17,22 +17,28 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	public static int flickDistance;
 	public int vibrateTime;
 	
-	//コンストラクタ
+	/*
+	 * Constructor
+	 */
 	public OnFlickListener(Context context) {
 		FlickListenerParams params = new FlickListenerParams(context);
 		l = new Launch(context);
 		flickDistance = context.getResources().getDimensionPixelSize(R.dimen.flick_distance);
 		vibrateTime = params.getVibrateTime();
 	}
-	
-	//コンストラクタ
+
+	/*
+	 * Constructor
+	 */
 	public OnFlickListener(Context context, int vibrateTime) {
 		l = new Launch(context);
 		flickDistance = context.getResources().getDimensionPixelSize(R.dimen.flick_distance);
 		this.vibrateTime = vibrateTime;
 	}
 	
-	//onTouch()
+	/*
+	 * onTouch()
+	 */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 
@@ -69,14 +75,39 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		return true;
 	}
 
+	/*
+	 * setId()
+	 */
 	abstract public void setId(int id);
+
+	/*
+	 * isData()
+	 */
 	abstract public boolean isData();
+
+	/*
+	 * onDown()
+	 */
 	abstract public void onDown(int position);
+
+	/*
+	 * onMove()
+	 */
 	abstract public void onMove(int oldPosition, int position);
+
+	/*
+	 * onUp()
+	 */
 	abstract public void onUp(int position, Rect r);
+
+	/*
+	 * onCancel()
+	 */
 	abstract public void onCancel(int position);
 
-	//Position
+	/*
+	 * Position
+	 */
 	private class Position {
 		
 		private float iniX;
@@ -84,14 +115,18 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		private int oldPosition = -1;
 		private int position = -1;
 
-		//コンストラクタ
-		public Position (float iniX, float iniY) {
+		/*
+		 * Constructor
+		 */
+		public Position(float iniX, float iniY) {
 			this.iniX = iniX;
 			this.iniY = iniY;
 		}
 
-		//setPosition()
-		public boolean setPosition (float X, float Y) {
+		/*
+		 * /setPosition()
+		 */
+		public boolean setPosition(float X, float Y) {
 			
 			oldPosition = position;
 			
@@ -135,28 +170,39 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 			return position != oldPosition;					//position���ς������true��Ԃ��B
 		}
 		
-		//getPosition()
-		public int getPosition () {
+		/*
+		 getPosition()
+		 */
+		public int getPosition() {
 			return position;
 		}
-		
 
-		//getOldPosition()
-		public int getOldPosition () {
+		/*
+		 * getOldPosition()
+		 */
+		public int getOldPosition() {
 			return oldPosition;
 		}
 	}
 	
-	
+	/*
+	 * FlickListenerParams
+	 */
 	private class FlickListenerParams {
 		
 		private int vibrateTime;
-		
+
+		/*
+		 * Constructor
+		 */
 		public FlickListenerParams(Context context) {
 			PrefDAO pdao = new PrefDAO(context);
 			vibrateTime = pdao.getVibrateTime();
 		}
-				
+
+		/*
+		 * getVibrateTime()
+		 */
 		public int getVibrateTime() {
 			return vibrateTime;
 		}

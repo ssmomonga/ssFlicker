@@ -5,18 +5,21 @@ import android.widget.LinearLayout;
 
 import com.ssmomonga.ssflicker.data.AppWidgetInfo;
 
-//AppWidgetView
 public class AppWidgetParams {
 
 	private LinearLayout.LayoutParams appWidgetLP;
 	private int appWidgetPositionPadding[] = new int[4];
 	
-	//コンストラクタ
+	/*
+	 * Constructor
+	 */
 	public AppWidgetParams(Context context, AppWidgetInfo appWidgetInfo) {
 		fillAppWidgetLP(context, appWidgetInfo);
 	}
 	
-	//fillAppWidgetData()
+	/*
+	 * fillAppWidgetData()
+	 */
 	private void fillAppWidgetLP(Context context, AppWidgetInfo appWidgetInfo) {
 		int[] cellSize = appWidgetInfo.getAppWidgetCellSize();
 		int[] pixelPerCell = DeviceSettings.getPixelPerCell(context);
@@ -27,12 +30,16 @@ public class AppWidgetParams {
 		appWidgetPositionPadding[1] = cellPosition[1] * pixelPerCell[1];
 	}
 
-	//getPadding()
+	/*
+	 * getPadding()
+	 */
 	public int[] getAppWidgetPositionPadding() {
 		return appWidgetPositionPadding;
 	}
 	
-	//getAppWidgetLP()
+	/*
+	 * getAppWidgetLP()
+	 */
 	public LinearLayout.LayoutParams getAppWidgetLP() {
 		return appWidgetLP;
 	}

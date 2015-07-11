@@ -8,54 +8,54 @@ public class BaseData {
 	private Drawable icon;
 	private Object tag;
 
-/*
- *	Constructor
- */
+	/*
+	 * Constructor
+	 */
 	public BaseData(String menuLabel, Drawable menuIcon) {
 		this.label = menuLabel;
 		this.icon = menuIcon;
 	}
 
-/*
- *	Constructor
- */
+	/*
+	 * Constructor
+	 */
 	public BaseData(String menuLabel, Drawable menuIcon, Object tag) {
 		this.label = menuLabel;
 		this.icon = menuIcon;
 		this.tag = tag;
 	}
 
-/*
- *	getLabel()
- */
+	/*
+	 * getLabel()
+	 */
 	public String getLabel() {
 		return label;
 	}
 
-/*
- *	getIcon()
- */
+	/*
+	 * getIcon()
+	 */
 	public Drawable getIcon() {
 		return icon;
 	}
 
-/*
- *	getTag()
- */
+	/*
+	 * getTag()
+	 */
 	public Object getTag() {
 		return tag;
 	}
 
-/*
- *	getLabel()
- */
+	/*
+	 * getLabel()
+	 */
 	public void setLabel(String label) {
 		this.label = label;
 	}
 
-/*
- *	getIcon()
- */
+	/*
+	 * getIcon()
+	 */
 	public void setIcon(Drawable icon) {
 		this.icon = icon;
 	}

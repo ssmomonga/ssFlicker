@@ -83,18 +83,18 @@ public class PrefSubActivity extends Activity {
 		}
 	};
 
-/*
- *	onCreate()
- */
+	/*
+	 * onCreate()
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefSubFragment()).commit();
 	}
 	
-/*
- *	onKeyDown()
- */
+	/*
+	 * onKeyDown()
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -103,14 +103,14 @@ public class PrefSubActivity extends Activity {
 		return false;
 	}
 	
-/*
- *	PrefFragment
- */
+	/*
+	 * PrefFragment
+	 */
 	public static class PrefSubFragment extends PreferenceFragment {
 
-/*
- *	onCreate()
- */
+		/*
+		 * onCreate()
+		 */
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -128,9 +128,9 @@ public class PrefSubActivity extends Activity {
 			setInitialLayout();
 		}
 
-/*
- *	onResume()
- */
+		/*
+		 * onResume()
+		 */
 		@Override
 		public void onResume() {
 			super.onResume();
@@ -140,9 +140,9 @@ public class PrefSubActivity extends Activity {
 			setLayout();
 		}
 		
-/*
- *	onPause()
- */
+		/*
+		 * onPause()
+		 */
 		@Override
 		public void onPause() {
 			super.onPause();
@@ -156,9 +156,9 @@ public class PrefSubActivity extends Activity {
 			activity.finish();
 		}
 
-/*
- *	setInitialLayout()
- */
+		/*
+		 * setInitialLayout()
+		 */
 		private void setInitialLayout() {
 			switch (key) {
 				case KEY_DEFAULT_PREF:
@@ -237,9 +237,9 @@ public class PrefSubActivity extends Activity {
 			}
 		}
 		
-/*
- *	setLayout()
- */
+		/*
+		 * setLayout()
+		 */
 		private void setLayout() {
 			switch (key) {
 				case KEY_DEFAULT_PREF:
@@ -295,10 +295,10 @@ public class PrefSubActivity extends Activity {
 
 			}
 		}
-		
-/*
- *	PreferenceClickListener()
- */
+
+		/*
+		 * PreferenceClickListener()
+		 */
 		private class PreferenceClickListener implements OnPreferenceClickListener {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
@@ -308,9 +308,9 @@ public class PrefSubActivity extends Activity {
 			}
 		}
 
-/*
- *	CheckedChangeListener
- */
+		/*
+		 * CheckedChangeListener
+		 */
 		private class CheckedChangeListener implements OnCheckedChangeListener {
 			@Override
 			public void onCheckedChanged(CompoundButton button, final boolean newValue) {
@@ -356,9 +356,9 @@ public class PrefSubActivity extends Activity {
 			}
 		}
 
-/*
- *	PeferenceChangeListener
- */
+		/*
+		 * PeferenceChangeListener
+		 */
 		private class PreferenceChangeListener implements OnPreferenceChangeListener {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -434,9 +434,9 @@ public class PrefSubActivity extends Activity {
 			}
 		}
 		
-/*
- *	setSummary()
- */
+		/*
+		 * setSummary()
+		 */
 		private void setSummary(Preference preference, Object value) {
 			if (preference == home_key) {
 			} else if (preference == home_key_another_home) {

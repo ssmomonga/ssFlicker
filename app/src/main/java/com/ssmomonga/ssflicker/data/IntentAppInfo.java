@@ -26,9 +26,9 @@ public class IntentAppInfo {
 	private Intent intent;
 	private int taskId = -1;
 
-/*
- *	Constructor
- */
+	/*
+	 * Constructor
+	 */
 	public IntentAppInfo(int intentAppType, String intentUri) {
 		this.intentAppType = intentAppType;
 		this.intentUri = intentUri;
@@ -39,18 +39,18 @@ public class IntentAppInfo {
 		}
 	}
 
-/*
- *	Constructor
- */
+	/*
+	 * Constructor
+	 */
 	public IntentAppInfo(int intentAppType, Intent intent) {
 		this.intentAppType = intentAppType;
 		this.intent = intent;
 		intentUri = intent.toUri(0);
 	}
 
-/*
- *	Constructor
- */
+	/*
+	 * Constructor
+	 */
 	public IntentAppInfo(int intentAppType, Intent intent, int taskId) {
 		this.intentAppType = intentAppType;
 		this.intent = intent;
@@ -58,9 +58,9 @@ public class IntentAppInfo {
 		intentUri = intent.toUri(0);
 	}
 
-/*
- *	getIntentAppRawLabel()
- */
+	/*
+	 * getIntentAppRawLabel()
+	 */
 	public String getIntentAppRawLabel(Context context) {
 		PackageManager pm = context.getPackageManager();
 		List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(intent, 0);
@@ -73,9 +73,9 @@ public class IntentAppInfo {
 		}
 	}
 
-/*
- *	getIntentAppRawIcon()
- */
+	/*
+	 * getIntentAppRawIcon()
+	 */
 	public Drawable getIntentAppRawIcon(Context context) {
 		PackageManager pm = context.getPackageManager();
 		List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(intent, 0);
@@ -84,51 +84,51 @@ public class IntentAppInfo {
 				resolveInfoList.get(0).activityInfo.loadIcon(pm) :
 				context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
 
-/*		if (resolveInfoList.size() != 0) {
+	/*		if (resolveInfoList.size() != 0) {
 			return resolveInfoList.get(0).activityInfo.loadIcon(pm);
 		} else {
 			return context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
-		} */
+		}	 */
 	}
 
-/*
- * getIntentAppType()
- */
+	/*
+	 * getIntentAppType()
+	 */
 	public int getIntentAppType() {
 		return intentAppType;
 	}
 
-/*
- *	getIntentUri()
- */
+	/*
+	 * getIntentUri()
+	 */
 	public String getIntentUri() {
 		return intentUri;
 	}
 
-/*
- *	getIntent()
- */
+	/*
+	 * getIntent()
+	 */
 	public Intent getIntent() {
 		return intent;
 	}
 
-/*
- *	getSendTemplate()
- */
+	/*
+	 * getSendTemplate()
+	 */
 	public String getSendTemplate() {
 		return intent.getStringExtra(Intent.EXTRA_TEXT);
 	}
 
-/*
- *	getTaskId()
- */
+	/*
+	 * getTaskId()
+	 */
 	public int getTaskId() {
 		return taskId;
 	}
 
-/*
- *	setSendTemplate
- */
+	/*
+	 * setSendTemplate
+	 */
 	public void setSendTemplate (String sendTemplate) {
 		intent = intent.putExtra(Intent.EXTRA_TEXT, sendTemplate);
 		intentUri = intent.toUri(0);

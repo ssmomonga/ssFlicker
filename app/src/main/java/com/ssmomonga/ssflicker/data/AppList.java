@@ -30,9 +30,9 @@ public class AppList {
 	private static final int TASK_COUNT = 99;
 	private static final String TEXT_PLAIN = "text/plain";
 
-/*
- *	getIntentAppList()
- */
+	/*
+	 * getIntentAppList()
+	 */
 	public static App[] getIntentAppList(Context context, int intentType, int count) {
 		
 		ArrayList<App> appList = new ArrayList<App>();
@@ -109,9 +109,9 @@ public class AppList {
 		return appList.toArray(new App[count]);
 	}
 
-/*
- *	getTaskAppList()
- */
+	/*
+	 * getTaskAppList()
+	 */
 	public static App[] getTaskAppList(Context context, int intentType) {
 		ArrayList<App> appList = new ArrayList<App>();
 
@@ -173,9 +173,9 @@ public class AppList {
 		return appList.toArray(new App[App.FLICK_APP_COUNT]);
 	}
 
-/*
- *	getAppWidgetList()
- */
+	/*
+	 * getAppWidgetList()
+	 */
 	public static App[] getAppWidgetList(Context context) {
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 		List<AppWidgetProviderInfo> appWidgetProviderInfoList = appWidgetManager.getInstalledProviders();
@@ -213,9 +213,9 @@ public class AppList {
 
 	}
 
-/*
- *	WidgetNameComparator
- */
+	/*
+	 * WidgetNameComparator
+	 */
 	public static class WidgetNameComparator implements Comparator<Object> {
 
 		private Context context;
@@ -248,9 +248,9 @@ public class AppList {
 		}
 	}
 	
-/*
- *	setFunctionList()
- */
+	/*
+	 * setFunctionList()
+	 */
 	public static App[] getFunctionList(Context context) {
 		Resources r = context.getResources();
 		App[] functionAppList = {

@@ -19,9 +19,9 @@ import java.util.List;
 
 public class Boot extends BroadcastReceiver {
 
-/*
- *	onReceive()
- */
+	/*
+	 * onReceive()
+	 */
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		
@@ -50,19 +50,17 @@ public class Boot extends BroadcastReceiver {
 		}
 	}
 	
-	
-/*
- *	rebuildAppCacheTable()
- */
+	/*
+	 * rebuildAppCacheTable()
+	 */
 	private void rebuildAppCacheTable(Context context) {
 		new SQLiteDAO(context).deleteAppCacheTable();
 		AppList.getIntentAppList(context, IntentAppInfo.INTENT_APP_TYPE_LAUNCHER, 0);
 	}
 	
-	
-/*
- *	rebuildAppTable()
- */
+	/*
+	 * rebuildAppTable()
+	 */
 	private void rebuildAppTable(Context context, Intent intent) {
 		
 		String targetPackageName = intent.getData().getSchemeSpecificPart();
@@ -101,9 +99,9 @@ public class Boot extends BroadcastReceiver {
 		}
 	}
 	
-/*
- * updateApp()
- */
+	/*
+	 * updateApp()
+	 */
 	private void updateApp(Context context, int pointerId, int appId, App app) {
 		
 		boolean b = false;
@@ -141,9 +139,9 @@ public class Boot extends BroadcastReceiver {
 
 	}
 
-/*
- *	deleteApp()
- */
+	/*
+	 * deleteApp()
+	 */
 	private void deleteApp(Context context, int pointerId, int appId) {
 		new SQLiteDAO(context).deleteAppTable(pointerId, appId);
 	}

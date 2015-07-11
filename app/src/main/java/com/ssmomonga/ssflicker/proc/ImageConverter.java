@@ -22,13 +22,21 @@ import java.io.ByteArrayOutputStream;
 
 public class ImageConverter {
 	
-	//createDrawable()		Bitmap → Drawable			createDrawable()とショートカットのアイコン追加で使う
-	public static Drawable createDrawable (Context context, Bitmap bitmap) {
+	/*
+	 * createDrawable()
+	 * Bitmap → Drawable
+	 * createDrawable()とショートカットのアイコン追加で使う
+	 */
+	public static Drawable createDrawable(Context context, Bitmap bitmap) {
 		return new BitmapDrawable(context.getResources(), bitmap);
 	}
 
-	//createBitmap()		Drawable → Bitmap			createByte()で使う。9-patchを使っている場合の対応
-	public static Bitmap createBitmap (Drawable drawable) {
+	/*
+	 * createBitmap()
+	 * Drawable → Bitmap
+	 * createByte()で使う。9-patchを使っている場合の対応
+	 */
+	public static Bitmap createBitmap(Drawable drawable) {
 		int width = drawable.getIntrinsicWidth();
 		int height = drawable.getIntrinsicHeight();
 
@@ -40,17 +48,27 @@ public class ImageConverter {
 		return bitmap;
 	}
 	
-	//createDrawable()		byte → Bitmap → Drawable	DBからのselectで使う
-	public static Drawable createDrawable (Context context, byte[] b) {
-		if (b != null) {
+	/*
+	 * createDrawable()
+	 * byte → Bitmap → Drawable
+	 * DBからのselectで使う
+	 */
+	public static Drawable createDrawable(Context context, byte[] b) {
+		return b != null ? createDrawable(context, BitmapFactory.decodeByteArray(b, 0, b.length)) : null;
+
+/*		if (b != null) {
 			return createDrawable(context, BitmapFactory.decodeByteArray(b, 0, b.length));
 		} else {
 			return null;
-		}
+		} */
 	}
 
-	//createByte()			Drawable → Bitmap → リサイズ → byte	DBへのinsertで使う
-	public static byte[] createByte (Context context, Drawable drawable) {
+	/*
+	 * createByte()
+	 * Drawable → Bitmap → リサイズ → byte
+	 * DBへのinsertで使う
+	 */
+	public static byte[] createByte(Context context, Drawable drawable) {
 		if (drawable != null) {
 			Bitmap bitmap = createBitmap(drawable);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -60,20 +78,23 @@ public class ImageConverter {
 			return null;
 		}
 	}
-	
 
-	//resizeBitmap()		Bitmap → Bitmap
-	public static Bitmap resizeBitmap (Context context, Bitmap bitmap) {
+	/*
+	 * resizeBitmap()
+	 * Bitmap → Bitmap
+	 */
+	public static Bitmap resizeBitmap(Context context, Bitmap bitmap) {
 		int width = bitmap.getWidth();
 		int height = bitmap.getHeight();
 		
 		float size = context.getResources().getDimensionPixelSize(R.dimen.icon_size);
-		float scale;
+		float scale = width >= height ? size / width : size / height;
+/*
 		if (width >= height) {
 			scale = size / width;
 		} else {
 			scale = size / height;
-		}
+		} */
 		
 		Matrix matrix = new Matrix();
 		matrix.postScale(scale, scale);
@@ -82,8 +103,10 @@ public class ImageConverter {
 		return resizeBitmap;
 	}
 	
-	//resizeAppWidgetPreviewImage()
-	public static Bitmap resizeAppWidgetPreviewImage (Context context, Bitmap bitmap) {
+	/*
+	 * resizeAppWidgetPreviewImage()
+	 */
+	public static Bitmap resizeAppWidgetPreviewImage(Context context, Bitmap bitmap) {
 		int width = bitmap.getWidth();
 		int height = bitmap.getHeight();
 		
@@ -101,10 +124,12 @@ public class ImageConverter {
 		}
 		
 
-	}		
-		
-	
-	//roundBitmap()		bitmapの角を丸める。画像を選択＆トリミングで利用する。
+	}
+
+	/*
+	 * roundBitmap()
+	 * bitmapの角を丸める。画像を選択＆トリミングで利用する。
+	 */
 	public static Bitmap roundBitmap(Context context, Bitmap bitmap) {
 		int width = bitmap.getWidth();
 		int height = bitmap.getHeight();
@@ -124,9 +149,10 @@ public class ImageConverter {
 		return roundBitmap;
 	}
 	
-		
-	//changeIconColor()
-	public static Drawable changeIconColor (Context context, Drawable drawable, int newColor) {
+	/*
+	 * changeIconColor()
+	 */
+	public static Drawable changeIconColor(Context context, Drawable drawable, int newColor) {
 		
 		//Bitmapに変換して情報を取得
 		Bitmap bitmap = createBitmap(drawable);
@@ -153,8 +179,10 @@ public class ImageConverter {
 		
 	}
 
-	//createMultiAppIcon()
-	public static Drawable createMultiAppsIcon (Context context, App[] appList) {
+	/*
+	 * createMultiAppIcon()
+	 */
+	public static Drawable createMultiAppsIcon(Context context, App[] appList) {
 
 		int length = context.getResources().getDimensionPixelSize(R.dimen.icon_size);
 		int length_2 = length * 2;
@@ -185,13 +213,17 @@ public class ImageConverter {
 		return createDrawable(context, multiAppIcon);
 	}
 	
-	//createARGB
+	/*
+	 * createARGB()
+	 */
 	public static int createColor(int alpha, int rgb) {
 		return Color.argb(alpha, Color.red(rgb), Color.green(rgb), Color.blue(rgb));
 	}
 	
-	//createBackground()
-	public static Drawable createBackground (Context context, int backgroundColor, int strokeThickness, int strokeRGB, int cornerRadius) {
+	/*
+	 * createBackground()
+	 */
+	public static Drawable createBackground(Context context, int backgroundColor, int strokeThickness, int strokeRGB, int cornerRadius) {
 		GradientDrawable d = new GradientDrawable();
 		d.setColor(backgroundColor);
 		d.setStroke(strokeThickness, createColor(255, strokeRGB));

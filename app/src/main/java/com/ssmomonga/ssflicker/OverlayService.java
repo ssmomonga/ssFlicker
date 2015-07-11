@@ -40,9 +40,9 @@ public class OverlayService extends Service {
 	private static RotateReceiver rotateReceiver;
 	private Messenger mBindOverlayService = new Messenger(new IncomingHandler());
 	
-/*
- *	onCreate()
- */
+	/*
+	 * onCreate()
+	 */
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -67,9 +67,9 @@ public class OverlayService extends Service {
 
 	}
 
-/*
- *	viewOverlay()
- */
+	/*
+	 * viewOverlay()
+	 */
 	private void viewOverlay() {
 		
 		overlay_layer = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -92,9 +92,9 @@ public class OverlayService extends Service {
 
 	}
 
-/*
- *	goneOverlay()
- */
+	/*
+	 * goneOverlay()
+	 */
 	private void goneOverlay() {
 		for (int i = 0; i < OverlaySettings.OVERLAY_POINT_COUNT; i ++) {
 			if (overlay_point[i] != null) {
@@ -108,9 +108,9 @@ public class OverlayService extends Service {
 		}
 	}
 	
-/*
- *	overlayForeground()
- */
+	/*
+	 * overlayForeground()
+	 */
 	private void overlayForeground(boolean b) {
 		if (b) {
 			startForeground(1, l.getNotification(getString(R.string.launch_from_overlay) + getString(R.string.colon) + getString(R.string.running_foreground)));
@@ -119,9 +119,9 @@ public class OverlayService extends Service {
 		}
 	}
 
-/*
- * 	OverlayPointFlickListener
- */
+	/*
+	 * OverlayPointFlickListener
+	 */
 	private class OnOverlayPointFlickListener extends OnFlickListener {
 		
 		public OnOverlayPointFlickListener (Context context, int vibrateTime) {
@@ -168,9 +168,9 @@ public class OverlayService extends Service {
 		
 	}
 	
-/*
- *	onBind()
- */
+	/*
+	 * onBind()
+	 */
 	@Override
 	public IBinder onBind(Intent intent) {
 		return mBindOverlayService.getBinder();
@@ -237,9 +237,9 @@ public class OverlayService extends Service {
 	
 	}
 	
-/*
- *	RotateReceiver
- */
+	/*
+	 * RotateReceiver
+	 */
 	private class RotateReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -249,9 +249,9 @@ public class OverlayService extends Service {
 		}
 	}
 	
-/*
- *	onDestroy()
- */
+	/*
+	 * onDestroy()
+	 */
 	@Override
 	public void onDestroy () {
 		super.onDestroy();

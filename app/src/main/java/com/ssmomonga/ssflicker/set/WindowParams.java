@@ -1,13 +1,13 @@
 package com.ssmomonga.ssflicker.set;
 
-import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.db.PrefDAO;
-import com.ssmomonga.ssflicker.proc.ImageConverter;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.widget.LinearLayout;
 import android.widget.TableLayout.LayoutParams;
+
+import com.ssmomonga.ssflicker.R;
+import com.ssmomonga.ssflicker.db.PrefDAO;
+import com.ssmomonga.ssflicker.proc.ImageConverter;
 
 public class WindowParams {
 	
@@ -22,7 +22,9 @@ public class WindowParams {
 	private static Drawable appWindowBackground;
 	private static Drawable actionWindowBackground;
 	
-	//コンストラクタ
+	/*
+	 * Constructor
+	 */
 	public WindowParams(Context context) {
 		this.context = context;
 		PrefDAO pdao = new PrefDAO(context);
@@ -34,7 +36,9 @@ public class WindowParams {
 		fillWindowBackground();
 	}
 
-	//fillLP
+	/*
+	 * fillLP()
+	 */
 	private void fillLP(PrefDAO pdao) {
 		int iconSize = pdao.getIconSize();
 		int textSize = pdao.getTextSize();
@@ -42,7 +46,9 @@ public class WindowParams {
 		textLP =  new LinearLayout.LayoutParams(iconSize + textSize, LayoutParams.WRAP_CONTENT);
 	}
 	
-	//fillWindowBackground()
+	/*
+	 * fillWindowBackground()
+	 */
 	private void fillWindowBackground() {
 		PrefDAO pdao = new PrefDAO(context);
 		int backgroundColor = pdao.getWindowBackgroundColor();
@@ -67,47 +73,65 @@ public class WindowParams {
 
 	}
 	
-	//isStatusbarVisibility()
+	/*
+	 * isStatusbarVisibility()
+	 */
 	public boolean isStatusbarVisibility() {
 		return statusbarVisibility;
 	}
 	
-	//getIconLP()
+	/*
+	 * getIconLP()
+	 */
 	public LinearLayout.LayoutParams getIconLP() {
 		return iconLP;
 	}
 	
-	//getTextLP()
+	/*
+	 * getTextLP()
+	 */
 	public LinearLayout.LayoutParams getTextLP() {
 		return textLP;
 	}
 	
-	//isTextVisibility()
+	/*
+	 * isTextVisibility()
+	 */
 	public boolean isTextVisibility() {
 		return textVisibility;
 	}
 	
-	//getTextColor()
+	/*
+	 * getTextColor()
+	 */
 	public int getTextColor() {
 		return textColor;
 	}
 	
-	//getTextSize()
+	/*
+	 * getTextSize()
+	 */
 	public int getTextSize() {
 		return textSize;
 	}
 	
-	//getPointerWindowBackground()
+	/*
+	 * getPointerWindowBackground()
+	 */
 	public Drawable getPointerWindowBackground() {
 		return pointerWindowBackground;
 	}
 	
-	//getAppWindowBackground()
+	/*
+	 * getAppWindowBackground()
+	 */
 	public Drawable getAppWindowBackground() {
 		return appWindowBackground;
 	}
 	
-	//getActionWindowBackground()
+	/*
+	 * getActionWindowBackground()
+	 */
 	public Drawable getActionWindowBackground() {
 		return actionWindowBackground;
 	}

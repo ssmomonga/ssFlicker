@@ -18,19 +18,25 @@ import com.ssmomonga.ssflicker.dlg.CustomAdapters.IconAdapter;
 
 public class IconDialog {
 
-	//SelectIconTypeDialog
+	/*
+	 * SelectIconTypeDialog
+	 */
 	public abstract static class SelectIconTypeDialog extends AlertDialog.Builder {
 
 		private Context context;
 		
-		//コンストラクタ
+		/*
+		 * Constructor
+		 */
 		public SelectIconTypeDialog(Context context, int iconTarget, int pointerType) {
 			super(context);
 			this.context = context;
 			setInitialLayout(iconTarget, pointerType);
 		}
 
-		//setInitialLayout()
+		/*
+		 * setInitialLayout()
+		 */
 		private void setInitialLayout(int iconTarget, int pointerType) {
 			
 			final Resources r = context.getResources();
@@ -72,9 +78,10 @@ public class IconDialog {
 		public abstract void onSelectedIconType(int iconType);
 		
 	}
-	
 
-	//IconChooser
+	/*
+	 * IconChooser
+	 */
 	abstract public static class IconChooser extends AlertDialog {
 		
 		private Context context;
@@ -83,7 +90,9 @@ public class IconDialog {
 		private static int iconColor;
 		private static IconAdapter adapter;
 
-		//コンストラクタ
+		/*
+		 * Constructor
+		 */
 		public IconChooser(Context context, BaseData[] iconList, int iconType) {
 			super(context);
 			this.context = context;
@@ -92,8 +101,9 @@ public class IconDialog {
 			setInitialLayout(iconList, iconType);
 		}
 
-
-		//setInitialLayout()
+		/*
+		 * setInitialLayout()
+		 */
 		private void setInitialLayout(BaseData[] iconList, int iconType) {
 			LayoutInflater inflater = LayoutInflater.from(context);
 			View view = inflater.inflate(R.layout.icon_chooser, null);
@@ -150,15 +160,18 @@ public class IconDialog {
 			
 		}
 
-		//changeIconColor()
+		/*
+		 * changeIconColor()
+		 */
 		private void changeIconColor() {
 			IconAdapter adapter = new IconAdapter(context, R.layout.icon_grid_view, iconColor);
 			for (BaseData icon: iconList) if (icon != null) adapter.add(icon);
 			gv_icon.setAdapter(adapter);
-
 		}
 
-		
+		/*
+		 * onSelectedIcon()
+		 */
 		abstract public void onSelectedIcon(Drawable icon, int appId);
 		
 	}
