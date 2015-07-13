@@ -96,7 +96,7 @@ public class PointerWindow extends TableLayout {
 			anim_pointer_pointed[i] = AnimationUtils.loadAnimation(context, R.anim.icon_pointed);
 			anim_pointer_unpointed[i] = AnimationUtils.loadAnimation(context, R.anim.icon_unpointed);						
 		}
-		anim_window_open = AnimationUtils.loadAnimation(context, R.anim.window_open);
+		anim_window_open = AnimationUtils.loadAnimation(context, R.anim.open_window);
 	}
 
 	/*

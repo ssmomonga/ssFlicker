@@ -38,6 +38,10 @@ public class SQLiteDAO {
 		sdbh = new SQLiteDBH(context);
 	}
 
+/*
+ * Select
+ */
+
 	/*
 	 * selectPointerTable()
 	 */
@@ -57,7 +61,27 @@ public class SQLiteDAO {
 
 		return pointerList;
 	}
-	
+
+	/*
+	 * selectPointerTable()
+	 */
+	private Pointer selectPointerTable(int pointerId) {
+
+		String selection =  PointerTableColumnName_8.POINTER_ID + "=" + pointerId;
+		SQLiteDatabase db = sdbh.getReadableDatabase();
+		Cursor c = db.query(SQLiteDBH.POINTER_TABLE_8, null, selection, null, null, null, null);
+
+		Pointer pointer = null;
+		while (c.moveToNext()) {
+			pointer = createPointer(c);
+		}
+		c.close();
+		db.close();
+
+		return pointer;
+
+	}
+
 	/*
 	 * selectAppTable()
 	 */
@@ -130,6 +154,10 @@ public class SQLiteDAO {
 
 		return appCacheList;
 	}
+
+/*
+ * Insert
+ */
 
 	/*
 	 * insertPointerTable()
@@ -232,6 +260,9 @@ public class SQLiteDAO {
 		
 	}
 	
+/*
+ * Delete
+ */
 
 	/*
 	 * deletePointerTable()
@@ -299,7 +330,7 @@ public class SQLiteDAO {
 		}
 		
 		SQLiteDatabase db = sdbh.getReadableDatabase();
-		Cursor c = db.query(SQLiteDBH.APP_TABLE_8, new String[] { AppTableColumnName_8.APPWIDGET_ID }, selection, null, null, null, null);
+		Cursor c = db.query(SQLiteDBH.APP_TABLE_8, new String[]{AppTableColumnName_8.APPWIDGET_ID}, selection, null, null, null, null);
 		
 		int[] appWidgetIds = new int[c.getCount()];
 		int i = 0;
@@ -314,7 +345,15 @@ public class SQLiteDAO {
 			
 		return appWidgetIds;
 	}
-	
+
+	/*
+	 * deleteAppWidget()
+	 */
+	private void deleteAppWidget(int[] appWidgetIds) {
+		AppWidgetHost appWidgetHost = new AppWidgetHost(context, AppWidgetHostSettings.APPWIDGET_HOST_ID);
+		for (int appWidgetId: appWidgetIds) appWidgetHost.deleteAppWidgetId(appWidgetId);
+	}
+
 	/*
 	 * deleteAppCacheTable()
 	 */
@@ -354,6 +393,10 @@ public class SQLiteDAO {
 		}
 	}
 
+/*
+ * Update
+ */
+
 	/*
 	 * editPointerTable()
 	 */
@@ -388,7 +431,76 @@ public class SQLiteDAO {
 		}
 		
 	}
-	
+
+
+	/*
+	 * resizeAppWidget()
+	 */
+	private void resizeAppWidget(Context context, App app) {
+		AppWidgetHost host = new AppWidgetHost(context, AppWidgetHostSettings.APPWIDGET_HOST_ID);
+		AppWidgetInfo appWidgetInfo = app.getAppWidgetInfo();
+		int appWidgetId = appWidgetInfo.getAppWidgetId();
+		AppWidgetProviderInfo info = appWidgetInfo.getAppWidgetProviderInfo();
+		AppWidgetHostView appWidgetHostView = host.createView(context, appWidgetId, info);
+
+		int[] dimenSize = new int[4];
+		Resources r = context.getResources();
+		int[] cellSize = appWidgetInfo.getAppWidgetCellSize();
+		dimenSize[0] = DeviceSettings.pixelToDimen(context, r.getDimensionPixelSize(R.dimen.cell_size_width_portrait)	 * cellSize[0]);
+		dimenSize[1] = DeviceSettings.pixelToDimen(context, r.getDimensionPixelSize(R.dimen.cell_size_height_landscape)	 * cellSize[1]);
+		dimenSize[2] = DeviceSettings.pixelToDimen(context, r.getDimensionPixelSize(R.dimen.cell_size_width_landscape)	 * cellSize[0]);
+		dimenSize[3] = DeviceSettings.pixelToDimen(context, r.getDimensionPixelSize(R.dimen.cell_size_height_portrait)	 * cellSize[1]);
+		appWidgetHostView.updateAppWidgetSize(null, dimenSize[0], dimenSize[1], dimenSize[2], dimenSize[3]);
+	}
+
+	/*
+	 * updatePointerTable()
+	 */
+	private void updatePointerTable(int pointerId, int appId, App app) {
+		if (pointerId != Pointer.DOCK_POINTER_ID) {
+			Pointer pointer = selectPointerTable(pointerId);
+
+			switch (pointer.getPointerIconType()) {
+				case IconList.LABEL_ICON_TYPE_APP:
+					if (pointer.getPointerIconTypeAppAppId() == appId) {
+						if (app != null) {
+							pointer.setPointerIcon(app.getAppIcon());
+						} else {
+							pointer.setPointerIcon(context.getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null));
+							pointer.setPointerIconType(IconList.LABEL_ICON_TYPE_ORIGINAL);
+							pointer.setPointerIconTypeAppAppId(0);
+						}
+					}
+					break;
+
+				case IconList.LABEL_ICON_TYPE_MULTI_APPS:
+					pointer.setPointerIcon(createMultiAppsIcon(pointerId));
+					break;
+			}
+
+			editPointerTable(pointerId, pointer);
+		}
+	}
+
+	/*
+	 * updatePointerTable()
+	 */
+	private void updatePointerTable(int pointerId, int fromAppId, int toAppId) {
+		if (pointerId != Pointer.DOCK_POINTER_ID) {
+			Pointer pointer = selectPointerTable(pointerId);
+
+			switch (pointer.getPointerIconType()) {
+				case IconList.LABEL_ICON_TYPE_APP:
+					if (pointer.getPointerIconTypeAppAppId() == fromAppId) {
+						pointer.setPointerIconTypeAppAppId(toAppId);
+					}
+					break;
+			}
+
+			editPointerTable(pointerId, pointer);
+		}
+	}
+
 	/*
 	 * updateAppWidgetUpdateTime()
 	 */
@@ -484,108 +596,7 @@ public class SQLiteDAO {
 			updatePointerTable(pointerId, fromAppId, toAppId);
 		}
 	}
-	
-	
-	/*
-	 * deleteAppWidget()
-	 */
-	private void deleteAppWidget(int[] appWidgetIds) {
-		AppWidgetHost appWidgetHost = new AppWidgetHost(context, AppWidgetHostSettings.APPWIDGET_HOST_ID);
-		for (int appWidgetId: appWidgetIds) appWidgetHost.deleteAppWidgetId(appWidgetId);
-	}
-	
-	/*
-	 * resizeAppWidget()
-	 */
-	private void resizeAppWidget(Context context, App app) {
-		AppWidgetHost host = new AppWidgetHost(context, AppWidgetHostSettings.APPWIDGET_HOST_ID);
-		AppWidgetInfo appWidgetInfo = app.getAppWidgetInfo();
-		int appWidgetId = appWidgetInfo.getAppWidgetId();
-		AppWidgetProviderInfo info = appWidgetInfo.getAppWidgetProviderInfo();
-		AppWidgetHostView appWidgetHostView = host.createView(context, appWidgetId, info);
 
-		int[] dimenSize = new int[4];
-		Resources r = context.getResources();
-		int[] cellSize = appWidgetInfo.getAppWidgetCellSize();
-		dimenSize[0] = DeviceSettings.pixelToDimen(context, r.getDimensionPixelSize(R.dimen.cell_size_width_portrait)	 * cellSize[0]);
-		dimenSize[1] = DeviceSettings.pixelToDimen(context, r.getDimensionPixelSize(R.dimen.cell_size_height_landscape)	 * cellSize[1]);
-		dimenSize[2] = DeviceSettings.pixelToDimen(context, r.getDimensionPixelSize(R.dimen.cell_size_width_landscape)	 * cellSize[0]);
-		dimenSize[3] = DeviceSettings.pixelToDimen(context, r.getDimensionPixelSize(R.dimen.cell_size_height_portrait)	 * cellSize[1]);
-		appWidgetHostView.updateAppWidgetSize(null, dimenSize[0], dimenSize[1], dimenSize[2], dimenSize[3]);
-	}
-
-	/*
-	 * updatePointerTable()
-	 */
-	private void updatePointerTable(int pointerId, int appId, App app) {
-		if (pointerId != Pointer.DOCK_POINTER_ID) {
-			//ポインタを取得
-			Pointer pointer = selectPointerTable(pointerId);
-		
-			switch (pointer.getPointerIconType()) {
-				case IconList.LABEL_ICON_TYPE_APP:
-					if (pointer.getPointerIconTypeAppAppId() == appId) {
-						//ポインタアイコンのアプリアイコンを更新
-						if (app != null) {
-							pointer.setPointerIcon(app.getAppIcon());
-						} else {
-							pointer.setPointerIcon(context.getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null));
-							pointer.setPointerIconType(IconList.LABEL_ICON_TYPE_ORIGINAL);
-							pointer.setPointerIconTypeAppAppId(0);
-						}
-					}
-					break;
-			
-				case IconList.LABEL_ICON_TYPE_MULTI_APPS:
-					//ポインタアイコンのマルチアプリアイコンを更新
-					pointer.setPointerIcon(createMultiAppsIcon(pointerId));
-					break;
-			}
-
-			editPointerTable(pointerId, pointer);
-		}
-	}
-	
-	/*
-	 * updatePointerTable()
-	 */
-	private void updatePointerTable(int pointerId, int fromAppId, int toAppId) {
-		if (pointerId != Pointer.DOCK_POINTER_ID) {
-			//ポインタを取得
-			Pointer pointer = selectPointerTable(pointerId);
-		
-			switch (pointer.getPointerIconType()) {
-				case IconList.LABEL_ICON_TYPE_APP:
-					if (pointer.getPointerIconTypeAppAppId() == fromAppId) {
-						pointer.setPointerIconTypeAppAppId(toAppId);
-					}
-					break;
-			}
-
-			editPointerTable(pointerId, pointer);
-		}
-	}
-	
-	/*
-	 * selectPointerTable()
-	 */
-	private Pointer selectPointerTable(int pointerId) {
-		
-		String selection =  PointerTableColumnName_8.POINTER_ID + "=" + pointerId;
-		SQLiteDatabase db = sdbh.getReadableDatabase();		
-		Cursor c = db.query(SQLiteDBH.POINTER_TABLE_8, null, selection, null, null, null, null);
-
-		Pointer pointer = null;
-		while (c.moveToNext()) {
-			pointer = createPointer(c);
-		}
-		c.close();
-		db.close();
-
-		return pointer;
-
-	}
-	
 	/*
 	 * createMultiAppsIcon()
 	 */
@@ -605,6 +616,10 @@ public class SQLiteDAO {
 		return ImageConverter.createMultiAppsIcon(context, appList);
 		
 	}
+
+/*
+ * ConentValues, Cursor
+ */
 
 	/*
 	 * createPointer()
@@ -674,7 +689,7 @@ public class SQLiteDAO {
 		}
 	}
 	
-		/*
+	/*
 	 * createAppCache
 	 */
 	private App createAppCache(Cursor c) {
@@ -690,7 +705,6 @@ public class SQLiteDAO {
 				new IntentAppInfo(IntentAppInfo.INTENT_APP_TYPE_LAUNCHER,
 						c.getString(c.getColumnIndex(AppCacheTableColumnName_8.INTENT_URI))));
 	}
-
 
 	/*
 	 * createPointerCV()
@@ -709,7 +723,7 @@ public class SQLiteDAO {
 		return cv;
 	}
 	
-		/*
+	/*
 	 * createAppCV
 	 */
 	private ContentValues createAppCV(int pointerId, int appId, App app) {
@@ -751,8 +765,8 @@ public class SQLiteDAO {
 		return cv;
 	}
 	
-		/*
-	 * createAppCV
+	/*
+	 * createAppCacheCV
 	 */
 	private ContentValues createAppCacheCV (App app) {
 		

@@ -372,10 +372,10 @@ public class EditDialog extends AlertDialog {
 						if (DeviceSettings.hasExternalStorage(context)) {
 							switch (iconTarget) {
 								case IconList.TARGET_ICON_POINTER:
-									editPointerIf.onImageTrimmingIcon(iconTarget, iconType);
+									editPointerIf.onTrimmingImage(iconTarget, iconType);
 									break;
 								case IconList.TARGET_ICON_APP:
-									editAppIf.onImageTrimmingIcon(iconTarget, iconType);
+									editAppIf.onTrimmingImage(iconTarget, iconType);
 									break;
 							}
 						} else {
@@ -433,7 +433,7 @@ public class EditDialog extends AlertDialog {
 	 */
 	public interface EditPointerIf {
 		public abstract App[] getAppList();
-		public abstract void onImageTrimmingIcon(int iconTarget, int iconType);
+		public abstract void onTrimmingImage(int iconTarget, int iconType);
 		public abstract void onSettings(Pointer pointer);		
 		public abstract void onDismissDialog();
 	}
@@ -442,7 +442,7 @@ public class EditDialog extends AlertDialog {
 	 * EditAppIf
 	 */
 	public interface EditAppIf {
-		public abstract void onImageTrimmingIcon(int iconTarget, int iconType);
+		public abstract void onTrimmingImage(int iconTarget, int iconType);
 		public abstract void onSettings(App app);
 		public abstract void onDismissDialog();
 	}	

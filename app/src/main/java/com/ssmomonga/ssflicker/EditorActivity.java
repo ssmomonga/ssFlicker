@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -69,14 +70,14 @@ import java.io.InputStream;
 
 public class EditorActivity extends Activity {
 
-	//REQUEST_CODE	
+	//REQUEST_CODE
 	private static final int REQUEST_CODE_ADD_SHORTCUT = 0;
 	private static final int REQUEST_CODE_ADD_APPWIDGET = 1;
 	private static final int REQUEST_CODE_ADD_APPWIDGET_2 = 2;
-	private static final int REQUEST_CODE_EDIT_POINTER_ICON_IMAGE_TRIMMING = 11;
-	private static final int REQUEST_CODE_EDIT_POINTER_ICON_IMAGE_TRIMMING_2 = 12;
-	private static final int REQUEST_CODE_EDIT_APP_ICON_IMAGE_TRIMMING = 31;
-	private static final int REQUEST_CODE_EDIT_APP_ICON_IMAGE_TRIMMING_2 = 32;
+	private static final int REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING_IMAGE = 11;
+	private static final int REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING_IMAGE_2 = 12;
+	private static final int REQUEST_CODE_EDIT_APP_ICON_TRIMMING_IMAGE = 31;
+	private static final int REQUEST_CODE_EDIT_APP_ICON_TRIMMING_IMAGE_2 = 32;
 	
 	private static final String TRIMMING_CACHE_FILE_NAME = "_trimming_cache_file";
 	
@@ -92,12 +93,12 @@ public class EditorActivity extends Activity {
 	private static PointerWindow pointer_window;
 	private static AppWindow app_window;
 	private static ActionWindow action_window;
-	
+
+	//Dialog
 	private static AppChooser appChooser;
 	private static EditDialog editDialog;
 	private static DeleteDialog deleteDialog;
 	
-	//��
 	private static SQLiteDAO sdao;
 	private static Launch l;
 	private static AppWidgetHost appWidgetHost;
@@ -118,7 +119,6 @@ public class EditorActivity extends Activity {
 		}
 	};
 	
-	
 	/*
 	 * onCreate()
 	 */
@@ -137,7 +137,6 @@ public class EditorActivity extends Activity {
 		appListList = sdao.selectAppTable();
 		dock_window.setAppForEdit(appListList[Pointer.DOCK_POINTER_ID]);
 		pointer_window.setPointerForEdit(pointerList);
-
 	}
 
 	/*
@@ -201,9 +200,7 @@ public class EditorActivity extends Activity {
 		Intent intent = null;
 		Bitmap bitmap = null;
 		switch (resultCode) {
-			//RESULT_CANCELED
 			case RESULT_OK:
-
 				switch (requestCode) {
 
 					case REQUEST_CODE_ADD_SHORTCUT:
@@ -290,8 +287,8 @@ public class EditorActivity extends Activity {
 				
 						break;
 
-					case REQUEST_CODE_EDIT_POINTER_ICON_IMAGE_TRIMMING:
-					case REQUEST_CODE_EDIT_APP_ICON_IMAGE_TRIMMING:
+					case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING_IMAGE:
+					case REQUEST_CODE_EDIT_APP_ICON_TRIMMING_IMAGE:
 
 						Uri uri = data.getData();
 						Cursor c = getContentResolver().query(uri, null, null, null, null);
@@ -369,7 +366,7 @@ public class EditorActivity extends Activity {
 
 						break;
 
-					case REQUEST_CODE_EDIT_POINTER_ICON_IMAGE_TRIMMING_2:
+					case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING_IMAGE_2:
 
 						try {
 							ParcelFileDescriptor parcelFileDescriptor = getContentResolver().openFileDescriptor(data.getData(), "r");
@@ -388,7 +385,7 @@ public class EditorActivity extends Activity {
 						editDialog.setCanceledOnTouchOutside(true);
 						break;
 				
-					case REQUEST_CODE_EDIT_APP_ICON_IMAGE_TRIMMING_2:
+					case REQUEST_CODE_EDIT_APP_ICON_TRIMMING_IMAGE_2:
 						try {
 							ParcelFileDescriptor parcelFileDescriptor = getContentResolver().openFileDescriptor(data.getData(), "r");
 							FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
@@ -409,8 +406,7 @@ public class EditorActivity extends Activity {
 				}
 				break;
 
-			//RESULT_CANCELED
-			case RESULT_CANCELED:			
+			case RESULT_CANCELED:
 				switch (requestCode) {
 			
 					case REQUEST_CODE_ADD_SHORTCUT:
@@ -427,13 +423,14 @@ public class EditorActivity extends Activity {
 						setOnFlickListener();
 						break;
 			
-					case REQUEST_CODE_EDIT_POINTER_ICON_IMAGE_TRIMMING_2:
-					case REQUEST_CODE_EDIT_APP_ICON_IMAGE_TRIMMING_2:
+					case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING_IMAGE_2:
+					case REQUEST_CODE_EDIT_APP_ICON_TRIMMING_IMAGE_2:
 						deleteTrimmingCacheFile();
 						editDialog.setCancelable(true);
 						editDialog.setCanceledOnTouchOutside(true);
 						break;
 				}
+				break;
 		}
 
 	}
@@ -488,7 +485,7 @@ public class EditorActivity extends Activity {
 	}
 	
 	/*
-	 * //setOnFlickListener()
+	 * setOnFlickListener()
 	 */
 	private void setOnFlickListener() {
 		rl_all.setOnTouchListener(new OnTouchListener() {
@@ -537,55 +534,11 @@ public class EditorActivity extends Activity {
 		app_window.setLayoutParams(params.getAppWindowForEditLP());
 		action_window.setLayoutParams(params.getActionWindowLP());
 	}
-	
 
-	/*
-	 * onDockFlickListener
-	 */
-	private class OnDockFlickListener extends OnFlickListener {
+/*
+ * Pointer
+ */
 
-		public OnDockFlickListener(Context context) {
-			super(context);
-		}
-
-		@Override
-		public void setId(int id) {
-			pointerId = Pointer.DOCK_POINTER_ID;
-			appId = id;
-		}
-
-		@Override
-		public boolean isData() {
-			return true;
-		}
-		
-		@Override
-		public void onDown(int position) {
-			dock_window.setDockPointed(true, appId);
-			action_window.setActionPointed(true, -1, position);
-			action_window.setEditDock(EditorActivity.this, appListList[pointerId][appId], orientation);
-			action_window.setVisibility(View.VISIBLE);
-		}
-
-		@Override
-		public void onMove(int oldPosition, int position) {
-			action_window.setActionPointed(true, oldPosition, position);
-		}
-
-		@Override
-		public void onUp(int position, Rect r) {
-			action_window.setActionPointed(false, position, -1);
-			action_window.setVisibility(View.INVISIBLE);
-			editApp(position);
-		}
-
-		@Override
-		public void onCancel(int position) {
-		}
-		
-	}
-	
-	
 	/*
 	 * OnPointerFlickListener
 	 */
@@ -602,7 +555,7 @@ public class EditorActivity extends Activity {
 		
 		@Override
 		public boolean isData() {
-			return true;
+			return pointerList[pointerId] != null;
 		}
 
 		@Override
@@ -623,113 +576,112 @@ public class EditorActivity extends Activity {
 		public void onUp(int position, Rect r) {
 			action_window.setVisibility(View.INVISIBLE);
 			action_window.setActionPointed(false, position, -1);
-			editPointer(position);
-
+			if (isData()) {
+				editPointer(position);
+			} else {
+				addPointer(position);
+			}
 		}
 
 		@Override
-		public void onCancel(int position) {
-		}
+		public void onCancel(int position) {}
 		
 	}
-	
+
+	/*
+	 * addPointer()
+	 */
+	private void addPointer(int position) {
+
+		pointer_window.setPointerPointed(false, pointerId);
+		switch (position) {
+			case EditList.ADD_POINTER_CUSTOM:
+				addPointer(new Pointer(Pointer.POINTER_TYPE_CUSTOM, getString(R.string.pointer_custom),
+						getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null),
+						IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
+				break;
+
+			case EditList.ADD_POINTER_HOME:
+				addPointer(new Pointer(Pointer.POINTER_TYPE_HOME, getString(R.string.pointer_home),
+						getResources().getDrawable(R.mipmap.icon_01_pointer_home, null),
+						IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
+				break;
+
+			case EditList.ADD_POINTER_RECENT:
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+					addPointer(new Pointer(Pointer.POINTER_TYPE_RECENT, getString(R.string.pointer_recent),
+							getResources().getDrawable(R.mipmap.icon_51_unused_recent, null),
+							IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
+				}
+				break;
+
+			case EditList.ADD_POINTER_TASK:
+				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+					addPointer(new Pointer(Pointer.POINTER_TYPE_TASK, getString(R.string.pointer_task),
+							getResources().getDrawable(R.mipmap.icon_52_unused_task, null),
+							IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
+				}
+				break;
+
+			}
+	}
+
 	/*
 	 * editPointer()
 	 */
 	private void editPointer(int position) {
 	
-		Pointer pointer = pointerList[pointerId];
-		
-		if (pointer == null) {
-			pointer_window.setPointerPointed(false, pointerId);
-			switch (position) {
-				case EditList.ADD_POINTER_CUSTOM:
-					addPointer(new Pointer(Pointer.POINTER_TYPE_CUSTOM, getString(R.string.pointer_custom),
-							getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null),
-							IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
-					break;
-			
-				case EditList.ADD_POINTER_HOME:
-					addPointer(new Pointer(Pointer.POINTER_TYPE_HOME, getString(R.string.pointer_home),
-							getResources().getDrawable(R.mipmap.icon_01_pointer_home, null),
-							IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
-					break;
-			
-				case EditList.ADD_POINTER_RECENT:
-					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-						addPointer(new Pointer(Pointer.POINTER_TYPE_RECENT, getString(R.string.pointer_recent),
-								getResources().getDrawable(R.mipmap.icon_51_unused_recent, null),
-								IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
+		switch (position) {
+			case EditList.EDIT_POINTER_OPEN_CLOSE:
+				if (pointerList[pointerId].getPointerType() == Pointer.POINTER_TYPE_CUSTOM) {
+					if (pointer_window.getVisibility() == View.VISIBLE) {
+						openAppWindow();
+					} else {
+						closeAppWindow();
 					}
-					break;
+				}
+				break;
+
+			case EditList.EDIT_POINTER_UP:
+				pointer_window.setPointerPointed(false, pointerId);
+				pointer_window.setPointerPointed(false, getToPointerId(pointerId, DIRECTION_UP));
+				sortPointer(getToPointerId(pointerId, DIRECTION_UP));
+				break;
+					
+			case EditList.EDIT_POINTER_EDIT:
+				removeOnFlickListener();
+				viewEditPointerDialog();
+				break;
 			
-				case EditList.ADD_POINTER_TASK:
-					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-						addPointer(new Pointer(Pointer.POINTER_TYPE_TASK, getString(R.string.pointer_task),
-								getResources().getDrawable(R.mipmap.icon_52_unused_task, null),
-								IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
-					}
-					break;
-				default:
-					break;
-				
-			}
-		
-		} else {
-
-			switch (position) {
-				case EditList.EDIT_POINTER_OPEN_CLOSE:
-					if (pointer.getPointerType() == Pointer.POINTER_TYPE_CUSTOM) {
-						if (pointer_window.getVisibility() == View.VISIBLE) {
-							openAppWindow();
-						} else {
-							closeAppWindow();
-						}
-					}
-					break;
-				
-				case EditList.EDIT_POINTER_UP:
-					pointer_window.setPointerPointed(false, pointerId);
-					pointer_window.setPointerPointed(false, getToPointerId(pointerId, DIRECTION_UP));
-					sortPointer(getToPointerId(pointerId, DIRECTION_UP));
-					break;
+			case EditList.EDIT_POINTER_LEFT:
+				pointer_window.setPointerPointed(false, pointerId);
+				pointer_window.setPointerPointed(false, getToPointerId(pointerId, DIRECTION_LEFT));
+				sortPointer(getToPointerId(pointerId, DIRECTION_LEFT));
+				break;
 					
-				case EditList.EDIT_POINTER_EDIT:
-					removeOnFlickListener();
-					viewEditPointerDialog();
-					break;
-
-				case EditList.EDIT_POINTER_LEFT:
-					pointer_window.setPointerPointed(false, pointerId);
-					pointer_window.setPointerPointed(false, getToPointerId(pointerId, DIRECTION_LEFT));
-					sortPointer(getToPointerId(pointerId, DIRECTION_LEFT));
-					break;
-					
-				case EditList.EDIT_POINTER_RIGHT:
-					pointer_window.setPointerPointed(false, pointerId);
-					pointer_window.setPointerPointed(false, getToPointerId(pointerId, DIRECTION_RIGHT));
-					sortPointer(getToPointerId(pointerId, DIRECTION_RIGHT));
-					break;
+			case EditList.EDIT_POINTER_RIGHT:
+				pointer_window.setPointerPointed(false, pointerId);
+				pointer_window.setPointerPointed(false, getToPointerId(pointerId, DIRECTION_RIGHT));
+				sortPointer(getToPointerId(pointerId, DIRECTION_RIGHT));
+				break;
 				
-				case EditList.EDIT_POINTER_DOWN:
-					sortPointer(getToPointerId(pointerId, DIRECTION_DOWN));
-					pointer_window.setPointerPointed(false, pointerId);
-					pointer_window.setPointerPointed(false, getToPointerId(pointerId, DIRECTION_DOWN));
-					break;
-					
-				case EditList.EDIT_POINTER_DELETE:
-					removeOnFlickListener();
-					viewDeletePointerDialog();
-					break;
+			case EditList.EDIT_POINTER_DOWN:
+				sortPointer(getToPointerId(pointerId, DIRECTION_DOWN));
+				pointer_window.setPointerPointed(false, pointerId);
+				pointer_window.setPointerPointed(false, getToPointerId(pointerId, DIRECTION_DOWN));
+				break;
+			
+			case EditList.EDIT_POINTER_DELETE:
+				removeOnFlickListener();
+				viewDeletePointerDialog();
+				break;
 
-				default:
-					pointer_window.setPointerPointed(false, pointerId);
-					app_window.setPointerPointed(false);
-					break;
+			default:
+				pointer_window.setPointerPointed(false, pointerId);
+				app_window.setPointerPointed(false);
+				break;
 
 			}
-		}
-		
 	}
 	
 	/*
@@ -744,8 +696,8 @@ public class EditorActivity extends Activity {
 			}
 
 			@Override
-			public void onImageTrimmingIcon(int iconTarget, int iconType) {
-				getImageTrimming(iconTarget, iconType);
+			public void onTrimmingImage(int iconTarget, int iconType) {
+				trimmingImage(iconTarget, iconType);
 			}
 				
 			@Override
@@ -765,27 +717,7 @@ public class EditorActivity extends Activity {
 		editDialog.show();
 
 	}
-	
-	/*
-	 * getImageTrimming()
-	 */
-	private void getImageTrimming(int iconTarget, int iconType) {
-		editDialog.setCancelable(false);
-		editDialog.setCanceledOnTouchOutside(false);
-		Intent intent = new Intent(Intent.ACTION_GET_CONTENT).setType("image	/*");
-		
-		switch (iconTarget) {
-			case IconList.TARGET_ICON_POINTER:
-				startActivityForResult(intent, REQUEST_CODE_EDIT_POINTER_ICON_IMAGE_TRIMMING);
-				break;
 
-			case (IconList.TARGET_ICON_APP):
-				startActivityForResult(intent, REQUEST_CODE_EDIT_APP_ICON_IMAGE_TRIMMING);
-				break;
-		}
-		
-	}
-	
 	/*
 	 * viewDeletePointerDialog()
 	 */
@@ -890,30 +822,10 @@ public class EditorActivity extends Activity {
 		pointer_window.setPointerForEdit(pointerList);
 		closeAppWindow();
 	}
-	
-	/*
-	 * openWindow()
-	 */
-	private void openAppWindow() {
-		app_window.setTag(pointerId);
-		app_window.setAppForEdit(pointerId, pointerList[pointerId], appListList[pointerId]);
-		pointer_window.setVisibility(View.INVISIBLE);
-		app_window.setVisibility(View.VISIBLE);
-		app_window.setPointerPointed(false);
-	}
 
-	/*
-	 * closeAppWindow()
-	 */
-	private void closeAppWindow() {
-		if (app_window.getVisibility() == View.VISIBLE) {
-			app_window.setVisibility(View.INVISIBLE);
-			pointer_window.setVisibility(View.VISIBLE);
-			if (pointerId != Pointer.DOCK_POINTER_ID) {
-				pointer_window.setPointerPointed(false, pointerId);
-			}
-		}
-	}
+/*
+ * App, Dock
+ */
 
 	/*
 	 * OnAppFlickListener
@@ -932,13 +844,13 @@ public class EditorActivity extends Activity {
 
 		@Override
 		public boolean isData() {
-			return true;
+			return appListList[pointerId][appId] != null;
 		}
 		
 		@Override
 		public void onDown(int position) {
 			action_window.setActionPointed(true, -1, position);
-			action_window.setEditApp(EditorActivity.this, appListList[pointerId][appId]);				
+			action_window.setEditApp(EditorActivity.this, appListList[pointerId][appId]);
 			action_window.setVisibility(View.VISIBLE);
 			app_window.setAppPointed(true, appId);
 		}
@@ -952,7 +864,11 @@ public class EditorActivity extends Activity {
 		public void onUp(int position, Rect r) {
 			action_window.setVisibility(View.INVISIBLE);
 			action_window.setActionPointed(false, position, -1);
-			editApp(position);
+			if (isData()) {
+				editApp(position);
+			} else {
+				addApp(position);
+			}
 		}
 
 		@Override
@@ -961,137 +877,190 @@ public class EditorActivity extends Activity {
 	}
 
 	/*
+	 * onDockFlickListener
+	 */
+	private class OnDockFlickListener extends OnFlickListener {
+
+		public OnDockFlickListener(Context context) {
+			super(context);
+		}
+
+		@Override
+		public void setId(int id) {
+			pointerId = Pointer.DOCK_POINTER_ID;
+			appId = id;
+		}
+
+		@Override
+		public boolean isData() {
+			return appListList[pointerId][appId] != null;
+		}
+
+		@Override
+		public void onDown(int position) {
+			dock_window.setDockPointed(true, appId);
+			action_window.setActionPointed(true, -1, position);
+			action_window.setEditDock(EditorActivity.this, appListList[pointerId][appId], orientation);
+			action_window.setVisibility(View.VISIBLE);
+		}
+
+		@Override
+		public void onMove(int oldPosition, int position) {
+			action_window.setActionPointed(true, oldPosition, position);
+		}
+
+		@Override
+		public void onUp(int position, Rect r) {
+			action_window.setActionPointed(false, position, -1);
+			action_window.setVisibility(View.INVISIBLE);
+			if (isData()) {
+				editApp(position);
+			} else {
+				addApp(position);
+			}
+		}
+
+		@Override
+		public void onCancel(int position) {
+		}
+
+	}
+
+	/*
+	 * addApp()
+	 */
+	private void addApp(int position) {
+
+		int appType = -1;
+		int intentAppType = -1;
+
+		switch (position) {
+			case EditList.ADD_APP_LAUNCHER:
+				appType = App.APP_TYPE_INTENT_APP;
+				intentAppType = IntentAppInfo.INTENT_APP_TYPE_LAUNCHER;
+				break;
+
+			case EditList.ADD_APP_HOME:
+				appType = App.APP_TYPE_INTENT_APP;
+				intentAppType = IntentAppInfo.INTENT_APP_TYPE_HOME;
+				break;
+
+			case EditList.ADD_APP_SEND:
+				appType = App.APP_TYPE_INTENT_APP;
+				intentAppType = IntentAppInfo.INTENT_APP_TYPE_SEND;
+				break;
+
+			case EditList.ADD_APP_SHORTCUT:
+				appType = App.APP_TYPE_INTENT_APP;
+				intentAppType = IntentAppInfo.INTENT_APP_TYPE_SHORTCUT;
+				break;
+
+			case EditList.ADD_APP_APPWIDGET:
+				appType = App.APP_TYPE_APPWIDGET;
+				break;
+			
+			case EditList.ADD_APP_FUNCTION:
+				appType = App.APP_TYPE_FUNCTION;
+				break;
+		}
+
+		switch (position) {
+			case EditList.ADD_APP_LAUNCHER:
+			case EditList.ADD_APP_HOME:
+			case EditList.ADD_APP_SEND:
+			case EditList.ADD_APP_SHORTCUT:
+			case EditList.ADD_APP_APPWIDGET:
+			case EditList.ADD_APP_FUNCTION:
+				removeOnFlickListener();
+				viewAppChooser(appType, intentAppType);
+				break;
+			
+			default:
+				app_window.setAppPointed(false, appId);
+				break;
+		}
+
+	}
+
+	/*
 	 * editApp()
 	 */
 	private void editApp(int position) {
 	
-		App app = appListList[pointerId][appId];
-
-		if (app == null) {
-			
-			int appType = -1;
-			int intentAppType = -1;
-			
-			switch (position) {
-				case EditList.ADD_APP_LAUNCHER:
-					appType = App.APP_TYPE_INTENT_APP;
-					intentAppType = IntentAppInfo.INTENT_APP_TYPE_LAUNCHER;
-					break;
-			
-				case EditList.ADD_APP_HOME:
-					appType = App.APP_TYPE_INTENT_APP;
-					intentAppType = IntentAppInfo.INTENT_APP_TYPE_HOME;
-					break;
-			
-				case EditList.ADD_APP_SEND:
-					appType = App.APP_TYPE_INTENT_APP;
-					intentAppType = IntentAppInfo.INTENT_APP_TYPE_SEND;
-					break;
-			
-				case EditList.ADD_APP_SHORTCUT:
-					appType = App.APP_TYPE_INTENT_APP;
-					intentAppType = IntentAppInfo.INTENT_APP_TYPE_SHORTCUT;
-					break;
-			
-				case EditList.ADD_APP_APPWIDGET:
-					appType = App.APP_TYPE_APPWIDGET;
-					break;
-			
-				case EditList.ADD_APP_FUNCTION:	
-					appType = App.APP_TYPE_FUNCTION;
-					break;				
-			}
-
-			switch (position) {
-				case EditList.ADD_APP_LAUNCHER:
-				case EditList.ADD_APP_HOME:
-				case EditList.ADD_APP_SEND:
-				case EditList.ADD_APP_SHORTCUT:
-				case EditList.ADD_APP_APPWIDGET:
-				case EditList.ADD_APP_FUNCTION:
-					removeOnFlickListener();
-					viewAppChooser(appType, intentAppType);
-			}
-			
-		//appがnot nullの場合、編集する
-		} else {
-			
-			switch (position) {
-				case EditList.EDIT_APP_UP:
-					if (pointerId != Pointer.DOCK_POINTER_ID) {
-						app_window.setAppPointed(false, appId);					
-						app_window.setAppPointed(false, getToAppId(DIRECTION_UP));
-						sortApp(getToAppId(DIRECTION_UP));
-					} else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-						dock_window.setDockPointed(false, appId);					
-						dock_window.setDockPointed(false, getToAppId(DIRECTION_UP));					
-						sortApp(getToAppId(DIRECTION_UP));
-					} else {
-						dock_window.setDockPointed(false, appId);
-					}
-					break;
+		switch (position) {
+			case EditList.EDIT_APP_UP:
+				if (pointerId != Pointer.DOCK_POINTER_ID) {
+					app_window.setAppPointed(false, appId);
+					app_window.setAppPointed(false, getToAppId(DIRECTION_UP));
+					sortApp(getToAppId(DIRECTION_UP));
+				} else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+					dock_window.setDockPointed(false, appId);
+					dock_window.setDockPointed(false, getToAppId(DIRECTION_UP));
+					sortApp(getToAppId(DIRECTION_UP));
+				} else {
+					dock_window.setDockPointed(false, appId);
+				}
+				break;
 					
-				case EditList.EDIT_APP_EDIT:
-					removeOnFlickListener();
-					viewEditAppDialog();
-					break;
+			case EditList.EDIT_APP_EDIT:
+				removeOnFlickListener();
+				viewEditAppDialog();
+				break;
 			
-				case EditList.EDIT_APP_LEFT:
-					if (pointerId != Pointer.DOCK_POINTER_ID) {
-						app_window.setAppPointed(false, appId);					
-						app_window.setAppPointed(false, getToAppId(DIRECTION_LEFT));					
-						sortApp(getToAppId(DIRECTION_LEFT));							
-					} else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-						dock_window.setDockPointed(false, appId);					
-						dock_window.setDockPointed(false, getToAppId(DIRECTION_LEFT));					
-						sortApp(getToAppId(DIRECTION_LEFT));
-					} else {
-						dock_window.setDockPointed(false, appId);
-					}
-					break;
+			case EditList.EDIT_APP_LEFT:
+				if (pointerId != Pointer.DOCK_POINTER_ID) {
+					app_window.setAppPointed(false, appId);
+					app_window.setAppPointed(false, getToAppId(DIRECTION_LEFT));
+					sortApp(getToAppId(DIRECTION_LEFT));
+				} else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+					dock_window.setDockPointed(false, appId);
+					dock_window.setDockPointed(false, getToAppId(DIRECTION_LEFT));
+					sortApp(getToAppId(DIRECTION_LEFT));
+				} else {
+					dock_window.setDockPointed(false, appId);
+				}
+				break;
 			
-				case EditList.EDIT_APP_RIGHT:
-					if (pointerId != Pointer.DOCK_POINTER_ID) {
-						app_window.setAppPointed(false, appId);					
-						app_window.setAppPointed(false, getToAppId(DIRECTION_RIGHT));					
-						sortApp(getToAppId(DIRECTION_RIGHT));
-					} else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-						dock_window.setDockPointed(false, appId);					
-						dock_window.setDockPointed(false, getToAppId(DIRECTION_RIGHT));					
-						sortApp(getToAppId(DIRECTION_RIGHT));
-					} else {
-						dock_window.setDockPointed(false, appId);
-					}
-					break;
+			case EditList.EDIT_APP_RIGHT:
+				if (pointerId != Pointer.DOCK_POINTER_ID) {
+					app_window.setAppPointed(false, appId);
+					app_window.setAppPointed(false, getToAppId(DIRECTION_RIGHT));
+					sortApp(getToAppId(DIRECTION_RIGHT));
+				} else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+					dock_window.setDockPointed(false, appId);
+					dock_window.setDockPointed(false, getToAppId(DIRECTION_RIGHT));
+					sortApp(getToAppId(DIRECTION_RIGHT));
+				} else {
+					dock_window.setDockPointed(false, appId);
+				}
+				break;
 			
-				case EditList.EDIT_APP_DOWN:
-					if (pointerId != Pointer.DOCK_POINTER_ID) {
-						app_window.setAppPointed(false, appId);					
-						app_window.setAppPointed(false, getToAppId(DIRECTION_DOWN));
-						sortApp(getToAppId(DIRECTION_DOWN));
-					} else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-						dock_window.setDockPointed(false, appId);					
-						dock_window.setDockPointed(false, getToAppId(DIRECTION_DOWN));					
-						sortApp(getToAppId(DIRECTION_DOWN));
-					} else {
-						dock_window.setDockPointed(false, appId);
-					}
-					break;
+			case EditList.EDIT_APP_DOWN:
+				if (pointerId != Pointer.DOCK_POINTER_ID) {
+					app_window.setAppPointed(false, appId);
+					app_window.setAppPointed(false, getToAppId(DIRECTION_DOWN));
+					sortApp(getToAppId(DIRECTION_DOWN));
+				} else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+					dock_window.setDockPointed(false, appId);
+					dock_window.setDockPointed(false, getToAppId(DIRECTION_DOWN));
+					sortApp(getToAppId(DIRECTION_DOWN));
+				} else {
+					dock_window.setDockPointed(false, appId);
+				}
+				break;
 			
-				case EditList.EDIT_APP_DELETE:
-					removeOnFlickListener();
-					viewDeleteAppDialog();
-					break;
+			case EditList.EDIT_APP_DELETE:
+				removeOnFlickListener();
+				viewDeleteAppDialog();
+				break;
 			
-				default:
-					if (pointerId != Pointer.DOCK_POINTER_ID) {
-						app_window.setAppPointed(false, appId);					
-					} else {
-						dock_window.setDockPointed(false, appId);
-					}
-					break;
-			}
-			
+			default:
+				if (pointerId != Pointer.DOCK_POINTER_ID) {
+					app_window.setAppPointed(false, appId);
+				} else {
+					dock_window.setDockPointed(false, appId);
+				}
+				break;
 		}
 	}
 	
@@ -1157,8 +1126,8 @@ public class EditorActivity extends Activity {
 		editDialog = new EditDialog(this, appListList[pointerId][appId], new EditDialog.EditAppIf() {
 
 			@Override
-			public void onImageTrimmingIcon(int iconTarget, int iconType) {
-				getImageTrimming(iconTarget, iconType);
+			public void onTrimmingImage(int iconTarget, int iconType) {
+				trimmingImage(iconTarget, iconType);
 			}
 
 			@Override
@@ -1269,7 +1238,6 @@ public class EditorActivity extends Activity {
 				toAppId--;
 			}
 
-		//�h�b�N�̏ꍇ
 		} else {
 
 			switch (direction) {
@@ -1348,28 +1316,33 @@ public class EditorActivity extends Activity {
 		}
 	}
 
-	
 	/*
-	 * backWindow()
+	 * openWindow()
 	 */
-	private void backWindow() {
+	private void openAppWindow() {
+		app_window.setTag(pointerId);
+		app_window.setAppForEdit(pointerId, pointerList[pointerId], appListList[pointerId]);
+		pointer_window.setVisibility(View.INVISIBLE);
+		app_window.setVisibility(View.VISIBLE);
+		app_window.setPointerPointed(false);
+	}
+
+	/*
+	 * closeAppWindow()
+	 */
+	private void closeAppWindow() {
 		if (app_window.getVisibility() == View.VISIBLE) {
-			closeAppWindow();
-		} else {
-			l.launchFlickerActivity();
-			Toast.makeText(this, R.string.enter_flick_mode, Toast.LENGTH_SHORT).show();
-			finish();
+			app_window.setVisibility(View.INVISIBLE);
+			pointer_window.setVisibility(View.VISIBLE);
+			if (pointerId != Pointer.DOCK_POINTER_ID) {
+				pointer_window.setPointerPointed(false, pointerId);
+			}
 		}
 	}
-	
-	/*
-	 * onKeyDown()
-	 */
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) backWindow();
-		return false;
-	}
+
+/*
+ * Menu
+ */
 
 	/*
 	 * OnMenuFlickListener
@@ -1437,5 +1410,52 @@ public class EditorActivity extends Activity {
 				break;			
 		}
 	}
+
+/*
+ * Common
+ */
+
+	/*
+	 * trimmingImage()
+	 */
+	private void trimmingImage(int iconTarget, int iconType) {
+		editDialog.setCancelable(false);
+		editDialog.setCanceledOnTouchOutside(false);
+		Intent intent = new Intent(Intent.ACTION_GET_CONTENT).setType("image/*");
+
+		switch (iconTarget) {
+			case IconList.TARGET_ICON_POINTER:
+				startActivityForResult(intent, REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING_IMAGE);
+				break;
+
+			case (IconList.TARGET_ICON_APP):
+				startActivityForResult(intent, REQUEST_CODE_EDIT_APP_ICON_TRIMMING_IMAGE);
+				break;
+		}
+
+	}
+
+	/*
+	 * backWindow()
+	 */
+	private void backWindow() {
+		if (app_window.getVisibility() == View.VISIBLE) {
+			closeAppWindow();
+		} else {
+			l.launchFlickerActivity();
+			Toast.makeText(this, R.string.enter_flick_mode, Toast.LENGTH_SHORT).show();
+			finish();
+		}
+	}
+
+	/*
+	 * onKeyDown()
+	 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) backWindow();
+		return false;
+	}
+
 
 }

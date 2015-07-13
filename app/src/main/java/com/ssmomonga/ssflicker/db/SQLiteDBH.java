@@ -229,6 +229,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 /*
  * DATABASE_VERSION_3
  */
+
 	private static final String DROP_POINTER_TABLE_TEMPLATE_3 = "drop table if exists " + POINTER_TABLE_1;
 
 	private static final String DROP_APP_TABLE_TEMPLATE_3 = "drop table if exists " + APP_TABLE_1;
@@ -404,6 +405,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 /*
  * DATABASE_VERSION_4
  */
+
 	private static final String[] ALTER_POINTER_TABLE_TEMPLATE_4 = {
 			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_TYPE + " integer",
 			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_TYPE_APP_APP_ID + " integer",
@@ -431,6 +433,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 /*
  * DATABASE_VERSION_5
  */
+
 	private static final String[] ALTER_APP_TABLE_TEMPLATE_5 = {
 		"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.PACKAGE_NAME + " text"};
 
@@ -525,6 +528,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 /*
  * DATABASE_VERSION_6
  */
+
 	/*
 	 * clearPref_6()
 	 */
@@ -543,6 +547,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 /*
  * DATABASE_VERSION_7
  */
+
 	/*
 	 * updateTable_7()
 	 */
@@ -592,6 +597,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 /*
  *  DATABASE_VERSION_8
  */
+
 	private static final String DROP_POINTER_TABLE_TEMPLATE_8 = "drop table if exists " + POINTER_TABLE_8;
 
 	private static final String DROP_APP_TABLE_TEMPLATE_8 = "drop table if exists " + APP_TABLE_8;

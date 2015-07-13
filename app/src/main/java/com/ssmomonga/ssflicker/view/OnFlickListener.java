@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.ssmomonga.ssflicker.EditorActivity;
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.db.PrefDAO;
 import com.ssmomonga.ssflicker.proc.Launch;
@@ -14,8 +15,9 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	private static Launch l;
 	private static Position p;
 
-	public static int flickDistance;
-	public int vibrateTime;
+	private static int flickDistance;
+	private boolean editorMode;
+	private int vibrateTime;
 	
 	/*
 	 * Constructor
@@ -24,6 +26,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		FlickListenerParams params = new FlickListenerParams(context);
 		l = new Launch(context);
 		flickDistance = context.getResources().getDimensionPixelSize(R.dimen.flick_distance);
+		editorMode = context.getClass() == EditorActivity.class;
 		vibrateTime = params.getVibrateTime();
 	}
 
@@ -48,8 +51,8 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 				p = new Position(event.getX(), event.getY());
 				break;
 		}
-		
-		if (isData()) {
+
+		if (isData() || editorMode) {
 			switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:						//ACTION_DOWN
 					l.vibrate(vibrateTime);
@@ -143,9 +146,9 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 					} else if (arcCos > 112.5) {
 						position = 0;
 					} else if (arcCos > 67.5) {
-						position = 1;					
+						position = 1;
 					} else if (arcCos > 25.5) {
-						position = 2;					
+						position = 2;
 					} else {
 						position = 4;
 					}
@@ -155,9 +158,9 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 					} else if (arcCos > 112.5) {
 						position = 5;
 					} else if (arcCos > 67.5) {
-						position = 6;					
+						position = 6;
 					} else if (arcCos > 25.5) {
-						position = 7;					
+						position = 7;
 					} else {
 						position = 4;
 					}
@@ -167,7 +170,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 				position = -1;
 			}
 			
-			return position != oldPosition;					//position���ς������true��Ԃ��B
+			return position != oldPosition;
 		}
 		
 		/*

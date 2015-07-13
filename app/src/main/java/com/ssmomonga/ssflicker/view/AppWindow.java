@@ -3,6 +3,7 @@ package com.ssmomonga.ssflicker.view;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -85,7 +86,7 @@ public class AppWindow extends TableLayout {
 		}
 		anim_pointer_pointed = AnimationUtils.loadAnimation(context, R.anim.icon_pointed);
 		anim_pointer_unpointed = AnimationUtils.loadAnimation(context, R.anim.icon_unpointed);
-		anim_window_open = AnimationUtils.loadAnimation(context, R.anim.window_open);
+		anim_window_open = AnimationUtils.loadAnimation(context, R.anim.open_window);
 
 	}
 
@@ -191,6 +192,9 @@ public class AppWindow extends TableLayout {
 	 * setPointed()
 	 */
 	public void setAppPointed(boolean pointed, int appId) {
+		Log.v("ssFlicker", "-----------------------------------------------");
+		Log.v("ssFlicker", "setApppointed()" + "," + pointed + "," + appId);
+
 		if (pointed) {
 			ll_app[appId].startAnimation(anim_app_pointed[appId]);
 		} else {

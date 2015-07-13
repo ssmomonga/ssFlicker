@@ -2,53 +2,53 @@
 
 <resources>
 
-    <style name="Theme.Base.Light" parent="android:Theme.Material.Light">
+	<style name="Theme.Base.Light" parent="android:Theme.Material.Light">
 		<item name="android:colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="android:colorPrimary">@color/color_primary</item>
-        <item name="android:colorAccent">@color/color_accent_light</item>
+		<item name="android:colorPrimary">@color/color_primary</item>
+		<item name="android:colorAccent">@color/color_accent_light</item>
 		<item name="android:actionBarStyle">@style/ActionBarStyle</item>
 		<item name="android:alertDialogTheme">@style/AlertDialogTheme.Light</item>
-		<item name="android:windowEnableSplitTouch">false</item> 
+		<item name="android:windowEnableSplitTouch">false</item>
 	</style>
-   	<style name="Theme.Base" parent="android:Theme.Material">
+	<style name="Theme.Base" parent="android:Theme.Material">
 		<item name="android:colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="android:colorPrimary">@color/color_primary</item>
-        <item name="android:colorAccent">@color/color_accent</item>
+		<item name="android:colorPrimary">@color/color_primary</item>
+		<item name="android:colorAccent">@color/color_accent</item>
 		<item name="android:actionBarStyle">@style/ActionBarStyle</item>
 		<item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
-		<item name="android:windowEnableSplitTouch">false</item> 
+		<item name="android:windowEnableSplitTouch">false</item>
 	</style>
-   	
-   	<style name="ActionBarStyle" parent="android:Widget.Material.ActionBar">
-        <item name="android:titleTextStyle">@style/ActionBarTitle</item>
-        <item name="android:background">?android:colorPrimary</item>
-   	</style>
-   	<style name="ActionBarTitle" parent="android:TextAppearance.Material.Widget.ActionBar.Title">
+
+	<style name="ActionBarStyle" parent="android:Widget.Material.ActionBar">
+		<item name="android:titleTextStyle">@style/ActionBarTitle</item>
+		<item name="android:background">?android:colorPrimary</item>
+	</style>
+	<style name="ActionBarTitle" parent="android:TextAppearance.Material.Widget.ActionBar.Title">
 		<item name="android:textColor">@android:color/white</item>
-   	</style>
-   	
-   	<style name="AlertDialogTheme.Light" parent="android:Theme.Material.Light.Dialog.Alert">
-   	    <item name="android:colorAccent">@color/color_accent_light</item>  
-   	</style>
-   	<style name="AlertDialogTheme" parent="android:Theme.Material.Dialog.Alert">
-   	    <item name="android:colorAccent">@color/color_accent</item>
-   	</style>
-   
+	</style>
+
+	<style name="AlertDialogTheme.Light" parent="android:Theme.Material.Light.Dialog.Alert">
+	    <item name="android:colorAccent">@color/color_accent_light</item>
+	</style>
+	<style name="AlertDialogTheme" parent="android:Theme.Material.Dialog.Alert">
+		<item name="android:colorAccent">@color/color_accent</item>
+	</style>
+
 	<style name="Theme.Flicker" parent="Theme.Base.Light">
 		<item name="android:colorPrimaryDark">@android:color/transparent</item>
 	   	<item name="android:windowBackground">@color/wallpaper</item>
 		<item name="android:navigationBarColor">@android:color/transparent</item>
 		<item name="android:windowIsTranslucent">true</item>
 		<item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
+		<item name="android:windowNoTitle">true</item>
 	</style>
 	<style name="Theme.Editor" parent="Theme.Base" >
 		<item name="android:colorPrimaryDark">@android:color/transparent</item>
-	   	<item name="android:windowBackground">@color/wallpaper</item>
+		<item name="android:windowBackground">@color/wallpaper</item>
 		<item name="android:navigationBarColor">@android:color/transparent</item>
 		<item name="android:windowIsTranslucent">true</item>
 		<item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
+		<item name="android:windowNoTitle">true</item>
 	</style>
 	<style name="Theme.Pref" parent="Theme.Base.Light" />
 	
@@ -57,7 +57,7 @@
 		<item name="android:layout_height">1dp</item>
 		<item name="android:layout_marginLeft">8dp</item>
 		<item name="android:layout_marginRight">8dp</item>
-		<item name="android:background">?android:colorForeground</item>				
+		<item name="android:background">?android:colorForeground</item>
 		<item name="android:alpha">0.12</item>
 	</style>
 	
@@ -65,23 +65,23 @@
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layout_weight">1</item>
-	    <item name="android:max">255</item>
+		<item name="android:max">255</item>
 	</style>
 	<style name="SeekBar.Alpha" parent="SeekBar.ARGB">
 		<item name="android:progressDrawable">@drawable/seekbar_progress_alpha</item>
-	    <item name="android:thumb">@drawable/seekbar_thumb_alpha</item>
+		<item name="android:thumb">@drawable/seekbar_thumb_alpha</item>
 	</style>
 	<style name="SeekBar.Red" parent="SeekBar.ARGB">
-	    <item name="android:progressDrawable">@drawable/seekbar_progress_red</item>
-	    <item name="android:thumb">@drawable/seekbar_thumb_red</item>
+		<item name="android:progressDrawable">@drawable/seekbar_progress_red</item>
+		<item name="android:thumb">@drawable/seekbar_thumb_red</item>
 	</style>
 	<style name="SeekBar.Green" parent="SeekBar.ARGB">
-	    <item name="android:progressDrawable">@drawable/seekbar_progress_green</item>
-	    <item name="android:thumb">@drawable/seekbar_thumb_green</item>
+		<item name="android:progressDrawable">@drawable/seekbar_progress_green</item>
+		<item name="android:thumb">@drawable/seekbar_thumb_green</item>
 	</style>
 	<style name="SeekBar.Blue" parent="SeekBar.ARGB">
-	    <item name="android:progressDrawable">@drawable/seekbar_progress_blue</item>
-	    <item name="android:thumb">@drawable/seekbar_thumb_blue</item>
+		<item name="android:progressDrawable">@drawable/seekbar_progress_blue</item>
+		<item name="android:thumb">@drawable/seekbar_thumb_blue</item>
 	</style>
 	
 	<style name="lp_mp_mp">
