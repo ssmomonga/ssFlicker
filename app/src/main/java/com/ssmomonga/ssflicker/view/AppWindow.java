@@ -3,7 +3,6 @@ package com.ssmomonga.ssflicker.view;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -192,9 +191,6 @@ public class AppWindow extends TableLayout {
 	 * setPointed()
 	 */
 	public void setAppPointed(boolean pointed, int appId) {
-		Log.v("ssFlicker", "-----------------------------------------------");
-		Log.v("ssFlicker", "setApppointed()" + "," + pointed + "," + appId);
-
 		if (pointed) {
 			ll_app[appId].startAnimation(anim_app_pointed[appId]);
 		} else {

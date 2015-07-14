@@ -340,7 +340,6 @@ public class EditorActivity extends Activity {
 											null);
 									c.moveToFirst();
 
-									int index = c.getColumnIndex("mime_type");
 									String contentName = baseUri.toString() + "/" + c.getInt(c.getColumnIndex(MediaStore.MediaColumns._ID));
 									c.close();
 									Uri cacheFileUri = Uri.parse(contentName);

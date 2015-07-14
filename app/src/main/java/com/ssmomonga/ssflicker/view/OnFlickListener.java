@@ -38,7 +38,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		flickDistance = context.getResources().getDimensionPixelSize(R.dimen.flick_distance);
 		this.vibrateTime = vibrateTime;
 	}
-	
+
 	/*
 	 * onTouch()
 	 */
