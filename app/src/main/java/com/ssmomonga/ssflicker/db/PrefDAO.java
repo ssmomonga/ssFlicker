@@ -11,6 +11,9 @@ import com.ssmomonga.ssflicker.data.AppList;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
 
+/**
+ * PrefDAO
+ */
 public class PrefDAO {
 	
 	private static final int PREF_VERSION_NUM = 2;
@@ -65,6 +68,8 @@ public class PrefDAO {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public PrefDAO(Context context) {
 		this.context = context;
@@ -106,6 +111,8 @@ public class PrefDAO {
 	
 	/**
 	 * getHomeKeyAnotherHome()
+	 *
+	 * @return
 	 */
 	public String getHomeKeyAnotherHome() {
 		String anotherHome = prefs.getString(HOME_KEY_ANOTHER_HOME, null);
@@ -123,6 +130,8 @@ public class PrefDAO {
 	
 	/**
 	 * getHomeKeyClickMode()
+	 *
+	 * @return
 	 */
 	public int getHomeKeyClickMode() {
 		return Integer.parseInt(getRawHomeKeyClickMode());
@@ -130,6 +139,8 @@ public class PrefDAO {
 	
 	/**
 	 * getRawHomeKeyClickMode()
+	 *
+	 * @return
 	 */
 	public String getRawHomeKeyClickMode() {
 		return prefs.getString(HOME_KEY_CLICK_MODE, "1");
@@ -137,6 +148,8 @@ public class PrefDAO {
 	
 	/**
 	 * getHomeKeyClickInterval()
+	 *
+	 * @return
 	 */
 	public int getHomeKeyClickInterval() {
 		return Integer.parseInt(getRawHomeKeyClickInterval());
@@ -144,6 +157,8 @@ public class PrefDAO {
 	
 	/**
 	 * getRawHomeKeyClickInterval()
+	 *
+	 * @return
 	 */
 	public String getRawHomeKeyClickInterval() {
 		return prefs.getString(HOME_KEY_CLICK_INTERVAL, "500");
@@ -151,6 +166,8 @@ public class PrefDAO {
 	
 	/**
 	 * isOverlay()
+	 *
+	 * @return
 	 */
 	public boolean isOverlay() {
 		return prefs.getBoolean(OVERLAY, false);
@@ -158,6 +175,8 @@ public class PrefDAO {
 	
 	/**
 	 * setOverlay()
+	 *
+	 * @param b
 	 */
 	public void setOverlay(boolean b) {
 		Editor editor = prefs.edit();
@@ -167,6 +186,9 @@ public class PrefDAO {
 	
 	/**
 	 * isOverlayPoint()
+	 *
+	 * @param overlayPointNumber
+	 * @return
 	 */
 	public boolean isOverlayPoint(int overlayPointNumber) {
 		switch (overlayPointNumber) {
@@ -181,6 +203,9 @@ public class PrefDAO {
 
 	/**
 	 * getOverlayPointSide
+	 *
+	 * @param overlayPointNumber
+	 * @return
 	 */
 	public int getOverlayPointSide (int overlayPointNumber) {
 		return Integer.parseInt(getRawOverlayPointSide(overlayPointNumber));
@@ -188,6 +213,9 @@ public class PrefDAO {
 		
 	/**
 	 * getRawOverlayPointSide()
+	 *
+	 * @param overlayPointNumber
+	 * @return
 	 */
 	public String getRawOverlayPointSide(int overlayPointNumber) {
 		switch (overlayPointNumber) {
@@ -202,6 +230,9 @@ public class PrefDAO {
 
 	/**
 	 * getOverlayPointPosition()
+	 *
+	 * @param overlayPointNumber
+	 * @return
 	 */
 	public int getOverlayPointPosition(int overlayPointNumber) {
 		return Integer.parseInt(getRawOverlayPointPosition(overlayPointNumber));
@@ -209,6 +240,9 @@ public class PrefDAO {
 
 	/**
 	 * getRawOverlayPointPosition()
+	 *
+	 * @param overlayPointNumber
+	 * @return
 	 */
 	public String getRawOverlayPointPosition(int overlayPointNumber) {
 		switch (overlayPointNumber) {
@@ -223,6 +257,9 @@ public class PrefDAO {
 
 	/**
 	 * getOverlayPointWidth()
+	 *
+	 * @param overlayPointNumber
+	 * @return
 	 */
 	public int getOverlayPointWidth(int overlayPointNumber) {
 		return DeviceSettings.dimenToPixel(context, Integer.parseInt(getRawOverlayPointWidth(overlayPointNumber)));
@@ -230,6 +267,9 @@ public class PrefDAO {
 
 	/**
 	 * getRawOverlayPointWidth()
+	 *
+	 * @param overlayPointNumber
+	 * @return
 	 */
 	public String getRawOverlayPointWidth(int overlayPointNumber) {
 		switch (overlayPointNumber) {
@@ -244,6 +284,8 @@ public class PrefDAO {
 	
 	/**
 	 * getRawOverlayPointAction()
+	 *
+	 * @return
 	 */
 	public String getRawOverlayPointAction() {
 		return prefs.getString(OVERLAY_POINT_ACTION, "0");
@@ -251,6 +293,8 @@ public class PrefDAO {
 	
 	/**
 	 * getOverlayPointBackgroundColor()
+	 *
+	 * @return
 	 */
 	public int getOverlayPointBackgroundColor() {
 		return prefs.getInt(OVERLAY_POINT_BACKGROUND_COLOR, context.getResources().getColor(R.color.overlay_point_background_color_default_value));
@@ -258,6 +302,8 @@ public class PrefDAO {
 	
 	/**
 	 * getOverlayPointAction
+	 *
+	 * @return
 	 */
 	public int getOverlayPointAction() {
 		return Integer.parseInt(getRawOverlayPointAction());
@@ -265,6 +311,8 @@ public class PrefDAO {
 	
 	/**
 	 * isOverlayForeground()
+	 *
+	 * @return
 	 */
 	public boolean isOverlayForeground() {
 		return prefs.getBoolean(OVERLAY_FOREGROUND, true);
@@ -272,6 +320,8 @@ public class PrefDAO {
 	
 	/**
 	 * isStatusbar()
+	 *
+	 * @return
 	 */
 	public boolean isStatusbar() {
 		return prefs.getBoolean(STATUSBAR, false);
@@ -279,6 +329,8 @@ public class PrefDAO {
 
 	/**
 	 * getWindowBackgroundColor()
+	 *
+	 * @return
 	 */
 	public int getWindowBackgroundColor() {
 		return prefs.getInt(WINDOW_BACKGROUND_COLOR, context.getResources().getColor(R.color.window_background_color_default_value));
@@ -286,6 +338,8 @@ public class PrefDAO {
 	
 	/**
 	 * getPointerWindowPositionPortrait()
+	 *
+	 * @return
 	 */
 	public int getPointerWindowPositionPortrait() {
 		return Integer.parseInt(getRawPointerWindowPositionPortrait());
@@ -293,6 +347,8 @@ public class PrefDAO {
 	
 	/**
 	 * getRawPointerWindowPositionPortrait()
+	 *
+	 * @return
 	 */
 	public String getRawPointerWindowPositionPortrait() {
 		return prefs.getString(POINTER_WINDOW_POSITION_PORTRAIT, "81");
@@ -300,6 +356,8 @@ public class PrefDAO {
 	
 	/**
 	 * getDockWindowPositionPortrait()
+	 *
+	 * @return
 	 */
 	public int getDockWindowPositionPortrait() {
 		return Integer.parseInt(getRawDockWindowPositionPortrait());
@@ -307,6 +365,8 @@ public class PrefDAO {
 	
 	/**
 	 * getRawDockWindowPositionPortrait()
+	 *
+	 * @return
 	 */
 	public String getRawDockWindowPositionPortrait() {
 		return prefs.getString(DOCK_WINDOW_POSITION_PORTRAIT, "80");
@@ -314,6 +374,8 @@ public class PrefDAO {
 
 	/**
 	 * getPointerWindowPositionLandscape()
+	 *
+	 * @return
 	 */
 	public int getPointerWindowPositionLandscape() {
 		return Integer.parseInt(getRawPointerWindowPositionLandscape());
@@ -321,6 +383,8 @@ public class PrefDAO {
 	
 	/**
 	 * getRawPointerWindowPositionLandscape()
+	 *
+	 * @return
 	 */
 	public String getRawPointerWindowPositionLandscape() {
 		return prefs.getString(POINTER_WINDOW_POSITION_LANDSCAPE, "21");
@@ -328,6 +392,8 @@ public class PrefDAO {
 	
 	/**
 	 * getDockWindowPositionLandscape()
+	 *
+	 * @return
 	 */
 	public int getDockWindowPositionLandscape() {
 		return Integer.parseInt(getRawDockWindowPositionLandscape());
@@ -335,6 +401,8 @@ public class PrefDAO {
 	
 	/**
 	 * getRawDockWindowPositionLandscape()
+	 *
+	 * @return
 	 */
 	public String getRawDockWindowPositionLandscape() {
 		return prefs.getString(DOCK_WINDOW_POSITION_LANDSCAPE, "5");
@@ -342,6 +410,8 @@ public class PrefDAO {
 
 	/**
 	 * getIconSize()
+	 *
+	 * @return
 	 */
 	public int getIconSize() {
 		int iconSize = Integer.parseInt(getRawIconSize());
@@ -356,6 +426,8 @@ public class PrefDAO {
 	
 	/**
 	 * getIconPlusSize()
+	 *
+	 * @return
 	 */
 	public int getIconPlusSize() {
 		int iconSize = Integer.parseInt(getRawIconSize());
@@ -370,6 +442,8 @@ public class PrefDAO {
 	
 	/**
 	 * getRawIconSize()
+	 *
+	 * @return
 	 */
 	public String getRawIconSize() {
 		return prefs.getString(ICON_SIZE, "40");
@@ -377,6 +451,8 @@ public class PrefDAO {
 
 	/**
 	 * isTextVisibility()
+	 *
+	 * @return
 	 */
 	public boolean isTextVisibility() {
 		return prefs.getBoolean(TEXT_VISIBILITY, true);
@@ -384,6 +460,8 @@ public class PrefDAO {
 	
 	/**
 	 * getTextColor()
+	 *
+	 * @return
 	 */
 	public int getTextColor() {
 		return prefs.getInt(TEXT_COLOR, context.getResources().getColor(android.R.color.white));
@@ -391,6 +469,8 @@ public class PrefDAO {
 
 	/**
 	 * getTextSize()
+	 *
+	 * @return
 	 */
 	public int getTextSize() {
 		return Integer.parseInt(getRawTextSize());
@@ -398,6 +478,8 @@ public class PrefDAO {
 	
 	/**
 	 * getRawTextSize()
+	 *
+	 * @return
 	 */
 	public String getRawTextSize() {
 		return prefs.getString(TEXT_SIZE, "10");
@@ -405,17 +487,23 @@ public class PrefDAO {
 	
 	/**
 	 * getVibrateTime()
+	 *
+	 * @return
 	 */
 	public int getVibrateTime() {
-		if (isVibrate()) {
+		return isVibrate() ? context.getResources().getInteger(R.integer.vibrate_time) : 0;
+
+/*		if (isVibrate()) {
 			return context.getResources().getInteger(R.integer.vibrate_time);
 		} else {
 			return 0;
-		}
+		}*/
 	}
 
 	/**
 	 * isVibrate()
+	 *
+	 * @return
 	 */
 	public boolean isVibrate() {
 		boolean b = false;
@@ -432,6 +520,8 @@ public class PrefDAO {
 	
 	/**
 	 * isStatusbarVisibility()
+	 *
+	 * @return
 	 */
 	public boolean isStatusbarVisibility() {
 		return prefs.getBoolean(STATUSBAR_VISIBILITY, false);
@@ -439,6 +529,8 @@ public class PrefDAO {
 	
 	/**
 	 * getInvisibleAppWidgetBackgroundVisibility()
+	 *
+	 * @return
 	 */
 	public boolean isInvisibleAppWidgetBackgroundVisibility() {
 		return prefs.getBoolean(INVISIBLE_APPWIDGET_BACKGROUND_VISIBILITY, false);
@@ -446,6 +538,8 @@ public class PrefDAO {
 	
 	/**
 	 * getDonation()
+	 *
+	 * @return
 	 */
 	public boolean getDonation() {
 		return prefs.getBoolean(DONATION, false);
@@ -453,6 +547,8 @@ public class PrefDAO {
 	
 	/**
 	 * setDonation()
+	 *
+	 * @param b
 	 */
 	public void setDonation(boolean b) {
 		Editor editor = prefs.edit();

@@ -2,6 +2,9 @@ package com.ssmomonga.ssflicker.data;
 
 import android.graphics.drawable.Drawable;
 
+/**
+ * Pointer
+ */
 public class Pointer {
 	
 	public static final int POINTER_TYPE_CUSTOM = 0;
@@ -21,6 +24,12 @@ public class Pointer {
 
 	/**
 	 * Constructor
+	 *
+	 * @param pointerType
+	 * @param pointerLabel
+	 * @param pointerIcon
+	 * @param pointerIconType
+	 * @param pointerIconTypeAppAppId
 	 */
 	public Pointer(int pointerType, String pointerLabel, Drawable pointerIcon, int pointerIconType, int pointerIconTypeAppAppId) {
 		this.pointerType = pointerType;
@@ -32,6 +41,8 @@ public class Pointer {
 
 	/**
 	 * getPointerType()
+	 *
+	 * @return
 	 */
 	public int getPointerType() {
 		return pointerType;
@@ -39,6 +50,8 @@ public class Pointer {
 
 	/**
 	 * getPointerLabel()
+	 *
+	 * @return
 	 */
 	public String getPointerLabel() {
 		return pointerLabel;
@@ -46,6 +59,8 @@ public class Pointer {
 
 	/**
 	 * getPointerIcon()
+	 *
+	 * @return
 	 */
 	public Drawable getPointerIcon() {
 		return pointerIcon;
@@ -53,6 +68,8 @@ public class Pointer {
 
 	/**
 	 * getPointerIconType()
+	 *
+	 * @return
 	 */
 	public int getPointerIconType() {
 		return pointerIconType;
@@ -60,6 +77,8 @@ public class Pointer {
 
 	/**
 	 * getPointerIconTypeAppAppId()
+	 *
+	 * @return
 	 */
 	public int getPointerIconTypeAppAppId() {
 		return pointerIconTypeAppAppId;
@@ -67,6 +86,8 @@ public class Pointer {
 
 	/**
 	 * setPointerLabel()
+	 *
+	 * @param pointerLabel
 	 */
 	public void setPointerLabel(String pointerLabel) {
 		this.pointerLabel = pointerLabel;
@@ -74,6 +95,8 @@ public class Pointer {
 
 	/**
 	 * setPointerIcon()
+	 *
+	 * @param pointerIcon
 	 */
 	public void setPointerIcon(Drawable pointerIcon) {
 		this.pointerIcon = pointerIcon;
@@ -81,6 +104,8 @@ public class Pointer {
 
 	/**
 	 * setPointerIconType()
+	 *
+	 * @param iconType
 	 */
 	public void setPointerIconType(int iconType) {
 		this.pointerIconType = iconType;
@@ -88,6 +113,8 @@ public class Pointer {
 
 	/**
 	 * setPointerIconTypeAppAppId()
+	 *
+	 * @param appId
 	 */
 	public void setPointerIconTypeAppAppId(int appId) {
 		pointerIconTypeAppAppId = appId;

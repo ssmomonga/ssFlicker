@@ -9,10 +9,17 @@ import android.widget.RemoteViews;
 
 import com.ssmomonga.ssflicker.set.InvisibleAppWidgetSettings;
 
+/**
+ * InvisibleAppWidget
+ */
 public class InvisibleAppWidget extends AppWidgetProvider {
 
 	/**
 	 * onUpdate()
+	 *
+	 * @param context
+	 * @param appWidgetManager
+	 * @param appWidgetIds
 	 */
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -21,6 +28,11 @@ public class InvisibleAppWidget extends AppWidgetProvider {
 	
 	/**
 	 * viewInvisibleAppWidget()
+	 *
+	 * @param context
+	 * @param appWidgetManager
+	 * @param appWidgetIds
+	 * @param settings
 	 */
 	public void viewInvisibleAppWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, InvisibleAppWidgetSettings settings) {
 

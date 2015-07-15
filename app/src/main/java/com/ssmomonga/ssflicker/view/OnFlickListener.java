@@ -10,6 +10,9 @@ import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.db.PrefDAO;
 import com.ssmomonga.ssflicker.proc.Launch;
 
+/**
+ * OnFlickListener
+ */
 abstract public class OnFlickListener implements View.OnTouchListener {
 
 	private static Launch l;
@@ -21,6 +24,8 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public OnFlickListener(Context context) {
 		FlickListenerParams params = new FlickListenerParams(context);
@@ -32,6 +37,9 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param vibrateTime
 	 */
 	public OnFlickListener(Context context, int vibrateTime) {
 		l = new Launch(context);
@@ -41,6 +49,10 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 
 	/**
 	 * onTouch()
+	 *
+	 * @param v
+	 * @param event
+	 * @return
 	 */
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
@@ -80,31 +92,45 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 
 	/**
 	 * setId()
+	 *
+	 * @param id
 	 */
 	abstract public void setId(int id);
 
 	/**
 	 * isData()
+	 *
+	 * @return
 	 */
 	abstract public boolean isData();
 
 	/**
 	 * onDown()
+	 *
+	 * @param position
 	 */
 	abstract public void onDown(int position);
 
 	/**
 	 * onMove()
+	 *
+	 * @param oldPosition
+	 * @param position
 	 */
 	abstract public void onMove(int oldPosition, int position);
 
 	/**
 	 * onUp()
+	 *
+	 * @param position
+	 * @param r
 	 */
 	abstract public void onUp(int position, Rect r);
 
 	/**
 	 * onCancel()
+	 *
+	 * @param position
 	 */
 	abstract public void onCancel(int position);
 
@@ -120,6 +146,9 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 
 		/**
 		 * Constructor
+		 *
+		 * @param iniX
+		 * @param iniY
 		 */
 		public Position(float iniX, float iniY) {
 			this.iniX = iniX;
@@ -127,7 +156,11 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		}
 
 		/**
-		 * /setPosition()
+		 * setPosition()
+		 *
+		 * @param X
+		 * @param Y
+		 * @return
 		 */
 		public boolean setPosition(float X, float Y) {
 			
@@ -175,6 +208,8 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		
 		/**
 		 getPosition()
+		 *
+		 * @return
 		 */
 		public int getPosition() {
 			return position;
@@ -182,6 +217,8 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 
 		/**
 		 * getOldPosition()
+		 *
+		 * @return
 		 */
 		public int getOldPosition() {
 			return oldPosition;
@@ -197,6 +234,8 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 
 		/**
 		 * Constructor
+		 *
+		 * @param context
 		 */
 		public FlickListenerParams(Context context) {
 			PrefDAO pdao = new PrefDAO(context);
@@ -205,6 +244,8 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 
 		/**
 		 * getVibrateTime()
+		 *
+		 * @return
 		 */
 		public int getVibrateTime() {
 			return vibrateTime;

@@ -3,6 +3,9 @@ package com.ssmomonga.ssflicker.data;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
+/**
+ * App
+ */
 public class App {
 
 	public static final int APP_TYPE_INTENT_APP = 0;
@@ -22,13 +25,23 @@ public class App {
 	private int appIconType;
 	
 	private IntentAppInfo intentApp;
-	private AppWidgetInfo appWidget;		
+	private AppWidgetInfo appWidget;
 	private FunctionInfo function;
 
 	/**
-	 * Constructor(IntentApp)
+	 * Constructor
+	 * IntentApp用
+	 *
+	 * @param context
+	 * @param appType
+	 * @param packageName
+	 * @param appLabel
+	 * @param appLabelType
+	 * @param appIcon
+	 * @param appIconType
+	 * @param intentApp
 	 */
-	public App (Context context, int appType, String packageName, String appLabel, int appLabelType,
+	public App(Context context, int appType, String packageName, String appLabel, int appLabelType,
 			Drawable appIcon, int appIconType, IntentAppInfo intentApp) {
 		this.context = context;
 		this.appType = appType;
@@ -39,9 +52,19 @@ public class App {
 		this.appIconType = appIconType;
 		this.intentApp = intentApp;
 	}
-		
+
 	/**
-	 * Constructor(Function)
+	 * Constructor
+	 * Function用
+	 *
+	 * @param context
+	 * @param appType
+	 * @param packageName
+	 * @param appLabel
+	 * @param appLabelType
+	 * @param appIcon
+	 * @param appIconType
+	 * @param function
 	 */
 	public App(Context context, int appType, String packageName, String appLabel, int appLabelType,
 			Drawable appIcon, int appIconType, FunctionInfo function) {
@@ -56,7 +79,17 @@ public class App {
 	}
 
 	/**
-	 * Constructor(AppWidget)
+	 * Constructor
+	 * AppWidget用
+	 *
+	 * @param context
+	 * @param appType
+	 * @param packageName
+	 * @param appLabel
+	 * @param appLabelType
+	 * @param appIcon
+	 * @param appIconType
+	 * @param appWidget
 	 */
 	public App(Context context, int appType, String packageName, String appLabel, int appLabelType,
 			Drawable appIcon, int appIconType, AppWidgetInfo appWidget) {
@@ -72,6 +105,8 @@ public class App {
 
 	/**
 	 * getAppType()
+	 *
+	 * @return
 	 */
 	public int getAppType() {
 		return appType;
@@ -79,6 +114,8 @@ public class App {
 	
 	/**
 	 * getPackageName()
+	 *
+	 * @return
 	 */
 	public String getPackageName() {
 		return packageName;
@@ -86,6 +123,8 @@ public class App {
 
 	/**
 	 * getAppLabel()
+	 *
+	 * @return
 	 */
 	public String getAppLabel() {
 		return appLabel != null ? appLabel : getAppRawLabel();
@@ -95,6 +134,8 @@ public class App {
 
 	/**
 	 * getAppRawLabel()
+	 *
+	 * @return
 	 */
 	public String getAppRawLabel() {
 		switch (appType) {
@@ -111,6 +152,8 @@ public class App {
 
 	/**
 	 * getAppLabelType()
+	 *
+	 * @return
 	 */
 	public int getAppLabelType() {
 		return appLabelType;
@@ -118,6 +161,8 @@ public class App {
 
 	/**
 	 * geAppIcon()
+	 *
+	 * @return
 	 */
 	public Drawable getAppIcon() {
 		return appIcon != null ? appIcon : getAppRawIcon();
@@ -127,6 +172,8 @@ public class App {
 
 	/**
 	 * getAppRawIcon()
+	 *
+	 * @return
 	 */
 	public Drawable getAppRawIcon() {
 		switch (appType) {
@@ -143,6 +190,8 @@ public class App {
 
 	/**
 	 * getAppIconType()
+	 *
+	 * @return
 	 */
 	public int getAppIconType() {
 		return appIconType;
@@ -150,6 +199,8 @@ public class App {
 
 	/**
 	 * setAppLabel()
+	 *
+	 * @param appLabel
 	 */
 	public void setAppLabel(String appLabel) {
 		this.appLabel = appLabel;
@@ -157,6 +208,8 @@ public class App {
 
 	/**
 	 * setAppLabelType()
+	 *
+	 * @param appLabelType
 	 */
 	public void setAppLabelType(int appLabelType) {
 		this.appLabelType = appLabelType;
@@ -164,6 +217,8 @@ public class App {
 
 	/**
 	 * setAppIcon()
+	 *
+	 * @param appIcon
 	 */
 	public void setAppIcon(Drawable appIcon) {
 		this.appIcon = appIcon;
@@ -171,24 +226,35 @@ public class App {
 
 	/**
 	 * setAppIconType()
+	 *
+	 * @param appIconType
 	 */
 	public void setAppIconType(int appIconType) {
 		this.appIconType = appIconType;
 	}
 
+	/**
+	 * IntentAppInfo()
+	 *
+	 * @return
+	 */
 	public IntentAppInfo getIntentAppInfo() {
 		return intentApp;
 	}
 
 	/**
 	 * getAppWidgetInfo()
+	 *
+	 * @return
 	 */
 	public AppWidgetInfo getAppWidgetInfo() {
 		return appWidget;
 	}
 
 	/**
-	* getFunctionInfo()
+	 * getFunctionInfo()
+	 *
+	 * @return
 	 */
 	public FunctionInfo getFunctionInfo() {
 		return function;

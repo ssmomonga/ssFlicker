@@ -11,6 +11,9 @@ import com.ssmomonga.ssflicker.db.PrefDAO;
 
 import java.net.URISyntaxException;
 
+/**
+ * HomeKeySettings
+ */
 public class HomeKeySettings {
 
 	private static boolean homeKey;
@@ -20,6 +23,8 @@ public class HomeKeySettings {
 	
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public HomeKeySettings(Context context) {
 		PrefDAO pdao = new PrefDAO(context);
@@ -31,6 +36,9 @@ public class HomeKeySettings {
 	
 	/**
 	 * getHomeKeyAnotherHome()
+	 *
+	 * @param context
+	 * @param anotherHomeName
 	 */
 	private void fillAnotherHome(Context context, String anotherHomeName) {
 		
@@ -75,6 +83,8 @@ public class HomeKeySettings {
 	
 	/**
 	 * getAnotherHome()
+	 *
+	 * @return
 	 */
 	public App getAnotherHome() {
 		return anotherHome;
@@ -82,6 +92,8 @@ public class HomeKeySettings {
 
 	/**
 	 * getClickMode()
+	 *
+	 * @return
 	 */
 	public int getClickMode() {
 		return clickMode;
@@ -89,6 +101,8 @@ public class HomeKeySettings {
 	
 	/**
 	 * getClickInterval()
+	 *
+	 * @return
 	 */
 	public int getClickInterval() {
 		return clickInterval;

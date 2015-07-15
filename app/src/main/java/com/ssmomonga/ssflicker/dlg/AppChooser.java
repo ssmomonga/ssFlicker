@@ -14,6 +14,9 @@ import com.ssmomonga.ssflicker.dlg.CustomAdapters.AppAdapter;
 import com.ssmomonga.ssflicker.dlg.CustomAdapters.AppWidgetAdapter;
 import com.ssmomonga.ssflicker.proc.GetAppListTask;
 
+/**
+ * AppChooser
+ */
 public abstract class AppChooser extends AlertDialog {
 	
 	private Context context;
@@ -27,6 +30,10 @@ public abstract class AppChooser extends AlertDialog {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param appType
+	 * @param intentAppType
 	 */
 	public AppChooser(Context context, int appType, int intentAppType) {
 		super(context);
@@ -102,7 +109,6 @@ public abstract class AppChooser extends AlertDialog {
 
 	}
 
-	
 	private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -126,21 +132,32 @@ public abstract class AppChooser extends AlertDialog {
 
 	/**
 	 * onSelectIntentApp()
+	 * アプリを選択した時に動作
+	 *
+	 * @param app
 	 */
-	public abstract void onSelectIntentApp(App app);		//アプリを選択した時に動作
+	public abstract void onSelectIntentApp(App app);
 
 	/**
 	 * onSelectAppWidget()
+	 * アプリを選択した時に動作
+	 *
+	 * @param app
 	 */
-	public abstract void onSelectAppWidget(App app);		//アプリを選択した時に動作
+	public abstract void onSelectAppWidget(App app);
 
 	/**
 	 * onSelectFunction()
+	 * アプリを選択した時に動作
+	 *
+	 * @param app
 	 */
-	public abstract void onSelectFunction(App app);		//アプリを選択した時に動作
+	public abstract void onSelectFunction(App app);
 
 	/**
 	 * onDismissDialog()
+	 * キャンセル
+	 *
 	 */
-	public abstract void onDismissDialog();					//キャンセル
+	public abstract void onDismissDialog();
 }

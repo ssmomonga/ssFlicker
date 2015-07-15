@@ -31,6 +31,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * DonateActivity
+ */
 public class DonateActivity extends Activity {
 	
 //	private static final String PRODUCT_ID = "android.test.purchased";
@@ -90,6 +93,8 @@ public class DonateActivity extends Activity {
 
 	/**
 	 * onCreate()
+	 *
+	 * @param savedInstanceState
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -109,12 +114,14 @@ public class DonateActivity extends Activity {
 
 	/**
 	 * isBillingSupported()
+	 * 課金をサポートしているか確認
+	 *
+	 * @return
+	 * @throws RemoteException
 	 */
 	private boolean isBillingSupported() throws RemoteException {
-		//課金をサポートしているか確認
 		int isBillingSupported = mService.isBillingSupported(API_VERSION, packageName, ITEM_TYPE_INAPP);
 		return isBillingSupported == BILLING_RESPONSE_RESULT_OK;
-			
 	}
 
 	/**
@@ -129,9 +136,12 @@ public class DonateActivity extends Activity {
 			this.context = context;
 		}
 
-	    @Override
-	    protected void onPreExecute() {
-			
+		/**
+		 * onPreExecute()
+		 */
+		@Override
+		protected void onPreExecute() {
+
 			//プログレスダイアログを表示。
 			pDialog = new Dialog(context);
 			pDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -152,11 +162,17 @@ public class DonateActivity extends Activity {
 			
 		}
 
-	    @Override
+		/**
+		 * doInBackground()
+		 *
+		 * @param params
+		 * @return
+		 */
+		@Override
 		protected Bundle doInBackground(Void... params) {
-	    	
-	    	try {
-		    	//購入済か確認する
+
+			try {
+				//購入済か確認する
 				isOwned = isOwned(PRODUCT_ID);
 				//prefを更新
 				pdao.setDonation(isOwned);
@@ -173,13 +189,18 @@ public class DonateActivity extends Activity {
 
 		}
 
-	    @Override
-	    protected void onPostExecute(Bundle skuDetails) {
-	    	
+		/**
+		 * onPostExecute()
+		 *
+		 * @param skuDetails
+		 */
+		@Override
+		protected void onPostExecute(Bundle skuDetails) {
+
 			pDialog.dismiss();
 			
 			if (skuDetails != null) {
-	    	
+
 				int responseCode = skuDetails.getInt("RESPONSE_CODE");
 				//購入可能リストのレスポンスがOK
 	    		if (responseCode == BILLING_RESPONSE_RESULT_OK) {
@@ -207,6 +228,10 @@ public class DonateActivity extends Activity {
 
 	/**
 	 * getSkuDetails()
+	 *
+	 * @param productId
+	 * @return
+	 * @throws RemoteException
 	 */
 	private Bundle getSkuDetails(String productId) throws RemoteException {
 		//商品詳細を取得
@@ -221,6 +246,11 @@ public class DonateActivity extends Activity {
 	
 	/**
 	 * isOwned()
+	 *
+	 * @param productId
+	 * @return
+	 * @throws RemoteException
+	 * @throws JSONException
 	 */
 	private boolean isOwned(String productId) throws RemoteException, JSONException {
 		
@@ -245,6 +275,8 @@ public class DonateActivity extends Activity {
 
 	/**
 	 * setLayout()
+	 *
+	 * @param price
 	 */
 	private void setLayout(String price) {
 		
@@ -314,6 +346,8 @@ public class DonateActivity extends Activity {
 	
 	/**
 	 * setVisibility()
+	 *
+	 * @param isOwned
 	 */
 	private void setVisibility(boolean isOwned) {
 		if (!isOwned) {
@@ -333,6 +367,10 @@ public class DonateActivity extends Activity {
 	
 	/**
 	 * onActivityResult()
+	 *
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
 	 */
 	@Override
 	public void onActivityResult(final int requestCode, int resultCode, Intent data) {
@@ -362,6 +400,8 @@ public class DonateActivity extends Activity {
 
 	/**
 	 * errorIab()
+	 *
+	 * @param responseCode
 	 */
 	private void errorIab(int responseCode) {
 		Toast.makeText(DonateActivity.this, R.string.error_iab, Toast.LENGTH_SHORT).show();
@@ -380,6 +420,10 @@ public class DonateActivity extends Activity {
 
 	/**
 	 * onKeyDown()
+	 *
+	 * @param keyCode
+	 * @param keyEvent
+	 * @return
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {

@@ -19,10 +19,16 @@ import com.ssmomonga.ssflicker.R;
 
 import java.io.File;
 
+/**
+ * DeviceSettings
+ */
 public class DeviceSettings {
 	
 	/**
 	 * isDefault()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static boolean isDefault(Context context) {
 		return isHomeKey(context) || isNow(context) || isSearchKey(context);
@@ -30,6 +36,9 @@ public class DeviceSettings {
 	
 	/**
 	 * isHomeKey()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static boolean isHomeKey(Context context) {
 		Intent intent = new Intent(Intent.ACTION_MAIN)
@@ -41,6 +50,9 @@ public class DeviceSettings {
 	
 	/**
 	 * isNow()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static boolean isNow(Context context) {
 		Intent intent = new Intent(Intent.ACTION_ASSIST)
@@ -51,6 +63,9 @@ public class DeviceSettings {
 	
 	/**
 	 * isSearchKey()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static boolean isSearchKey(Context context) {
 		Intent intent = new Intent(Intent.ACTION_SEARCH_LONG_PRESS)
@@ -61,6 +76,9 @@ public class DeviceSettings {
 	
 	/**
 	 * hasVibrator()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static boolean hasVibrator(Context context) {
 		return ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).hasVibrator();
@@ -68,6 +86,9 @@ public class DeviceSettings {
 	
 	/**
 	 * isInvisibleAppWidget()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static boolean isInvisibleAppWidget(Context context) {
 		ComponentName componentName = new ComponentName(context, InvisibleAppWidget.class);
@@ -77,6 +98,9 @@ public class DeviceSettings {
 	
 	/**
 	 * getOrientation()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static int getOrientation(Context context) {
 		return context.getResources().getConfiguration().orientation;	//return��1�Ȃ�c�A2�Ȃ牡
@@ -84,6 +108,9 @@ public class DeviceSettings {
 	
 	/**
 	 * getWindowWidth()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static int getWindowWidth(Context context) {
 		DisplayMetrics metrics = new DisplayMetrics();
@@ -93,6 +120,9 @@ public class DeviceSettings {
 	
 	/**
 	 * getWindowHeight()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static int getWindowHeight(Context context) {
 		DisplayMetrics metrics = new DisplayMetrics();
@@ -102,6 +132,9 @@ public class DeviceSettings {
 	
 	/**
 	 * getDeviceCellSize()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static int getDeviceCellSize(Context context) {
 		Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
@@ -114,6 +147,9 @@ public class DeviceSettings {
 	
 	/**
 	 * getPixelPerCell()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static int[] getPixelPerCell(Context context) {
 		Resources r = context.getResources();
@@ -136,14 +172,22 @@ public class DeviceSettings {
 	}
 	
 	/**
-	 * dimenPixel()
+	 * dimenToPixel()
+	 *
+	 * @param context
+	 * @param size
+	 * @return
 	 */
 	public static int dimenToPixel(Context context, int size) {
 		return (int) (size * DeviceSettings.getDensity(context));
 	}
 	
 	/**
-	 * pixelDimen()
+	 * pixelToDimen()
+	 *
+	 * @param context
+	 * @param size
+	 * @return
 	 */
 	public static int pixelToDimen(Context context, int size) {
 		return (int) (size / DeviceSettings.getDensity(context));
@@ -151,6 +195,9 @@ public class DeviceSettings {
 	
 	/**
 	 * getDensity()
+	 *
+	 * @param context
+	 * @return
 	 */
 	private static float getDensity(Context context) {
 		return context.getResources().getDisplayMetrics().density;
@@ -158,6 +205,9 @@ public class DeviceSettings {
 	
 	/**
 	 * hasExternalStorage()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static boolean hasExternalStorage(Context context) {
 		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -170,6 +220,9 @@ public class DeviceSettings {
 	
 	/**
 	 * getExternalDir()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static String getExternalDir(Context context) {
 		return Environment.getExternalStorageDirectory() + "/" + context.getApplicationInfo().loadLabel(context.getPackageManager()) + "/";
@@ -177,6 +230,9 @@ public class DeviceSettings {
 	
 	/**
 	 * getExternalDirPath2()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static String getExternalDir2(Context context) {
 		return Environment.getExternalStorageDirectory() + "/" + context.getPackageName() + "/";

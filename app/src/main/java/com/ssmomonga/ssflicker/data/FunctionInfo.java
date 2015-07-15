@@ -6,6 +6,9 @@ import android.graphics.drawable.Drawable;
 
 import com.ssmomonga.ssflicker.R;
 
+/**
+ * FunctionInfo
+ */
 public class FunctionInfo {
 	
 	public static final int FUNCTION_TYPE_WIFI = 0;
@@ -21,6 +24,8 @@ public class FunctionInfo {
 
 	/**
 	 * Constructor
+	 *
+	 * @param functionType
 	 */
 	public FunctionInfo(int functionType) {
 		this.functionType = functionType;
@@ -28,6 +33,8 @@ public class FunctionInfo {
 	
 	/**
 	 * getFunctionType()
+	 *
+	 * @return
 	 */
 	public int getFunctionType() {
 		return functionType;
@@ -35,6 +42,9 @@ public class FunctionInfo {
 
 	/**
 	 * getFunctionRawLabel()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public String getFunctionRawLabel(Context context) {
 		Resources r = context.getResources();
@@ -63,6 +73,9 @@ public class FunctionInfo {
 
 	/**
 	 * getFunctionRawIcon()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public Drawable getFunctionRawIcon(Context context) {
 		Resources r = context.getResources();

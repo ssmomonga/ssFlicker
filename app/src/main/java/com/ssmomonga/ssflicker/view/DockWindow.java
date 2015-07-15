@@ -12,6 +12,9 @@ import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.set.WindowParams;
 
+/**
+ * DockWindow
+ */
 public class DockWindow extends LinearLayout {
 	
 	private Context context;
@@ -28,6 +31,9 @@ public class DockWindow extends LinearLayout {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param attrs
 	 */
 	public DockWindow(Context context, AttributeSet attrs) {
 		super (context, attrs);
@@ -67,22 +73,29 @@ public class DockWindow extends LinearLayout {
 	
 	/**
 	 * setOnFlickListener()
+	 *
+	 * @param listener
+	 * @param listener2
 	 */
-	public void setOnFlickListener (OnFlickListener listener, OnFlickListener listener2) {
+	public void setOnFlickListener(OnFlickListener listener, OnFlickListener listener2) {
 		for (LinearLayout ll: ll_dock) ll.setOnTouchListener(listener);
 		ll_menu.setOnTouchListener(listener2);
 	}
 
 	/**
 	 * setLayout()
+	 *
+	 * @param params
 	 */
-	public void setLayout(WindowParams lp) {
-		for (ImageView iv: iv_dock) iv.setLayoutParams(lp.getIconLP());
-		iv_menu.setLayoutParams(lp.getIconLP());
+	public void setLayout(WindowParams params) {
+		for (ImageView iv: iv_dock) iv.setLayoutParams(params.getIconLP());
+		iv_menu.setLayoutParams(params.getIconLP());
 	}
 	
 	/**
 	 * setApp()
+	 *
+	 * @param appList
 	 */
 	public void setApp(App[] appList) {
 		for (int i = 0; i < App.DOCK_APP_COUNT; i ++) {
@@ -95,6 +108,8 @@ public class DockWindow extends LinearLayout {
 	
 	/**
 	 * setAppForEdit()
+	 *
+	 * @param appList
 	 */
 	public void setAppForEdit(App[] appList) {
 		for (int i = 0; i < App.DOCK_APP_COUNT; i ++) {
@@ -109,6 +124,9 @@ public class DockWindow extends LinearLayout {
 
 	/**
 	 * setDockPointed()
+	 *
+	 * @param pointed
+	 * @param appId
 	 */
 	public void setDockPointed(boolean pointed, int appId) {
 		if (pointed) {
@@ -120,6 +138,8 @@ public class DockWindow extends LinearLayout {
 
 	/**
 	 * setMenuPointed()
+	 *
+	 * @param b
 	 */
 	public void setMenuPointed(boolean b) {
 		if (b) {

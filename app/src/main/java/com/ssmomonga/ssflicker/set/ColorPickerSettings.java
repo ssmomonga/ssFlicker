@@ -9,6 +9,9 @@ import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.db.PrefDAO;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
 
+/**
+ * ColorPickerSettings
+ */
 public class ColorPickerSettings {
 
 	private Context context;
@@ -26,6 +29,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public ColorPickerSettings(Context context) {
 		this.context = context;
@@ -42,6 +47,9 @@ public class ColorPickerSettings {
 	
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param iconColor
 	 */
 	public ColorPickerSettings(Context context, int iconColor) {
 		this.context = context;
@@ -58,6 +66,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * fillLP()
+	 *
+	 * @param pdao
 	 */
 	private void fillLP(PrefDAO pdao) {
 		int iconSize = pdao.getIconSize();
@@ -68,6 +78,8 @@ public class ColorPickerSettings {
 
 	/**
 	 * getIconLP()
+	 *
+	 * @return
 	 */
 	public LinearLayout.LayoutParams getIconLP() {
 		return iconLP;
@@ -75,6 +87,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * getTextLP()
+	 *
+	 * @return
 	 */
 	public LinearLayout.LayoutParams getTextLP() {
 		return textLP;
@@ -82,6 +96,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * getWindowBackgroundColor()
+	 *
+	 * @return
 	 */
 	public int getWindowBackgroundColor() {
 		return windowBackgroundColor;
@@ -89,6 +105,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * getWindowBackground()
+	 *
+	 * @return
 	 */
 	public Drawable getWindowBackground() {
 		int strokeThickness = 0;
@@ -104,6 +122,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * getIconColor()
+	 *
+	 * @return
 	 */
 	public int getIconColor() {
 		return iconColor;
@@ -111,6 +131,8 @@ public class ColorPickerSettings {
 
 	/**
 	 * getIcon()
+	 *
+	 * @return
 	 */
 	public Drawable getIcon() {
 		return context.getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null);
@@ -119,6 +141,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * isTextVisibility()
+	 *
+	 * @return
 	 */
 	public boolean isTextVisibility() {
 		return textVisibility;
@@ -126,6 +150,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * getTextColor()
+	 *
+	 * @return
 	 */
 	public int getTextColor() {
 		return textColor;
@@ -133,6 +159,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * getTextSize()
+	 *
+	 * @return
 	 */
 	public int getTextSize() {
 		return textSize;
@@ -140,6 +168,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * isOverlay()
+	 *
+	 * @return
 	 */
 	public boolean isOverlay() {
 		return overlay;
@@ -147,6 +177,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * getOverlayPointBackgroundColor()
+	 *
+	 * @return
 	 */
 	public int getOverlayPointBackgroundColor() {
 		return overlayPointBackgroundColor;
@@ -154,6 +186,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * setIconColor()
+	 *
+	 * @param newColor
 	 */
 	public void setIconColor(int newColor) {
 		iconColor = newColor;
@@ -161,6 +195,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * setTextColor()
+	 *
+	 * @param newColor
 	 */
 	public void setTextColor(int newColor) {
 		textColor = newColor;
@@ -168,6 +204,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * getWindowBackground()
+	 *
+	 * @param newColor
 	 */
 	public void setWindowBackgroundColor(int newColor) {
 		windowBackgroundColor = newColor;
@@ -175,6 +213,8 @@ public class ColorPickerSettings {
 	
 	/**
 	 * setOverlayPointBackgroundColor()
+	 *
+	 * @param newColor
 	 */
 	public void setOverlayPointBackgroundColor(int newColor) {
 		overlayPointBackgroundColor = newColor;

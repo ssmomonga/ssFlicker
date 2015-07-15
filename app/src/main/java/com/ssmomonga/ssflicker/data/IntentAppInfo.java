@@ -12,6 +12,9 @@ import com.ssmomonga.ssflicker.R;
 import java.net.URISyntaxException;
 import java.util.List;
 
+/**
+ * IntentAppInfo
+ */
 public class IntentAppInfo {
 
 	public static final int INTENT_APP_TYPE_LAUNCHER = 0;
@@ -28,6 +31,9 @@ public class IntentAppInfo {
 
 	/**
 	 * Constructor
+	 *
+	 * @param intentAppType
+	 * @param intentUri
 	 */
 	public IntentAppInfo(int intentAppType, String intentUri) {
 		this.intentAppType = intentAppType;
@@ -41,6 +47,9 @@ public class IntentAppInfo {
 
 	/**
 	 * Constructor
+	 *
+	 * @param intentAppType
+	 * @param intent
 	 */
 	public IntentAppInfo(int intentAppType, Intent intent) {
 		this.intentAppType = intentAppType;
@@ -50,6 +59,10 @@ public class IntentAppInfo {
 
 	/**
 	 * Constructor
+	 *
+	 * @param intentAppType
+	 * @param intent
+	 * @param taskId
 	 */
 	public IntentAppInfo(int intentAppType, Intent intent, int taskId) {
 		this.intentAppType = intentAppType;
@@ -60,6 +73,9 @@ public class IntentAppInfo {
 
 	/**
 	 * getIntentAppRawLabel()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public String getIntentAppRawLabel(Context context) {
 		PackageManager pm = context.getPackageManager();
@@ -75,6 +91,9 @@ public class IntentAppInfo {
 
 	/**
 	 * getIntentAppRawIcon()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public Drawable getIntentAppRawIcon(Context context) {
 		PackageManager pm = context.getPackageManager();
@@ -83,16 +102,12 @@ public class IntentAppInfo {
 		return resolveInfoList.size() != 0 ?
 				resolveInfoList.get(0).activityInfo.loadIcon(pm) :
 				context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
-
-	/**		if (resolveInfoList.size() != 0) {
-			return resolveInfoList.get(0).activityInfo.loadIcon(pm);
-		} else {
-			return context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
-		}	 */
 	}
 
 	/**
 	 * getIntentAppType()
+	 *
+	 * @return
 	 */
 	public int getIntentAppType() {
 		return intentAppType;
@@ -100,6 +115,8 @@ public class IntentAppInfo {
 
 	/**
 	 * getIntentUri()
+	 *
+	 * @return
 	 */
 	public String getIntentUri() {
 		return intentUri;
@@ -107,6 +124,8 @@ public class IntentAppInfo {
 
 	/**
 	 * getIntent()
+	 *
+	 * @return
 	 */
 	public Intent getIntent() {
 		return intent;
@@ -114,6 +133,8 @@ public class IntentAppInfo {
 
 	/**
 	 * getSendTemplate()
+	 *
+	 * @return
 	 */
 	public String getSendTemplate() {
 		return intent.getStringExtra(Intent.EXTRA_TEXT);
@@ -121,6 +142,8 @@ public class IntentAppInfo {
 
 	/**
 	 * getTaskId()
+	 *
+	 * @return
 	 */
 	public int getTaskId() {
 		return taskId;
@@ -128,8 +151,10 @@ public class IntentAppInfo {
 
 	/**
 	 * setSendTemplate
+	 *
+	 * @param sendTemplate
 	 */
-	public void setSendTemplate (String sendTemplate) {
+	public void setSendTemplate(String sendTemplate) {
 		intent = intent.putExtra(Intent.EXTRA_TEXT, sendTemplate);
 		intentUri = intent.toUri(0);
 	}

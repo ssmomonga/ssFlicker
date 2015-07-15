@@ -5,6 +5,9 @@ import android.widget.LinearLayout;
 
 import com.ssmomonga.ssflicker.data.AppWidgetInfo;
 
+/**
+ * AppWidgetParams
+ */
 public class AppWidgetParams {
 
 	private LinearLayout.LayoutParams appWidgetLP;
@@ -12,6 +15,9 @@ public class AppWidgetParams {
 	
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param appWidgetInfo
 	 */
 	public AppWidgetParams(Context context, AppWidgetInfo appWidgetInfo) {
 		fillAppWidgetLP(context, appWidgetInfo);
@@ -19,6 +25,9 @@ public class AppWidgetParams {
 	
 	/**
 	 * fillAppWidgetData()
+	 *
+	 * @param context
+	 * @param appWidgetInfo
 	 */
 	private void fillAppWidgetLP(Context context, AppWidgetInfo appWidgetInfo) {
 		int[] cellSize = appWidgetInfo.getAppWidgetCellSize();
@@ -32,6 +41,8 @@ public class AppWidgetParams {
 
 	/**
 	 * getPadding()
+	 *
+	 * @return
 	 */
 	public int[] getAppWidgetPositionPadding() {
 		return appWidgetPositionPadding;
@@ -39,6 +50,8 @@ public class AppWidgetParams {
 	
 	/**
 	 * getAppWidgetLP()
+	 *
+	 * @return
 	 */
 	public LinearLayout.LayoutParams getAppWidgetLP() {
 		return appWidgetLP;

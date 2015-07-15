@@ -14,6 +14,9 @@ import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.db.PrefDAO;
 import com.ssmomonga.ssflicker.dlg.ColorPicker;
 
+/**
+ * ColorPreference
+ */
 public class ColorPreference extends Preference {
 	
 	private Context context;
@@ -23,6 +26,9 @@ public class ColorPreference extends Preference {
 	
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param attrs
 	 */
 	public ColorPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -34,6 +40,10 @@ public class ColorPreference extends Preference {
 	
 	/**
 	 * onGetDefaultValue()
+	 *
+	 * @param a
+	 * @param index
+	 * @return
 	 */
 	 @Override
      protected Object onGetDefaultValue(TypedArray a, int index) {
@@ -43,6 +53,9 @@ public class ColorPreference extends Preference {
 	
 	/**
 	 * onSetInitialValue()
+	 *
+	 * @param restorePersistedValue
+	 * @param defaultValue
 	 */
 	@Override
 	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
@@ -59,6 +72,8 @@ public class ColorPreference extends Preference {
 	
 	/**
 	 * onBindView()
+	 *
+	 * @param view
 	 */
 	@Override
 	protected void onBindView(View view) {
@@ -100,6 +115,9 @@ public class ColorPreference extends Preference {
 
 	/**
 	 * onDependencyChanged
+	 *
+	 * @param dependency
+	 * @param disableDependent
 	 */
 	@Override
 	public void onDependencyChanged(Preference dependency, boolean disableDependent) {
@@ -113,6 +131,8 @@ public class ColorPreference extends Preference {
 
 	/**
 	 * setEnabled()
+	 *
+	 * @param enabled
 	 */
 	@Override
 	public void setEnabled(boolean enabled) {
@@ -133,6 +153,8 @@ public class ColorPreference extends Preference {
 	
 	/**
 	 * setColor()
+	 *
+	 * @param color
 	 */
 	private void setColor(int color) {
 		gd_color.setColor(color);

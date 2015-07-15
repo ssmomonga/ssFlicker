@@ -7,6 +7,9 @@ import android.os.Bundle;
 import com.ssmomonga.ssflicker.proc.Launch;
 import com.ssmomonga.ssflicker.set.HomeKeySettings;
 
+/**
+ * HomeKeyClickListener
+ */
 public class HomeKeyClickListener extends Activity {
 
 	private static Launch l;
@@ -16,6 +19,8 @@ public class HomeKeyClickListener extends Activity {
 
 	/**
 	 * onCreate()
+	 *
+	 * @param savedInstanceState
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,7 @@ public class HomeKeyClickListener extends Activity {
 	}
 
 	/**
-	 * onResume
+	 * onResume()
 	 */
 	public void onResume() {
 		super.onResume();
@@ -62,6 +67,8 @@ public class HomeKeyClickListener extends Activity {
 	
 	/**
 	 * onNewIntent()
+	 *
+	 * @param intent
 	 */
 	@Override
 	public void onNewIntent(Intent intent) {
@@ -73,6 +80,10 @@ public class HomeKeyClickListener extends Activity {
 
 	/**
 	 * onActivityResult
+	 *
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
 	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {

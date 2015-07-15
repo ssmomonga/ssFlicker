@@ -3,6 +3,9 @@ package com.ssmomonga.ssflicker.proc;
 import android.app.backup.BackupAgentHelper;
 import android.app.backup.SharedPreferencesBackupHelper;
 
+/**
+ * CloudBackup
+ */
 public class CloudBackup extends BackupAgentHelper {
 
 	private static final String PREF_FILE_NAME = "com.ssmomonga.ssflicker_preferences";

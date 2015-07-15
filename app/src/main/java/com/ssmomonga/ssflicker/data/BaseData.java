@@ -2,6 +2,9 @@ package com.ssmomonga.ssflicker.data;
 
 import android.graphics.drawable.Drawable;
 
+/**
+ * BaseData
+ */
 public class BaseData {
 
 	private String label;
@@ -10,6 +13,9 @@ public class BaseData {
 
 	/**
 	 * Constructor
+	 *
+	 * @param menuLabel
+	 * @param menuIcon
 	 */
 	public BaseData(String menuLabel, Drawable menuIcon) {
 		this.label = menuLabel;
@@ -18,6 +24,10 @@ public class BaseData {
 
 	/**
 	 * Constructor
+	 *
+	 * @param menuLabel
+	 * @param menuIcon
+	 * @param tag
 	 */
 	public BaseData(String menuLabel, Drawable menuIcon, Object tag) {
 		this.label = menuLabel;
@@ -27,6 +37,8 @@ public class BaseData {
 
 	/**
 	 * getLabel()
+	 *
+	 * @return
 	 */
 	public String getLabel() {
 		return label;
@@ -34,6 +46,8 @@ public class BaseData {
 
 	/**
 	 * getIcon()
+	 *
+	 * @return
 	 */
 	public Drawable getIcon() {
 		return icon;
@@ -41,6 +55,8 @@ public class BaseData {
 
 	/**
 	 * getTag()
+	 *
+	 * @return
 	 */
 	public Object getTag() {
 		return tag;
@@ -48,6 +64,8 @@ public class BaseData {
 
 	/**
 	 * getLabel()
+	 *
+	 * @param label
 	 */
 	public void setLabel(String label) {
 		this.label = label;
@@ -55,6 +73,8 @@ public class BaseData {
 
 	/**
 	 * getIcon()
+	 *
+	 * @param icon
 	 */
 	public void setIcon(Drawable icon) {
 		this.icon = icon;

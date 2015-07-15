@@ -9,6 +9,9 @@ import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.db.PrefDAO;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
 
+/**
+ * WindowParams
+ */
 public class WindowParams {
 	
 	private Context context;
@@ -24,6 +27,8 @@ public class WindowParams {
 	
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public WindowParams(Context context) {
 		this.context = context;
@@ -38,6 +43,8 @@ public class WindowParams {
 
 	/**
 	 * fillLP()
+	 *
+	 * @param pdao
 	 */
 	private void fillLP(PrefDAO pdao) {
 		int iconSize = pdao.getIconSize();
@@ -75,6 +82,8 @@ public class WindowParams {
 	
 	/**
 	 * isStatusbarVisibility()
+	 *
+	 * @return
 	 */
 	public boolean isStatusbarVisibility() {
 		return statusbarVisibility;
@@ -82,6 +91,8 @@ public class WindowParams {
 	
 	/**
 	 * getIconLP()
+	 *
+	 * @return
 	 */
 	public LinearLayout.LayoutParams getIconLP() {
 		return iconLP;
@@ -89,6 +100,8 @@ public class WindowParams {
 	
 	/**
 	 * getTextLP()
+	 *
+	 * @return
 	 */
 	public LinearLayout.LayoutParams getTextLP() {
 		return textLP;
@@ -96,6 +109,8 @@ public class WindowParams {
 	
 	/**
 	 * isTextVisibility()
+	 *
+	 * @return
 	 */
 	public boolean isTextVisibility() {
 		return textVisibility;
@@ -103,6 +118,8 @@ public class WindowParams {
 	
 	/**
 	 * getTextColor()
+	 *
+	 * @return
 	 */
 	public int getTextColor() {
 		return textColor;
@@ -110,6 +127,8 @@ public class WindowParams {
 	
 	/**
 	 * getTextSize()
+	 *
+	 * @return
 	 */
 	public int getTextSize() {
 		return textSize;
@@ -117,6 +136,8 @@ public class WindowParams {
 	
 	/**
 	 * getPointerWindowBackground()
+	 *
+	 * @return
 	 */
 	public Drawable getPointerWindowBackground() {
 		return pointerWindowBackground;
@@ -124,13 +145,17 @@ public class WindowParams {
 	
 	/**
 	 * getAppWindowBackground()
+	 *
+	 * @return
 	 */
 	public Drawable getAppWindowBackground() {
 		return appWindowBackground;
 	}
-	
+
 	/**
 	 * getActionWindowBackground()
+	 *
+	 * @return
 	 */
 	public Drawable getActionWindowBackground() {
 		return actionWindowBackground;

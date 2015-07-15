@@ -9,6 +9,9 @@ import android.view.WindowManager;
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.db.PrefDAO;
 
+/**
+ * OverlaySettings
+ */
 public class OverlaySettings {
 	
 	public static final int OVERLAY_POINT_COUNT = 2;
@@ -24,6 +27,8 @@ public class OverlaySettings {
 	
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public OverlaySettings(Context context) {
 		this.context = context;
@@ -32,11 +37,13 @@ public class OverlaySettings {
 		overlayPointBackgroundColor = pdao.getOverlayPointBackgroundColor();
 		for (int i = 0; i < OVERLAY_POINT_COUNT; i ++) overlayPointParams[i] = new OverlayPointParams(i);
 		overlayWindowParams = new OverlayWindowParams();
-		overlayFlickListenerParams = new OverlayFlickListenerParams(context);
+		overlayFlickListenerParams = new OverlayFlickListenerParams();
 	}
 	
 	/**
 	 * isForeground()
+	 *
+	 * @return
 	 */
 	public boolean isForeground() {
 		return foreground;
@@ -44,6 +51,8 @@ public class OverlaySettings {
 	
 	/**
 	 * setForeground()
+	 *
+	 * @param b
 	 */
 	public void setForeground(boolean b) {
 		this.foreground = b;
@@ -51,6 +60,8 @@ public class OverlaySettings {
 	
 	/**
 	 * setOverlayPointBackgroundColor()
+	 *
+	 * @param overlayPointBackgroundColor
 	 */
 	public void setOverlayPointBackgroundColor(int overlayPointBackgroundColor) {
 		this.overlayPointBackgroundColor = overlayPointBackgroundColor;
@@ -58,6 +69,8 @@ public class OverlaySettings {
 	
 	/**
 	 * getOverlayPointBackgroundColor()
+	 *
+	 * @return
 	 */
 	public int getOverlayPointBackgroundColor() {
 		return overlayPointBackgroundColor;
@@ -65,6 +78,8 @@ public class OverlaySettings {
 	
 	/**
 	 * getOverlayPointParams()
+	 *
+	 * @return
 	 */
 	public OverlayPointParams[] getOverlayPointParams(){
 		return overlayPointParams;
@@ -72,6 +87,8 @@ public class OverlaySettings {
 
 	/**
 	 * getOverlayWindowParams()
+	 *
+	 * @return
 	 */
 	public OverlayWindowParams getOverlayWindowParams() {
 		return overlayWindowParams;
@@ -79,6 +96,8 @@ public class OverlaySettings {
 	
 	/**
 	 * getOverlayFlickListenerParams()
+	 *
+	 * @return
 	 */
 	public OverlayFlickListenerParams getOverlayFlickListenerParams() {
 		return overlayFlickListenerParams;
@@ -101,6 +120,8 @@ public class OverlaySettings {
 
 		/**
 		 * Constructor
+		 *
+		 * @param overlayPointNumber
 		 */
 		public OverlayPointParams(int overlayPointNumber) {
 			windowWidth = DeviceSettings.getWindowWidth(context);
@@ -113,7 +134,9 @@ public class OverlaySettings {
 		}
 		
 		/**
-		  * isOverlayPoint()
+		 * isOverlayPoint()
+		 *
+		 * @return
 		 */
 		public boolean isOverlayPoint() {
 			return overlayPoint;
@@ -121,6 +144,8 @@ public class OverlaySettings {
 		
 		/**
 		 * setOverlayPoint()
+		 *
+		 * @param overlayPoint
 		 */
 		public void setOverlayPoint(boolean overlayPoint) {
 			this.overlayPoint = overlayPoint;
@@ -176,6 +201,8 @@ public class OverlaySettings {
 		
 		/**
 		 * setSide()
+		 *
+		 * @param side
 		 */
 		public void setSide(int side) {
 			this.side = side;
@@ -184,6 +211,8 @@ public class OverlaySettings {
 		
 		/**
 		 * setPattern()
+		 *
+		 * @param position
 		 */
 		public void setPattern(int position) {
 			this.position = position;
@@ -192,6 +221,8 @@ public class OverlaySettings {
 		
 		/**
 		 * setWidth()
+		 *
+		 * @param width
 		 */
 		public void setWidth(int width) {
 			this.width = width;
@@ -200,6 +231,8 @@ public class OverlaySettings {
 		
 		/**
 		 * getOverlayPointLP()
+		 *
+		 * @return
 		 */
 		public WindowManager.LayoutParams getOverlayPointLP() {
 			return overlayPointLP;
@@ -207,6 +240,8 @@ public class OverlaySettings {
 		
 		/**
 		 * getOverlayPointXLength()
+		 *
+		 * @return
 		 */
 		private int getOverlayPointXLength() {
 			switch (side) {
@@ -251,6 +286,8 @@ public class OverlaySettings {
 		
 		/**
 		 * getOverlayPointYLength()
+		 *
+		 * @return
 		 */
 		private int getOverlayPointYLength() {
 			switch (side) {
@@ -295,6 +332,8 @@ public class OverlaySettings {
 		
 		/**
 		 * getOverlayPointPadding()
+		 *
+		 * @return
 		 */
 		private int getOverlayPointPadding() {
 			
@@ -355,6 +394,7 @@ public class OverlaySettings {
 
 		/**
 		 * Constructor
+		 *
 		 */
 		public OverlayWindowParams() {
 			overlayWindowLP = new WindowManager.LayoutParams(
@@ -370,6 +410,8 @@ public class OverlaySettings {
 		
 		/**
 		 * getOverlayLP()
+		 *
+		 * @return
 		 */
 		public WindowManager.LayoutParams getOverlayWindowLP() {
 			return overlayWindowLP;
@@ -388,13 +430,15 @@ public class OverlaySettings {
 		/**
 		 * Constructor
 		 */
-		public OverlayFlickListenerParams(Context context) {
+		public OverlayFlickListenerParams() {
 			vibrateTime = pdao.getVibrateTime();
 			overlayPointAction = pdao.getOverlayPointAction();
 		}
 
 		/**
 		 * getVibrateTime()
+		 *
+		 * @return
 		 */
 		public int getVibrateTime() {
 			return vibrateTime;
@@ -402,6 +446,8 @@ public class OverlaySettings {
 
 		/**
 		 * setVibrateTime()
+		 *
+		 * @param time
 		 */
 		public void setVibrateTime(int time) {
 			vibrateTime = time;
@@ -409,6 +455,8 @@ public class OverlaySettings {
 		
 		/**
 		 * getOverlayPointAction()
+		 *
+		 * @return
 		 */
 		public int getOverlayPointAction() {
 			return overlayPointAction;
@@ -416,6 +464,8 @@ public class OverlaySettings {
 		
 		/**
 		 * setOverlayPointAction()
+		 *
+		 * @param action
 		 */
 		public void setOverlayPointAction(int action) {
 			overlayPointAction = action;

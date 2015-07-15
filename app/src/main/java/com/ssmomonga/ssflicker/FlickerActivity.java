@@ -35,6 +35,9 @@ import com.ssmomonga.ssflicker.view.DockWindow;
 import com.ssmomonga.ssflicker.view.OnFlickListener;
 import com.ssmomonga.ssflicker.view.PointerWindow;
 
+/**
+ * FlickerActivity
+ */
 public class FlickerActivity extends Activity {
 
 	private static FrameLayout fl_all;
@@ -63,6 +66,8 @@ public class FlickerActivity extends Activity {
 
 	/**
 	 * onCreate()
+	 *
+	 * @param savedInstanceState
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -100,6 +105,8 @@ public class FlickerActivity extends Activity {
 
 	/**
 	 * onConfigurationChanged()
+	 *
+	 * @param newConfig
 	 */
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
@@ -189,7 +196,7 @@ public class FlickerActivity extends Activity {
 	}
 
 	/**
-	 * viewAppWidgetAll
+	 * viewAppWidgetAll()
 	 */
 	private void viewAppWidgetAll() {
 		app_widget_layer.removeAllViews();
@@ -204,6 +211,11 @@ public class FlickerActivity extends Activity {
 
 	/**
 	 * viewAppWidget()
+	 *
+	 * @param pointerId
+	 * @param appId
+	 * @param appWidgetInfo
+	 * @param update
 	 */
 	private void viewAppWidget(int pointerId, int appId, AppWidgetInfo appWidgetInfo, boolean update) {
 		
@@ -241,14 +253,14 @@ public class FlickerActivity extends Activity {
 	 */
 	private class OnDockFlickListener extends OnFlickListener {
 
+		private int pointerId;
+		private int appId;
+		private App dock;
+
 		public OnDockFlickListener(Context context) {
 			super(context);
 		}
 
-		private int pointerId;
-		private int appId;
-		private App dock;		
-		
 		@Override
 		public void setId(int id) {
 			pointerId = Pointer.DOCK_POINTER_ID;
@@ -296,12 +308,12 @@ public class FlickerActivity extends Activity {
 	 */
 	private class OnPointerFlickListener extends OnFlickListener {
 
+		private int pointerId;
+		private Pointer pointer;
+
 		public OnPointerFlickListener(Context context) {
 			super(context);
 		}
-
-		private int pointerId;
-		private Pointer pointer;
 
 		@Override
 		public void setId(int id) {
@@ -383,8 +395,7 @@ public class FlickerActivity extends Activity {
 		}
 
 		@Override
-		public void setId(int id) {
-		}
+		public void setId(int id) {}
 		
 		@Override
 		public boolean isData() {
@@ -422,6 +433,8 @@ public class FlickerActivity extends Activity {
 
 	/**
 	 * menu()
+	 *
+	 * @param position
 	 */
 	private void menu(int position) {
 		switch (position) {

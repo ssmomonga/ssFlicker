@@ -5,6 +5,9 @@ import android.content.res.Resources;
 
 import com.ssmomonga.ssflicker.R;
 
+/**
+ * MenuList
+ */
 public class MenuList {
 	
 	public static final int MENU_COUNT = 8;
@@ -17,6 +20,9 @@ public class MenuList {
 
 	/**
 	 * getFlickerMenuList()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static BaseData[] getFlickerMenuList(Context context) {
 		Resources r = context.getResources();
@@ -42,6 +48,9 @@ public class MenuList {
 
 	/**
 	 * getEditorMenuList()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static BaseData[] getEditorMenuList(Context context) {
 		Resources r = context.getResources();

@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Date;
 
+/**
+ * BackupRestore
+ */
 public class BackupRestore {
 	
 	private Context context;
@@ -30,6 +33,8 @@ public class BackupRestore {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public BackupRestore(Context context) {
 		this.context = context;
@@ -40,6 +45,9 @@ public class BackupRestore {
 	
 	/**
 	 * backup()
+	 *
+	 * @return
+	 * @throws IOException
 	 */
 	public String backup() throws IOException {
 		String date = (String) DateFormat.format("_yyyyMMdd_kkmmss_", new Date());
@@ -51,6 +59,9 @@ public class BackupRestore {
 
 	/**
 	 * restore()
+	 *
+	 * @param fileName
+	 * @return
 	 */
 	public boolean restore(String fileName) {
 
@@ -84,6 +95,10 @@ public class BackupRestore {
 
 	/**
 	 * fileCopy()
+	 *
+	 * @param inputFileName
+	 * @param outputFileName
+	 * @throws IOException
 	 */
 	private void fileCopy(String inputFileName, String outputFileName) throws IOException {
 		FileInputStream fis = new FileInputStream(inputFileName);
@@ -100,6 +115,8 @@ public class BackupRestore {
 	
 	/**
 	 * getBackupFileList()
+	 *
+	 * @return
 	 */
 	public ArrayAdapter<String> getBackupFileList() {
 		FilenameFilter filter = new FilenameFilter() {

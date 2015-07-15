@@ -20,12 +20,19 @@ import com.ssmomonga.ssflicker.data.App;
 
 import java.io.ByteArrayOutputStream;
 
+/**
+ * ImageConverter
+ */
 public class ImageConverter {
 	
 	/**
 	 * createDrawable()
 	 * Bitmap → Drawable
 	 * createDrawable()とショートカットのアイコン追加で使う
+	 *
+	 * @param context
+	 * @param bitmap
+	 * @return
 	 */
 	public static Drawable createDrawable(Context context, Bitmap bitmap) {
 		return new BitmapDrawable(context.getResources(), bitmap);
@@ -35,6 +42,9 @@ public class ImageConverter {
 	 * createBitmap()
 	 * Drawable → Bitmap
 	 * createByte()で使う。9-patchを使っている場合の対応
+	 *
+	 * @param drawable
+	 * @return
 	 */
 	public static Bitmap createBitmap(Drawable drawable) {
 		int width = drawable.getIntrinsicWidth();
@@ -52,21 +62,23 @@ public class ImageConverter {
 	 * createDrawable()
 	 * byte → Bitmap → Drawable
 	 * DBからのselectで使う
+	 *
+	 * @param context
+	 * @param b
+	 * @return
 	 */
 	public static Drawable createDrawable(Context context, byte[] b) {
 		return b != null ? createDrawable(context, BitmapFactory.decodeByteArray(b, 0, b.length)) : null;
-
-/**		if (b != null) {
-			return createDrawable(context, BitmapFactory.decodeByteArray(b, 0, b.length));
-		} else {
-			return null;
-		} */
 	}
 
 	/**
 	 * createByte()
 	 * Drawable → Bitmap → リサイズ → byte
 	 * DBへのinsertで使う
+	 *
+	 * @param context
+	 * @param drawable
+	 * @return
 	 */
 	public static byte[] createByte(Context context, Drawable drawable) {
 		if (drawable != null) {
@@ -82,6 +94,10 @@ public class ImageConverter {
 	/**
 	 * resizeBitmap()
 	 * Bitmap → Bitmap
+	 *
+	 * @param context
+	 * @param bitmap
+	 * @return
 	 */
 	public static Bitmap resizeBitmap(Context context, Bitmap bitmap) {
 		int width = bitmap.getWidth();
@@ -105,6 +121,10 @@ public class ImageConverter {
 	
 	/**
 	 * resizeAppWidgetPreviewImage()
+	 *
+	 * @param context
+	 * @param bitmap
+	 * @return
 	 */
 	public static Bitmap resizeAppWidgetPreviewImage(Context context, Bitmap bitmap) {
 		int width = bitmap.getWidth();
@@ -129,6 +149,10 @@ public class ImageConverter {
 	/**
 	 * roundBitmap()
 	 * bitmapの角を丸める。画像を選択＆トリミングで利用する。
+	 *
+	 * @param context
+	 * @param bitmap
+	 * @return
 	 */
 	public static Bitmap roundBitmap(Context context, Bitmap bitmap) {
 		int width = bitmap.getWidth();
@@ -151,6 +175,11 @@ public class ImageConverter {
 	
 	/**
 	 * changeIconColor()
+	 *
+	 * @param context
+	 * @param drawable
+	 * @param newColor
+	 * @return
 	 */
 	public static Drawable changeIconColor(Context context, Drawable drawable, int newColor) {
 		
@@ -181,6 +210,10 @@ public class ImageConverter {
 
 	/**
 	 * createMultiAppIcon()
+	 *
+	 * @param context
+	 * @param appList
+	 * @return
 	 */
 	public static Drawable createMultiAppsIcon(Context context, App[] appList) {
 
@@ -215,6 +248,10 @@ public class ImageConverter {
 	
 	/**
 	 * createARGB()
+	 *
+	 * @param alpha
+	 * @param rgb
+	 * @return
 	 */
 	public static int createColor(int alpha, int rgb) {
 		return Color.argb(alpha, Color.red(rgb), Color.green(rgb), Color.blue(rgb));
@@ -222,6 +259,13 @@ public class ImageConverter {
 	
 	/**
 	 * createBackground()
+	 *
+	 * @param context
+	 * @param backgroundColor
+	 * @param strokeThickness
+	 * @param strokeRGB
+	 * @param cornerRadius
+	 * @return
 	 */
 	public static Drawable createBackground(Context context, int backgroundColor, int strokeThickness, int strokeRGB, int cornerRadius) {
 		GradientDrawable d = new GradientDrawable();

@@ -19,6 +19,9 @@ import com.ssmomonga.ssflicker.data.MenuList;
 import com.ssmomonga.ssflicker.data.Pointer;
 import com.ssmomonga.ssflicker.set.WindowParams;
 
+/**
+ * ActionWindow
+ */
 public class ActionWindow extends TableLayout {
 
 	private Context context;
@@ -35,6 +38,9 @@ public class ActionWindow extends TableLayout {
 	
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param attrs
 	 */
 	public ActionWindow(Context context, AttributeSet attrs) {
 		super (context, attrs);
@@ -90,6 +96,8 @@ public class ActionWindow extends TableLayout {
 	
 	/**
 	 * setLayout()
+	 *
+	 * @param settings
 	 */
 	public void setLayout(WindowParams settings) {
 
@@ -125,6 +133,9 @@ public class ActionWindow extends TableLayout {
 	
 	/**
 	 * setApp()
+	 *
+	 * @param pointer
+	 * @param appList
 	 */
 	public void setApp(Pointer pointer, App[] appList) {
 		tv_center.setText(pointer.getPointerLabel());
@@ -144,6 +155,10 @@ public class ActionWindow extends TableLayout {
 	
 	/**
 	 * setEditPointer()
+	 *
+	 * @param context
+	 * @param pointer
+	 * @param pointerWindowVisibility
 	 */
 	public void setEditPointer(Context context, Pointer pointer, int pointerWindowVisibility) {
 		if (pointer == null) {
@@ -159,6 +174,9 @@ public class ActionWindow extends TableLayout {
 	
 	/**
 	 * setEditApp()
+	 *
+	 * @param context
+	 * @param app
 	 */
 	public void setEditApp(Context context, App app) {
 		if (app == null) {
@@ -174,6 +192,10 @@ public class ActionWindow extends TableLayout {
 	
 	/**
 	 * setEditDock()
+	 *
+	 * @param context
+	 * @param app
+	 * @param orientation
 	 */
 	public void setEditDock(Context context, App app, int orientation) {
 		if (app == null) {
@@ -189,21 +211,25 @@ public class ActionWindow extends TableLayout {
 	
 	/**
 	 * setEdit()
+	 *
+	 * @param edit
 	 */
 	private void setEdit(BaseData[] edit) {
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
 			if (edit[i] != null) {
 				tv_action[i].setText(edit[i].getLabel());
-				iv_action[i].setImageDrawable(edit[i].getIcon());	
+				iv_action[i].setImageDrawable(edit[i].getIcon());
 			} else {
 				tv_action[i].setText(null);
-				iv_action[i].setImageDrawable(null);		
+				iv_action[i].setImageDrawable(null);
 			}
 		}
 	}
 	
 	/**
 	 * setMenuForEdit()
+	 *
+	 * @param context
 	 */
 	public void setMenuForEdit(Context context) {
 		setMenu(MenuList.getEditorMenuList(context));
@@ -211,6 +237,8 @@ public class ActionWindow extends TableLayout {
 	
 	/**
 	 * setMenuForFlick()
+	 *
+	 * @param context
 	 */
 	public void setMenuForFlick(Context context) {
 		setMenu(MenuList.getFlickerMenuList(context));
@@ -218,6 +246,8 @@ public class ActionWindow extends TableLayout {
 	
 	/**
 	 * setMenu()
+	 *
+	 * @param menuList
 	 */
 	private void setMenu(BaseData[] menuList) {
 		tv_center.setText(getResources().getString(R.string.menu));
@@ -236,6 +266,10 @@ public class ActionWindow extends TableLayout {
 
 	/**
 	 * setPointed()
+	 *
+	 * @param pointed
+	 * @param oldPosition
+	 * @param position
 	 */
 	public void setActionPointed(boolean pointed, int oldPosition, int position) {
 		if (pointed) {
@@ -249,6 +283,8 @@ public class ActionWindow extends TableLayout {
 	
 	/**
 	 * setVisibility()
+	 *
+	 * @param visibility
 	 */
 	@Override
 	public void setVisibility(int visibility) {

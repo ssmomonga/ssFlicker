@@ -12,6 +12,9 @@ import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.AppList;
 
+/**
+ * GetAppListTask
+ */
 public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 
 	private Context context;
@@ -19,6 +22,8 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public GetAppListTask(Context context) {
 		this.context = context;
@@ -52,6 +57,9 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 
 	/**
 	 * doInBackground()
+	 *
+	 * @param integer
+	 * @return
 	 */
 	@Override
 	protected App[] doInBackground(Integer... integer) {
@@ -77,6 +85,8 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 
 	/**
 	 * onPostExecute()
+	 *
+	 * @param appList
 	 */
 	@Override
 	protected void onPostExecute(App[] appList) {
@@ -91,6 +101,8 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 
 	/**
 	 * asyncComplete()
+	 *
+	 * @param appList
 	 */
 	public abstract void asyncComplete(App[] appList);
 

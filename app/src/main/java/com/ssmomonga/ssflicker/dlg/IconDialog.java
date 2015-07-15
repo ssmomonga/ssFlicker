@@ -16,6 +16,9 @@ import com.ssmomonga.ssflicker.data.BaseData;
 import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.dlg.CustomAdapters.IconAdapter;
 
+/**
+ * IconDialog
+ */
 public class IconDialog {
 
 	/**
@@ -27,6 +30,10 @@ public class IconDialog {
 		
 		/**
 		 * Constructor
+		 *
+		 * @param context
+		 * @param iconTarget
+		 * @param pointerType
 		 */
 		public SelectIconTypeDialog(Context context, int iconTarget, int pointerType) {
 			super(context);
@@ -36,6 +43,9 @@ public class IconDialog {
 
 		/**
 		 * setInitialLayout()
+		 *
+		 * @param iconTarget
+		 * @param pointerType
 		 */
 		private void setInitialLayout(int iconTarget, int pointerType) {
 			
@@ -74,7 +84,12 @@ public class IconDialog {
 				}
 			});
 		}
-		
+
+		/**
+		 * onSelectedIconType()
+		 *
+		 * @param iconType
+		 */
 		public abstract void onSelectedIconType(int iconType);
 		
 	}
@@ -92,6 +107,10 @@ public class IconDialog {
 
 		/**
 		 * Constructor
+		 *
+		 * @param context
+		 * @param iconList
+		 * @param iconType
 		 */
 		public IconChooser(Context context, BaseData[] iconList, int iconType) {
 			super(context);
@@ -103,6 +122,9 @@ public class IconDialog {
 
 		/**
 		 * setInitialLayout()
+		 *
+		 * @param iconList
+		 * @param iconType
 		 */
 		private void setInitialLayout(BaseData[] iconList, int iconType) {
 			LayoutInflater inflater = LayoutInflater.from(context);
@@ -171,6 +193,9 @@ public class IconDialog {
 
 		/**
 		 * onSelectedIcon()
+		 *
+		 * @param icon
+		 * @param appId
 		 */
 		abstract public void onSelectedIcon(Drawable icon, int appId);
 		

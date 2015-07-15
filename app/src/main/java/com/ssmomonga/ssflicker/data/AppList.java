@@ -24,6 +24,9 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * AppList
+ */
 public class AppList {
 
 	private static final int RECENT_COUNT = 12;					//APP_COUNT + ssFlicker + anotherHome + 2
@@ -32,6 +35,11 @@ public class AppList {
 
 	/**
 	 * getIntentAppList()
+	 *
+	 * @param context
+	 * @param intentType
+	 * @param count
+	 * @return
 	 */
 	public static App[] getIntentAppList(Context context, int intentType, int count) {
 		
@@ -111,6 +119,10 @@ public class AppList {
 
 	/**
 	 * getTaskAppList()
+	 *
+	 * @param context
+	 * @param intentType
+	 * @return
 	 */
 	public static App[] getTaskAppList(Context context, int intentType) {
 		ArrayList<App> appList = new ArrayList<App>();
@@ -175,6 +187,9 @@ public class AppList {
 
 	/**
 	 * getAppWidgetList()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static App[] getAppWidgetList(Context context) {
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -231,12 +246,14 @@ public class AppList {
 		public final int compare(Object a, Object b) {
 			String labelA, labelB;
 			PackageManager pm = context.getPackageManager();
+
 			if (mLabelCache.containsKey(a)) {
 				labelA = mLabelCache.get(a);
 			} else {
 				labelA = ((AppWidgetProviderInfo) a).loadLabel(pm);
 				mLabelCache.put(a, labelA);
 			}
+
 			if (mLabelCache.containsKey(b)) {
 				labelB = mLabelCache.get(b);
 			} else {
@@ -250,6 +267,9 @@ public class AppList {
 	
 	/**
 	 * setFunctionList()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static App[] getFunctionList(Context context) {
 		Resources r = context.getResources();

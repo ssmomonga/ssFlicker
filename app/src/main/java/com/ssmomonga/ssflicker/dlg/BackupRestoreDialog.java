@@ -19,6 +19,9 @@ import com.ssmomonga.ssflicker.set.DeviceSettings;
 
 import java.io.IOException;
 
+/**
+ * BackupRestoreDialog
+ */
 public class BackupRestoreDialog extends AlertDialog{
 	
 	private Context context;
@@ -31,8 +34,10 @@ public class BackupRestoreDialog extends AlertDialog{
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
-	public BackupRestoreDialog (Context context) {
+	public BackupRestoreDialog(Context context) {
 		super(context);
 		this.context = context;
 		r = context.getResources();
@@ -120,9 +125,7 @@ public class BackupRestoreDialog extends AlertDialog{
 		super.dismiss();
 		 if (confirmDialog != null) confirmDialog.dismiss();
 	}
-	
-		
-	
+
 	/**
 	 * ConfirmDialog
 	 */

@@ -8,6 +8,9 @@ import android.view.View;
 
 import com.ssmomonga.ssflicker.R;
 
+/**
+ * EditList
+ */
 public class EditList {
 	
 	public static final int ADD_POINTER_CUSTOM = 1;
@@ -40,6 +43,9 @@ public class EditList {
 
 	/**
 	 * getAddPointerList()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static BaseData[] getAddPointerList(Context context) {
 		Resources r = context.getResources();
@@ -72,6 +78,11 @@ public class EditList {
 
 	/**
 	 * getEditPointerList()
+	 *
+	 * @param context
+	 * @param pointer
+	 * @param pointerWindowVisibility
+	 * @return
 	 */
 	public static BaseData[] getEditPointerList(Context context, Pointer pointer, int pointerWindowVisibility) {
 		Resources r = context.getResources();
@@ -118,6 +129,9 @@ public class EditList {
 
 	/**
 	 * getAddAppList()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static BaseData[] getAddAppList(Context context) {
 		Resources r = context.getResources();
@@ -149,6 +163,9 @@ public class EditList {
 
 	/**
 	 * getEditAppList()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static BaseData[] getEditAppList(Context context) {
 		Resources r = context.getResources();
@@ -180,6 +197,9 @@ public class EditList {
 
 	/**
 	 * getAddDockList()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static BaseData[] getAddDockList(Context context) {
 		return getAddAppList(context);
@@ -187,15 +207,20 @@ public class EditList {
 
 	/**
 	 * getEditDockList()
+	 *
+	 * @param context
+	 * @param orientation
+	 * @return
 	 */
 	public static BaseData[] getEditDockList(Context context, int orientation) {
 		BaseData[] edit = getEditAppList(context);
 		if (orientation == Configuration.ORIENTATION_PORTRAIT) {
 			edit[EDIT_APP_UP] = null;
-			edit[EDIT_APP_DOWN] = null;			
+			edit[EDIT_APP_DOWN] = null;
+
 		} else {
 			edit[EDIT_APP_LEFT] = null;
-			edit[EDIT_APP_RIGHT] = null;			
+			edit[EDIT_APP_RIGHT] = null;
 		}
 		return edit;
 	}

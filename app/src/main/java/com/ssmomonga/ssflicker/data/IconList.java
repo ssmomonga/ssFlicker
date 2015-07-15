@@ -5,6 +5,9 @@ import android.content.res.Resources;
 
 import com.ssmomonga.ssflicker.R;
 
+/**
+ * IconList
+ */
 public class IconList {
 	
 	public static final int TARGET_ICON_POINTER = 0;
@@ -27,6 +30,11 @@ public class IconList {
 
 	/**
 	 * getIconTypeList()
+	 *
+	 * @param context
+	 * @param iconTarget
+	 * @param pointerType
+	 * @return
 	 */
 	public static CharSequence[] getIconTypeList(Context context, int iconTarget, int pointerType) {
 		Resources r = context.getResources();
@@ -49,6 +57,9 @@ public class IconList {
 
 	/**
 	 * getOriginalIconList()
+	 *
+	 * @param context
+	 * @return
 	 */
 	public static BaseData[] getOriginalIconList(Context context) {
 		Resources r = context.getResources();
@@ -86,6 +97,9 @@ public class IconList {
 
 	/**
 	 * getAppIconsList()
+	 *
+	 * @param appList
+	 * @return
 	 */
 	public static BaseData[] getAppIconsList(App[] appList) {
 		BaseData[] icons = new BaseData[App.FLICK_APP_COUNT];

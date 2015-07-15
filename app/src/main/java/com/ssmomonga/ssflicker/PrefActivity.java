@@ -32,6 +32,9 @@ import com.ssmomonga.ssflicker.proc.Launch;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
 import com.ssmomonga.ssflicker.set.InvisibleAppWidgetSettings;
 
+/**
+ * PrefActivity
+ */
 public class PrefActivity extends Activity {
 
 	private static PreferenceScreen launch_by_default;
@@ -76,7 +79,9 @@ public class PrefActivity extends Activity {
 	};
 
 	/**
-	 * oNCreate()
+	 * onCreate()
+	 *
+	 * @param savedInstanceState
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +91,10 @@ public class PrefActivity extends Activity {
 	
 	/**
 	 * onKeyDown()
+	 *
+	 * @param keyCode
+	 * @param keyEvent
+	 * @return
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
@@ -98,6 +107,9 @@ public class PrefActivity extends Activity {
 
 	/**
 	 * onCreateOptionsMenu()
+	 *
+	 * @param menu
+	 * @return
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,6 +137,8 @@ public class PrefActivity extends Activity {
 
 		/**
 		 * onCreate()
+		 *
+		 * @param savedInstanceState
 		 */
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
@@ -358,6 +372,9 @@ public class PrefActivity extends Activity {
 
 		/**
 		 * setSummary()
+		 *
+		 * @param preference
+		 * @param value
 		 */
 		private void setSummary(Preference preference, Object value) {
 			if (preference == launch_by_default) {

@@ -33,6 +33,9 @@ import com.ssmomonga.ssflicker.set.HomeKeySettings;
 
 import java.util.List;
 
+/**
+ * Launch
+ */
 public class Launch {
 	
 	private Context context;
@@ -40,6 +43,8 @@ public class Launch {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public Launch(Context context) {
 		this.context = context;
@@ -47,6 +52,9 @@ public class Launch {
 
 	/**
 	 * launch()
+	 *
+	 * @param app
+	 * @param r
 	 */
 	public void launch(App app, Rect r) {
 		switch (app.getAppType()) {
@@ -73,6 +81,9 @@ public class Launch {
 
 	/**
 	 * launch()
+	 *
+	 * @param intentApp
+	 * @param r
 	 */
 	private void launchIntentApp(IntentAppInfo intentApp, Rect r) {
 		try {
@@ -105,6 +116,9 @@ public class Launch {
 
 	/**
 	 * launchTaskApp()
+	 *
+	 * @param intentApp
+	 * @param r
 	 */
 	private void launchTaskApp(IntentAppInfo intentApp, Rect r) {
 		int taskId = intentApp.getTaskId();
@@ -119,6 +133,8 @@ public class Launch {
 
 	/**
 	 * launchFunction()
+	 *
+	 * @param functionInfo
 	 */
 	private void launchFunction(FunctionInfo functionInfo) {
 		switch (functionInfo.getFunctionType()) {
@@ -251,6 +267,8 @@ public class Launch {
 	
 	/**
 	 * getVolumeDialot()
+	 *
+	 * @return
 	 */
 	public VolumeDialog getVolumeDialog() {
 		return volumeDialog;
@@ -288,6 +306,8 @@ public class Launch {
 	
 	/**
 	 * launchFlickActivityFromService()
+	 *
+	 * @param b
 	 */
 	public void launchFlickerActivityFromService(boolean b) {
 		if (b) {
@@ -325,6 +345,8 @@ public class Launch {
 	
 	/**
 	 * launchPrefSubActivity()
+	 *
+	 * @param key
 	 */
 	public void launchPrefSubActivity(int key) {
 		Intent intent = new Intent().setClass(context, PrefSubActivity.class);
@@ -351,6 +373,8 @@ public class Launch {
 	
 	/**
 	 * launchAnotherHome()
+	 *
+	 * @param b
 	 */
 	public void launchAnotherHome(boolean b) {
 		if (b) launchIntentApp(new HomeKeySettings(context).getAnotherHome().getIntentAppInfo(), null);
@@ -358,6 +382,8 @@ public class Launch {
 	
 	/**
 	 * startStatusbar()
+	 *
+	 * @param b
 	 */
 	public void startStatusbar(boolean b) {
 		if (b) {
@@ -368,8 +394,11 @@ public class Launch {
 	
 	/**
 	 * getNotification()
+	 *
+	 * @param contentText
+	 * @return
 	 */
-	public Notification getNotification(String text) {
+	public Notification getNotification(String contentText) {
 		Intent intent = new Intent(Intent.ACTION_MAIN)
 				.addCategory(Intent.CATEGORY_LAUNCHER)
 				.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
@@ -382,7 +411,7 @@ public class Launch {
 				.setLocalOnly(true)
 				.setSmallIcon(R.mipmap.icon_notification)
 				.setContentTitle(context.getResources().getText(R.string.activity_name_flick))
-				.setContentText(text)
+				.setContentText(contentText)
 				.setContentIntent(pendingIntent)
 				.setPriority(Notification.PRIORITY_MIN);
 		return notification.build();
@@ -398,6 +427,8 @@ public class Launch {
 	
 	/**
 	 * startOverlayService()
+	 *
+	 * @param b
 	 */
 	public void startOverlayService(boolean b) {
 		if (b) context.startService(new Intent(context, OverlayService.class));
@@ -412,6 +443,8 @@ public class Launch {
 
 	/**
 	 * clearDefault()
+	 *
+	 * @param context
 	 */
 	public void clearDefault(Context context) {
 		context.getPackageManager().clearPackagePreferredActivities(context.getPackageName());
@@ -419,6 +452,8 @@ public class Launch {
 	
 	/**
 	 * vibrate()
+	 *
+	 * @param time
 	 */
 	public void vibrate(int time) {
 		if (time != 0) ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(time);

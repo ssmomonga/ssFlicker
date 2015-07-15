@@ -15,6 +15,9 @@ import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
 
+/**
+ * AppWidgetInfo
+ */
 public class AppWidgetInfo {
 
 	private Context context;
@@ -30,6 +33,14 @@ public class AppWidgetInfo {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param appWidgetId
+	 * @param appWidgetCellPositionX
+	 * @param appWidgetCellPositionY
+	 * @param appWidgetCellWidth
+	 * @param appWidgetCellHeight
+	 * @param appWidgetUpdateTime
 	 */
 	public AppWidgetInfo(Context context, int appWidgetId, int appWidgetCellPositionX, int appWidgetCellPositionY,
 			int appWidgetCellWidth, int appWidgetCellHeight, long appWidgetUpdateTime) {
@@ -45,6 +56,9 @@ public class AppWidgetInfo {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param info
 	 */
 	public AppWidgetInfo(Context context, AppWidgetProviderInfo info) {
 		this.context = context;
@@ -53,6 +67,10 @@ public class AppWidgetInfo {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param info
+	 * @param flag
 	 */
 	public AppWidgetInfo(Context context, AppWidgetProviderInfo info, int flag) {
 		this.context = context;
@@ -62,6 +80,8 @@ public class AppWidgetInfo {
 	
 	/**
 	 * getAppWidgetRawLabel()
+	 *
+	 * @return
 	 */
 	public String getAppWidgetRawLabel() {
 		if (appWidgetProviderInfo != null) {
@@ -73,6 +93,8 @@ public class AppWidgetInfo {
 
 	/**
 	 * getAppWidgetRawIcon()
+	 *
+	 * @return
 	 */
 	public Drawable getAppWidgetRawIcon() {
 		return appWidgetProviderInfo != null ?
@@ -88,6 +110,8 @@ public class AppWidgetInfo {
 
 	/**
 	 * getAppWidgetProviderInfo()
+	 *
+	 * @return
 	 */
 	public AppWidgetProviderInfo getAppWidgetProviderInfo() {
 		return appWidgetProviderInfo;
@@ -95,6 +119,8 @@ public class AppWidgetInfo {
 
 	/**
 	 * getAppWidgetId()
+	 *
+	 * @return
 	 */
 	public int getAppWidgetId() {
 		return appWidgetId;
@@ -102,6 +128,8 @@ public class AppWidgetInfo {
 
 	/**
 	 * getAppWidgetCellPosition()
+	 *
+	 * @return
 	 */
 	public int[] getAppWidgetCellPosition() {
 		return new int[] {appWidgetCellPositionX, appWidgetCellPositionY};
@@ -109,6 +137,8 @@ public class AppWidgetInfo {
 
 	/**
 	 * getAppWidgetCellSize()
+	 *
+	 * @return
 	 */
 	public int[] getAppWidgetCellSize() {
 		return new int[] {appWidgetCellWidth, appWidgetCellHeight};
@@ -116,6 +146,8 @@ public class AppWidgetInfo {
 
 	/**
 	 * getAppWidgetUpdateTime()
+	 *
+	 * @return
 	 */
 	public long getAppWidgetUpdateTime() {
 		return appWidgetUpdateTime;
@@ -123,6 +155,9 @@ public class AppWidgetInfo {
 
 	/**
 	 * setAppWidgetCellPosition()
+	 *
+	 * @param appWidgetCellPositionX
+	 * @param appWidgetCellPositionY
 	 */
 	public void setAppWidgetCellPosition(int appWidgetCellPositionX, int appWidgetCellPositionY) {
 		this.appWidgetCellPositionX = appWidgetCellPositionX;
@@ -131,6 +166,9 @@ public class AppWidgetInfo {
 
 	/**
 	 * setAppWidgetCellSize()
+	 *
+	 * @param appWidgetCellWidth
+	 * @param appWidgetCellHeight
 	 */
 	public void setAppWidgetCellSize(int appWidgetCellWidth, int appWidgetCellHeight) {
 		this.appWidgetCellWidth = appWidgetCellWidth;
@@ -139,6 +177,8 @@ public class AppWidgetInfo {
 
 	/**
 	 * setAppWidgetUpdateTime()
+	 *
+	 * @param appWidgetUpdateTime
 	 */
 	public void setAppWidgetUpdateTime(long appWidgetUpdateTime) {
 		this.appWidgetUpdateTime = appWidgetUpdateTime;
@@ -146,20 +186,18 @@ public class AppWidgetInfo {
 
 	/**
 	 * getAppWidgetResizeMode()
+	 *
+	 * @return
 	 */
 	public int getAppWidgetResizeMode() {
 		return appWidgetProviderInfo != null ?
 				appWidgetProviderInfo.resizeMode : AppWidgetProviderInfo.RESIZE_NONE;
-
-/**		if (appWidgetProviderInfo != null) {
-			return appWidgetProviderInfo.resizeMode;
-		} else {
-			return AppWidgetProviderInfo.RESIZE_NONE;
-		}	 */
 	}
 
 	/**
 	 * getAppWidgetMinResizeCellSize()
+	 *
+	 * @return
 	 */
 	public int[] getAppWidgetMinResizeCellSize() {
 		if (appWidgetProviderInfo != null) {
@@ -176,6 +214,8 @@ public class AppWidgetInfo {
 
 	/**
 	 * getAppWidgetMinCellSize()
+	 *
+	 * @return
 	 */
 	public int[] getAppWidgetMinCellSize() {
 		if (appWidgetProviderInfo != null) {
@@ -192,6 +232,8 @@ public class AppWidgetInfo {
 	
 	/**
 	 * getAppWidgetMinCellSizeString()
+	 *
+	 * @return
 	 */
 	public String getAppWidgetMinCellSizeString() {
 		int[] minCellSize = getAppWidgetMinCellSize();
@@ -200,6 +242,8 @@ public class AppWidgetInfo {
 
 	/**
 	 * createAppWidgetPreviewImage()
+	 *
+	 * @return
 	 */
 	private Bitmap createAppWidgetPreviewImage() {
 		if (appWidgetProviderInfo != null) {
@@ -220,20 +264,20 @@ public class AppWidgetInfo {
 
 	/**
 	 * getAppWidgetPreviewImage()
+	 *
+	 * @return
 	 */
 	public Bitmap getAppWidgetPreviewImage() {
 		return previewImage != null ? previewImage : createAppWidgetPreviewImage();
-
-/**		if (previewImage != null) {
-			return previewImage;
-		} else {
-			return createAppWidgetPreviewImage();
-		}	 */
-	
 	}
 	
 	/**
 	 * toCellSize()
+	 *
+	 * @param width
+	 * @param height
+	 * @return
+	 * @throws NameNotFoundException
 	 */
 	private int[] toCellSize(double width, double height) throws NameNotFoundException {
 

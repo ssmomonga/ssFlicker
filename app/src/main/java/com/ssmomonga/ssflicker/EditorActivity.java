@@ -68,6 +68,9 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * EditorActivity
+ */
 public class EditorActivity extends Activity {
 
 	//REQUEST_CODE
@@ -121,6 +124,8 @@ public class EditorActivity extends Activity {
 	
 	/**
 	 * onCreate()
+	 *
+	 * @param savedInstanceState
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -157,6 +162,8 @@ public class EditorActivity extends Activity {
 
 	/**
 	 * onConfigurationChanged()
+	 *
+	 * @param newConfig
 	 */
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
@@ -192,6 +199,10 @@ public class EditorActivity extends Activity {
 	
 	/**
 	 * onActivityResult()
+	 *
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
 	 */
 	@Override
 	public void onActivityResult(final int requestCode, int resultCode, Intent data) {
@@ -551,7 +562,7 @@ public class EditorActivity extends Activity {
 		public void setId(int id) {
 			pointerId = id;
 		}
-		
+
 		@Override
 		public boolean isData() {
 			return pointerList[pointerId] != null;
@@ -589,6 +600,8 @@ public class EditorActivity extends Activity {
 
 	/**
 	 * addPointer()
+	 *
+	 * @param position
 	 */
 	private void addPointer(int position) {
 
@@ -627,6 +640,8 @@ public class EditorActivity extends Activity {
 
 	/**
 	 * editPointer()
+	 *
+	 * @param position
 	 */
 	private void editPointer(int position) {
 	
@@ -657,7 +672,7 @@ public class EditorActivity extends Activity {
 				pointer_window.setPointerPointed(false, getToPointerId(pointerId, DIRECTION_LEFT));
 				sortPointer(getToPointerId(pointerId, DIRECTION_LEFT));
 				break;
-					
+
 			case EditList.EDIT_POINTER_RIGHT:
 				pointer_window.setPointerPointed(false, pointerId);
 				pointer_window.setPointerPointed(false, getToPointerId(pointerId, DIRECTION_RIGHT));
@@ -721,6 +736,7 @@ public class EditorActivity extends Activity {
 	 * viewDeletePointerDialog()
 	 */
 	private void viewDeletePointerDialog() {
+
 		deleteDialog = new DeleteDialog(this,
 				DeleteDialog.DELETE_POINTER,
 				pointerList[pointerId].getPointerIcon(),
@@ -730,6 +746,7 @@ public class EditorActivity extends Activity {
 			public void onDelete() {
 				deletePointer();
 			}
+
 			@Override
 			public void onDismissDialog() {
 				pointer_window.setPointerPointed(false, pointerId);
@@ -737,14 +754,17 @@ public class EditorActivity extends Activity {
 				setOnFlickListener();
 			}
 			@Override
-			public void onCancelDialog() {
-			}
+			public void onCancelDialog() {}
 		};
 		deleteDialog.show();
 	}
 	
 	/**
 	 * getToPointerId()
+	 *
+	 * @param fromPointerId
+	 * @param direction
+	 * @return
 	 */
 	private int getToPointerId(int fromPointerId, int direction) {
 		
@@ -755,12 +775,15 @@ public class EditorActivity extends Activity {
 			case DIRECTION_LEFT:
 				X--;
 				break;
+
 			case DIRECTION_RIGHT:
 				X++;
 				break;
+
 			case DIRECTION_UP:
 				Y--;
 				break;
+
 			case DIRECTION_DOWN:
 				Y++;
 				break;
@@ -777,6 +800,8 @@ public class EditorActivity extends Activity {
 
 	/**
 	 * addPointer()
+	 *
+	 * @param pointer
 	 */
 	private void addPointer(Pointer pointer) {
 		sdao.insertPointerTable(pointerId, pointer);
@@ -786,6 +811,8 @@ public class EditorActivity extends Activity {
 
 	/**
 	 * editPointer()
+	 *
+	 * @param pointer
 	 */
 	private void editPointer(Pointer pointer) {
 		sdao.editPointerTable(pointerId, pointer);
@@ -845,7 +872,7 @@ public class EditorActivity extends Activity {
 		public boolean isData() {
 			return appListList[pointerId][appId] != null;
 		}
-		
+
 		@Override
 		public void onDown(int position) {
 			action_window.setActionPointed(true, -1, position);
@@ -871,8 +898,7 @@ public class EditorActivity extends Activity {
 		}
 
 		@Override
-		public void onCancel(int position) {
-		}
+		public void onCancel(int position) {}
 	}
 
 	/**
@@ -920,13 +946,14 @@ public class EditorActivity extends Activity {
 		}
 
 		@Override
-		public void onCancel(int position) {
-		}
+		public void onCancel(int position) {}
 
 	}
 
 	/**
 	 * addApp()
+	 *
+	 * @param position
 	 */
 	private void addApp(int position) {
 
@@ -983,6 +1010,8 @@ public class EditorActivity extends Activity {
 
 	/**
 	 * editApp()
+	 *
+	 * @param position
 	 */
 	private void editApp(int position) {
 	
@@ -1065,9 +1094,14 @@ public class EditorActivity extends Activity {
 	
 	/**
 	 * viewAppChooser
+	 *
+	 * @param appType
+	 * @param intentAppType
 	 */
 	private void viewAppChooser(int appType, int intentAppType) {
+
 		appChooser = new AppChooser (this, appType, intentAppType) {
+
 			@Override
 			public void onSelectIntentApp (App app) {
 				if (app.getIntentAppInfo().getIntentAppType() == IntentAppInfo.INTENT_APP_TYPE_SHORTCUT) {
@@ -1179,6 +1213,9 @@ public class EditorActivity extends Activity {
 
 	/**
 	 * getToAppId()
+	 *
+	 * @param direction
+	 * @return
 	 */
 	private int getToAppId(int direction) {
 		
@@ -1243,7 +1280,7 @@ public class EditorActivity extends Activity {
 				case DIRECTION_LEFT:
 				case DIRECTION_DOWN:
 					toAppId = appId - 1;
-					break;				
+					break;
 			
 				case DIRECTION_RIGHT:
 				case DIRECTION_UP:
@@ -1253,6 +1290,7 @@ public class EditorActivity extends Activity {
 			
 			if (toAppId >= App.DOCK_APP_COUNT) {
 				toAppId -= App.DOCK_APP_COUNT;
+
 			} else if (toAppId < 0) {
 				toAppId += App.DOCK_APP_COUNT;
 			}
@@ -1264,6 +1302,8 @@ public class EditorActivity extends Activity {
 
 	/**
 	 * addApp()
+	 *
+	 * @param app
 	 */
 	private void addApp(App app) {
 		if (pointerId != Pointer.DOCK_POINTER_ID) {
@@ -1279,6 +1319,8 @@ public class EditorActivity extends Activity {
 
 	/**
 	 * editApp
+	 *
+	 * @param app
 	 */
 	private void editApp(App app) {
 		sdao.editAppTable(pointerId, appId, app);
@@ -1295,6 +1337,8 @@ public class EditorActivity extends Activity {
 
 	/**
 	 * sortApp()
+	 *
+	 * @param toAppId
 	 */
 	private void sortApp(int toAppId) {
 		sdao.sortAppTable(pointerId, appId, toAppId);
@@ -1353,8 +1397,7 @@ public class EditorActivity extends Activity {
 		}
 
 		@Override
-		public void setId(int id) {
-		}
+		public void setId(int id) {}
 		
 		@Override
 		public boolean isData() {
@@ -1383,12 +1426,13 @@ public class EditorActivity extends Activity {
 		}
 
 		@Override
-		public void onCancel(int position) {
-		}
+		public void onCancel(int position) {}
 	}
 
 	/**
 	 * menu()
+	 *
+	 * @param position
 	 */
 	private void menu(int position) {
 		switch (position) {
@@ -1416,6 +1460,9 @@ public class EditorActivity extends Activity {
 
 	/**
 	 * trimmingImage()
+	 *
+	 * @param iconTarget
+	 * @param iconType
 	 */
 	private void trimmingImage(int iconTarget, int iconType) {
 		editDialog.setCancelable(false);
@@ -1449,6 +1496,10 @@ public class EditorActivity extends Activity {
 
 	/**
 	 * onKeyDown()
+	 *
+	 * @param keyCode
+	 * @param keyEvent
+	 * @return
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {

@@ -17,10 +17,16 @@ import com.ssmomonga.ssflicker.set.BootSettings;
 
 import java.util.List;
 
+/**
+ * Boot
+ */
 public class Boot extends BroadcastReceiver {
 
 	/**
 	 * onReceive()
+	 *
+	 * @param context
+	 * @param intent
 	 */
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -49,9 +55,11 @@ public class Boot extends BroadcastReceiver {
 			
 		}
 	}
-	
+
 	/**
 	 * rebuildAppCacheTable()
+	 *
+	 * @param context
 	 */
 	private void rebuildAppCacheTable(Context context) {
 		new SQLiteDAO(context).deleteAppCacheTable();
@@ -60,6 +68,9 @@ public class Boot extends BroadcastReceiver {
 	
 	/**
 	 * rebuildAppTable()
+	 *
+	 * @param context
+	 * @param intent
 	 */
 	private void rebuildAppTable(Context context, Intent intent) {
 		
@@ -101,6 +112,11 @@ public class Boot extends BroadcastReceiver {
 	
 	/**
 	 * updateApp()
+	 *
+	 * @param context
+	 * @param pointerId
+	 * @param appId
+	 * @param app
 	 */
 	private void updateApp(Context context, int pointerId, int appId, App app) {
 		
@@ -141,6 +157,10 @@ public class Boot extends BroadcastReceiver {
 
 	/**
 	 * deleteApp()
+	 *
+	 * @param context
+	 * @param pointerId
+	 * @param appId
 	 */
 	private void deleteApp(Context context, int pointerId, int appId) {
 		new SQLiteDAO(context).deleteAppTable(pointerId, appId);

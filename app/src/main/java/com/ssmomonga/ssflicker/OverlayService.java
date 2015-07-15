@@ -25,6 +25,9 @@ import com.ssmomonga.ssflicker.view.OnFlickListener;
 import com.ssmomonga.ssflicker.view.OverlayPoint;
 import com.ssmomonga.ssflicker.view.OverlayWindow;
 
+/**
+ * OverlayService
+ */
 public class OverlayService extends Service {
 	
 	private static WindowManager overlay_layer;
@@ -110,6 +113,8 @@ public class OverlayService extends Service {
 	
 	/**
 	 * overlayForeground()
+	 *
+	 * @param b
 	 */
 	private void overlayForeground(boolean b) {
 		if (b) {
@@ -170,12 +175,18 @@ public class OverlayService extends Service {
 	
 	/**
 	 * onBind()
+	 *
+	 * @param intent
+	 * @return
 	 */
 	@Override
 	public IBinder onBind(Intent intent) {
 		return mBindOverlayService.getBinder();
 	}
-	
+
+	/**
+	 * Incominghandler
+	 */
 	private class IncomingHandler extends Handler {
 		@Override
 		public void handleMessage (Message msg) {
@@ -253,7 +264,7 @@ public class OverlayService extends Service {
 	 * onDestroy()
 	 */
 	@Override
-	public void onDestroy () {
+	public void onDestroy() {
 		super.onDestroy();
 		unregisterReceiver(rotateReceiver);
 		goneOverlay();

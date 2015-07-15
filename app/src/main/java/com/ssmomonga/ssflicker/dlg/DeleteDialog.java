@@ -8,6 +8,9 @@ import android.graphics.drawable.Drawable;
 
 import com.ssmomonga.ssflicker.R;
 
+/**
+ * DeleteDialog
+ */
 public abstract class DeleteDialog extends AlertDialog {
 	
 	public static final int DELETE_POINTER = 0;
@@ -16,6 +19,11 @@ public abstract class DeleteDialog extends AlertDialog {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param data
+	 * @param icon
+	 * @param name
 	 */
 	public DeleteDialog(Context context, int data, Drawable icon, String name) {
 		super(context);
@@ -24,6 +32,11 @@ public abstract class DeleteDialog extends AlertDialog {
 	
 	/**
 	 * setInitialLayout()
+	 *
+	 * @param r
+	 * @param data
+	 * @param icon
+	 * @param title
 	 */
 	private void setInitialLayout(Resources r, int data, Drawable icon, String title) {
 		setTitle(title);
@@ -61,7 +74,6 @@ public abstract class DeleteDialog extends AlertDialog {
 			}
 		});
 
-		//setOnDismissListener
 		setOnDismissListener(new DialogInterface.OnDismissListener() {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
@@ -69,7 +81,6 @@ public abstract class DeleteDialog extends AlertDialog {
 			}			
 		});
 		
-		//setOnCancelListenr
 		setOnCancelListener(new DialogInterface.OnCancelListener() {
 			@Override
 			public void onCancel(DialogInterface dialog) {

@@ -11,12 +11,17 @@ import android.widget.TextView;
 
 import com.ssmomonga.ssflicker.R;
 
+/**
+ * AboutDialog
+ */
 public class AboutDialog extends AlertDialog {
 
 	private Context context;
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public AboutDialog(Context context) {
 		super(context);

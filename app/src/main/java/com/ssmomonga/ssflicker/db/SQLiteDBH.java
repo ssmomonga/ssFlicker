@@ -26,6 +26,9 @@ import com.ssmomonga.ssflicker.set.AppWidgetHostSettings;
 
 import java.net.URISyntaxException;
 
+/**
+ * SQLiteDBH
+ */
 public class SQLiteDBH extends SQLiteOpenHelper {
 
 	private Context context;
@@ -131,6 +134,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public SQLiteDBH(Context context) {
 		super(context, DATABASE_FILE_NAME, null, DATABASE_VERSION);
@@ -139,6 +144,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * onCreate()
+	 *
+	 * @param db
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
@@ -162,6 +169,10 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * onUpdate()
+	 *
+	 * @param db
+	 * @param oldVersion
+	 * @param newVersion
 	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -262,6 +273,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * createTable_3()
+	 *
+	 * @param db
 	 */
 	private void createTable_3(SQLiteDatabase db) {
 		db.execSQL(DROP_POINTER_TABLE_TEMPLATE_3);
@@ -272,6 +285,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * insertPointerTable_3()
+	 *
+	 * @param db
 	 */
 	public void insertPointerTable_3(SQLiteDatabase db) {
 		ContentValues[] cv = new ContentValues[Pointer.FLICK_POINTER_COUNT];
@@ -323,6 +338,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * insertAppTable_3()
+	 *
+	 * @param db
 	 */
 	private void insertAppTable_3(SQLiteDatabase db) {
 		ContentValues cv = new ContentValues();
@@ -424,6 +441,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * alterTable_4()
+	 *
+	 * @param db
 	 */
 	private void alterTable_4(SQLiteDatabase db) {
 		for (String str: ALTER_POINTER_TABLE_TEMPLATE_4) db.execSQL(str);
@@ -439,6 +458,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * updateTable_5()
+	 *
+	 * @param db
 	 */
 	private void updateTable_5(SQLiteDatabase db) {
 
@@ -531,6 +552,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * clearPref_6()
+	 *
 	 */
 	private void clearPref_6() {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -550,6 +572,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * updateTable_7()
+	 *
+	 * @param db
 	 */
 	private void updateTable_7(SQLiteDatabase db) {
 
@@ -646,6 +670,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * createTable_8()
+	 *
+	 * @param db
 	 */
 	private void createTable_8(SQLiteDatabase db) {
 		db.execSQL(DROP_POINTER_TABLE_TEMPLATE_8);
@@ -658,6 +684,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * insertPointerTable_8()
+	 *
+	 * @param db
 	 */
 	public void insertPointerTable_8(SQLiteDatabase db) {
 		ContentValues[] cv = new ContentValues[Pointer.FLICK_POINTER_COUNT];
@@ -709,6 +737,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * insertAppTable_8()
+	 *
+	 * @param db
 	 */
 	private void insertAppTable_8(SQLiteDatabase db) {
 		ContentValues cv = new ContentValues();
@@ -804,6 +834,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	
 	/**
 	 * backupPointerTable()
+	 *
+	 * @param db
+	 * @return
 	 */
 	private Pointer[] backupPointerTable_8(SQLiteDatabase db) {
 		
@@ -823,6 +856,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * backupAppTable()
+	 *
+	 * @param db
+	 * @return
 	 */
 	private App[][] backupAppTable_8(SQLiteDatabase db) {
 		
@@ -843,6 +879,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	
 	/**
 	 * createPointer()
+	 *
+	 * @param c
+	 * @return
 	 */
 	private Pointer createPointer(Cursor c) {
 	
@@ -857,6 +896,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * createApp()
+	 *
+	 * @param c
+	 * @return
 	 */
 	private App createApp(Cursor c) {
 		
@@ -911,6 +953,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	
 	/**
 	 * restorePointerTable_8()
+	 *
+	 * @param db
+	 * @param pointerList
 	 */
 	private void restorePointerTable_8(SQLiteDatabase db, Pointer[] pointerList) {
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
@@ -922,6 +967,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	
 	/**
 	 * restoreAppTable_8()
+	 *
+	 * @param db
+	 * @param appListList
 	 */
 	private void restoreAppTable_8(SQLiteDatabase db, App[][] appListList) {
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT + Pointer.DOCK_POINTER_COUNT; i ++) {
@@ -935,6 +983,10 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	/**
 	 * createPointerCV
+	 *
+	 * @param pointerId
+	 * @param pointer
+	 * @return
 	 */
 	private ContentValues createPointerCV(int pointerId, Pointer pointer) {
 		
@@ -952,6 +1004,11 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	
 	/**
 	 * createAppCV
+	 *
+	 * @param pointerId
+	 * @param appId
+	 * @param app
+	 * @return
 	 */
 	private ContentValues createAppCV(int pointerId, int appId, App app) {
 		

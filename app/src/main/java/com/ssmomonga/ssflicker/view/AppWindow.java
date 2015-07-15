@@ -17,6 +17,9 @@ import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.Pointer;
 import com.ssmomonga.ssflicker.set.WindowParams;
 
+/**
+ * AppWindow
+ */
 public class AppWindow extends TableLayout {
 	
 	private static LinearLayout ll_pointer;
@@ -34,6 +37,9 @@ public class AppWindow extends TableLayout {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param _attrs
 	 */
 	public AppWindow(Context context, AttributeSet _attrs) {
 		super (context, _attrs);
@@ -42,6 +48,8 @@ public class AppWindow extends TableLayout {
 	
 	/**
 	 * setInitialLayout()
+	 *
+	 * @param context
 	 */
 	private void setInitialLayout(Context context) {
 		
@@ -91,6 +99,9 @@ public class AppWindow extends TableLayout {
 
 	/**
 	 * setOnFlickListener()
+	 *
+	 * @param pointerListener
+	 * @param appListener
 	 */
 	public void setOnFlickListener(OnFlickListener pointerListener, OnFlickListener appListener) {
 		ll_pointer.setOnTouchListener(pointerListener);
@@ -99,6 +110,8 @@ public class AppWindow extends TableLayout {
 	
 	/**
 	 * setLayout()
+	 *
+	 * @param settings
 	 */
 	public void setLayout(WindowParams settings) {
 		
@@ -138,6 +151,9 @@ public class AppWindow extends TableLayout {
 	
 	/**
 	 * viewWindow()
+	 *
+	 * @param pointer
+	 * @param appList
 	 */
 	public void setApp(Pointer pointer, App[] appList) {
 		
@@ -158,6 +174,10 @@ public class AppWindow extends TableLayout {
 	
 	/**
 	 * setAppForEdit()
+	 *
+	 * @param pointerId
+	 * @param pointer
+	 * @param appList
 	 */
 	public void setAppForEdit(int pointerId, Pointer pointer, App[] appList) {
 		
@@ -182,13 +202,18 @@ public class AppWindow extends TableLayout {
 	
 	/**
 	 * setPointerIcon()
+	 *
+	 * @param d
 	 */
-	public void setPointerIcon(Drawable d) {
+	public void _setPointerIcon(Drawable d) {
 		iv_pointer.setImageDrawable(d);
 	}
 	
 	/**
 	 * setPointed()
+	 *
+	 * @param pointed
+	 * @param appId
 	 */
 	public void setAppPointed(boolean pointed, int appId) {
 		if (pointed) {
@@ -200,6 +225,8 @@ public class AppWindow extends TableLayout {
 
 	/**
 	 * setPointerPointed()
+	 *
+	 * @param pointed
 	 */
 	public void setPointerPointed (boolean pointed) {
 //		if (animation) {
@@ -215,6 +242,8 @@ public class AppWindow extends TableLayout {
 	
 	/**
 	 * setVisibility()
+	 *
+	 * @param visibility
 	 */
 	@Override
 	public void setVisibility (int visibility) {

@@ -16,6 +16,9 @@ import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.BaseData;
 import com.ssmomonga.ssflicker.db.PrefDAO;
 
+/**
+ * CustomAdapters
+ */
 public class CustomAdapters {
 
 	/**
@@ -29,6 +32,9 @@ public class CustomAdapters {
 
 		/**
 		 * Constructor
+		 *
+		 * @param context
+		 * @param resource
 		 */
 		public AppAdapter(Context context, int resource) {
 			super(context, resource);
@@ -40,6 +46,11 @@ public class CustomAdapters {
 
 		/**
 		 * getView()
+		 *
+		 * @param position
+		 * @param convertView
+		 * @param parent
+		 * @return
 		 */
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
@@ -82,8 +93,13 @@ public class CustomAdapters {
 		
 		private Context context;
 		private int resource;
-		
-		//コンストラクタ
+
+		/**
+		 * Constructor
+		 *
+		 * @param context
+		 * @param resource
+		 */
 		public AppWidgetAdapter (Context context, int resource) {
 			super(context, resource);
 			this.context = context;
@@ -92,6 +108,11 @@ public class CustomAdapters {
 		
 		/**
 		 * getView()
+		 *
+		 * @param position
+		 * @param convertView
+		 * @param parent
+		 * @return
 		 */
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
@@ -141,6 +162,10 @@ public class CustomAdapters {
 
 		/**
 		 * Consructor
+		 *
+		 * @param context
+		 * @param resource
+		 * @param iconColor
 		 */
 		public IconAdapter(Context context, int resource, int iconColor) {
 			super(context, resource);
@@ -153,6 +178,11 @@ public class CustomAdapters {
 
 		/**
 		 * getView()
+		 *
+		 * @param position
+		 * @param convertView
+		 * @param parent
+		 * @return
 		 */
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {

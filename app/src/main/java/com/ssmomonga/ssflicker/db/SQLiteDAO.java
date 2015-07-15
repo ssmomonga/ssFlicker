@@ -25,6 +25,9 @@ import com.ssmomonga.ssflicker.proc.ImageConverter;
 import com.ssmomonga.ssflicker.set.AppWidgetHostSettings;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
 
+/**
+ * SQLiteDAO
+ */
 public class SQLiteDAO {
 	
 	private Context context;
@@ -32,6 +35,8 @@ public class SQLiteDAO {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public SQLiteDAO(Context context) {
 		this.context = context;
@@ -44,6 +49,8 @@ public class SQLiteDAO {
 
 	/**
 	 * selectPointerTable()
+	 *
+	 * @return
 	 */
 	public Pointer[] selectPointerTable() {
 		
@@ -64,6 +71,8 @@ public class SQLiteDAO {
 
 	/**
 	 * selectPointerTable()
+	 *
+	 * @return
 	 */
 	private Pointer selectPointerTable(int pointerId) {
 
@@ -84,6 +93,8 @@ public class SQLiteDAO {
 
 	/**
 	 * selectAppTable()
+	 *
+	 * @return
 	 */
 	public App[][] selectAppTable() {
 		
@@ -105,6 +116,8 @@ public class SQLiteDAO {
 
 	/**
 	 * selectAppWidget()
+	 *
+	 * @return
 	 */
 	public int[][] selectAppWidgets() {
 
@@ -128,6 +141,8 @@ public class SQLiteDAO {
 
 	/**
 	 * existsAppCacheTable()
+	 *
+	 * @return
 	 */
 	public boolean existsAppCacheTable() {
 		SQLiteDatabase db = sdbh.getReadableDatabase();
@@ -137,6 +152,8 @@ public class SQLiteDAO {
 	
 	/**
 	 * selectAppCacheTable()
+	 *
+	 * @return
 	 */
 	public App[] selectAppCacheTable() {
 		
@@ -161,6 +178,9 @@ public class SQLiteDAO {
 
 	/**
 	 * insertPointerTable()
+	 *
+	 * @param pointerId
+	 * @param pointer
 	 */
 	public void insertPointerTable(int pointerId, Pointer pointer) {
 
@@ -181,6 +201,10 @@ public class SQLiteDAO {
 
 	/**
 	 * insertAppTable()
+	 *
+	 * @param pointerId
+	 * @param appId
+	 * @param app
 	 */
 	public void insertAppTable(int pointerId, int appId, App app) {
 		
@@ -213,6 +237,9 @@ public class SQLiteDAO {
 	
 	/**
 	 * checkPointerId()
+	 *
+	 * @param pointerId
+	 * @return
 	 */
 	private boolean checkPointerId(int pointerId) {
 		return pointerId >= 0 && pointerId < Pointer.FLICK_POINTER_COUNT;
@@ -220,6 +247,10 @@ public class SQLiteDAO {
 	
 	/**
 	 * checkAppId()
+	 *
+	 * @param pointerId
+	 * @param appId
+	 * @return
 	 */
 	private boolean checkAppId(int pointerId, int appId) {
 		
@@ -245,6 +276,8 @@ public class SQLiteDAO {
 	
 	/**
 	 * insertAppCacheTable()
+	 *
+	 * @param appCacheList
 	 */
 	public void insertAppCacheTable(App[] appCacheList) {
 
@@ -266,6 +299,8 @@ public class SQLiteDAO {
 
 	/**
 	 * deletePointerTable()
+	 *
+	 * @param pointerId
 	 */
 	public void deletePointerTable(int pointerId) {
 
@@ -292,6 +327,9 @@ public class SQLiteDAO {
 	
 	/**
 	 * deleteAppTable()
+	 *
+	 * @param pointerId
+	 * @param appId
 	 */
 	public void deleteAppTable(int pointerId, int appId) {
 
@@ -312,6 +350,9 @@ public class SQLiteDAO {
 	
 	/**
 	 * selectAppWidgetIds()
+	 *
+	 * @param pointerId
+	 * @return
 	 */
 	private int[] selectAppWidgetIds(int pointerId) {
 		return selectAppWidgetIds (pointerId, -1);
@@ -319,6 +360,10 @@ public class SQLiteDAO {
 	
 	/**
 	 * selectAppWidgetIds()
+	 *
+	 * @param pointerId
+	 * @param appId
+	 * @return
 	 */
 	private int[] selectAppWidgetIds(int pointerId, int appId) {
 		
@@ -348,6 +393,8 @@ public class SQLiteDAO {
 
 	/**
 	 * deleteAppWidget()
+	 *
+	 * @param appWidgetIds
 	 */
 	private void deleteAppWidget(int[] appWidgetIds) {
 		AppWidgetHost appWidgetHost = new AppWidgetHost(context, AppWidgetHostSettings.APPWIDGET_HOST_ID);
@@ -399,6 +446,9 @@ public class SQLiteDAO {
 
 	/**
 	 * editPointerTable()
+	 *
+	 * @param pointerId
+	 * @param pointer
 	 */
 	public void editPointerTable(int pointerId, Pointer pointer) {
 
@@ -412,6 +462,10 @@ public class SQLiteDAO {
 	
 	/**
 	 * editAppTable()
+	 *
+	 * @param pointerId
+	 * @param appId
+	 * @param app
 	 */
 	public void editAppTable(int pointerId, int appId, App app) {
 
@@ -432,9 +486,11 @@ public class SQLiteDAO {
 		
 	}
 
-
 	/**
 	 * resizeAppWidget()
+	 *
+	 * @param context
+	 * @param app
 	 */
 	private void resizeAppWidget(Context context, App app) {
 		AppWidgetHost host = new AppWidgetHost(context, AppWidgetHostSettings.APPWIDGET_HOST_ID);
@@ -455,6 +511,10 @@ public class SQLiteDAO {
 
 	/**
 	 * updatePointerTable()
+	 *
+	 * @param pointerId
+	 * @param appId
+	 * @param app
 	 */
 	private void updatePointerTable(int pointerId, int appId, App app) {
 		if (pointerId != Pointer.DOCK_POINTER_ID) {
@@ -484,6 +544,10 @@ public class SQLiteDAO {
 
 	/**
 	 * updatePointerTable()
+	 *
+	 * @param pointerId
+	 * @param fromAppId
+	 * @param toAppId
 	 */
 	private void updatePointerTable(int pointerId, int fromAppId, int toAppId) {
 		if (pointerId != Pointer.DOCK_POINTER_ID) {
@@ -503,6 +567,9 @@ public class SQLiteDAO {
 
 	/**
 	 * updateAppWidgetUpdateTime()
+	 *
+	 * @param appWidgetId
+	 * @param appWidgetUpdateTime
 	 */
 	public void updateAppWidgetUpdateTime(int appWidgetId, long appWidgetUpdateTime) {
 
@@ -518,9 +585,11 @@ public class SQLiteDAO {
 		
 	}
 
-	
 	/**
 	 * sortPointerTable()
+	 *
+	 * @param fromPointerId
+	 * @param toPointerId
 	 */
 	public void sortPointerTable(int fromPointerId, int toPointerId) {
 		
@@ -564,6 +633,10 @@ public class SQLiteDAO {
 	
 	/**
 	 * sortAppTable()
+	 *
+	 * @param pointerId
+	 * @param fromAppId
+	 * @param toAppId
 	 */
 	public void sortAppTable(int pointerId, int fromAppId, int toAppId) {
 	
@@ -599,6 +672,9 @@ public class SQLiteDAO {
 
 	/**
 	 * createMultiAppsIcon()
+	 *
+	 * @param pointerId
+	 * @return
 	 */
 	private Drawable createMultiAppsIcon(int pointerId) {
 
@@ -623,6 +699,9 @@ public class SQLiteDAO {
 
 	/**
 	 * createPointer()
+	 *
+	 * @param c
+	 * @return
 	 */
 	private Pointer createPointer(Cursor c) {
 	
@@ -637,6 +716,9 @@ public class SQLiteDAO {
 	
 	/**
 	 * createApp
+	 *
+	 * @param c
+	 * @return
 	 */
 	private App createApp(Cursor c) {
 		
@@ -691,6 +773,9 @@ public class SQLiteDAO {
 	
 	/**
 	 * createAppCache
+	 *
+	 * @param c
+	 * @return
 	 */
 	private App createAppCache(Cursor c) {
 		
@@ -708,6 +793,10 @@ public class SQLiteDAO {
 
 	/**
 	 * createPointerCV()
+	 *
+	 * @param pointerId
+	 * @param pointer
+	 * @return
 	 */
 	private ContentValues createPointerCV(int pointerId, Pointer pointer) {
 		
@@ -725,6 +814,11 @@ public class SQLiteDAO {
 	
 	/**
 	 * createAppCV
+	 *
+	 * @param pointerId
+	 * @param appId
+	 * @param app
+	 * @return
 	 */
 	private ContentValues createAppCV(int pointerId, int appId, App app) {
 		
@@ -767,6 +861,9 @@ public class SQLiteDAO {
 	
 	/**
 	 * createAppCacheCV
+	 *
+	 * @param app
+	 * @return
 	 */
 	private ContentValues createAppCacheCV (App app) {
 		

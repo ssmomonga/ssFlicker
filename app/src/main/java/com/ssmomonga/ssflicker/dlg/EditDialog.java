@@ -27,6 +27,9 @@ import com.ssmomonga.ssflicker.db.PrefDAO;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
 
+/**
+ * EditDialog
+ */
 public class EditDialog extends AlertDialog {
 	
 	private Context context;
@@ -48,6 +51,10 @@ public class EditDialog extends AlertDialog {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param pointer
+	 * @param editPointerIf
 	 */
 	public EditDialog(Context context, Pointer pointer, EditPointerIf editPointerIf) {
 		super(context);
@@ -60,6 +67,10 @@ public class EditDialog extends AlertDialog {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param app
+	 * @param editAppIf
 	 */
 	public EditDialog(Context context, App app, EditAppIf editAppIf) {
 		super(context);
@@ -135,7 +146,7 @@ public class EditDialog extends AlertDialog {
 	/**
 	 * setAppLayout()
 	 */
-	private void setAppLayout() {	
+	private void setAppLayout() {
 		ib_icon.setImageDrawable(app.getAppIcon());
 		ib_icon.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -343,8 +354,12 @@ public class EditDialog extends AlertDialog {
 /**
  * 		Common
  */
+
 	/**
 	 * viewSelectIconTypeDialog()
+	 *
+	 * @param iconTarget
+	 * @param pointerType
 	 */
 	private void viewSelectIconTypeDialog(final int iconTarget, int pointerType) {
 		new IconDialog.SelectIconTypeDialog(context, iconTarget, pointerType) {
@@ -389,6 +404,11 @@ public class EditDialog extends AlertDialog {
 
 	/**
 	 * viewIconChooser()
+	 *
+	 * @param context
+	 * @param iconList
+	 * @param iconTarget
+	 * @param iconType
 	 */
 	private void viewIconChooser(Context context, BaseData[] iconList, final int iconTarget, final int iconType) {
 		new IconDialog.IconChooser(context, iconList, iconType) {
@@ -401,6 +421,11 @@ public class EditDialog extends AlertDialog {
 
 	/**
 	 * setIconBitmap()
+	 *
+	 * @param icon
+	 * @param iconTarget
+	 * @param iconType
+	 * @param appId
 	 */
 	public void setIconBitmap(Bitmap icon, int iconTarget, int iconType, int appId) {
 		setIconDrawable(ImageConverter.createDrawable(context, icon), iconTarget, iconType, appId);
@@ -408,6 +433,11 @@ public class EditDialog extends AlertDialog {
 
 	/**
 	 * setIconDrawable()
+	 *
+	 * @param icon
+	 * @param iconTarget
+	 * @param iconType
+	 * @param appId
 	 */
 	public void setIconDrawable(Drawable icon, int iconTarget, int iconType, int appId) {
 

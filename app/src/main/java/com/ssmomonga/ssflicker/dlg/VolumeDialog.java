@@ -10,12 +10,17 @@ import android.widget.SeekBar;
 
 import com.ssmomonga.ssflicker.R;
 
+/**
+ * VolumeDialog
+ */
 public class VolumeDialog extends AlertDialog {
 	
 	private Context context;
 	
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public VolumeDialog (Context context) {
 		super(context);

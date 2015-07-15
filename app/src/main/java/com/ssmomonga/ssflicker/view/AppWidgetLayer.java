@@ -12,6 +12,9 @@ import com.ssmomonga.ssflicker.data.AppWidgetInfo;
 import com.ssmomonga.ssflicker.set.AppWidgetHostSettings;
 import com.ssmomonga.ssflicker.set.AppWidgetParams;
 
+/**
+ * AppWidgetLayer
+ */
 public class AppWidgetLayer extends FrameLayout {
 	
 	private Context context;
@@ -19,9 +22,12 @@ public class AppWidgetLayer extends FrameLayout {
 	
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param attrs
 	 */
 	public AppWidgetLayer(Context context, AttributeSet attrs) {
-		super (context, attrs);
+		super(context, attrs);
 		this.context = context;
 		host = new AppWidgetHost(context, AppWidgetHostSettings.APPWIDGET_HOST_ID);
 		host.startListening();
@@ -29,6 +35,8 @@ public class AppWidgetLayer extends FrameLayout {
 	
 	/**
 	 * addView()
+	 *
+	 * @param appWidgetInfo
 	 */
 	public void addView(AppWidgetInfo appWidgetInfo) {
 
@@ -52,6 +60,8 @@ public class AppWidgetLayer extends FrameLayout {
 	
 	/**
 	 * removeView()
+	 *
+	 * @param appWidgetInfo
 	 */
 	public void removeView(AppWidgetInfo appWidgetInfo) {
 		removeView((LinearLayout) findViewById(appWidgetInfo.getAppWidgetId()));
@@ -59,6 +69,7 @@ public class AppWidgetLayer extends FrameLayout {
 
 	/**
 	 * stopListenening();
+	 *
 	 */
 	public void stopListening() {
 		host.stopListening();

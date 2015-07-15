@@ -15,6 +15,9 @@ import com.ssmomonga.ssflicker.dlg.CustomAdapters.AppAdapter;
 import com.ssmomonga.ssflicker.proc.GetAppListTask;
 import com.ssmomonga.ssflicker.proc.Launch;
 
+/**
+ * Drawer
+ */
 public class Drawer extends AlertDialog {
 
 	private Context context;
@@ -23,6 +26,8 @@ public class Drawer extends AlertDialog {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public Drawer(Context context) {
 		super(context);

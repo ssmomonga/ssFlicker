@@ -38,6 +38,9 @@ import com.ssmomonga.ssflicker.set.OverlaySettings;
 
 import java.net.URISyntaxException;
 
+/**
+ * PrefSubActivity
+ */
 public class PrefSubActivity extends Activity {
 	
 	public static final String KEY = "key";
@@ -85,6 +88,8 @@ public class PrefSubActivity extends Activity {
 
 	/**
 	 * onCreate()
+	 *
+	 * @param savedInstanceState
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,12 +99,14 @@ public class PrefSubActivity extends Activity {
 	
 	/**
 	 * onKeyDown()
+	 *
+	 * @param keyCode
+	 * @param keyEvent
+	 * @return
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			l.launchPrefActivity();
-		}
+		if (keyCode == KeyEvent.KEYCODE_BACK) l.launchPrefActivity();
 		return false;
 	}
 	
@@ -110,6 +117,8 @@ public class PrefSubActivity extends Activity {
 
 		/**
 		 * onCreate()
+		 *
+		 * @param savedInstanceState
 		 */
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
@@ -297,7 +306,7 @@ public class PrefSubActivity extends Activity {
 		}
 
 		/**
-		 * PreferenceClickListener()
+		 * PreferenceClickListener
 		 */
 		private class PreferenceClickListener implements OnPreferenceClickListener {
 			@Override
@@ -436,6 +445,9 @@ public class PrefSubActivity extends Activity {
 		
 		/**
 		 * setSummary()
+		 *
+		 * @param preference
+		 * @param value
 		 */
 		private void setSummary(Preference preference, Object value) {
 			if (preference == home_key) {
@@ -493,8 +505,8 @@ public class PrefSubActivity extends Activity {
 				
 			} else if (preference == now) {
 			} else if (preference == search_key) {
-
 			} else if (preference == overlay_point[0] || preference == overlay_point[1]) {
+
 			} else if (preference == overlay_point_side[0] || preference == overlay_point_side[1]) {
 				switch (Integer.valueOf((String) value)) {
 					case 0:

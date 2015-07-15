@@ -7,12 +7,17 @@ import android.widget.LinearLayout;
 
 import com.ssmomonga.ssflicker.R;
 
+/**
+ * OverlayWindow
+ */
 public class OverlayWindow extends LinearLayout {
 
 	private static ImageView iv_overlay_window;
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public OverlayWindow(Context context) {
 		super(context);
@@ -21,6 +26,8 @@ public class OverlayWindow extends LinearLayout {
 
 	/**
 	 * setInitialLayout()
+	 *
+	 * @param context
 	 */
 	private void setInitialLayout(Context context) {
 		setVisibility(View.INVISIBLE);
@@ -30,6 +37,8 @@ public class OverlayWindow extends LinearLayout {
 
 	/**
 	 * changeSelected()
+	 *
+	 * @param b
 	 */
 	public void changeSelected(boolean b) {
 		if (b) {

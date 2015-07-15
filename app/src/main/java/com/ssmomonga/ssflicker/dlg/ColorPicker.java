@@ -20,6 +20,9 @@ import android.widget.TextView;
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.set.ColorPickerSettings;
 
+/**
+ * ColorPicker
+ */
 public abstract class ColorPicker extends AlertDialog {
 
 	private static final int ARGB_COUNT = 4;
@@ -52,6 +55,9 @@ public abstract class ColorPicker extends AlertDialog {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param colorType
 	 */
 	public ColorPicker(Context context, int colorType) {
 		super(context);
@@ -63,6 +69,10 @@ public abstract class ColorPicker extends AlertDialog {
 	
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param colorType
+	 * @param iconColor
 	 */
 	public ColorPicker(Context context, int colorType, int iconColor) {
 		super(context);
@@ -204,6 +214,8 @@ public abstract class ColorPicker extends AlertDialog {
 	
 	/**
 	 * setNewColor()
+	 *
+	 * @param i
 	 */
 	private void setPreview(int i) {		
 		switch (colorType) {
@@ -308,6 +320,8 @@ public abstract class ColorPicker extends AlertDialog {
 	
 	/**
 	 * onSettings()
+	 *
+	 * @param newColor
 	 */
 	abstract public void onSettings(int newColor);
 

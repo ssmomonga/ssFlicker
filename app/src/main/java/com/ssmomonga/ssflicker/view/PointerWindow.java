@@ -15,6 +15,9 @@ import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.Pointer;
 import com.ssmomonga.ssflicker.set.WindowParams;
 
+/**
+ * PointerWindow
+ */
 public class PointerWindow extends TableLayout {
 
 	private static final LinearLayout[] ll_pointer = new LinearLayout[Pointer.FLICK_POINTER_COUNT];
@@ -27,6 +30,9 @@ public class PointerWindow extends TableLayout {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
+	 * @param attrs
 	 */
 	public PointerWindow(Context context, AttributeSet attrs) {
 		super (context, attrs);
@@ -35,6 +41,8 @@ public class PointerWindow extends TableLayout {
 	
 	/**
 	 * setInitialLayout()
+	 *
+	 * @param context
 	 */
 	private void setInitialLayout(Context context) {
 
@@ -100,7 +108,9 @@ public class PointerWindow extends TableLayout {
 	}
 
 	/**
-	/ * /setOnFlickListener()
+	 * setOnFlickListener()
+	 *
+	 * @param listener
 	 */
 	public void setOnFlickListener(OnFlickListener listener) {
 		for (LinearLayout ll: ll_pointer) ll.setOnTouchListener(listener);
@@ -108,6 +118,8 @@ public class PointerWindow extends TableLayout {
 	
 	/**
 	 * setLayout()
+	 *
+	 * @param params
 	 */
 	public void setLayout(WindowParams params) {
 
@@ -127,6 +139,8 @@ public class PointerWindow extends TableLayout {
 
 	/**
 	 * setPointer()
+	 *
+	 * @param pointerList
 	 */
 	public void setPointer(Pointer[] pointerList) {
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
@@ -150,6 +164,8 @@ public class PointerWindow extends TableLayout {
 	
 	/**
 	 * setPointerForEdit()
+	 *
+	 * @param pointerList
 	 */
 	public void setPointerForEdit(Pointer[] pointerList) {
 
@@ -169,6 +185,9 @@ public class PointerWindow extends TableLayout {
 
 	/**
 	 * setPointed()
+	 *
+	 * @param pointed
+	 * @param pointerId
 	 */
 	public void setPointerPointed(boolean pointed, int pointerId) {
 //		if (animation) {
@@ -184,6 +203,8 @@ public class PointerWindow extends TableLayout {
 
 	/**
 	 * setVisibility()
+	 *
+	 * @param visibility
 	 */
 	@Override
 	public void setVisibility (int visibility) {

@@ -12,6 +12,8 @@ public class BootSettings {
 
 	/**
 	 * Constructor
+	 *
+	 * @param context
 	 */
 	public BootSettings(Context context) {
 		PrefDAO pdao = new PrefDAO(context);
@@ -22,6 +24,8 @@ public class BootSettings {
 	
 	/**
 	 * isHomeKey()
+	 *
+	 * @return
 	 */
 	public boolean isHomeKey() {
 		return homeKey;
@@ -29,6 +33,8 @@ public class BootSettings {
 	
 	/**
 	 * isStatusbar()
+	 *
+	 * @return
 	 */
 	public boolean isStatusbar() {
 		return statusbar;
@@ -36,6 +42,8 @@ public class BootSettings {
 	
 	/**
 	 * isOverlay()
+	 *
+	 * @return
 	 */
 	public boolean isOverlay() {
 		return overlay;
