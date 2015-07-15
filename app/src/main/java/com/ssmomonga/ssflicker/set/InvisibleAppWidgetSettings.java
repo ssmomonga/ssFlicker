@@ -9,34 +9,34 @@ public class InvisibleAppWidgetSettings {
 
 	private static int resourceId;
 	
-	/*
+	/**
 	 * Constructor
 	 */
 	public InvisibleAppWidgetSettings(Context context) {
 		fillResourceId(new PrefDAO(context).isInvisibleAppWidgetBackgroundVisibility());
 	}
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public InvisibleAppWidgetSettings(boolean invisibleAppWidgetBackground) {
 		fillResourceId(invisibleAppWidgetBackground);
 	}
 	
-	/*
+	/**
 	 * fillResourceId()
 	 */
 	private void fillResourceId(boolean invisibleAppWidgetBackground) {
 		resourceId = invisibleAppWidgetBackground ? R.mipmap.icon_appwidget_preview : R.mipmap.invisible;
 
-/*		if (invisibleAppWidgetBackground) {
+/**		if (invisibleAppWidgetBackground) {
 			resourceId = R.mipmap.icon_appwidget_preview;
 		} else { 
 			resourceId = R.mipmap.invisible;
 		} */
 	}
 	
-	/*
+	/**
 	 * getResourceId()
 	 */
 	public int getResourceId() {

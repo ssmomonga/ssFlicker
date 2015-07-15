@@ -11,7 +11,7 @@ public class OverlayWindow extends LinearLayout {
 
 	private static ImageView iv_overlay_window;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public OverlayWindow(Context context) {
@@ -19,7 +19,7 @@ public class OverlayWindow extends LinearLayout {
 		setInitialLayout(context);
 	}
 
-	/*
+	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout(Context context) {
@@ -28,7 +28,7 @@ public class OverlayWindow extends LinearLayout {
 		addView(iv_overlay_window);
 	}
 
-	/*
+	/**
 	 * changeSelected()
 	 */
 	public void changeSelected(boolean b) {

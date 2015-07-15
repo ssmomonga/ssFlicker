@@ -63,7 +63,7 @@ public class PrefDAO {
 	private Context context;
 	private static SharedPreferences prefs;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public PrefDAO(Context context) {
@@ -72,7 +72,7 @@ public class PrefDAO {
 		checkPrefVersion();
 	}
 	
-	/*
+	/**
 	 * checkPrefVersion()
 	 */
 	private void checkPrefVersion() {
@@ -95,7 +95,7 @@ public class PrefDAO {
 		
 	}
 	
-	/*
+	/**
 	 * clearPref_2()
 	 */
 	private void clearPref_2() {
@@ -104,7 +104,7 @@ public class PrefDAO {
 		editor.commit();
 	}
 	
-	/*
+	/**
 	 * getHomeKeyAnotherHome()
 	 */
 	public String getHomeKeyAnotherHome() {
@@ -121,42 +121,42 @@ public class PrefDAO {
 		}
 	}
 	
-	/*
+	/**
 	 * getHomeKeyClickMode()
 	 */
 	public int getHomeKeyClickMode() {
 		return Integer.parseInt(getRawHomeKeyClickMode());
 	}
 	
-	/*
+	/**
 	 * getRawHomeKeyClickMode()
 	 */
 	public String getRawHomeKeyClickMode() {
 		return prefs.getString(HOME_KEY_CLICK_MODE, "1");
 	}
 	
-	/*
+	/**
 	 * getHomeKeyClickInterval()
 	 */
 	public int getHomeKeyClickInterval() {
 		return Integer.parseInt(getRawHomeKeyClickInterval());
 	}
 	
-	/*
+	/**
 	 * getRawHomeKeyClickInterval()
 	 */
 	public String getRawHomeKeyClickInterval() {
 		return prefs.getString(HOME_KEY_CLICK_INTERVAL, "500");
 	}
 	
-	/*
+	/**
 	 * isOverlay()
 	 */
 	public boolean isOverlay() {
 		return prefs.getBoolean(OVERLAY, false);
 	}
 	
-	/*
+	/**
 	 * setOverlay()
 	 */
 	public void setOverlay(boolean b) {
@@ -165,7 +165,7 @@ public class PrefDAO {
 		editor.commit();
 	}
 	
-	/*
+	/**
 	 * isOverlayPoint()
 	 */
 	public boolean isOverlayPoint(int overlayPointNumber) {
@@ -179,14 +179,14 @@ public class PrefDAO {
 		}
 	}
 
-	/*
+	/**
 	 * getOverlayPointSide
 	 */
 	public int getOverlayPointSide (int overlayPointNumber) {
 		return Integer.parseInt(getRawOverlayPointSide(overlayPointNumber));
 	}
 		
-	/*
+	/**
 	 * getRawOverlayPointSide()
 	 */
 	public String getRawOverlayPointSide(int overlayPointNumber) {
@@ -200,14 +200,14 @@ public class PrefDAO {
 		}
 	}
 
-	/*
+	/**
 	 * getOverlayPointPosition()
 	 */
 	public int getOverlayPointPosition(int overlayPointNumber) {
 		return Integer.parseInt(getRawOverlayPointPosition(overlayPointNumber));
 	}
 
-	/*
+	/**
 	 * getRawOverlayPointPosition()
 	 */
 	public String getRawOverlayPointPosition(int overlayPointNumber) {
@@ -221,14 +221,14 @@ public class PrefDAO {
 			}
 	}
 
-	/*
+	/**
 	 * getOverlayPointWidth()
 	 */
 	public int getOverlayPointWidth(int overlayPointNumber) {
 		return DeviceSettings.dimenToPixel(context, Integer.parseInt(getRawOverlayPointWidth(overlayPointNumber)));
 	}
 
-	/*
+	/**
 	 * getRawOverlayPointWidth()
 	 */
 	public String getRawOverlayPointWidth(int overlayPointNumber) {
@@ -242,105 +242,105 @@ public class PrefDAO {
 		}
 	}
 	
-	/*
+	/**
 	 * getRawOverlayPointAction()
 	 */
 	public String getRawOverlayPointAction() {
 		return prefs.getString(OVERLAY_POINT_ACTION, "0");
 	}
 	
-	/*
+	/**
 	 * getOverlayPointBackgroundColor()
 	 */
 	public int getOverlayPointBackgroundColor() {
 		return prefs.getInt(OVERLAY_POINT_BACKGROUND_COLOR, context.getResources().getColor(R.color.overlay_point_background_color_default_value));
 	}
 	
-	/*
+	/**
 	 * getOverlayPointAction
 	 */
 	public int getOverlayPointAction() {
 		return Integer.parseInt(getRawOverlayPointAction());
 	}
 	
-	/*
+	/**
 	 * isOverlayForeground()
 	 */
 	public boolean isOverlayForeground() {
 		return prefs.getBoolean(OVERLAY_FOREGROUND, true);
 	}
 	
-	/*
+	/**
 	 * isStatusbar()
 	 */
 	public boolean isStatusbar() {
 		return prefs.getBoolean(STATUSBAR, false);
 	}
 
-	/*
+	/**
 	 * getWindowBackgroundColor()
 	 */
 	public int getWindowBackgroundColor() {
 		return prefs.getInt(WINDOW_BACKGROUND_COLOR, context.getResources().getColor(R.color.window_background_color_default_value));
 	}
 	
-	/*
+	/**
 	 * getPointerWindowPositionPortrait()
 	 */
 	public int getPointerWindowPositionPortrait() {
 		return Integer.parseInt(getRawPointerWindowPositionPortrait());
 	}
 	
-	/*
+	/**
 	 * getRawPointerWindowPositionPortrait()
 	 */
 	public String getRawPointerWindowPositionPortrait() {
 		return prefs.getString(POINTER_WINDOW_POSITION_PORTRAIT, "81");
 	}
 	
-	/*
+	/**
 	 * getDockWindowPositionPortrait()
 	 */
 	public int getDockWindowPositionPortrait() {
 		return Integer.parseInt(getRawDockWindowPositionPortrait());
 	}
 	
-	/*
+	/**
 	 * getRawDockWindowPositionPortrait()
 	 */
 	public String getRawDockWindowPositionPortrait() {
 		return prefs.getString(DOCK_WINDOW_POSITION_PORTRAIT, "80");
 	}
 
-	/*
+	/**
 	 * getPointerWindowPositionLandscape()
 	 */
 	public int getPointerWindowPositionLandscape() {
 		return Integer.parseInt(getRawPointerWindowPositionLandscape());
 	}
 	
-	/*
+	/**
 	 * getRawPointerWindowPositionLandscape()
 	 */
 	public String getRawPointerWindowPositionLandscape() {
 		return prefs.getString(POINTER_WINDOW_POSITION_LANDSCAPE, "21");
 	}
 	
-	/*
+	/**
 	 * getDockWindowPositionLandscape()
 	 */
 	public int getDockWindowPositionLandscape() {
 		return Integer.parseInt(getRawDockWindowPositionLandscape());
 	}
 	
-	/*
+	/**
 	 * getRawDockWindowPositionLandscape()
 	 */
 	public String getRawDockWindowPositionLandscape() {
 		return prefs.getString(DOCK_WINDOW_POSITION_LANDSCAPE, "5");
 	}
 
-	/*
+	/**
 	 * getIconSize()
 	 */
 	public int getIconSize() {
@@ -354,7 +354,7 @@ public class PrefDAO {
 		return DeviceSettings.dimenToPixel(context, iconSize);
 	}
 	
-	/*
+	/**
 	 * getIconPlusSize()
 	 */
 	public int getIconPlusSize() {
@@ -368,42 +368,42 @@ public class PrefDAO {
 		return DeviceSettings.dimenToPixel(context, iconSize + 16);
 	}
 	
-	/*
+	/**
 	 * getRawIconSize()
 	 */
 	public String getRawIconSize() {
 		return prefs.getString(ICON_SIZE, "40");
 	}
 
-	/*
+	/**
 	 * isTextVisibility()
 	 */
 	public boolean isTextVisibility() {
 		return prefs.getBoolean(TEXT_VISIBILITY, true);
 	}
 	
-	/*
+	/**
 	 * getTextColor()
 	 */
 	public int getTextColor() {
 		return prefs.getInt(TEXT_COLOR, context.getResources().getColor(android.R.color.white));
 	}
 
-	/*
+	/**
 	 * getTextSize()
 	 */
 	public int getTextSize() {
 		return Integer.parseInt(getRawTextSize());
 	}
 	
-	/*
+	/**
 	 * getRawTextSize()
 	 */
 	public String getRawTextSize() {
 		return prefs.getString(TEXT_SIZE, "10");
 	}
 	
-	/*
+	/**
 	 * getVibrateTime()
 	 */
 	public int getVibrateTime() {
@@ -414,7 +414,7 @@ public class PrefDAO {
 		}
 	}
 
-	/*
+	/**
 	 * isVibrate()
 	 */
 	public boolean isVibrate() {
@@ -430,28 +430,28 @@ public class PrefDAO {
 		return b;
 	}
 	
-	/*
+	/**
 	 * isStatusbarVisibility()
 	 */
 	public boolean isStatusbarVisibility() {
 		return prefs.getBoolean(STATUSBAR_VISIBILITY, false);
 	}
 	
-	/*
+	/**
 	 * getInvisibleAppWidgetBackgroundVisibility()
 	 */
 	public boolean isInvisibleAppWidgetBackgroundVisibility() {
 		return prefs.getBoolean(INVISIBLE_APPWIDGET_BACKGROUND_VISIBILITY, false);
 	}
 	
-	/*
+	/**
 	 * getDonation()
 	 */
 	public boolean getDonation() {
 		return prefs.getBoolean(DONATION, false);
 	}
 	
-	/*
+	/**
 	 * setDonation()
 	 */
 	public void setDonation(boolean b) {

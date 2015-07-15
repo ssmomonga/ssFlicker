@@ -8,7 +8,7 @@ public class BaseData {
 	private Drawable icon;
 	private Object tag;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public BaseData(String menuLabel, Drawable menuIcon) {
@@ -16,7 +16,7 @@ public class BaseData {
 		this.icon = menuIcon;
 	}
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public BaseData(String menuLabel, Drawable menuIcon, Object tag) {
@@ -25,35 +25,35 @@ public class BaseData {
 		this.tag = tag;
 	}
 
-	/*
+	/**
 	 * getLabel()
 	 */
 	public String getLabel() {
 		return label;
 	}
 
-	/*
+	/**
 	 * getIcon()
 	 */
 	public Drawable getIcon() {
 		return icon;
 	}
 
-	/*
+	/**
 	 * getTag()
 	 */
 	public Object getTag() {
 		return tag;
 	}
 
-	/*
+	/**
 	 * getLabel()
 	 */
 	public void setLabel(String label) {
 		this.label = label;
 	}
 
-	/*
+	/**
 	 * getIcon()
 	 */
 	public void setIcon(Drawable icon) {

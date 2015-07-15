@@ -40,7 +40,7 @@ public class OverlayService extends Service {
 	private static RotateReceiver rotateReceiver;
 	private Messenger mBindOverlayService = new Messenger(new IncomingHandler());
 	
-	/*
+	/**
 	 * onCreate()
 	 */
 	@Override
@@ -67,7 +67,7 @@ public class OverlayService extends Service {
 
 	}
 
-	/*
+	/**
 	 * viewOverlay()
 	 */
 	private void viewOverlay() {
@@ -92,7 +92,7 @@ public class OverlayService extends Service {
 
 	}
 
-	/*
+	/**
 	 * goneOverlay()
 	 */
 	private void goneOverlay() {
@@ -108,7 +108,7 @@ public class OverlayService extends Service {
 		}
 	}
 	
-	/*
+	/**
 	 * overlayForeground()
 	 */
 	private void overlayForeground(boolean b) {
@@ -119,7 +119,7 @@ public class OverlayService extends Service {
 		}
 	}
 
-	/*
+	/**
 	 * OverlayPointFlickListener
 	 */
 	private class OnOverlayPointFlickListener extends OnFlickListener {
@@ -168,7 +168,7 @@ public class OverlayService extends Service {
 		
 	}
 	
-	/*
+	/**
 	 * onBind()
 	 */
 	@Override
@@ -237,7 +237,7 @@ public class OverlayService extends Service {
 	
 	}
 	
-	/*
+	/**
 	 * RotateReceiver
 	 */
 	private class RotateReceiver extends BroadcastReceiver {
@@ -249,7 +249,7 @@ public class OverlayService extends Service {
 		}
 	}
 	
-	/*
+	/**
 	 * onDestroy()
 	 */
 	@Override

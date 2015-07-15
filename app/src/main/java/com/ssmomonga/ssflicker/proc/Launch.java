@@ -1,20 +1,5 @@
 package com.ssmomonga.ssflicker.proc;
 
-import java.util.List;
-
-import com.ssmomonga.ssflicker.DonateActivity;
-import com.ssmomonga.ssflicker.EditorActivity;
-import com.ssmomonga.ssflicker.FlickerActivity;
-import com.ssmomonga.ssflicker.OverlayService;
-import com.ssmomonga.ssflicker.PrefActivity;
-import com.ssmomonga.ssflicker.PrefSubActivity;
-import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.data.App;
-import com.ssmomonga.ssflicker.data.FunctionInfo;
-import com.ssmomonga.ssflicker.data.IntentAppInfo;
-import com.ssmomonga.ssflicker.dlg.VolumeDialog;
-import com.ssmomonga.ssflicker.set.HomeKeySettings;
-
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -33,25 +18,47 @@ import android.os.Vibrator;
 import android.provider.Settings;
 import android.widget.Toast;
 
+import com.ssmomonga.ssflicker.DonateActivity;
+import com.ssmomonga.ssflicker.EditorActivity;
+import com.ssmomonga.ssflicker.FlickerActivity;
+import com.ssmomonga.ssflicker.OverlayService;
+import com.ssmomonga.ssflicker.PrefActivity;
+import com.ssmomonga.ssflicker.PrefSubActivity;
+import com.ssmomonga.ssflicker.R;
+import com.ssmomonga.ssflicker.data.App;
+import com.ssmomonga.ssflicker.data.FunctionInfo;
+import com.ssmomonga.ssflicker.data.IntentAppInfo;
+import com.ssmomonga.ssflicker.dlg.VolumeDialog;
+import com.ssmomonga.ssflicker.set.HomeKeySettings;
+
+import java.util.List;
+
 public class Launch {
 	
 	private Context context;
-
 	private static VolumeDialog volumeDialog;
-	
-	public Launch (Context context) {
+
+	/**
+	 * Constructor
+	 */
+	public Launch(Context context) {
 		this.context = context;
 	}
-	
-	public void launch (App app, Rect r) {
+
+	/**
+	 * launch()
+	 */
+	public void launch(App app, Rect r) {
 		switch (app.getAppType()) {
 			case App.APP_TYPE_INTENT_APP:
 				IntentAppInfo intentApp = app.getIntentAppInfo();
+
 				switch (intentApp.getIntentAppType()) {
 					case IntentAppInfo.INTENT_APP_TYPE_RECENT:
 					case IntentAppInfo.INTENT_APP_TYPE_TASK:
 						launchTaskApp(intentApp, r);
 						break;
+
 					default:
 						launchIntentApp(intentApp, r);
 						break;
@@ -63,11 +70,11 @@ public class Launch {
 				break;
 		}
 	}
-	
 
-	//launch()
-	private void launchIntentApp (IntentAppInfo intentApp, Rect r) {
-		
+	/**
+	 * launch()
+	 */
+	private void launchIntentApp(IntentAppInfo intentApp, Rect r) {
 		try {
 			Intent intent = intentApp.getIntent();
 			intent.setSourceBounds(r);
@@ -95,7 +102,10 @@ public class Launch {
 			}
 		}
 	}
-	
+
+	/**
+	 * launchTaskApp()
+	 */
 	private void launchTaskApp(IntentAppInfo intentApp, Rect r) {
 		int taskId = intentApp.getTaskId();
 		if (taskId == -1) {
@@ -107,52 +117,63 @@ public class Launch {
 		}
 	}
 
-	
-	//launchFunction()
+	/**
+	 * launchFunction()
+	 */
 	private void launchFunction(FunctionInfo functionInfo) {
 		switch (functionInfo.getFunctionType()) {
-		case (FunctionInfo.FUNCTION_TYPE_WIFI):
-			wifi();
-			break;
-		case (FunctionInfo.FUNCTION_TYPE_SYNC):
-			sync();
-			break;
-		case (FunctionInfo.FUNCTION_TYPE_BLUETOOTH):
-			bluetooth();
-			break;
-		case (FunctionInfo.FUNCTION_TYPE_SILENT_MODE):
-			ringerMode();
-			break;
-		case (FunctionInfo.FUNCTION_TYPE_VOLUME):
-			volume();
-			break;
-		case (FunctionInfo.FUNCTION_TYPE_SEARCH):
-			search();
-			break;
-		case (FunctionInfo.FUNCTION_TYPE_ROTATE):
-			rotate();
-			break;
-		case (FunctionInfo.FUNCTION_TYPE_AIRPLANE_MODE):
-			airplaneMode();
-			break;
+			case (FunctionInfo.FUNCTION_TYPE_WIFI):
+				wifi();
+				break;
+
+			case (FunctionInfo.FUNCTION_TYPE_SYNC):
+				sync();
+				break;
+
+			case (FunctionInfo.FUNCTION_TYPE_BLUETOOTH):
+				bluetooth();
+				break;
+
+			case (FunctionInfo.FUNCTION_TYPE_SILENT_MODE):
+				ringerMode();
+				break;
+
+			case (FunctionInfo.FUNCTION_TYPE_VOLUME):
+				volume();
+				break;
+
+			case (FunctionInfo.FUNCTION_TYPE_SEARCH):
+				search();
+				break;
+
+			case (FunctionInfo.FUNCTION_TYPE_ROTATE):
+				rotate();
+				break;
+
+			case (FunctionInfo.FUNCTION_TYPE_AIRPLANE_MODE):
+				airplaneMode();
+				break;
 		}
 	}
 	
-	//wifi()
+	/**
+	 * wifi()
+	 */
 	private void wifi() {
-		
 		WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 
-		if (wm != null) {			
+		if (wm != null) {
 			switch (wm.getWifiState()) {
 			case (WifiManager.WIFI_STATE_ENABLED):
 				wm.setWifiEnabled(false);
 				Toast.makeText(context, R.string.wifi_off, Toast.LENGTH_SHORT).show();
 				break;
+
 			case (WifiManager.WIFI_STATE_DISABLED):
 				wm.setWifiEnabled(true);
 				Toast.makeText(context, R.string.wifi_on, Toast.LENGTH_SHORT).show();
 				break;
+
 			case (WifiManager.WIFI_STATE_UNKNOWN):
 				Toast.makeText(context, R.string.wifi_unknown, Toast.LENGTH_SHORT).show();
 				break;
@@ -163,9 +184,10 @@ public class Launch {
 		}
 	}
 	
-	//sync()
+	/**
+	 * sync()
+	 */
 	private void sync() {
-		
 		if (ContentResolver.getMasterSyncAutomatically() == true) {
 			ContentResolver.setMasterSyncAutomatically(false);
 			Toast.makeText(context, R.string.sync_off, Toast.LENGTH_SHORT).show();
@@ -176,10 +198,11 @@ public class Launch {
 		}
 	}
 	
-	//bluetooth()
+	/**
+	 * bluetooth()
+	 */
 	private void bluetooth() {
-		
-		BluetoothAdapter ba = BluetoothAdapter.getDefaultAdapter();		
+		BluetoothAdapter ba = BluetoothAdapter.getDefaultAdapter();
 		if (ba != null) {
 			if (ba.isEnabled()) {
 				ba.disable();
@@ -195,49 +218,57 @@ public class Launch {
 		}
 	}
 	
-	//ringerMode()
+	/**
+	 * ringerMode()
+	 */
 	private void ringerMode() {
-		
 		AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-		
 		switch (am.getRingerMode()) {
-		case AudioManager.RINGER_MODE_NORMAL:
-			am.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-			Toast.makeText(context, R.string.vibrate_mode_on, Toast.LENGTH_SHORT).show();
-			break;
-		case AudioManager.RINGER_MODE_VIBRATE:
-			am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
-			Toast.makeText(context, R.string.silent_mode_on, Toast.LENGTH_SHORT).show();
-			break;
-		case AudioManager.RINGER_MODE_SILENT:
-			am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-			Toast.makeText(context, R.string.silent_mode_off, Toast.LENGTH_SHORT).show();
-			break;
-		}
+			case AudioManager.RINGER_MODE_NORMAL:
+				am.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+				Toast.makeText(context, R.string.vibrate_mode_on, Toast.LENGTH_SHORT).show();
+				break;
 
+			case AudioManager.RINGER_MODE_VIBRATE:
+				am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+				Toast.makeText(context, R.string.silent_mode_on, Toast.LENGTH_SHORT).show();
+				break;
+
+			case AudioManager.RINGER_MODE_SILENT:
+				am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+				Toast.makeText(context, R.string.silent_mode_off, Toast.LENGTH_SHORT).show();
+				break;
+		}
 	}
 	
-	//volume()
+	/**
+	 * volume()
+	 */
 	private void volume() {
 		volumeDialog = new VolumeDialog(context);
 		volumeDialog.show();
 	}
 	
-	//getVolumeDialot()
+	/**
+	 * getVolumeDialot()
+	 */
 	public VolumeDialog getVolumeDialog() {
 		return volumeDialog;
 	}
 	
-	//search()
+	/**
+	 * search()
+	 */
 	private void search() {
 		SearchManager sm = (SearchManager) context.getSystemService(Context.SEARCH_SERVICE);
 		sm.startSearch(null, false, null, null, true);
 	}
 	
-	//rotate()
+	/**
+	 * rotate()
+	 */
 	private void rotate() {
 		boolean rotate = Settings.System.getInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0) == 1;		
-
 		if (rotate) {
 			Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
 			Toast.makeText(context, R.string.rotate_off, Toast.LENGTH_SHORT).show();
@@ -248,12 +279,16 @@ public class Launch {
 		}
 	}
 
-	//airplaneMode()
+	/**
+	 * airplaneMode()
+	 */
 	private void airplaneMode() {
 		Toast.makeText(context, R.string.airplane_mode_error, Toast.LENGTH_SHORT).show();
 	}
 	
-	//launchFlickActivityFromService()
+	/**
+	 * launchFlickActivityFromService()
+	 */
 	public void launchFlickerActivityFromService(boolean b) {
 		if (b) {
 			Intent intent = new Intent(Intent.ACTION_MAIN)
@@ -264,50 +299,66 @@ public class Launch {
 		}
 	}
 
-	//launchFlickerActivity()
+	/**
+	 * launchFlickerActivity()
+	 */
 	public void launchFlickerActivity() {
 		Intent intent = new Intent().setClass(context, FlickerActivity.class);
 		context.startActivity(intent);
 	}
 
-	//launchEditorActivity()
+	/**
+	 * launchEditorActivity()
+	 */
 	public void launchEditorActivity() {
 		Intent intent = new Intent().setClass(context, EditorActivity.class);
 		context.startActivity(intent);
 	}
 	
-	//launchPrefActivity()
+	/**
+	 * launchPrefActivity()
+	 */
 	public void launchPrefActivity() {
 		Intent intent = new Intent().setClass(context, PrefActivity.class);
 		context.startActivity(intent);
 	}
 	
-	//launchPrefSubActivity()
+	/**
+	 * launchPrefSubActivity()
+	 */
 	public void launchPrefSubActivity(int key) {
 		Intent intent = new Intent().setClass(context, PrefSubActivity.class);
 		intent.putExtra(PrefSubActivity.KEY, key);
 		context.startActivity(intent);
 	}
 	
-	//launchDonateActivity()
+	/**
+	 * launchDonateActivity()
+	 */
 	public void launchDonateActivity() {
 		Intent intent = new Intent().setClass(context, DonateActivity.class);
 		context.startActivity(intent);
 	}
 	
-	//launchAndroidSettings()
+	/**
+	 * launchAndroidSettings()
+	 */
 	public void launchAndroidSettings() {
 		Intent intent =  new Intent(android.provider.Settings.ACTION_SETTINGS)
 				.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 		context.startActivity(intent);
 	}
 	
-	//launchAnotherHome()
-	public void launchAnotherHome (boolean b) {
+	/**
+	 * launchAnotherHome()
+	 */
+	public void launchAnotherHome(boolean b) {
 		if (b) launchIntentApp(new HomeKeySettings(context).getAnotherHome().getIntentAppInfo(), null);
 	}
 	
-	//startStatusbar()
+	/**
+	 * startStatusbar()
+	 */
 	public void startStatusbar(boolean b) {
 		if (b) {
 			NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -315,7 +366,9 @@ public class Launch {
 		}
 	}
 	
-	//getNotification()
+	/**
+	 * getNotification()
+	 */
 	public Notification getNotification(String text) {
 		Intent intent = new Intent(Intent.ACTION_MAIN)
 				.addCategory(Intent.CATEGORY_LAUNCHER)
@@ -336,28 +389,38 @@ public class Launch {
 		
 	}
 
-	//stopStatusbar()
+	/**
+	 * stopStatusbar()
+	 */
 	public void stopStatusbar() {
 		((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).cancel(0);		
 	}
 	
-	//startOverlayService()
+	/**
+	 * startOverlayService()
+	 */
 	public void startOverlayService(boolean b) {
 		if (b) context.startService(new Intent(context, OverlayService.class));
 	}
 	
-	//stopOverlayService()
+	/**
+	 * stopOverlayService()
+	 */
 	public void stopOverlayService() {
 		context.stopService(new Intent(context, OverlayService.class));
 	}
 
-	//clearDefault()
+	/**
+	 * clearDefault()
+	 */
 	public void clearDefault(Context context) {
 		context.getPackageManager().clearPackagePreferredActivities(context.getPackageName());
 	}
 	
-	//vibrate()
-	public void vibrate (int time) {
+	/**
+	 * vibrate()
+	 */
+	public void vibrate(int time) {
 		if (time != 0) ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(time);
 	}
 }

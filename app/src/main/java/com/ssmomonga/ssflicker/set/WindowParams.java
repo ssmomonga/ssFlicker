@@ -22,7 +22,7 @@ public class WindowParams {
 	private static Drawable appWindowBackground;
 	private static Drawable actionWindowBackground;
 	
-	/*
+	/**
 	 * Constructor
 	 */
 	public WindowParams(Context context) {
@@ -36,7 +36,7 @@ public class WindowParams {
 		fillWindowBackground();
 	}
 
-	/*
+	/**
 	 * fillLP()
 	 */
 	private void fillLP(PrefDAO pdao) {
@@ -46,7 +46,7 @@ public class WindowParams {
 		textLP =  new LinearLayout.LayoutParams(iconSize + textSize, LayoutParams.WRAP_CONTENT);
 	}
 	
-	/*
+	/**
 	 * fillWindowBackground()
 	 */
 	private void fillWindowBackground() {
@@ -73,63 +73,63 @@ public class WindowParams {
 
 	}
 	
-	/*
+	/**
 	 * isStatusbarVisibility()
 	 */
 	public boolean isStatusbarVisibility() {
 		return statusbarVisibility;
 	}
 	
-	/*
+	/**
 	 * getIconLP()
 	 */
 	public LinearLayout.LayoutParams getIconLP() {
 		return iconLP;
 	}
 	
-	/*
+	/**
 	 * getTextLP()
 	 */
 	public LinearLayout.LayoutParams getTextLP() {
 		return textLP;
 	}
 	
-	/*
+	/**
 	 * isTextVisibility()
 	 */
 	public boolean isTextVisibility() {
 		return textVisibility;
 	}
 	
-	/*
+	/**
 	 * getTextColor()
 	 */
 	public int getTextColor() {
 		return textColor;
 	}
 	
-	/*
+	/**
 	 * getTextSize()
 	 */
 	public int getTextSize() {
 		return textSize;
 	}
 	
-	/*
+	/**
 	 * getPointerWindowBackground()
 	 */
 	public Drawable getPointerWindowBackground() {
 		return pointerWindowBackground;
 	}
 	
-	/*
+	/**
 	 * getAppWindowBackground()
 	 */
 	public Drawable getAppWindowBackground() {
 		return appWindowBackground;
 	}
 	
-	/*
+	/**
 	 * getActionWindowBackground()
 	 */
 	public Drawable getActionWindowBackground() {

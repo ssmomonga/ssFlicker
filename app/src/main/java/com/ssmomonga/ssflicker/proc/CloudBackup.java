@@ -8,7 +8,7 @@ public class CloudBackup extends BackupAgentHelper {
 	private static final String PREF_FILE_NAME = "com.ssmomonga.ssflicker_preferences";
 	private static final String PREF_BACKUP_KEY = "pref_backup_key";
 	
-	/*
+	/**
 	 * onCreate()
 	 */
 	public void onCreate() {

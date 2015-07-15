@@ -25,7 +25,7 @@ public class App {
 	private AppWidgetInfo appWidget;		
 	private FunctionInfo function;
 
-	/*
+	/**
 	 * Constructor(IntentApp)
 	 */
 	public App (Context context, int appType, String packageName, String appLabel, int appLabelType,
@@ -40,7 +40,7 @@ public class App {
 		this.intentApp = intentApp;
 	}
 		
-	/*
+	/**
 	 * Constructor(Function)
 	 */
 	public App(Context context, int appType, String packageName, String appLabel, int appLabelType,
@@ -55,7 +55,7 @@ public class App {
 		this.function = function;
 	}
 
-	/*
+	/**
 	 * Constructor(AppWidget)
 	 */
 	public App(Context context, int appType, String packageName, String appLabel, int appLabelType,
@@ -70,21 +70,21 @@ public class App {
 		this.appWidget = appWidget;
 	}
 
-	/*
+	/**
 	 * getAppType()
 	 */
 	public int getAppType() {
 		return appType;
 	}
 	
-	/*
+	/**
 	 * getPackageName()
 	 */
 	public String getPackageName() {
 		return packageName;
 	}
 
-	/*
+	/**
 	 * getAppLabel()
 	 */
 	public String getAppLabel() {
@@ -93,7 +93,7 @@ public class App {
 //		return appLabel;
 	}
 
-	/*
+	/**
 	 * getAppRawLabel()
 	 */
 	public String getAppRawLabel() {
@@ -109,14 +109,14 @@ public class App {
 		}
 	}
 
-	/*
+	/**
 	 * getAppLabelType()
 	 */
 	public int getAppLabelType() {
 		return appLabelType;
 	}
 
-	/*
+	/**
 	 * geAppIcon()
 	 */
 	public Drawable getAppIcon() {
@@ -125,7 +125,7 @@ public class App {
 //		return appIcon;
 	}
 
-	/*
+	/**
 	 * getAppRawIcon()
 	 */
 	public Drawable getAppRawIcon() {
@@ -141,35 +141,35 @@ public class App {
 		}
 	}
 
-	/*
+	/**
 	 * getAppIconType()
 	 */
 	public int getAppIconType() {
 		return appIconType;
 	}
 
-	/*
+	/**
 	 * setAppLabel()
 	 */
 	public void setAppLabel(String appLabel) {
 		this.appLabel = appLabel;
 	}
 
-	/*
+	/**
 	 * setAppLabelType()
 	 */
 	public void setAppLabelType(int appLabelType) {
 		this.appLabelType = appLabelType;
 	}
 
-	/*
+	/**
 	 * setAppIcon()
 	 */
 	public void setAppIcon(Drawable appIcon) {
 		this.appIcon = appIcon;
 	}
 
-	/*
+	/**
 	 * setAppIconType()
 	 */
 	public void setAppIconType(int appIconType) {
@@ -180,14 +180,14 @@ public class App {
 		return intentApp;
 	}
 
-	/*
+	/**
 	 * getAppWidgetInfo()
 	 */
 	public AppWidgetInfo getAppWidgetInfo() {
 		return appWidget;
 	}
 
-	/*
+	/**
 	* getFunctionInfo()
 	 */
 	public FunctionInfo getFunctionInfo() {

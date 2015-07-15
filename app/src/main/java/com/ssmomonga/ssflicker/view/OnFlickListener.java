@@ -19,7 +19,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	private boolean editorMode;
 	private int vibrateTime;
 	
-	/*
+	/**
 	 * Constructor
 	 */
 	public OnFlickListener(Context context) {
@@ -30,7 +30,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		vibrateTime = params.getVibrateTime();
 	}
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public OnFlickListener(Context context, int vibrateTime) {
@@ -39,7 +39,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		this.vibrateTime = vibrateTime;
 	}
 
-	/*
+	/**
 	 * onTouch()
 	 */
 	@Override
@@ -78,37 +78,37 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		return true;
 	}
 
-	/*
+	/**
 	 * setId()
 	 */
 	abstract public void setId(int id);
 
-	/*
+	/**
 	 * isData()
 	 */
 	abstract public boolean isData();
 
-	/*
+	/**
 	 * onDown()
 	 */
 	abstract public void onDown(int position);
 
-	/*
+	/**
 	 * onMove()
 	 */
 	abstract public void onMove(int oldPosition, int position);
 
-	/*
+	/**
 	 * onUp()
 	 */
 	abstract public void onUp(int position, Rect r);
 
-	/*
+	/**
 	 * onCancel()
 	 */
 	abstract public void onCancel(int position);
 
-	/*
+	/**
 	 * Position
 	 */
 	private class Position {
@@ -118,7 +118,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		private int oldPosition = -1;
 		private int position = -1;
 
-		/*
+		/**
 		 * Constructor
 		 */
 		public Position(float iniX, float iniY) {
@@ -126,7 +126,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 			this.iniY = iniY;
 		}
 
-		/*
+		/**
 		 * /setPosition()
 		 */
 		public boolean setPosition(float X, float Y) {
@@ -173,14 +173,14 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 			return position != oldPosition;
 		}
 		
-		/*
+		/**
 		 getPosition()
 		 */
 		public int getPosition() {
 			return position;
 		}
 
-		/*
+		/**
 		 * getOldPosition()
 		 */
 		public int getOldPosition() {
@@ -188,14 +188,14 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		}
 	}
 	
-	/*
+	/**
 	 * FlickListenerParams
 	 */
 	private class FlickListenerParams {
 		
 		private int vibrateTime;
 
-		/*
+		/**
 		 * Constructor
 		 */
 		public FlickListenerParams(Context context) {
@@ -203,7 +203,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 			vibrateTime = pdao.getVibrateTime();
 		}
 
-		/*
+		/**
 		 * getVibrateTime()
 		 */
 		public int getVibrateTime() {

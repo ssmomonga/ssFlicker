@@ -15,7 +15,7 @@ public class MenuList {
 	public static final int MENU_FLICK_MODE = 4;
 	public static final int MENU_ANDROID_SETTINGS = 6;
 
-	/*
+	/**
 	 * getFlickerMenuList()
 	 */
 	public static BaseData[] getFlickerMenuList(Context context) {
@@ -40,7 +40,7 @@ public class MenuList {
 		return menu;
 	}
 
-	/*
+	/**
 	 * getEditorMenuList()
 	 */
 	public static BaseData[] getEditorMenuList(Context context) {

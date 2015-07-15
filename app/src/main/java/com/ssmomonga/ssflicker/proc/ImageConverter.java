@@ -22,7 +22,7 @@ import java.io.ByteArrayOutputStream;
 
 public class ImageConverter {
 	
-	/*
+	/**
 	 * createDrawable()
 	 * Bitmap → Drawable
 	 * createDrawable()とショートカットのアイコン追加で使う
@@ -31,7 +31,7 @@ public class ImageConverter {
 		return new BitmapDrawable(context.getResources(), bitmap);
 	}
 
-	/*
+	/**
 	 * createBitmap()
 	 * Drawable → Bitmap
 	 * createByte()で使う。9-patchを使っている場合の対応
@@ -48,7 +48,7 @@ public class ImageConverter {
 		return bitmap;
 	}
 	
-	/*
+	/**
 	 * createDrawable()
 	 * byte → Bitmap → Drawable
 	 * DBからのselectで使う
@@ -56,14 +56,14 @@ public class ImageConverter {
 	public static Drawable createDrawable(Context context, byte[] b) {
 		return b != null ? createDrawable(context, BitmapFactory.decodeByteArray(b, 0, b.length)) : null;
 
-/*		if (b != null) {
+/**		if (b != null) {
 			return createDrawable(context, BitmapFactory.decodeByteArray(b, 0, b.length));
 		} else {
 			return null;
 		} */
 	}
 
-	/*
+	/**
 	 * createByte()
 	 * Drawable → Bitmap → リサイズ → byte
 	 * DBへのinsertで使う
@@ -79,7 +79,7 @@ public class ImageConverter {
 		}
 	}
 
-	/*
+	/**
 	 * resizeBitmap()
 	 * Bitmap → Bitmap
 	 */
@@ -89,7 +89,7 @@ public class ImageConverter {
 		
 		float size = context.getResources().getDimensionPixelSize(R.dimen.icon_size);
 		float scale = width >= height ? size / width : size / height;
-/*
+/**
 		if (width >= height) {
 			scale = size / width;
 		} else {
@@ -103,7 +103,7 @@ public class ImageConverter {
 		return resizeBitmap;
 	}
 	
-	/*
+	/**
 	 * resizeAppWidgetPreviewImage()
 	 */
 	public static Bitmap resizeAppWidgetPreviewImage(Context context, Bitmap bitmap) {
@@ -126,7 +126,7 @@ public class ImageConverter {
 
 	}
 
-	/*
+	/**
 	 * roundBitmap()
 	 * bitmapの角を丸める。画像を選択＆トリミングで利用する。
 	 */
@@ -149,7 +149,7 @@ public class ImageConverter {
 		return roundBitmap;
 	}
 	
-	/*
+	/**
 	 * changeIconColor()
 	 */
 	public static Drawable changeIconColor(Context context, Drawable drawable, int newColor) {
@@ -179,7 +179,7 @@ public class ImageConverter {
 		
 	}
 
-	/*
+	/**
 	 * createMultiAppIcon()
 	 */
 	public static Drawable createMultiAppsIcon(Context context, App[] appList) {
@@ -213,14 +213,14 @@ public class ImageConverter {
 		return createDrawable(context, multiAppIcon);
 	}
 	
-	/*
+	/**
 	 * createARGB()
 	 */
 	public static int createColor(int alpha, int rgb) {
 		return Color.argb(alpha, Color.red(rgb), Color.green(rgb), Color.blue(rgb));
 	}
 	
-	/*
+	/**
 	 * createBackground()
 	 */
 	public static Drawable createBackground(Context context, int backgroundColor, int strokeThickness, int strokeRGB, int cornerRadius) {

@@ -61,7 +61,7 @@ public class FlickerActivity extends Activity {
 		}
 	};
 
-	/*
+	/**
 	 * onCreate()
 	 */
 	@Override
@@ -81,7 +81,7 @@ public class FlickerActivity extends Activity {
 
 	}
 
-	/*
+	/**
 	 * onResume()
 	 */
 	@Override
@@ -98,7 +98,7 @@ public class FlickerActivity extends Activity {
 		viewAppWidgetAll();
 	}
 
-	/*
+	/**
 	 * onConfigurationChanged()
 	 */
 	@Override
@@ -115,7 +115,7 @@ public class FlickerActivity extends Activity {
 		viewAppWidgetAll();
 	}
 
-	/*
+	/**
 	 * onPause()
 	 */
 	@Override
@@ -128,7 +128,7 @@ public class FlickerActivity extends Activity {
 		if (!isFinishing()) finish();
 	}
 
-	/*
+	/**
 	 * onDestroy()
 	 */
 	@Override
@@ -138,7 +138,7 @@ public class FlickerActivity extends Activity {
 	}
 
 
-	/*
+	/**
 	 * onInitialLayout()
 	 */
 	private void setInitialLayout() {
@@ -150,7 +150,7 @@ public class FlickerActivity extends Activity {
 		setOnFlickListener();
 	}
 	
-	/*
+	/**
 	 * setOnFlickListener()
 	 */
 	private void setOnFlickListener() {
@@ -165,7 +165,7 @@ public class FlickerActivity extends Activity {
 		pointer_window.setOnFlickListener(new OnPointerFlickListener(this));
 	}
 	
-	/*
+	/**
 	 * setLayout()
 	 */
 	private void setLayout() {
@@ -176,7 +176,7 @@ public class FlickerActivity extends Activity {
 		action_window.setLayout(params);
 	}
 	
-	/*
+	/**
 	 * setOrientationLayout()
 	 */
 	private void setOrientationLayout() {
@@ -188,23 +188,21 @@ public class FlickerActivity extends Activity {
 		action_window.setLayoutParams(params.getActionWindowLP());
 	}
 
-	/*
+	/**
 	 * viewAppWidgetAll
 	 */
 	private void viewAppWidgetAll() {
 		app_widget_layer.removeAllViews();
-
 		int appWidgetList[][] = sdao.selectAppWidgets();
 		for (int[] appWidget : appWidgetList) {
 			int pointerId = appWidget[0];
 			int appId = appWidget[1];
 			AppWidgetInfo appWidgetInfo = appListList[pointerId][appId].getAppWidgetInfo();
 			viewAppWidget(pointerId, appId, appWidgetInfo, false);
-
 		}
 	}
 
-	/*
+	/**
 	 * viewAppWidget()
 	 */
 	private void viewAppWidget(int pointerId, int appId, AppWidgetInfo appWidgetInfo, boolean update) {
@@ -238,7 +236,7 @@ public class FlickerActivity extends Activity {
 		}
 	}
 
-	/*
+	/**
 	 * OnDockFlickListener
 	 */
 	private class OnDockFlickListener extends OnFlickListener {
@@ -289,13 +287,11 @@ public class FlickerActivity extends Activity {
 			}
 		}
 
-		
 		@Override
 		public void onCancel(int position) {}
 	}
 
-
-	/*
+	/**
 	 * OnPointerFlickListener
 	 */
 	private class OnPointerFlickListener extends OnFlickListener {
@@ -348,7 +344,6 @@ public class FlickerActivity extends Activity {
 			action_window.setApp(pointer, appListList[pointerId]);
 			action_window.setVisibility(View.VISIBLE);
 		}
-		
 
 		@Override
 		public void onMove(int oldPosition, int position) {
@@ -378,7 +373,7 @@ public class FlickerActivity extends Activity {
 		public void onCancel(int position) {}
 	}
 	
-	/*
+	/**
 	 * OnMenuFlickListener
 	 */
 	private class OnMenuFlickListener extends OnFlickListener {
@@ -425,7 +420,7 @@ public class FlickerActivity extends Activity {
 		}
 	}
 
-	/*
+	/**
 	 * menu()
 	 */
 	private void menu(int position) {

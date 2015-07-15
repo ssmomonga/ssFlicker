@@ -18,7 +18,7 @@ import com.ssmomonga.ssflicker.db.PrefDAO;
 
 public class CustomAdapters {
 
-	/*
+	/**
 	 * AppAdapter
 	 */
 	public static class AppAdapter extends ArrayAdapter<App> {
@@ -27,7 +27,7 @@ public class CustomAdapters {
 		private int resource;
 		private static LinearLayout.LayoutParams params;
 
-		/*
+		/**
 		 * Constructor
 		 */
 		public AppAdapter(Context context, int resource) {
@@ -38,7 +38,7 @@ public class CustomAdapters {
 			params = new LinearLayout.LayoutParams(iconSize, iconSize);
 		}
 
-		/*
+		/**
 		 * getView()
 		 */
 		@Override
@@ -65,7 +65,7 @@ public class CustomAdapters {
 			return convertView;
 		}
 
-		/*
+		/**
 		 * ViewHolder
 		 */
 		private class ViewHolder {
@@ -75,7 +75,7 @@ public class CustomAdapters {
 
 	}
 
-	/*
+	/**
 	 * AppWidgetAdapter
 	 */
 	public static class AppWidgetAdapter extends ArrayAdapter<App> {
@@ -90,7 +90,7 @@ public class CustomAdapters {
 			this.resource = resource;
 		}
 		
-		/*
+		/**
 		 * getView()
 		 */
 		@Override
@@ -118,7 +118,7 @@ public class CustomAdapters {
 			return convertView;
 		}
 
-		/*
+		/**
 		 * ViewHolder
 		 */
 		private class ViewHolder {
@@ -129,7 +129,7 @@ public class CustomAdapters {
 
 	}
 	
-	/*
+	/**
 	 * IconAdapter
 	 */
 	public static class IconAdapter extends ArrayAdapter<BaseData> {
@@ -139,7 +139,7 @@ public class CustomAdapters {
 		private int iconColor;
 		private LinearLayout.LayoutParams params;
 
-		/*
+		/**
 		 * Consructor
 		 */
 		public IconAdapter(Context context, int resource, int iconColor) {
@@ -151,7 +151,7 @@ public class CustomAdapters {
 			params = new LinearLayout.LayoutParams(iconSize, iconSize);
 		}
 
-		/*
+		/**
 		 * getView()
 		 */
 		@Override
@@ -175,7 +175,7 @@ public class CustomAdapters {
 			return convertView;
 		}
 
-		/*
+		/**
 		 * ViewHolder
 		 */
 		private class ViewHolder {

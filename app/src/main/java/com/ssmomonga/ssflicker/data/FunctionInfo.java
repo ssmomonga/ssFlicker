@@ -19,21 +19,21 @@ public class FunctionInfo {
 	
 	private int functionType;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public FunctionInfo(int functionType) {
 		this.functionType = functionType;
 	}
 	
-	/*
+	/**
 	 * getFunctionType()
 	 */
 	public int getFunctionType() {
 		return functionType;
 	}
 
-	/*
+	/**
 	 * getFunctionRawLabel()
 	 */
 	public String getFunctionRawLabel(Context context) {
@@ -61,7 +61,7 @@ public class FunctionInfo {
 		}
 	}
 
-	/*
+	/**
 	 * getFunctionRawIcon()
 	 */
 	public Drawable getFunctionRawIcon(Context context) {

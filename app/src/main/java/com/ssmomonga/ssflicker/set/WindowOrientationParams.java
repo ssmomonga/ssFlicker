@@ -1,8 +1,5 @@
 package com.ssmomonga.ssflicker.set;
 
-import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.db.PrefDAO;
-
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -11,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.ssmomonga.ssflicker.R;
+import com.ssmomonga.ssflicker.db.PrefDAO;
 
 public class WindowOrientationParams {
 	
@@ -27,7 +27,9 @@ public class WindowOrientationParams {
 	private static RelativeLayout.LayoutParams actionWindowLP;
 	private static RelativeLayout.LayoutParams appWindowForEditLP;
 	
-	//コンストラクタ
+	/**
+	 * Constructor
+	 */
 	public WindowOrientationParams(Context context) {
 		r = context.getResources();
 		orientation = DeviceSettings.getOrientation(context);
@@ -40,7 +42,9 @@ public class WindowOrientationParams {
 		fillAppWindowForEditLP();
 	}	
 
-	//fillWindowPosition()
+	/**
+	 * fillWindowPosition()
+	 */
 	private void fillWindowPosition(Context context) {
 		PrefDAO pdao = new PrefDAO(context);
 		switch (orientation) {
@@ -58,7 +62,9 @@ public class WindowOrientationParams {
 		pointerWindowGravity[1] = pointerWindowPosition - pointerWindowGravity[0];
 	}
 
-	//fillAppWidgetLP
+	/**
+	 * fillAppWidgetLP
+	 */
 	private void fillAppWidgetLayerLP(Context context) {
 		int cellCount = DeviceSettings.getDeviceCellSize(context);
 		int[] pixelPerCell = DeviceSettings.getPixelPerCell(context);
@@ -68,7 +74,9 @@ public class WindowOrientationParams {
 		appWidgetLayerLP = new FrameLayout.LayoutParams(pixelWidth, pixelHeight, gravity);
 	}
 	
-	//fillDockWindowOrientation()
+	/**
+	 * fillDockWindowOrientation()
+	 */
 	private void fillDockWindowOrientation() {
 		switch (orientation) {
 			case Configuration.ORIENTATION_PORTRAIT:
@@ -84,8 +92,10 @@ public class WindowOrientationParams {
 				break;
 		}
 	}
-	
-	//fillDockWindowLP()
+
+	/**
+	 * fillDockWindowLP()
+	 */
 	private void fillDockWindowLP() {
 		
 		int margin = r.getDimensionPixelSize(R.dimen.int_16_dp);
@@ -174,9 +184,10 @@ public class WindowOrientationParams {
 			}
 		}
 	}
-	
-	
-	//fillPointerWindowLP()
+
+	/**
+	 * fillPointerWindowLP()
+	 */
 	private void fillPointerWindowLP() {
 		
 		pointerWindowLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -293,9 +304,10 @@ public class WindowOrientationParams {
 					
 		}
 	}
-		
-		
-	//fillAppWindowForEditLP()
+
+	/**
+	 * fillAppWindowForEditLP()
+	 */
 	public void fillAppWindowForEditLP() {
 
 		appWindowForEditLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -406,8 +418,10 @@ public class WindowOrientationParams {
 			}		
 		}
 	}
-	
-	//fillActionWindowLP()
+
+	/**
+	 * fillActionWindowLP()
+	 */
 	private void fillActionWindowLP() {
 		
 		actionWindowLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -557,37 +571,51 @@ public class WindowOrientationParams {
 		
 	}
 	
-	//getOrientation()
+	/**
+	 getOrientation()
+	 */
 	public int getOrientation() {
 		return orientation;
 	}
 	
-	//getAppWidgetLayerLP()
+	/**
+	 * getAppWidgetLayerLP()
+	 */
 	public FrameLayout.LayoutParams getAppWidgetLayerLP() {
 		return appWidgetLayerLP;
 	}
 	
-	//getDockWindowOrientation()
+	/**
+	 * getDockWindowOrientation()
+	 */
 	public int getDockWindowOrientation() {
 		return dockWindowOrientation;
 	}
 	
-	//getDockWindowLP()
+	/**
+	 getDockWindowLP()
+	 */
 	public RelativeLayout.LayoutParams getDockWindowLP() {
 		return dockWindowLP;
 	}
 	
-	//getPointerWindowLP()
+	/**
+	 * getPointerWindowLP()
+	 */
 	public RelativeLayout.LayoutParams getPointerWindowLP() {
 		return pointerWindowLP;
 	}
 	
-	//getAppWindowLPForEdit()
+	/**
+	 * getAppWindowLPForEdit()
+	 */
 	public RelativeLayout.LayoutParams getAppWindowForEditLP() {
 		return appWindowForEditLP;
 	}
 	
-	//getActionWindowLPForEdit()
+	/**
+	 * getActionWindowLPForEdit()
+	 */
 	public RelativeLayout.LayoutParams getActionWindowLP() {
 		return actionWindowLP;
 	}

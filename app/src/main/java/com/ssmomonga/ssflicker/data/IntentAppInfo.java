@@ -26,7 +26,7 @@ public class IntentAppInfo {
 	private Intent intent;
 	private int taskId = -1;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public IntentAppInfo(int intentAppType, String intentUri) {
@@ -39,7 +39,7 @@ public class IntentAppInfo {
 		}
 	}
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public IntentAppInfo(int intentAppType, Intent intent) {
@@ -48,7 +48,7 @@ public class IntentAppInfo {
 		intentUri = intent.toUri(0);
 	}
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public IntentAppInfo(int intentAppType, Intent intent, int taskId) {
@@ -58,7 +58,7 @@ public class IntentAppInfo {
 		intentUri = intent.toUri(0);
 	}
 
-	/*
+	/**
 	 * getIntentAppRawLabel()
 	 */
 	public String getIntentAppRawLabel(Context context) {
@@ -73,7 +73,7 @@ public class IntentAppInfo {
 		}
 	}
 
-	/*
+	/**
 	 * getIntentAppRawIcon()
 	 */
 	public Drawable getIntentAppRawIcon(Context context) {
@@ -84,49 +84,49 @@ public class IntentAppInfo {
 				resolveInfoList.get(0).activityInfo.loadIcon(pm) :
 				context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
 
-	/*		if (resolveInfoList.size() != 0) {
+	/**		if (resolveInfoList.size() != 0) {
 			return resolveInfoList.get(0).activityInfo.loadIcon(pm);
 		} else {
 			return context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
 		}	 */
 	}
 
-	/*
+	/**
 	 * getIntentAppType()
 	 */
 	public int getIntentAppType() {
 		return intentAppType;
 	}
 
-	/*
+	/**
 	 * getIntentUri()
 	 */
 	public String getIntentUri() {
 		return intentUri;
 	}
 
-	/*
+	/**
 	 * getIntent()
 	 */
 	public Intent getIntent() {
 		return intent;
 	}
 
-	/*
+	/**
 	 * getSendTemplate()
 	 */
 	public String getSendTemplate() {
 		return intent.getStringExtra(Intent.EXTRA_TEXT);
 	}
 
-	/*
+	/**
 	 * getTaskId()
 	 */
 	public int getTaskId() {
 		return taskId;
 	}
 
-	/*
+	/**
 	 * setSendTemplate
 	 */
 	public void setSendTemplate (String sendTemplate) {

@@ -21,7 +21,7 @@ public class Drawer extends AlertDialog {
 	private static AppAdapter adapter;
 	private static GridView gv_apps;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public Drawer(Context context) {
@@ -30,7 +30,7 @@ public class Drawer extends AlertDialog {
 		setInitialLayout();
 	}
 	
-	/*
+	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout() {
@@ -52,7 +52,7 @@ public class Drawer extends AlertDialog {
 
 	}
 	
-	/*
+	/**
 	 * execute()
 	 */
 	public void execute() {

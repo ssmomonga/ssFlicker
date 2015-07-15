@@ -32,7 +32,7 @@ public class AppWindow extends TableLayout {
 	private static Animation anim_pointer_unpointed;
 	private static Animation anim_window_open;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public AppWindow(Context context, AttributeSet _attrs) {
@@ -40,7 +40,7 @@ public class AppWindow extends TableLayout {
 		setInitialLayout(context);
 	}
 	
-	/*
+	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout(Context context) {
@@ -89,7 +89,7 @@ public class AppWindow extends TableLayout {
 
 	}
 
-	/*
+	/**
 	 * setOnFlickListener()
 	 */
 	public void setOnFlickListener(OnFlickListener pointerListener, OnFlickListener appListener) {
@@ -97,7 +97,7 @@ public class AppWindow extends TableLayout {
 		for (LinearLayout ll: ll_app) ll.setOnTouchListener(appListener);
 	}
 	
-	/*
+	/**
 	 * setLayout()
 	 */
 	public void setLayout(WindowParams settings) {
@@ -136,7 +136,7 @@ public class AppWindow extends TableLayout {
 
 	}
 	
-	/*
+	/**
 	 * viewWindow()
 	 */
 	public void setApp(Pointer pointer, App[] appList) {
@@ -156,7 +156,7 @@ public class AppWindow extends TableLayout {
 		}
 	}
 	
-	/*
+	/**
 	 * setAppForEdit()
 	 */
 	public void setAppForEdit(int pointerId, Pointer pointer, App[] appList) {
@@ -180,14 +180,14 @@ public class AppWindow extends TableLayout {
 		}
 	}
 	
-	/*
+	/**
 	 * setPointerIcon()
 	 */
 	public void setPointerIcon(Drawable d) {
 		iv_pointer.setImageDrawable(d);
 	}
 	
-	/*
+	/**
 	 * setPointed()
 	 */
 	public void setAppPointed(boolean pointed, int appId) {
@@ -198,7 +198,7 @@ public class AppWindow extends TableLayout {
 		}
 	}
 
-	/*
+	/**
 	 * setPointerPointed()
 	 */
 	public void setPointerPointed (boolean pointed) {
@@ -213,7 +213,7 @@ public class AppWindow extends TableLayout {
 //		}
 	}
 	
-	/*
+	/**
 	 * setVisibility()
 	 */
 	@Override

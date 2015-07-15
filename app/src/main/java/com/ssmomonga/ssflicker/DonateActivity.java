@@ -88,7 +88,7 @@ public class DonateActivity extends Activity {
 		}  
 	};
 
-	/*
+	/**
 	 * onCreate()
 	 */
 	@Override
@@ -107,7 +107,7 @@ public class DonateActivity extends Activity {
 		
 	}
 
-	/*
+	/**
 	 * isBillingSupported()
 	 */
 	private boolean isBillingSupported() throws RemoteException {
@@ -117,7 +117,7 @@ public class DonateActivity extends Activity {
 			
 	}
 
-	/*
+	/**
 	 * GetSkuDetailsTask
 	 */
 	private class GetSkuDetailsTask extends AsyncTask<Void, Void, Bundle> {
@@ -205,7 +205,7 @@ public class DonateActivity extends Activity {
 	    }
 	}
 
-	/*
+	/**
 	 * getSkuDetails()
 	 */
 	private Bundle getSkuDetails(String productId) throws RemoteException {
@@ -219,7 +219,7 @@ public class DonateActivity extends Activity {
 	}
 	
 	
-	/*
+	/**
 	 * isOwned()
 	 */
 	private boolean isOwned(String productId) throws RemoteException, JSONException {
@@ -243,7 +243,7 @@ public class DonateActivity extends Activity {
 
 	}
 
-	/*
+	/**
 	 * setLayout()
 	 */
 	private void setLayout(String price) {
@@ -312,7 +312,7 @@ public class DonateActivity extends Activity {
 
 	}
 	
-	/*
+	/**
 	 * setVisibility()
 	 */
 	private void setVisibility(boolean isOwned) {
@@ -331,7 +331,7 @@ public class DonateActivity extends Activity {
 		
 	}
 	
-	/*
+	/**
 	 * onActivityResult()
 	 */
 	@Override
@@ -360,7 +360,7 @@ public class DonateActivity extends Activity {
 		}
 	}
 
-	/*
+	/**
 	 * errorIab()
 	 */
 	private void errorIab(int responseCode) {
@@ -369,7 +369,7 @@ public class DonateActivity extends Activity {
 		l.launchPrefActivity();
 	}
 
-	/*
+	/**
 	 * onDestroy()
 	 */
 	@Override  
@@ -378,7 +378,7 @@ public class DonateActivity extends Activity {
 		if (mServiceConn != null) unbindService(mServiceConn);
 	}
 
-	/*
+	/**
 	 * onKeyDown()
 	 */
 	@Override

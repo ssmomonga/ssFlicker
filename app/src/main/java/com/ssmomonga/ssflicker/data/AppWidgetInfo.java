@@ -28,7 +28,7 @@ public class AppWidgetInfo {
 
 	private AppWidgetProviderInfo appWidgetProviderInfo;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public AppWidgetInfo(Context context, int appWidgetId, int appWidgetCellPositionX, int appWidgetCellPositionY,
@@ -43,7 +43,7 @@ public class AppWidgetInfo {
 		appWidgetProviderInfo = AppWidgetManager.getInstance(context).getAppWidgetInfo(appWidgetId);
 	}
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public AppWidgetInfo(Context context, AppWidgetProviderInfo info) {
@@ -51,7 +51,7 @@ public class AppWidgetInfo {
 		this.appWidgetProviderInfo = info;
 	}
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public AppWidgetInfo(Context context, AppWidgetProviderInfo info, int flag) {
@@ -60,7 +60,7 @@ public class AppWidgetInfo {
 		this.previewImage = createAppWidgetPreviewImage();
 	}
 	
-	/*
+	/**
 	 * getAppWidgetRawLabel()
 	 */
 	public String getAppWidgetRawLabel() {
@@ -71,7 +71,7 @@ public class AppWidgetInfo {
 		}
 	}
 
-	/*
+	/**
 	 * getAppWidgetRawIcon()
 	 */
 	public Drawable getAppWidgetRawIcon() {
@@ -79,49 +79,49 @@ public class AppWidgetInfo {
 				context.getPackageManager().getDrawable(appWidgetProviderInfo.provider.getPackageName(), appWidgetProviderInfo.icon, null) :
 						context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
 
-/*		if (appWidgetProviderInfo != null) {
+/**		if (appWidgetProviderInfo != null) {
 			return context.getPackageManager().getDrawable(appWidgetProviderInfo.provider.getPackageName(), appWidgetProviderInfo.icon, null);
 		} else {
 			return context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
 		}	 */
 	}
 
-	/*
+	/**
 	 * getAppWidgetProviderInfo()
 	 */
 	public AppWidgetProviderInfo getAppWidgetProviderInfo() {
 		return appWidgetProviderInfo;
 	}
 
-	/*
+	/**
 	 * getAppWidgetId()
 	 */
 	public int getAppWidgetId() {
 		return appWidgetId;
 	}
 
-	/*
+	/**
 	 * getAppWidgetCellPosition()
 	 */
 	public int[] getAppWidgetCellPosition() {
 		return new int[] {appWidgetCellPositionX, appWidgetCellPositionY};
 	}
 
-	/*
+	/**
 	 * getAppWidgetCellSize()
 	 */
 	public int[] getAppWidgetCellSize() {
 		return new int[] {appWidgetCellWidth, appWidgetCellHeight};
 	}
 
-	/*
+	/**
 	 * getAppWidgetUpdateTime()
 	 */
 	public long getAppWidgetUpdateTime() {
 		return appWidgetUpdateTime;
 	}
 
-	/*
+	/**
 	 * setAppWidgetCellPosition()
 	 */
 	public void setAppWidgetCellPosition(int appWidgetCellPositionX, int appWidgetCellPositionY) {
@@ -129,7 +129,7 @@ public class AppWidgetInfo {
 		this.appWidgetCellPositionY = appWidgetCellPositionY;
 	}
 
-	/*
+	/**
 	 * setAppWidgetCellSize()
 	 */
 	public void setAppWidgetCellSize(int appWidgetCellWidth, int appWidgetCellHeight) {
@@ -137,28 +137,28 @@ public class AppWidgetInfo {
 		this.appWidgetCellHeight = appWidgetCellHeight;
 	}
 
-	/*
+	/**
 	 * setAppWidgetUpdateTime()
 	 */
 	public void setAppWidgetUpdateTime(long appWidgetUpdateTime) {
 		this.appWidgetUpdateTime = appWidgetUpdateTime;
 	}
 
-	/*
+	/**
 	 * getAppWidgetResizeMode()
 	 */
 	public int getAppWidgetResizeMode() {
 		return appWidgetProviderInfo != null ?
 				appWidgetProviderInfo.resizeMode : AppWidgetProviderInfo.RESIZE_NONE;
 
-/*		if (appWidgetProviderInfo != null) {
+/**		if (appWidgetProviderInfo != null) {
 			return appWidgetProviderInfo.resizeMode;
 		} else {
 			return AppWidgetProviderInfo.RESIZE_NONE;
 		}	 */
 	}
 
-	/*
+	/**
 	 * getAppWidgetMinResizeCellSize()
 	 */
 	public int[] getAppWidgetMinResizeCellSize() {
@@ -174,7 +174,7 @@ public class AppWidgetInfo {
 		}
 	}
 
-	/*
+	/**
 	 * getAppWidgetMinCellSize()
 	 */
 	public int[] getAppWidgetMinCellSize() {
@@ -190,7 +190,7 @@ public class AppWidgetInfo {
 		}		
 	}
 	
-	/*
+	/**
 	 * getAppWidgetMinCellSizeString()
 	 */
 	public String getAppWidgetMinCellSizeString() {
@@ -198,7 +198,7 @@ public class AppWidgetInfo {
 		return minCellSize[0] + " × " + minCellSize[1];
 	}
 
-	/*
+	/**
 	 * createAppWidgetPreviewImage()
 	 */
 	private Bitmap createAppWidgetPreviewImage() {
@@ -218,13 +218,13 @@ public class AppWidgetInfo {
 		
 	}
 
-	/*
+	/**
 	 * getAppWidgetPreviewImage()
 	 */
 	public Bitmap getAppWidgetPreviewImage() {
 		return previewImage != null ? previewImage : createAppWidgetPreviewImage();
 
-/*		if (previewImage != null) {
+/**		if (previewImage != null) {
 			return previewImage;
 		} else {
 			return createAppWidgetPreviewImage();
@@ -232,7 +232,7 @@ public class AppWidgetInfo {
 	
 	}
 	
-	/*
+	/**
 	 * toCellSize()
 	 */
 	private int[] toCellSize(double width, double height) throws NameNotFoundException {

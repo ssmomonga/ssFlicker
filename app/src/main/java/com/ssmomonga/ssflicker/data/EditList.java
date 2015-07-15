@@ -38,7 +38,7 @@ public class EditList {
 	public static final int EDIT_APP_DOWN = 6;
 	public static final int EDIT_APP_DELETE = 7;
 
-	/*
+	/**
 	 * getAddPointerList()
 	 */
 	public static BaseData[] getAddPointerList(Context context) {
@@ -70,7 +70,7 @@ public class EditList {
 		return edit;
 	}
 
-	/*
+	/**
 	 * getEditPointerList()
 	 */
 	public static BaseData[] getEditPointerList(Context context, Pointer pointer, int pointerWindowVisibility) {
@@ -116,7 +116,7 @@ public class EditList {
 		return edit;
 	}
 
-	/*
+	/**
 	 * getAddAppList()
 	 */
 	public static BaseData[] getAddAppList(Context context) {
@@ -147,7 +147,7 @@ public class EditList {
 		return edit;
 	}
 
-	/*
+	/**
 	 * getEditAppList()
 	 */
 	public static BaseData[] getEditAppList(Context context) {
@@ -178,14 +178,14 @@ public class EditList {
 		return edit;
 	}
 
-	/*
+	/**
 	 * getAddDockList()
 	 */
 	public static BaseData[] getAddDockList(Context context) {
 		return getAddAppList(context);
 	}
 
-	/*
+	/**
 	 * getEditDockList()
 	 */
 	public static BaseData[] getEditDockList(Context context, int orientation) {

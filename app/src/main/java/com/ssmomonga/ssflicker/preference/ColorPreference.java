@@ -21,7 +21,7 @@ public class ColorPreference extends Preference {
 	private int color;
 	private GradientDrawable gd_color;
 	
-	/*
+	/**
 	 * Constructor
 	 */
 	public ColorPreference(Context context, AttributeSet attrs) {
@@ -32,7 +32,7 @@ public class ColorPreference extends Preference {
 		gd_color.setShape(GradientDrawable.OVAL);
 	}
 	
-	/*
+	/**
 	 * onGetDefaultValue()
 	 */
 	 @Override
@@ -41,7 +41,7 @@ public class ColorPreference extends Preference {
 		return defaultValue;
      }
 	
-	/*
+	/**
 	 * onSetInitialValue()
 	 */
 	@Override
@@ -57,7 +57,7 @@ public class ColorPreference extends Preference {
 		}
 	}
 	
-	/*
+	/**
 	 * onBindView()
 	 */
 	@Override
@@ -98,7 +98,7 @@ public class ColorPreference extends Preference {
 		});
 	}
 
-	/*
+	/**
 	 * onDependencyChanged
 	 */
 	@Override
@@ -111,7 +111,7 @@ public class ColorPreference extends Preference {
 		}		
 	}
 
-	/*
+	/**
 	 * setEnabled()
 	 */
 	@Override
@@ -124,14 +124,14 @@ public class ColorPreference extends Preference {
 		}
 	}
 
-	/*
+	/**
 	 * dismissColorPicker()
 	 */
 	public void dismissColorPicker() {
 		if (colorPicker != null && colorPicker.isShowing()) colorPicker.dismiss();
 	}
 	
-	/*
+	/**
 	 * setColor()
 	 */
 	private void setColor(int color) {

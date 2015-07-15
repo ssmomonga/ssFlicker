@@ -24,7 +24,7 @@ public class ColorPickerSettings {
 	private static boolean overlay;
 	private static int overlayPointBackgroundColor;
 	
-	/*
+	/**
 	 * Constructor
 	 */
 	public ColorPickerSettings(Context context) {
@@ -40,7 +40,7 @@ public class ColorPickerSettings {
 		overlayPointBackgroundColor = pdao.getOverlayPointBackgroundColor();
 	}
 	
-	/*
+	/**
 	 * Constructor
 	 */
 	public ColorPickerSettings(Context context, int iconColor) {
@@ -56,7 +56,7 @@ public class ColorPickerSettings {
 		overlayPointBackgroundColor = pdao.getOverlayPointBackgroundColor();
 	}
 	
-	/*
+	/**
 	 * fillLP()
 	 */
 	private void fillLP(PrefDAO pdao) {
@@ -66,28 +66,28 @@ public class ColorPickerSettings {
 		textLP =  new LinearLayout.LayoutParams(iconSize + textSize, LayoutParams.WRAP_CONTENT);
 	}
 
-	/*
+	/**
 	 * getIconLP()
 	 */
 	public LinearLayout.LayoutParams getIconLP() {
 		return iconLP;
 	}
 	
-	/*
+	/**
 	 * getTextLP()
 	 */
 	public LinearLayout.LayoutParams getTextLP() {
 		return textLP;
 	}
 	
-	/*
+	/**
 	 * getWindowBackgroundColor()
 	 */
 	public int getWindowBackgroundColor() {
 		return windowBackgroundColor;
 	}
 	
-	/*
+	/**
 	 * getWindowBackground()
 	 */
 	public Drawable getWindowBackground() {
@@ -102,14 +102,14 @@ public class ColorPickerSettings {
 		return windowBackground;
 	}
 	
-	/*
+	/**
 	 * getIconColor()
 	 */
 	public int getIconColor() {
 		return iconColor;
 	}
 
-	/*
+	/**
 	 * getIcon()
 	 */
 	public Drawable getIcon() {
@@ -117,63 +117,63 @@ public class ColorPickerSettings {
 //		return ImageConverter.changeIconColor(context, context.getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null), iconColor);
 	}
 	
-	/*
+	/**
 	 * isTextVisibility()
 	 */
 	public boolean isTextVisibility() {
 		return textVisibility;
 	}
 	
-	/*
+	/**
 	 * getTextColor()
 	 */
 	public int getTextColor() {
 		return textColor;
 	}
 	
-	/*
+	/**
 	 * getTextSize()
 	 */
 	public int getTextSize() {
 		return textSize;
 	}
 	
-	/*
+	/**
 	 * isOverlay()
 	 */
 	public boolean isOverlay() {
 		return overlay;
 	}
 	
-	/*
+	/**
 	 * getOverlayPointBackgroundColor()
 	 */
 	public int getOverlayPointBackgroundColor() {
 		return overlayPointBackgroundColor;
 	}
 	
-	/*
+	/**
 	 * setIconColor()
 	 */
 	public void setIconColor(int newColor) {
 		iconColor = newColor;
 	}
 	
-	/*
+	/**
 	 * setTextColor()
 	 */
 	public void setTextColor(int newColor) {
 		textColor = newColor;
 	}
 	
-	/*
+	/**
 	 * getWindowBackground()
 	 */
 	public void setWindowBackgroundColor(int newColor) {
 		windowBackgroundColor = newColor;
 	}
 	
-	/*
+	/**
 	 * setOverlayPointBackgroundColor()
 	 */
 	public void setOverlayPointBackgroundColor(int newColor) {

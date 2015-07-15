@@ -17,7 +17,7 @@ public class AppWidgetLayer extends FrameLayout {
 	private Context context;
 	private static AppWidgetHost host;
 	
-	/*
+	/**
 	 * Constructor
 	 */
 	public AppWidgetLayer(Context context, AttributeSet attrs) {
@@ -27,7 +27,7 @@ public class AppWidgetLayer extends FrameLayout {
 		host.startListening();
 	}
 	
-	/*
+	/**
 	 * addView()
 	 */
 	public void addView(AppWidgetInfo appWidgetInfo) {
@@ -50,14 +50,14 @@ public class AppWidgetLayer extends FrameLayout {
 		
 	}
 	
-	/*
+	/**
 	 * removeView()
 	 */
 	public void removeView(AppWidgetInfo appWidgetInfo) {
 		removeView((LinearLayout) findViewById(appWidgetInfo.getAppWidgetId()));
 	}
 
-	/*
+	/**
 	 * stopListenening();
 	 */
 	public void stopListening() {

@@ -26,7 +26,7 @@ public class DockWindow extends LinearLayout {
 	private static Animation anim_menu_focused;
 	private static Animation anim_menu_unfocused;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public DockWindow(Context context, AttributeSet attrs) {
@@ -35,7 +35,7 @@ public class DockWindow extends LinearLayout {
 		setInitialLayout();
 	}
 
-	/*
+	/**
 	 * setInitialLayout()
 	 */
 	public void setInitialLayout() {
@@ -65,7 +65,7 @@ public class DockWindow extends LinearLayout {
 		
 	}
 	
-	/*
+	/**
 	 * setOnFlickListener()
 	 */
 	public void setOnFlickListener (OnFlickListener listener, OnFlickListener listener2) {
@@ -73,7 +73,7 @@ public class DockWindow extends LinearLayout {
 		ll_menu.setOnTouchListener(listener2);
 	}
 
-	/*
+	/**
 	 * setLayout()
 	 */
 	public void setLayout(WindowParams lp) {
@@ -81,7 +81,7 @@ public class DockWindow extends LinearLayout {
 		iv_menu.setLayoutParams(lp.getIconLP());
 	}
 	
-	/*
+	/**
 	 * setApp()
 	 */
 	public void setApp(App[] appList) {
@@ -93,7 +93,7 @@ public class DockWindow extends LinearLayout {
 		}		
 	}
 	
-	/*
+	/**
 	 * setAppForEdit()
 	 */
 	public void setAppForEdit(App[] appList) {
@@ -107,7 +107,7 @@ public class DockWindow extends LinearLayout {
 		}
 	}
 
-	/*
+	/**
 	 * setDockPointed()
 	 */
 	public void setDockPointed(boolean pointed, int appId) {
@@ -118,7 +118,7 @@ public class DockWindow extends LinearLayout {
 		}
 	}
 
-	/*
+	/**
 	 * setMenuPointed()
 	 */
 	public void setMenuPointed(boolean b) {

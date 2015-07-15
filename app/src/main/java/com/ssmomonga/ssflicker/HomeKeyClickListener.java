@@ -14,7 +14,7 @@ public class HomeKeyClickListener extends Activity {
 
 	private static boolean b;
 
-	/*
+	/**
 	 * onCreate()
 	 */
 	@Override
@@ -53,14 +53,14 @@ public class HomeKeyClickListener extends Activity {
 		}
 	}
 
-	/*
+	/**
 	 * onResume
 	 */
 	public void onResume() {
 		super.onResume();
 	}
 	
-	/*
+	/**
 	 * onNewIntent()
 	 */
 	@Override
@@ -71,7 +71,7 @@ public class HomeKeyClickListener extends Activity {
 		finish();
 	}
 
-	/*
+	/**
 	 * onActivityResult
 	 */
 	@Override

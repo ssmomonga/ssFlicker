@@ -11,7 +11,7 @@ import com.ssmomonga.ssflicker.set.InvisibleAppWidgetSettings;
 
 public class InvisibleAppWidget extends AppWidgetProvider {
 
-	/*
+	/**
 	 * onUpdate()
 	 */
 	@Override
@@ -19,7 +19,7 @@ public class InvisibleAppWidget extends AppWidgetProvider {
 		viewInvisibleAppWidget(context, appWidgetManager, appWidgetIds, new InvisibleAppWidgetSettings(context));
 	}
 	
-	/*
+	/**
 	 * viewInvisibleAppWidget()
 	 */
 	public void viewInvisibleAppWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, InvisibleAppWidgetSettings settings) {

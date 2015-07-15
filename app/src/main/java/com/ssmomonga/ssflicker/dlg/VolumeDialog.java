@@ -14,7 +14,7 @@ public class VolumeDialog extends AlertDialog {
 	
 	private Context context;
 	
-	/*
+	/**
 	 * Constructor
 	 */
 	public VolumeDialog (Context context) {
@@ -23,7 +23,7 @@ public class VolumeDialog extends AlertDialog {
 		setInitialLayout();
 	}
 	
-	/*
+	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout() {

@@ -83,7 +83,7 @@ public class PrefSubActivity extends Activity {
 		}
 	};
 
-	/*
+	/**
 	 * onCreate()
 	 */
 	@Override
@@ -92,7 +92,7 @@ public class PrefSubActivity extends Activity {
 		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefSubFragment()).commit();
 	}
 	
-	/*
+	/**
 	 * onKeyDown()
 	 */
 	@Override
@@ -103,12 +103,12 @@ public class PrefSubActivity extends Activity {
 		return false;
 	}
 	
-	/*
+	/**
 	 * PrefFragment
 	 */
 	public static class PrefSubFragment extends PreferenceFragment {
 
-		/*
+		/**
 		 * onCreate()
 		 */
 		@Override
@@ -128,7 +128,7 @@ public class PrefSubActivity extends Activity {
 			setInitialLayout();
 		}
 
-		/*
+		/**
 		 * onResume()
 		 */
 		@Override
@@ -140,7 +140,7 @@ public class PrefSubActivity extends Activity {
 			setLayout();
 		}
 		
-		/*
+		/**
 		 * onPause()
 		 */
 		@Override
@@ -156,7 +156,7 @@ public class PrefSubActivity extends Activity {
 			activity.finish();
 		}
 
-		/*
+		/**
 		 * setInitialLayout()
 		 */
 		private void setInitialLayout() {
@@ -237,7 +237,7 @@ public class PrefSubActivity extends Activity {
 			}
 		}
 		
-		/*
+		/**
 		 * setLayout()
 		 */
 		private void setLayout() {
@@ -296,7 +296,7 @@ public class PrefSubActivity extends Activity {
 			}
 		}
 
-		/*
+		/**
 		 * PreferenceClickListener()
 		 */
 		private class PreferenceClickListener implements OnPreferenceClickListener {
@@ -308,7 +308,7 @@ public class PrefSubActivity extends Activity {
 			}
 		}
 
-		/*
+		/**
 		 * CheckedChangeListener
 		 */
 		private class CheckedChangeListener implements OnCheckedChangeListener {
@@ -356,7 +356,7 @@ public class PrefSubActivity extends Activity {
 			}
 		}
 
-		/*
+		/**
 		 * PeferenceChangeListener
 		 */
 		private class PreferenceChangeListener implements OnPreferenceChangeListener {
@@ -434,7 +434,7 @@ public class PrefSubActivity extends Activity {
 			}
 		}
 		
-		/*
+		/**
 		 * setSummary()
 		 */
 		private void setSummary(Preference preference, Object value) {

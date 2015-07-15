@@ -29,7 +29,7 @@ public class BackupRestoreDialog extends AlertDialog{
 	
 	private static Dialog confirmDialog;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public BackupRestoreDialog (Context context) {
@@ -40,7 +40,7 @@ public class BackupRestoreDialog extends AlertDialog{
 		setInitialLayout();
 	}
 
-	/*
+	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout() {
@@ -102,7 +102,7 @@ public class BackupRestoreDialog extends AlertDialog{
 		
 	}
 
-	/*
+	/**
 	 * setAdapter()
 	 */
 	private void setAdapter() {
@@ -112,7 +112,7 @@ public class BackupRestoreDialog extends AlertDialog{
 		sp_select_restore_file.setAdapter(adapter);
 	}
 	
-	/*
+	/**
 	 * dismiss()
 	 */
 	@Override
@@ -123,7 +123,7 @@ public class BackupRestoreDialog extends AlertDialog{
 	
 		
 	
-	/*
+	/**
 	 * ConfirmDialog
 	 */
 	private class ComfirmDialog extends AlertDialog {

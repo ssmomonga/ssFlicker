@@ -18,14 +18,14 @@ import com.ssmomonga.ssflicker.dlg.CustomAdapters.IconAdapter;
 
 public class IconDialog {
 
-	/*
+	/**
 	 * SelectIconTypeDialog
 	 */
 	public abstract static class SelectIconTypeDialog extends AlertDialog.Builder {
 
 		private Context context;
 		
-		/*
+		/**
 		 * Constructor
 		 */
 		public SelectIconTypeDialog(Context context, int iconTarget, int pointerType) {
@@ -34,7 +34,7 @@ public class IconDialog {
 			setInitialLayout(iconTarget, pointerType);
 		}
 
-		/*
+		/**
 		 * setInitialLayout()
 		 */
 		private void setInitialLayout(int iconTarget, int pointerType) {
@@ -79,7 +79,7 @@ public class IconDialog {
 		
 	}
 
-	/*
+	/**
 	 * IconChooser
 	 */
 	abstract public static class IconChooser extends AlertDialog {
@@ -90,7 +90,7 @@ public class IconDialog {
 		private static int iconColor;
 		private static IconAdapter adapter;
 
-		/*
+		/**
 		 * Constructor
 		 */
 		public IconChooser(Context context, BaseData[] iconList, int iconType) {
@@ -101,7 +101,7 @@ public class IconDialog {
 			setInitialLayout(iconList, iconType);
 		}
 
-		/*
+		/**
 		 * setInitialLayout()
 		 */
 		private void setInitialLayout(BaseData[] iconList, int iconType) {
@@ -160,7 +160,7 @@ public class IconDialog {
 			
 		}
 
-		/*
+		/**
 		 * changeIconColor()
 		 */
 		private void changeIconColor() {
@@ -169,7 +169,7 @@ public class IconDialog {
 			gv_icon.setAdapter(adapter);
 		}
 
-		/*
+		/**
 		 * onSelectedIcon()
 		 */
 		abstract public void onSelectedIcon(Drawable icon, int appId);

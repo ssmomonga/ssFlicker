@@ -75,7 +75,7 @@ public class PrefActivity extends Activity {
 		}
 	};
 
-	/*
+	/**
 	 * oNCreate()
 	 */
 	@Override
@@ -84,7 +84,7 @@ public class PrefActivity extends Activity {
 		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefFragment()).commit();
 	}
 	
-	/*
+	/**
 	 * onKeyDown()
 	 */
 	@Override
@@ -96,7 +96,7 @@ public class PrefActivity extends Activity {
 		return false;
 	}
 
-	/*
+	/**
 	 * onCreateOptionsMenu()
 	 */
 	@Override
@@ -106,7 +106,7 @@ public class PrefActivity extends Activity {
 		return true;
 	}
 
-	/*
+	/**
 	 * onOptionsItemSelected()
 	 */
 	@Override
@@ -118,12 +118,12 @@ public class PrefActivity extends Activity {
 		return true;
 	}
 	
-	/*
+	/**
 	 * PrefFragment
 	 */
 	public static class PrefFragment extends PreferenceFragment {
 
-		/*
+		/**
 		 * onCreate()
 		 */
 		@Override
@@ -142,7 +142,7 @@ public class PrefActivity extends Activity {
 			setInitialLayout();
 		}
 
-		/*
+		/**
 		 * onResume()
 		 */
 		@Override
@@ -153,7 +153,7 @@ public class PrefActivity extends Activity {
 			setLayout();
 		}
 		
-		/*
+		/**
 		 * onPause()
 		 */
 		@Override
@@ -168,7 +168,7 @@ public class PrefActivity extends Activity {
 			activity.finish();
 		}
 
-		/*
+		/**
 		 * onDestry()
 		 */
 		@Override
@@ -177,7 +177,7 @@ public class PrefActivity extends Activity {
 			new BackupManager(activity).dataChanged();
 		}
 
-		/*
+		/**
 		 * PreferenceClickListener
 		 */
 		private class PreferenceClickListener implements OnPreferenceClickListener {
@@ -193,7 +193,7 @@ public class PrefActivity extends Activity {
 			}
 		}
 
-		/*
+		/**
 		 * setInitialLayout()
 		 */
 		private void setInitialLayout() {
@@ -253,7 +253,7 @@ public class PrefActivity extends Activity {
 			});
 		}
 
-		/*
+		/**
 		 * setLayout()
 		 */
 		private void setLayout() {
@@ -297,7 +297,7 @@ public class PrefActivity extends Activity {
 			setSummary(donation, null);
 		}
 
-		/*
+		/**
 		 * PreferenceChangeListener
 		 */
 		private class PreferenceChangeListener implements Preference.OnPreferenceChangeListener {
@@ -356,7 +356,7 @@ public class PrefActivity extends Activity {
 			}
 		}
 
-		/*
+		/**
 		 * setSummary()
 		 */
 		private void setSummary(Preference preference, Object value) {

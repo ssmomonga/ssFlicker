@@ -10,14 +10,14 @@ public class AppWidgetParams {
 	private LinearLayout.LayoutParams appWidgetLP;
 	private int appWidgetPositionPadding[] = new int[4];
 	
-	/*
+	/**
 	 * Constructor
 	 */
 	public AppWidgetParams(Context context, AppWidgetInfo appWidgetInfo) {
 		fillAppWidgetLP(context, appWidgetInfo);
 	}
 	
-	/*
+	/**
 	 * fillAppWidgetData()
 	 */
 	private void fillAppWidgetLP(Context context, AppWidgetInfo appWidgetInfo) {
@@ -30,14 +30,14 @@ public class AppWidgetParams {
 		appWidgetPositionPadding[1] = cellPosition[1] * pixelPerCell[1];
 	}
 
-	/*
+	/**
 	 * getPadding()
 	 */
 	public int[] getAppWidgetPositionPadding() {
 		return appWidgetPositionPadding;
 	}
 	
-	/*
+	/**
 	 * getAppWidgetLP()
 	 */
 	public LinearLayout.LayoutParams getAppWidgetLP() {

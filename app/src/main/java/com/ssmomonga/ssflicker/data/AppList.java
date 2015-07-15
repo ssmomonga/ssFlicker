@@ -30,7 +30,7 @@ public class AppList {
 	private static final int TASK_COUNT = 99;
 	private static final String TEXT_PLAIN = "text/plain";
 
-	/*
+	/**
 	 * getIntentAppList()
 	 */
 	public static App[] getIntentAppList(Context context, int intentType, int count) {
@@ -109,7 +109,7 @@ public class AppList {
 		return appList.toArray(new App[count]);
 	}
 
-	/*
+	/**
 	 * getTaskAppList()
 	 */
 	public static App[] getTaskAppList(Context context, int intentType) {
@@ -173,7 +173,7 @@ public class AppList {
 		return appList.toArray(new App[App.FLICK_APP_COUNT]);
 	}
 
-	/*
+	/**
 	 * getAppWidgetList()
 	 */
 	public static App[] getAppWidgetList(Context context) {
@@ -213,7 +213,7 @@ public class AppList {
 
 	}
 
-	/*
+	/**
 	 * WidgetNameComparator
 	 */
 	public static class WidgetNameComparator implements Comparator<Object> {
@@ -248,7 +248,7 @@ public class AppList {
 		}
 	}
 	
-	/*
+	/**
 	 * setFunctionList()
 	 */
 	public static App[] getFunctionList(Context context) {

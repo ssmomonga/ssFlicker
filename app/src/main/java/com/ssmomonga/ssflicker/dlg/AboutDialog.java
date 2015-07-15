@@ -15,7 +15,7 @@ public class AboutDialog extends AlertDialog {
 
 	private Context context;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public AboutDialog(Context context) {
@@ -24,7 +24,7 @@ public class AboutDialog extends AlertDialog {
 		setInitialLayout();
 	}
 
-	/*
+	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout() {

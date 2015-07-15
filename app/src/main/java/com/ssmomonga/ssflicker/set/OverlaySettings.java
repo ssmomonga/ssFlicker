@@ -22,7 +22,7 @@ public class OverlaySettings {
 	private static OverlayWindowParams overlayWindowParams;
 	private static OverlayFlickListenerParams overlayFlickListenerParams;
 	
-	/*
+	/**
 	 * Constructor
 	 */
 	public OverlaySettings(Context context) {
@@ -35,56 +35,56 @@ public class OverlaySettings {
 		overlayFlickListenerParams = new OverlayFlickListenerParams(context);
 	}
 	
-	/*
+	/**
 	 * isForeground()
 	 */
 	public boolean isForeground() {
 		return foreground;
 	}
 	
-	/*
+	/**
 	 * setForeground()
 	 */
 	public void setForeground(boolean b) {
 		this.foreground = b;
 	}
 	
-	/*
+	/**
 	 * setOverlayPointBackgroundColor()
 	 */
 	public void setOverlayPointBackgroundColor(int overlayPointBackgroundColor) {
 		this.overlayPointBackgroundColor = overlayPointBackgroundColor;
 	}
 	
-	/*
+	/**
 	 * getOverlayPointBackgroundColor()
 	 */
 	public int getOverlayPointBackgroundColor() {
 		return overlayPointBackgroundColor;
 	}
 	
-	/*
+	/**
 	 * getOverlayPointParams()
 	 */
 	public OverlayPointParams[] getOverlayPointParams(){
 		return overlayPointParams;
 	}
 
-	/*
+	/**
 	 * getOverlayWindowParams()
 	 */
 	public OverlayWindowParams getOverlayWindowParams() {
 		return overlayWindowParams;
 	}
 	
-	/*
+	/**
 	 * getOverlayFlickListenerParams()
 	 */
 	public OverlayFlickListenerParams getOverlayFlickListenerParams() {
 		return overlayFlickListenerParams;
 	}
 	
-	/*
+	/**
 	 * OverlayPointParams
 	 */
 	public class OverlayPointParams {
@@ -99,7 +99,7 @@ public class OverlaySettings {
 		private int position;
 		private int width;
 
-		/*
+		/**
 		 * Constructor
 		 */
 		public OverlayPointParams(int overlayPointNumber) {
@@ -112,21 +112,21 @@ public class OverlaySettings {
 			fillLP();
 		}
 		
-		/*
+		/**
 		  * isOverlayPoint()
 		 */
 		public boolean isOverlayPoint() {
 			return overlayPoint;
 		}
 		
-		/*
+		/**
 		 * setOverlayPoint()
 		 */
 		public void setOverlayPoint(boolean overlayPoint) {
 			this.overlayPoint = overlayPoint;
 		}
 
-		/*
+		/**
 		 * rotate
 		 */
 		public void rotate() {
@@ -135,7 +135,7 @@ public class OverlaySettings {
 			fillLP();
 		}
 		
-		/*
+		/**
 		 * fillLP()
 		 */
 		private void fillLP() {
@@ -174,7 +174,7 @@ public class OverlaySettings {
 			
 		}
 		
-		/*
+		/**
 		 * setSide()
 		 */
 		public void setSide(int side) {
@@ -182,7 +182,7 @@ public class OverlaySettings {
 			fillLP();
 		}
 		
-		/*
+		/**
 		 * setPattern()
 		 */
 		public void setPattern(int position) {
@@ -190,7 +190,7 @@ public class OverlaySettings {
 			fillLP();
 		}
 		
-		/*
+		/**
 		 * setWidth()
 		 */
 		public void setWidth(int width) {
@@ -198,14 +198,14 @@ public class OverlaySettings {
 			fillLP();
 		}
 		
-		/*
+		/**
 		 * getOverlayPointLP()
 		 */
 		public WindowManager.LayoutParams getOverlayPointLP() {
 			return overlayPointLP;
 		}
 		
-		/*
+		/**
 		 * getOverlayPointXLength()
 		 */
 		private int getOverlayPointXLength() {
@@ -249,7 +249,7 @@ public class OverlaySettings {
 			}
 		}
 		
-		/*
+		/**
 		 * getOverlayPointYLength()
 		 */
 		private int getOverlayPointYLength() {
@@ -293,7 +293,7 @@ public class OverlaySettings {
 			}
 		}
 		
-		/*
+		/**
 		 * getOverlayPointPadding()
 		 */
 		private int getOverlayPointPadding() {
@@ -346,14 +346,14 @@ public class OverlaySettings {
 		}
 	}
 	
-	/*
+	/**
 	 * overlayWindowParams
 	 */
 	public class OverlayWindowParams {
 		
 		private WindowManager.LayoutParams overlayWindowLP;
 
-		/*
+		/**
 		 * Constructor
 		 */
 		public OverlayWindowParams() {
@@ -368,7 +368,7 @@ public class OverlaySettings {
 					PixelFormat.TRANSPARENT);
 		}
 		
-		/*
+		/**
 		 * getOverlayLP()
 		 */
 		public WindowManager.LayoutParams getOverlayWindowLP() {
@@ -377,7 +377,7 @@ public class OverlaySettings {
 
 	}
 	
-	/*
+	/**
 	 * OverlayFlickListenerParams
 	 */
 	public class OverlayFlickListenerParams {
@@ -385,7 +385,7 @@ public class OverlaySettings {
 		private int vibrateTime;
 		private int overlayPointAction;
 		
-		/*
+		/**
 		 * Constructor
 		 */
 		public OverlayFlickListenerParams(Context context) {
@@ -393,28 +393,28 @@ public class OverlaySettings {
 			overlayPointAction = pdao.getOverlayPointAction();
 		}
 
-		/*
+		/**
 		 * getVibrateTime()
 		 */
 		public int getVibrateTime() {
 			return vibrateTime;
 		}
 
-		/*
+		/**
 		 * setVibrateTime()
 		 */
 		public void setVibrateTime(int time) {
 			vibrateTime = time;
 		}
 		
-		/*
+		/**
 		 * getOverlayPointAction()
 		 */
 		public int getOverlayPointAction() {
 			return overlayPointAction;
 		}
 		
-		/*
+		/**
 		 * setOverlayPointAction()
 		 */
 		public void setOverlayPointAction(int action) {

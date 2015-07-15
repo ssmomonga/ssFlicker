@@ -40,7 +40,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	public static final String APP_TABLE_8 = "app_table_8";
 	public static final String APP_CACHE_TABLE_8 = "app_cache_table_8";
 	
-	/*
+	/**
 	 * PointerTableColumnName_1
 	 */
 	public class PointerTableColumnName_1 {
@@ -58,7 +58,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		public static final String FLOAT_POINT_WIDTH = "column10";						//integer	未使用
 	}
 
-	/*
+	/**
 	 * AppTableColumnName_1
 	 */
 	public class AppTableColumnName_1 {
@@ -84,7 +84,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		public static final String FLOAT_POINT_WIDTH = "column17";				//integer	未使用
 	}
 	
-	/*
+	/**
 	 * PointerTableColumnName_8
 	 */
 	public class PointerTableColumnName_8 {
@@ -96,7 +96,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		public static final String POINTER_ICON_TYPE_APP_APP_ID = "column_5";			//integer
 	}
 
-	/*
+	/**
 	 * AppTableColumnName_8
 	 */
 	public class AppTableColumnName_8 {
@@ -119,7 +119,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		public static final String FUNCTION_TYPE = "column_16";					//integer
 	}
 
-	/*
+	/**
 	 * AppCacheTableColumnName_8
 	 */
 	public class AppCacheTableColumnName_8 {
@@ -129,7 +129,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		public static final String INTENT_URI = "column_3";						//text	not null
 	}
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public SQLiteDBH(Context context) {
@@ -137,7 +137,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		this.context = context;
 	}
 
-	/*
+	/**
 	 * onCreate()
 	 */
 	@Override
@@ -160,7 +160,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		
 	}
 
-	/*
+	/**
 	 * onUpdate()
 	 */
 	@Override
@@ -226,7 +226,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		
 	}
 
-/*
+/**
  * DATABASE_VERSION_3
  */
 
@@ -260,7 +260,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 			"primary key (" + AppTableColumnName_1.POINTER_ID + "," + AppTableColumnName_1.APP_ID + ")" +
 			")";
 
-	/*
+	/**
 	 * createTable_3()
 	 */
 	private void createTable_3(SQLiteDatabase db) {
@@ -270,7 +270,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		db.execSQL(CREATE_APP_TABLE_TEMPLATE_3);
 	}
 
-	/*
+	/**
 	 * insertPointerTable_3()
 	 */
 	public void insertPointerTable_3(SQLiteDatabase db) {
@@ -321,7 +321,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		}
 	}
 
-	/*
+	/**
 	 * insertAppTable_3()
 	 */
 	private void insertAppTable_3(SQLiteDatabase db) {
@@ -402,7 +402,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		}
 	}
 	
-/*
+/**
  * DATABASE_VERSION_4
  */
 
@@ -422,7 +422,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 			"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.FLOAT_POINT_PATTERN + " integer",
 			"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.FLOAT_POINT_WIDTH + " integer" };
 
-	/*
+	/**
 	 * alterTable_4()
 	 */
 	private void alterTable_4(SQLiteDatabase db) {
@@ -430,14 +430,14 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		for (String str: ALTER_APP_TABLE_TEMPLATE_4) db.execSQL(str);
 	}
 	
-/*
+/**
  * DATABASE_VERSION_5
  */
 
 	private static final String[] ALTER_APP_TABLE_TEMPLATE_5 = {
 		"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.PACKAGE_NAME + " text"};
 
-	/*
+	/**
 	 * updateTable_5()
 	 */
 	private void updateTable_5(SQLiteDatabase db) {
@@ -525,11 +525,11 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	}
 	
-/*
+/**
  * DATABASE_VERSION_6
  */
 
-	/*
+	/**
 	 * clearPref_6()
 	 */
 	private void clearPref_6() {
@@ -544,11 +544,11 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	}
 
-/*
+/**
  * DATABASE_VERSION_7
  */
 
-	/*
+	/**
 	 * updateTable_7()
 	 */
 	private void updateTable_7(SQLiteDatabase db) {
@@ -594,7 +594,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	}
 	
-/*
+/**
  *  DATABASE_VERSION_8
  */
 
@@ -644,7 +644,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 			AppCacheTableColumnName_8.INTENT_URI + " text not null" +
 			")";
 
-	/*
+	/**
 	 * createTable_8()
 	 */
 	private void createTable_8(SQLiteDatabase db) {
@@ -656,7 +656,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		db.execSQL(CREATE_APP_CACHE_TABLE_TEMPLATE_8);
 	}
 
-	/*
+	/**
 	 * insertPointerTable_8()
 	 */
 	public void insertPointerTable_8(SQLiteDatabase db) {
@@ -707,7 +707,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		}
 	}
 
-	/*
+	/**
 	 * insertAppTable_8()
 	 */
 	private void insertAppTable_8(SQLiteDatabase db) {
@@ -802,7 +802,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		}
 	}
 	
-	/*
+	/**
 	 * backupPointerTable()
 	 */
 	private Pointer[] backupPointerTable_8(SQLiteDatabase db) {
@@ -821,7 +821,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		
 	}
 
-	/*
+	/**
 	 * backupAppTable()
 	 */
 	private App[][] backupAppTable_8(SQLiteDatabase db) {
@@ -841,7 +841,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		
 	}
 	
-	/*
+	/**
 	 * createPointer()
 	 */
 	private Pointer createPointer(Cursor c) {
@@ -855,7 +855,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 				);
 	}
 
-	/*
+	/**
 	 * createApp()
 	 */
 	private App createApp(Cursor c) {
@@ -909,7 +909,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		}
 	}
 	
-	/*
+	/**
 	 * restorePointerTable_8()
 	 */
 	private void restorePointerTable_8(SQLiteDatabase db, Pointer[] pointerList) {
@@ -920,7 +920,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		}
 	}
 	
-	/*
+	/**
 	 * restoreAppTable_8()
 	 */
 	private void restoreAppTable_8(SQLiteDatabase db, App[][] appListList) {
@@ -933,7 +933,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		}
 	}
 
-	/*
+	/**
 	 * createPointerCV
 	 */
 	private ContentValues createPointerCV(int pointerId, Pointer pointer) {
@@ -950,7 +950,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		return cv;
 	}
 	
-	/*
+	/**
 	 * createAppCV
 	 */
 	private ContentValues createAppCV(int pointerId, int appId, App app) {

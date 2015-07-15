@@ -19,7 +19,7 @@ import java.util.List;
 
 public class Boot extends BroadcastReceiver {
 
-	/*
+	/**
 	 * onReceive()
 	 */
 	@Override
@@ -50,7 +50,7 @@ public class Boot extends BroadcastReceiver {
 		}
 	}
 	
-	/*
+	/**
 	 * rebuildAppCacheTable()
 	 */
 	private void rebuildAppCacheTable(Context context) {
@@ -58,7 +58,7 @@ public class Boot extends BroadcastReceiver {
 		AppList.getIntentAppList(context, IntentAppInfo.INTENT_APP_TYPE_LAUNCHER, 0);
 	}
 	
-	/*
+	/**
 	 * rebuildAppTable()
 	 */
 	private void rebuildAppTable(Context context, Intent intent) {
@@ -99,7 +99,7 @@ public class Boot extends BroadcastReceiver {
 		}
 	}
 	
-	/*
+	/**
 	 * updateApp()
 	 */
 	private void updateApp(Context context, int pointerId, int appId, App app) {
@@ -139,7 +139,7 @@ public class Boot extends BroadcastReceiver {
 
 	}
 
-	/*
+	/**
 	 * deleteApp()
 	 */
 	private void deleteApp(Context context, int pointerId, int appId) {

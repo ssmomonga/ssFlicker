@@ -14,7 +14,7 @@ public abstract class DeleteDialog extends AlertDialog {
 	public static final int DELETE_APP = 1;
 	public static final int CLEAR_DEFAULT = 2;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public DeleteDialog(Context context, int data, Drawable icon, String name) {
@@ -22,7 +22,7 @@ public abstract class DeleteDialog extends AlertDialog {
 		setInitialLayout(context.getResources(), data, icon, name);
 	}
 	
-	/*
+	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout(Resources r, int data, Drawable icon, String title) {
@@ -79,17 +79,17 @@ public abstract class DeleteDialog extends AlertDialog {
 
 	}
 
-	/*
+	/**
 	 * onDelete()
 	 */
 	public abstract void onDelete();
 
-	/*
+	/**
 	 * onDismissDialog()
 	 */
 	public abstract void onDismissDialog();
 
-	/*
+	/**
 	 * onCancelDialog()
 	 */
 	public abstract void onCancelDialog();

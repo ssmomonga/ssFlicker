@@ -28,7 +28,7 @@ public class BackupRestore {
 	private static String backupDirPath;
 	private static String backupDirPath2;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public BackupRestore(Context context) {
@@ -38,7 +38,7 @@ public class BackupRestore {
 		backupDirPath2 = DeviceSettings.getExternalDir2(context);
 	}
 	
-	/*
+	/**
 	 * backup()
 	 */
 	public String backup() throws IOException {
@@ -49,7 +49,7 @@ public class BackupRestore {
 		return backupFileName;
 	}
 
-	/*
+	/**
 	 * restore()
 	 */
 	public boolean restore(String fileName) {
@@ -82,7 +82,7 @@ public class BackupRestore {
 		return b;
 	}
 
-	/*
+	/**
 	 * fileCopy()
 	 */
 	private void fileCopy(String inputFileName, String outputFileName) throws IOException {
@@ -98,7 +98,7 @@ public class BackupRestore {
 	    fos.close();
 	}
 	
-	/*
+	/**
 	 * getBackupFileList()
 	 */
 	public ArrayAdapter<String> getBackupFileList() {

@@ -18,7 +18,7 @@ public class HomeKeySettings {
 	private static int clickMode;
 	private static int clickInterval;
 	
-	/*
+	/**
 	 * Constructor
 	 */
 	public HomeKeySettings(Context context) {
@@ -29,7 +29,7 @@ public class HomeKeySettings {
 		clickInterval = pdao.getHomeKeyClickInterval();
 	}
 	
-	/*
+	/**
 	 * getHomeKeyAnotherHome()
 	 */
 	private void fillAnotherHome(Context context, String anotherHomeName) {
@@ -73,21 +73,21 @@ public class HomeKeySettings {
 
 	}
 	
-	/*
+	/**
 	 * getAnotherHome()
 	 */
 	public App getAnotherHome() {
 		return anotherHome;
 	}
 
-	/*
+	/**
 	 * getClickMode()
 	 */
 	public int getClickMode() {
 		return clickMode;
 	}
 	
-	/*
+	/**
 	 * getClickInterval()
 	 */
 	public int getClickInterval() {

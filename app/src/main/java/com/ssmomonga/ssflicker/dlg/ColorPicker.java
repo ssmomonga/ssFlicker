@@ -50,7 +50,7 @@ public abstract class ColorPicker extends AlertDialog {
 	private static final TextView[] tv_pointer_preview = new TextView[PREVIEW_COUNT];
 	private static final LinearLayout[] ll_overlay_point_preview = new LinearLayout[PREVIEW_COUNT];
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public ColorPicker(Context context, int colorType) {
@@ -61,7 +61,7 @@ public abstract class ColorPicker extends AlertDialog {
 		setInitialLayout();
 	}
 	
-	/*
+	/**
 	 * Constructor
 	 */
 	public ColorPicker(Context context, int colorType, int iconColor) {
@@ -72,7 +72,7 @@ public abstract class ColorPicker extends AlertDialog {
 		setInitialLayout();
 	}
 	
-	/*
+	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout() {
@@ -202,7 +202,7 @@ public abstract class ColorPicker extends AlertDialog {
 		
 	}
 	
-	/*
+	/**
 	 * setNewColor()
 	 */
 	private void setPreview(int i) {		
@@ -230,7 +230,7 @@ public abstract class ColorPicker extends AlertDialog {
 		}
 	}
 	
-	/*
+	/**
 	 * ClickListener
 	 */
 	private class ClickListener implements View.OnClickListener {
@@ -249,7 +249,7 @@ public abstract class ColorPicker extends AlertDialog {
 		}
 	}
 
-	/*
+	/**
 	 * SeekBarChangeListener
 	 */
 	private class SeekBarChangeListener implements OnSeekBarChangeListener {
@@ -278,7 +278,7 @@ public abstract class ColorPicker extends AlertDialog {
 		}
 	};
 
-	/*
+	/**
 	 * FocusChengeListener
 	 */
 	private class FocusChengeListener implements OnFocusChangeListener {
@@ -306,7 +306,7 @@ public abstract class ColorPicker extends AlertDialog {
 		
 	}
 	
-	/*
+	/**
 	 * onSettings()
 	 */
 	abstract public void onSettings(int newColor);

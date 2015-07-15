@@ -21,14 +21,14 @@ import java.io.File;
 
 public class DeviceSettings {
 	
-	/*
+	/**
 	 * isDefault()
 	 */
 	public static boolean isDefault(Context context) {
 		return isHomeKey(context) || isNow(context) || isSearchKey(context);
 	}
 	
-	/*
+	/**
 	 * isHomeKey()
 	 */
 	public static boolean isHomeKey(Context context) {
@@ -39,7 +39,7 @@ public class DeviceSettings {
 		return packageName.equals(context.getPackageName());
 	}
 	
-	/*
+	/**
 	 * isNow()
 	 */
 	public static boolean isNow(Context context) {
@@ -49,7 +49,7 @@ public class DeviceSettings {
 		return packageName.equals(context.getPackageName());
 	}
 	
-	/*
+	/**
 	 * isSearchKey()
 	 */
 	public static boolean isSearchKey(Context context) {
@@ -59,14 +59,14 @@ public class DeviceSettings {
 		return packageName.equals(context.getPackageName());
 	}
 	
-	/*
+	/**
 	 * hasVibrator()
 	 */
 	public static boolean hasVibrator(Context context) {
 		return ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).hasVibrator();
 	}
 	
-	/*
+	/**
 	 * isInvisibleAppWidget()
 	 */
 	public static boolean isInvisibleAppWidget(Context context) {
@@ -75,14 +75,14 @@ public class DeviceSettings {
 		return appWidgetIds.length > 0;
 	}
 	
-	/*
+	/**
 	 * getOrientation()
 	 */
 	public static int getOrientation(Context context) {
 		return context.getResources().getConfiguration().orientation;	//return��1�Ȃ�c�A2�Ȃ牡
 	}
 	
-	/*
+	/**
 	 * getWindowWidth()
 	 */
 	public static int getWindowWidth(Context context) {
@@ -91,7 +91,7 @@ public class DeviceSettings {
 		return metrics.widthPixels;
 	}
 	
-	/*
+	/**
 	 * getWindowHeight()
 	 */
 	public static int getWindowHeight(Context context) {
@@ -100,7 +100,7 @@ public class DeviceSettings {
 		return metrics.heightPixels;
 	}
 	
-	/*
+	/**
 	 * getDeviceCellSize()
 	 */
 	public static int getDeviceCellSize(Context context) {
@@ -112,7 +112,7 @@ public class DeviceSettings {
 		return Math.min(deviceCellSize[0], deviceCellSize[1]);
 	}
 	
-	/*
+	/**
 	 * getPixelPerCell()
 	 */
 	public static int[] getPixelPerCell(Context context) {
@@ -135,28 +135,28 @@ public class DeviceSettings {
 		return new int[] { pixelWidth, pixelHeight };
 	}
 	
-	/*
+	/**
 	 * dimenPixel()
 	 */
 	public static int dimenToPixel(Context context, int size) {
 		return (int) (size * DeviceSettings.getDensity(context));
 	}
 	
-	/*
+	/**
 	 * pixelDimen()
 	 */
 	public static int pixelToDimen(Context context, int size) {
 		return (int) (size / DeviceSettings.getDensity(context));
 	}
 	
-	/*
+	/**
 	 * getDensity()
 	 */
 	private static float getDensity(Context context) {
 		return context.getResources().getDisplayMetrics().density;
 	}
 	
-	/*
+	/**
 	 * hasExternalStorage()
 	 */
 	public static boolean hasExternalStorage(Context context) {
@@ -168,14 +168,14 @@ public class DeviceSettings {
 		}
 	}
 	
-	/*
+	/**
 	 * getExternalDir()
 	 */
 	public static String getExternalDir(Context context) {
 		return Environment.getExternalStorageDirectory() + "/" + context.getApplicationInfo().loadLabel(context.getPackageManager()) + "/";
 	}
 	
-	/*
+	/**
 	 * getExternalDirPath2()
 	 */
 	public static String getExternalDir2(Context context) {

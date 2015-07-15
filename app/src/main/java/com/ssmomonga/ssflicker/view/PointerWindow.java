@@ -25,7 +25,7 @@ public class PointerWindow extends TableLayout {
 	private static final Animation[] anim_pointer_unpointed = new Animation[Pointer.FLICK_POINTER_COUNT];
 	private static Animation anim_window_open;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public PointerWindow(Context context, AttributeSet attrs) {
@@ -33,7 +33,7 @@ public class PointerWindow extends TableLayout {
 		setInitialLayout(context);
 	}
 	
-	/*
+	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout(Context context) {
@@ -99,14 +99,14 @@ public class PointerWindow extends TableLayout {
 		anim_window_open = AnimationUtils.loadAnimation(context, R.anim.open_window);
 	}
 
-	/*
+	/**
 	/ * /setOnFlickListener()
 	 */
 	public void setOnFlickListener(OnFlickListener listener) {
 		for (LinearLayout ll: ll_pointer) ll.setOnTouchListener(listener);
 	}
 	
-	/*
+	/**
 	 * setLayout()
 	 */
 	public void setLayout(WindowParams params) {
@@ -125,7 +125,7 @@ public class PointerWindow extends TableLayout {
 		setBackground(params.getPointerWindowBackground());
 	}
 
-	/*
+	/**
 	 * setPointer()
 	 */
 	public void setPointer(Pointer[] pointerList) {
@@ -148,7 +148,7 @@ public class PointerWindow extends TableLayout {
 		}
 	}
 	
-	/*
+	/**
 	 * setPointerForEdit()
 	 */
 	public void setPointerForEdit(Pointer[] pointerList) {
@@ -167,7 +167,7 @@ public class PointerWindow extends TableLayout {
 		}
 	}
 
-	/*
+	/**
 	 * setPointed()
 	 */
 	public void setPointerPointed(boolean pointed, int pointerId) {
@@ -182,7 +182,7 @@ public class PointerWindow extends TableLayout {
 //		}
 	}
 
-	/*
+	/**
 	 * setVisibility()
 	 */
 	@Override

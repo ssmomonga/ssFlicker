@@ -33,7 +33,7 @@ public class ActionWindow extends TableLayout {
 	private static final Animation[] anim_icon_unpointed = new Animation[App.FLICK_APP_COUNT];
 	private static Animation anim_window_open;
 	
-	/*
+	/**
 	 * Constructor
 	 */
 	public ActionWindow(Context context, AttributeSet attrs) {
@@ -42,7 +42,7 @@ public class ActionWindow extends TableLayout {
 		setInitialLayout();
 	}
 	
-	/*
+	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout() {
@@ -88,7 +88,7 @@ public class ActionWindow extends TableLayout {
 
 	}
 	
-	/*
+	/**
 	 * setLayout()
 	 */
 	public void setLayout(WindowParams settings) {
@@ -123,7 +123,7 @@ public class ActionWindow extends TableLayout {
 		setBackground(settings.getActionWindowBackground());
 	}
 	
-	/*
+	/**
 	 * setApp()
 	 */
 	public void setApp(Pointer pointer, App[] appList) {
@@ -142,7 +142,7 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 	
-	/*
+	/**
 	 * setEditPointer()
 	 */
 	public void setEditPointer(Context context, Pointer pointer, int pointerWindowVisibility) {
@@ -157,7 +157,7 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 	
-	/*
+	/**
 	 * setEditApp()
 	 */
 	public void setEditApp(Context context, App app) {
@@ -172,7 +172,7 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 	
-	/*
+	/**
 	 * setEditDock()
 	 */
 	public void setEditDock(Context context, App app, int orientation) {
@@ -187,7 +187,7 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 	
-	/*
+	/**
 	 * setEdit()
 	 */
 	private void setEdit(BaseData[] edit) {
@@ -202,21 +202,21 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 	
-	/*
+	/**
 	 * setMenuForEdit()
 	 */
 	public void setMenuForEdit(Context context) {
 		setMenu(MenuList.getEditorMenuList(context));
 	}
 	
-	/*
+	/**
 	 * setMenuForFlick()
 	 */
 	public void setMenuForFlick(Context context) {
 		setMenu(MenuList.getFlickerMenuList(context));
 	}
 	
-	/*
+	/**
 	 * setMenu()
 	 */
 	private void setMenu(BaseData[] menuList) {
@@ -234,7 +234,7 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 
-	/*
+	/**
 	 * setPointed()
 	 */
 	public void setActionPointed(boolean pointed, int oldPosition, int position) {
@@ -247,7 +247,7 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 	
-	/*
+	/**
 	 * setVisibility()
 	 */
 	@Override

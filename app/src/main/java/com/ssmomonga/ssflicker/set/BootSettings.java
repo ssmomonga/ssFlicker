@@ -10,7 +10,7 @@ public class BootSettings {
 	private static boolean statusbar;
 	private static boolean overlay;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public BootSettings(Context context) {
@@ -20,21 +20,21 @@ public class BootSettings {
 		overlay = pdao.isOverlay();
 	}
 	
-	/*
+	/**
 	 * isHomeKey()
 	 */
 	public boolean isHomeKey() {
 		return homeKey;
 	}
 	
-	/*
+	/**
 	 * isStatusbar()
 	 */
 	public boolean isStatusbar() {
 		return statusbar;
 	}
 	
-	/*
+	/**
 	 * isOverlay()
 	 */
 	public boolean isOverlay() {

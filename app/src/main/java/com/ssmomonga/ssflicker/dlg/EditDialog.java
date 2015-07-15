@@ -46,7 +46,7 @@ public class EditDialog extends AlertDialog {
 	private static Spinner sp_appwidget_position_x, sp_appwidget_position_y;
 	private static Spinner sp_appwidget_cell_width, sp_appwidget_cell_height;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public EditDialog(Context context, Pointer pointer, EditPointerIf editPointerIf) {
@@ -58,7 +58,7 @@ public class EditDialog extends AlertDialog {
 		setPointerLayout();
 	}
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public EditDialog(Context context, App app, EditAppIf editAppIf) {
@@ -70,7 +70,7 @@ public class EditDialog extends AlertDialog {
 		setAppLayout();
 	}
 
-	/*
+	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout() {
@@ -96,7 +96,7 @@ public class EditDialog extends AlertDialog {
 		
 	}
 
-	/*
+	/**
 	 * setPointerLayout()
 	 */
 	private void setPointerLayout() {
@@ -132,7 +132,7 @@ public class EditDialog extends AlertDialog {
 
 	}
 
-	/*
+	/**
 	 * setAppLayout()
 	 */
 	private void setAppLayout() {	
@@ -340,10 +340,10 @@ public class EditDialog extends AlertDialog {
 		
 	}
 	
-/*
+/**
  * 		Common
  */
-	/*
+	/**
 	 * viewSelectIconTypeDialog()
 	 */
 	private void viewSelectIconTypeDialog(final int iconTarget, int pointerType) {
@@ -387,7 +387,7 @@ public class EditDialog extends AlertDialog {
 		}.show();
 	}
 
-	/*
+	/**
 	 * viewIconChooser()
 	 */
 	private void viewIconChooser(Context context, BaseData[] iconList, final int iconTarget, final int iconType) {
@@ -399,14 +399,14 @@ public class EditDialog extends AlertDialog {
 		}.show();
 	}
 
-	/*
+	/**
 	 * setIconBitmap()
 	 */
 	public void setIconBitmap(Bitmap icon, int iconTarget, int iconType, int appId) {
 		setIconDrawable(ImageConverter.createDrawable(context, icon), iconTarget, iconType, appId);
 	}
 
-	/*
+	/**
 	 * setIconDrawable()
 	 */
 	public void setIconDrawable(Drawable icon, int iconTarget, int iconType, int appId) {
@@ -428,7 +428,7 @@ public class EditDialog extends AlertDialog {
 		
 	}
 	
-	/*
+	/**
 	 * EditPointerIf
 	 */
 	public interface EditPointerIf {
@@ -438,7 +438,7 @@ public class EditDialog extends AlertDialog {
 		public abstract void onDismissDialog();
 	}
 
-	/*
+	/**
 	 * EditAppIf
 	 */
 	public interface EditAppIf {

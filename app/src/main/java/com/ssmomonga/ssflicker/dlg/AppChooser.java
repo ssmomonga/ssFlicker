@@ -25,7 +25,7 @@ public abstract class AppChooser extends AlertDialog {
 	private static AppWidgetAdapter widgetAdapter;
 	private static GridView gv_app_widgets;
 
-	/*
+	/**
 	 * Constructor
 	 */
 	public AppChooser(Context context, int appType, int intentAppType) {
@@ -36,7 +36,7 @@ public abstract class AppChooser extends AlertDialog {
 		setInitialLayout();
 	}
 	
-	/*
+	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout() {
@@ -69,7 +69,7 @@ public abstract class AppChooser extends AlertDialog {
 		
 	}
 
-	/*
+	/**
 	 * execute()
 	 */
 	public void execute() {
@@ -124,22 +124,22 @@ public abstract class AppChooser extends AlertDialog {
 		}
 	};
 
-	/*
+	/**
 	 * onSelectIntentApp()
 	 */
 	public abstract void onSelectIntentApp(App app);		//アプリを選択した時に動作
 
-	/*
+	/**
 	 * onSelectAppWidget()
 	 */
 	public abstract void onSelectAppWidget(App app);		//アプリを選択した時に動作
 
-	/*
+	/**
 	 * onSelectFunction()
 	 */
 	public abstract void onSelectFunction(App app);		//アプリを選択した時に動作
 
-	/*
+	/**
 	 * onDismissDialog()
 	 */
 	public abstract void onDismissDialog();					//キャンセル
