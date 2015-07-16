@@ -1,7 +1,6 @@
 package com.ssmomonga.ssflicker.data;
 
 import android.app.ActivityManager;
-import android.app.ActivityManager.RecentTaskInfo;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
@@ -44,15 +43,16 @@ public class AppList {
 	public static App[] getIntentAppList(Context context, int intentType, int count) {
 		
 		ArrayList<App> appList = new ArrayList<App>();
-		SQLiteDAO sdao = null;
+		SQLiteDAO sdao = new SQLiteDAO(context);
 
 		PackageManager pm = context.getPackageManager();
+		String thisPackageName = context.getPackageName();
 		Intent intent = new Intent();
 		List<ResolveInfo> resolveInfoList = null;
-		
+
 		switch (intentType) {
 			case IntentAppInfo.INTENT_APP_TYPE_LAUNCHER:
-				sdao = new SQLiteDAO(context);
+//				SQLiteDAO sdao = new SQLiteDAO(context);
 				if (sdao.existsAppCacheTable()) {
 					return sdao.selectAppCacheTable();
 					
@@ -88,13 +88,11 @@ public class AppList {
 			
 		}
 
-		String thisPackageName = context.getPackageName();
-
 		for (ResolveInfo resolveInfo: resolveInfoList) {
 
 			ActivityInfo activityInfo = resolveInfo.activityInfo;
 			String packageName = activityInfo.packageName;
-			if (intentType != IntentAppInfo.INTENT_APP_TYPE_HOME || !packageName.equals(thisPackageName)) {
+			if (!packageName.equals(thisPackageName)) {
 
 				App intentApp = new App(
 						context,
@@ -109,80 +107,12 @@ public class AppList {
 
 			}
 		}
-		
+
 		if (intentType == IntentAppInfo.INTENT_APP_TYPE_LAUNCHER) {
 			sdao.insertAppCacheTable(appList.toArray(new App[count]));
 		}
 		
 		return appList.toArray(new App[count]);
-	}
-
-	/**
-	 * getTaskAppList()
-	 *
-	 * @param context
-	 * @param intentType
-	 * @return
-	 */
-	public static App[] getTaskAppList(Context context, int intentType) {
-		ArrayList<App> appList = new ArrayList<App>();
-
-		PackageManager pm = context.getPackageManager();
-		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-		List<RecentTaskInfo> recentTaskList = null;
-		switch (intentType) {
-			case (IntentAppInfo.INTENT_APP_TYPE_RECENT):
-				recentTaskList = am.getRecentTasks(RECENT_COUNT, 0);
-				break;
-			case (IntentAppInfo.INTENT_APP_TYPE_TASK):
-				recentTaskList = am.getRecentTasks(TASK_COUNT, 0);
-				break;
-		}
-		
-		String thisPackageName = context.getPackageName();
-		String anotherHomePackageName = null;
-		App anotherHome = new HomeKeySettings(context).getAnotherHome();
-		if (anotherHome != null) anotherHomePackageName = (anotherHome.getIntentAppInfo().getIntent()).getComponent().getPackageName();
-			
-		for (RecentTaskInfo rti: recentTaskList) {
-
-			if (intentType == IntentAppInfo.INTENT_APP_TYPE_TASK && rti.id == -1) continue;
-			if (appList.size() == App.FLICK_APP_COUNT) continue;
-		
-			Intent intent = new Intent(rti.baseIntent);
-			if (rti.origActivity != null) intent.setComponent(rti.origActivity);
-			intent.setFlags((intent.getFlags() &~ Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED) | Intent.FLAG_ACTIVITY_NEW_TASK);
-			
-			ResolveInfo ri = pm.resolveActivity(intent, 0);
-
-			if (ri != null) {
-						
-				ActivityInfo actInfo = ri.activityInfo;
-				String packageName = actInfo.packageName;
-
-				//ssFlickerとアナザーホームは除く
-				if (!packageName.equals(thisPackageName) && !packageName.equals(anotherHomePackageName)) {
-					try {
-						App intentApp = new App (
-								context,
-								App.APP_TYPE_INTENT_APP,
-								packageName,
-								actInfo.loadLabel(pm).toString().replaceAll("\n", " "),
-								IconList.LABEL_ICON_TYPE_ACTIVITY,
-								actInfo.loadIcon(pm),
-								IconList.LABEL_ICON_TYPE_ACTIVITY,
-								new IntentAppInfo(intentType, intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY), rti.id));
-
-						appList.add(intentApp);
-
-					} catch (Exception e) {
-						e.printStackTrace();
-
-					}
-				}
-			}
-		}
-		return appList.toArray(new App[App.FLICK_APP_COUNT]);
 	}
 
 	/**
@@ -242,7 +172,7 @@ public class AppList {
 			mLabelCache = new HashMap<Object, String>();
 			mCollator = Collator.getInstance();
 		}
-		
+
 		public final int compare(Object a, Object b) {
 			String labelA, labelB;
 			PackageManager pm = context.getPackageManager();
@@ -260,13 +190,13 @@ public class AppList {
 				labelB = ((AppWidgetProviderInfo) b).loadLabel(pm);
 				mLabelCache.put(b, labelB);
 			}
-			
+
 			return mCollator.compare(labelA, labelB);
 		}
 	}
-	
+
 	/**
-	 * setFunctionList()
+	 * getFunctionList()
 	 *
 	 * @param context
 	 * @return
@@ -280,8 +210,76 @@ public class AppList {
 				new App(context, App.APP_TYPE_FUNCTION, null, r.getString(R.string.silent_mode), IconList.LABEL_ICON_TYPE_ORIGINAL, r.getDrawable(R.mipmap.icon_23_function_silent_mode, null), IconList.LABEL_ICON_TYPE_ORIGINAL, new FunctionInfo (FunctionInfo.FUNCTION_TYPE_SILENT_MODE)),
 				new App(context, App.APP_TYPE_FUNCTION, null, r.getString(R.string.volume), IconList.LABEL_ICON_TYPE_ORIGINAL, r.getDrawable(R.mipmap.icon_24_function_volume, null), IconList.LABEL_ICON_TYPE_ORIGINAL, new FunctionInfo (FunctionInfo.FUNCTION_TYPE_VOLUME)),
 				new App(context, App.APP_TYPE_FUNCTION, null, r.getString(R.string.rotate), IconList.LABEL_ICON_TYPE_ORIGINAL, r.getDrawable(R.mipmap.icon_25_function_rotate, null), IconList.LABEL_ICON_TYPE_ORIGINAL, new FunctionInfo (FunctionInfo.FUNCTION_TYPE_ROTATE)),
-				new App(context, App.APP_TYPE_FUNCTION, null, r.getString(R.string.search), IconList.LABEL_ICON_TYPE_ORIGINAL, r.getDrawable(R.mipmap.icon_26_function_search, null), IconList.LABEL_ICON_TYPE_ORIGINAL, new FunctionInfo (FunctionInfo.FUNCTION_TYPE_SEARCH)) };		
-			return functionAppList;
+				new App(context, App.APP_TYPE_FUNCTION, null, r.getString(R.string.search), IconList.LABEL_ICON_TYPE_ORIGINAL, r.getDrawable(R.mipmap.icon_26_function_search, null), IconList.LABEL_ICON_TYPE_ORIGINAL, new FunctionInfo (FunctionInfo.FUNCTION_TYPE_SEARCH)) };
+		return functionAppList;
 	}
-		
+
+	/**
+	 * getTaskAppList()
+	 *
+	 * @param context
+	 * @param intentType
+	 * @return
+	 */
+	public static App[] getTaskAppList(Context context, int intentType) {
+		ArrayList<App> appList = new ArrayList<App>();
+
+		PackageManager pm = context.getPackageManager();
+		ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+		List<ActivityManager.RecentTaskInfo> recentTaskList = null;
+		switch (intentType) {
+			case (IntentAppInfo.INTENT_APP_TYPE_RECENT):
+				recentTaskList = am.getRecentTasks(RECENT_COUNT, 0);
+				break;
+			case (IntentAppInfo.INTENT_APP_TYPE_TASK):
+				recentTaskList = am.getRecentTasks(TASK_COUNT, 0);
+				break;
+		}
+
+		String thisPackageName = context.getPackageName();
+		String anotherHomePackageName = null;
+		App anotherHome = new HomeKeySettings(context).getAnotherHome();
+		if (anotherHome != null) anotherHomePackageName = (anotherHome.getIntentAppInfo().getIntent()).getComponent().getPackageName();
+
+		for (ActivityManager.RecentTaskInfo rti: recentTaskList) {
+
+			if (intentType == IntentAppInfo.INTENT_APP_TYPE_TASK && rti.id == -1) continue;
+			if (appList.size() == App.FLICK_APP_COUNT) continue;
+
+			Intent intent = new Intent(rti.baseIntent);
+			if (rti.origActivity != null) intent.setComponent(rti.origActivity);
+			intent.setFlags((intent.getFlags() &~ Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED) | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+			ResolveInfo ri = pm.resolveActivity(intent, 0);
+
+			if (ri != null) {
+
+				ActivityInfo actInfo = ri.activityInfo;
+				String packageName = actInfo.packageName;
+
+				//ssFlickerとアナザーホームは除く
+				if (!packageName.equals(thisPackageName) && !packageName.equals(anotherHomePackageName)) {
+					try {
+						App intentApp = new App (
+								context,
+								App.APP_TYPE_INTENT_APP,
+								packageName,
+								actInfo.loadLabel(pm).toString().replaceAll("\n", " "),
+								IconList.LABEL_ICON_TYPE_ACTIVITY,
+								actInfo.loadIcon(pm),
+								IconList.LABEL_ICON_TYPE_ACTIVITY,
+								new IntentAppInfo(intentType, intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY), rti.id));
+
+						appList.add(intentApp);
+
+					} catch (Exception e) {
+						e.printStackTrace();
+
+					}
+				}
+			}
+		}
+		return appList.toArray(new App[App.FLICK_APP_COUNT]);
+	}
+
 }

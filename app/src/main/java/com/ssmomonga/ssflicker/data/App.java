@@ -41,7 +41,7 @@ public class App {
 	 * @param appIconType
 	 * @param intentApp
 	 */
-	public App(Context context, int appType, String packageName, String appLabel, int appLabelType,
+	public App (Context context, int appType, String packageName, String appLabel, int appLabelType,
 			Drawable appIcon, int appIconType, IntentAppInfo intentApp) {
 		this.context = context;
 		this.appType = appType;

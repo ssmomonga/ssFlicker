@@ -3,6 +3,7 @@ package com.ssmomonga.ssflicker;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 
@@ -34,22 +35,65 @@ public class Boot extends BroadcastReceiver {
 		BootSettings settings = new BootSettings(context);
 		Launch l = new Launch(context);
 
+		//BOOT_COMPLETE
 		if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
 			l.launchAnotherHome(settings.isHomeKey());
 			l.startStatusbar(settings.isStatusbar());
 			l.startOverlayService(settings.isOverlay());
 			rebuildAppCacheTable(context);
-			
+
+		//ssFlickerのバージョンアップ
 		} else if (intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
 			l.startStatusbar(settings.isStatusbar());
 			l.startOverlayService(settings.isOverlay());
-			
+
+		//アプリの追加
 		} else if (intent.getAction().equals(Intent.ACTION_PACKAGE_ADDED)) {
 			rebuildAppCacheTable(context);
-			
-		} else if (intent.getAction().equals(Intent.ACTION_PACKAGE_CHANGED) ||
-				intent.getAction().equals(Intent.ACTION_PACKAGE_FULLY_REMOVED) ||
-				intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED)) {			
+
+		//アプリの有効化・無効化
+		} else if (intent.getAction().equals(Intent.ACTION_PACKAGE_CHANGED)) {
+			String targetPackageName = intent.getData().getSchemeSpecificPart();
+			int enabledSetting = context.getPackageManager().getApplicationEnabledSetting(targetPackageName);
+			switch (enabledSetting) {
+
+				//アプリの有効化
+				case PackageManager.COMPONENT_ENABLED_STATE_ENABLED:
+					rebuildAppCacheTable(context);
+					break;
+
+				//アプリの有効・無効をデフォルトに変更
+				case PackageManager.COMPONENT_ENABLED_STATE_DEFAULT:
+					PackageManager pm = context.getPackageManager();
+					try {
+						ApplicationInfo appInfo = pm.getApplicationInfo(targetPackageName, 0);
+						//有効
+						if (appInfo.enabled) {
+							rebuildAppCacheTable(context);
+
+						//無効
+						} else {
+							rebuildAppTable(context, intent);
+							rebuildAppCacheTable(context);
+						}
+
+					} catch (PackageManager.NameNotFoundException e) {
+						e.printStackTrace();
+					}
+					break;
+
+				//アプリの無効化
+				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED:
+				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER:
+//				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED:	よく分からないので無視する。
+					rebuildAppTable(context, intent);
+					rebuildAppCacheTable(context);
+					break;
+			}
+
+		//アプリの削除、バージョンアップ
+		} else if (intent.getAction().equals(Intent.ACTION_PACKAGE_FULLY_REMOVED) ||
+				intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED)) {
 			rebuildAppTable(context, intent);
 			rebuildAppCacheTable(context);
 			
@@ -84,25 +128,17 @@ public class Boot extends BroadcastReceiver {
 				App app = appListList[i][j];
 				if (app != null) {
 					String setPackageName = app.getPackageName();
-
 					if (targetPackageName.equals(setPackageName)) {
-						
-						//アプリのバージョンアップ、バージョンダウン
-						if (intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED)) {
-							updateApp(context, i, j, app);
 
-						//アプリを削除
-						} else if (intent.getAction().equals(Intent.ACTION_PACKAGE_FULLY_REMOVED)) {
+						//アプリの無効化、削除
+						if (intent.getAction().equals(Intent.ACTION_PACKAGE_CHANGED) ||
+								intent.getAction().equals(Intent.ACTION_PACKAGE_FULLY_REMOVED)) {
 							deleteApp(context, i, j);
 						
-						//アプリの有効・無効
-						} else if (intent.getAction().equals(Intent.ACTION_PACKAGE_CHANGED)) {
-							int enabledSetting = context.getPackageManager().getApplicationEnabledSetting(targetPackageName);
-							if (enabledSetting == PackageManager.COMPONENT_ENABLED_STATE_DISABLED ||
-										enabledSetting == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER) {
-								deleteApp(context, i, j);
-								
-							}
+						//アプリのバージョンアップ、バージョンダウン
+						} else if (intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED)) {
+							updateApp(context, i, j, app);
+
 						}
 					}
 				}
@@ -123,7 +159,7 @@ public class Boot extends BroadcastReceiver {
 		boolean b = false;
 		switch (app.getAppType()) {
 			case App.APP_TYPE_INTENT_APP:
-				Intent intent = app.getIntentAppInfo().getIntent();		
+				Intent intent = app.getIntentAppInfo().getIntent();
 				PackageManager pm = context.getPackageManager();
 				List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(intent, 0);
 				b = resolveInfoList.size() > 0;
