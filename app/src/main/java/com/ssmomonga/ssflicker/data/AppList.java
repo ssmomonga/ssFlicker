@@ -52,7 +52,6 @@ public class AppList {
 
 		switch (intentType) {
 			case IntentAppInfo.INTENT_APP_TYPE_LAUNCHER:
-//				SQLiteDAO sdao = new SQLiteDAO(context);
 				if (sdao.existsAppCacheTable()) {
 					return sdao.selectAppCacheTable();
 					
@@ -122,11 +121,14 @@ public class AppList {
 	 * @return
 	 */
 	public static App[] getAppWidgetList(Context context) {
+
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 		List<AppWidgetProviderInfo> appWidgetProviderInfoList = appWidgetManager.getInstalledProviders();
 		Collections.sort(appWidgetProviderInfoList, new WidgetNameComparator(context));
+
 		PackageManager pm = context.getPackageManager();
-		
+		String thisPackageName = context.getPackageName();
+
 		ArrayList<App> appWidgetList = new ArrayList<App>();
 
 		for (AppWidgetProviderInfo info : appWidgetProviderInfoList) {
@@ -138,18 +140,20 @@ public class AppList {
 					minCellSize[1] > 0 && minCellSize[1] <= deviceCellCount) {
 				
 				String packageName = info.provider.getPackageName();
-				Drawable icon = pm.getDrawable(info.provider.getPackageName(), info.icon, null);
-				App appWidget = new App(
-						context,
-						App.APP_TYPE_APPWIDGET,
-						packageName,
-						info.loadLabel(pm).replaceAll("\n", " "),
-						IconList.LABEL_ICON_TYPE_APPWIDGET,
-						icon,
-						IconList.LABEL_ICON_TYPE_APPWIDGET,
-						new AppWidgetInfo(context, info, 0));
-				appWidgetList.add(appWidget);
-				
+				if (!packageName.equals(thisPackageName)) {
+					Drawable icon = pm.getDrawable(info.provider.getPackageName(), info.icon, null);
+					App appWidget = new App(
+							context,
+							App.APP_TYPE_APPWIDGET,
+							packageName,
+							info.loadLabel(pm).replaceAll("\n", " "),
+							IconList.LABEL_ICON_TYPE_APPWIDGET,
+							icon,
+							IconList.LABEL_ICON_TYPE_APPWIDGET,
+							new AppWidgetInfo(context, info, 0));
+					appWidgetList.add(appWidget);
+				}
+
 			}
 		
 		}
