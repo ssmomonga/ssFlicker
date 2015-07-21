@@ -385,8 +385,7 @@ public final class R {
         public static final int icon_notification=0x7f030025;
         public static final int icon_overlay_focused=0x7f030026;
         public static final int icon_overlay_unfocused=0x7f030027;
-        public static final int icon_overlay_unfocused_=0x7f030028;
-        public static final int invisible=0x7f030029;
+        public static final int invisible=0x7f030028;
     }
     public static final class string {
         public static final int about=0x7f080000;
