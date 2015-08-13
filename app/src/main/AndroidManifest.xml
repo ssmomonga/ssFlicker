@@ -118,8 +118,7 @@
 		<receiver
 			android:name="com.ssmomonga.ssflicker.Boot"
 			android:exported="false"
-			android:label="@string/receiver_name_boot"
-			android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
+			android:label="@string/receiver_name_boot" >
 			<intent-filter>
 				<action android:name="android.intent.action.BOOT_COMPLETED" />
 			</intent-filter>
