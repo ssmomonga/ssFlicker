@@ -74,12 +74,6 @@ public class BackupRestoreDialog extends AlertDialog{
 		});
 		
 		setButton(BUTTON_POSITIVE, r.getString(R.string.run), new DialogInterface.OnClickListener() {
-			/**
-			 * onClick()
-			 *
-			 * @param dialog
-			 * @param id
-			 */
 			@Override
 			public void onClick(DialogInterface dialog, int id){}
 		});
@@ -110,12 +104,6 @@ public class BackupRestoreDialog extends AlertDialog{
 		});
 
 		setButton(BUTTON_NEGATIVE, r.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-			/**
-			 * onClick()
-			 *
-			 * @param dialog
-			 * @param id
-			 */
 			@Override
 			public void onClick(DialogInterface dialog, int id) {}
 		});
@@ -151,6 +139,11 @@ public class BackupRestoreDialog extends AlertDialog{
 			setInitialLayout(radioButtonId);
 		}
 
+		/**
+		 * setInitialLayout()
+		 *
+		 * @param radioButtonId
+		 */
 		private void setInitialLayout(final int radioButtonId) {
 		
 			switch (radioButtonId) {
@@ -165,12 +158,6 @@ public class BackupRestoreDialog extends AlertDialog{
 			setButton(BUTTON_POSITIVE, r.getString(R.string.run), new DialogInterface.OnClickListener() {
 //			setPositiveButton(r.getString(R.string.run), new DialogInterface.OnClickListener(){
 
-				/**
-				 * onClick()
-				 *
-				 * @param dialog
-				 * @param id
-				 */
 				@Override
 				public void onClick(DialogInterface dialog, int id){
 				
@@ -227,13 +214,6 @@ public class BackupRestoreDialog extends AlertDialog{
 	
 			setButton(BUTTON_NEGATIVE, r.getString(R.string.cancel), new DialogInterface.OnClickListener() {
 //			setNegativeButton(r.getString(R.string.cancel), new DialogInterface.OnClickListener(){
-
-				/**
-				 * onClick()
-				 *
-				 * @param dialog
-				 * @param id
-				 */
 				@Override
 				public void onClick(DialogInterface dialog, int id){}
 			});

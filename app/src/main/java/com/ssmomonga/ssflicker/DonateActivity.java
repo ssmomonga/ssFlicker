@@ -70,12 +70,6 @@ public class DonateActivity extends Activity {
 	private static IInAppBillingService mService;
 
 	private ServiceConnection mServiceConn = new ServiceConnection() {
-		/**
-		 * onServiceConnected()
-		 *
-		 * @param name
-		 * @param service
-		 */
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {  
 			mService = IInAppBillingService.Stub.asInterface(service);
@@ -92,12 +86,7 @@ public class DonateActivity extends Activity {
 			}
 		}
 
-		/**
-		 * onServiceDisconnected()
-		 *
-		 * @param name
-		 */
-		@Override  
+		@Override
 		public void onServiceDisconnected(ComponentName name) {  
 			mService = null;
 		}  

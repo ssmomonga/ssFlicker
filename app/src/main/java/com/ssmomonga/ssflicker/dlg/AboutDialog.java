@@ -50,12 +50,6 @@ public class AboutDialog extends AlertDialog {
 		}
 		
 		setButton(BUTTON_NEGATIVE, context.getResources().getText(R.string.close), new DialogInterface.OnClickListener() {
-			/**
-			 * onClick()
-			 *
-			 * @param dialog
-			 * @param id
-			 */
 			@Override
 			public void onClick(DialogInterface dialog, int id) {}
 		});

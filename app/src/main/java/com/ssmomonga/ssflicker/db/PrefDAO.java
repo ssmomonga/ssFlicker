@@ -492,12 +492,6 @@ public class PrefDAO {
 	 */
 	public int getVibrateTime() {
 		return isVibrate() ? context.getResources().getInteger(R.integer.vibrate_time) : 0;
-
-/*		if (isVibrate()) {
-			return context.getResources().getInteger(R.integer.vibrate_time);
-		} else {
-			return 0;
-		}*/
 	}
 
 	/**

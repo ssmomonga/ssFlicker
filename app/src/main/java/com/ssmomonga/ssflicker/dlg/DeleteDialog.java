@@ -100,10 +100,6 @@ public abstract class DeleteDialog extends AlertDialog {
 		});
 		
 		setOnCancelListener(new DialogInterface.OnCancelListener() {
-			/**
-			 * onCancel()
-			 * @param dialog
-			 */
 			@Override
 			public void onCancel(DialogInterface dialog) {
 				onCancelDialog();

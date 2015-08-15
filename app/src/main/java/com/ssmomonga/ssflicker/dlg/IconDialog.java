@@ -50,15 +50,11 @@ public class IconDialog {
 		private void setInitialLayout(int iconTarget, int pointerType) {
 			
 			final Resources r = context.getResources();
-			final CharSequence[] iconTypeList = IconList.getIconTypeList(context, iconTarget, pointerType);
+			final CharSequence[] iconTypeList =
+					IconList.getIconTypeList(context, iconTarget, pointerType);
 			
 			setItems(iconTypeList, new DialogInterface.OnClickListener() {
-				/**
-				 * onClick()
-				 *
-				 * @param dialog
-				 * @param witch
-				 */
+
 				@Override
 				public void onClick(DialogInterface dialog, int witch) {
 					
@@ -85,14 +81,8 @@ public class IconDialog {
 			
 			//キャンセルボタン
 			setNegativeButton(r.getText(R.string.cancel), new DialogInterface.OnClickListener() {
-				/**
-				 * onClick()
-				 * @param dialog
-				 * @param id
-				 */
 				@Override
-				public void onClick(DialogInterface dialog, int id) {
-				}
+				public void onClick(DialogInterface dialog, int id) {}
 			});
 		}
 
@@ -208,13 +198,8 @@ public class IconDialog {
 			}
 
 			//キャンセルボタン
-			setButton(BUTTON_NEGATIVE, context.getResources().getText(R.string.cancel), new DialogInterface.OnClickListener() {
-				/**
-				 * onClick()
-				 *
-				 * @param dialog
-				 * @param id
-				 */
+			setButton(BUTTON_NEGATIVE, context.getResources().getText(R.string.cancel),
+					new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int id) {}
 			});

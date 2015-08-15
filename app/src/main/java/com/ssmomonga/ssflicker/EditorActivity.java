@@ -1240,6 +1240,11 @@ public class EditorActivity extends Activity {
 
 		appChooser = new AppChooser (this, appType, intentAppType) {
 
+			/**
+			 * onSelectIntentApp()
+			 *
+			 * @param app
+			 */
 			@Override
 			public void onSelectIntentApp (App app) {
 				if (app.getIntentAppInfo().getIntentAppType() == IntentAppInfo.INTENT_APP_TYPE_SHORTCUT) {
@@ -1248,7 +1253,12 @@ public class EditorActivity extends Activity {
 					addApp(app);
 				}
 			}
-		
+
+			/**
+			 * onSelectAppWidget()
+			 *
+			 * @param app
+			 */
 			@Override
 			public void onSelectAppWidget(App app) {
 				int appWidgetId = appWidgetHost.allocateAppWidgetId();
@@ -1268,12 +1278,20 @@ public class EditorActivity extends Activity {
 				}
 			
 			}
-		
+
+			/**
+			 * onSelectFunction()
+			 *
+			 * @param app
+			 */
 			@Override
 			public void onSelectFunction(App app) {
 				addApp(app);
 			}
-		
+
+			/**
+			 * onDismissDialog()
+			 */
 			@Override
 			public void onDismissDialog() {
 				if (pointerId != Pointer.DOCK_POINTER_ID) {

@@ -211,12 +211,6 @@ public abstract class ColorPicker extends AlertDialog {
 		});
 
 		setButton(BUTTON_NEGATIVE, context.getResources().getText(R.string.cancel), new DialogInterface.OnClickListener() {
-			/**
-			 * onClick()
-			 *
-			 * @param dialog
-			 * @param id
-			 */
 			@Override
 			public void onClick(DialogInterface dialog, int id) {}
 		});
@@ -228,7 +222,7 @@ public abstract class ColorPicker extends AlertDialog {
 	 *
 	 * @param i
 	 */
-	private void setPreview(int i) {		
+	private void setPreview(int i) {
 		switch (colorType) {
 			case COLOR_TYPE_WINDOW_BACKGROUND:
 				settings.setWindowBackgroundColor(Color.argb(colorARGB[0], colorARGB[1], colorARGB[2], colorARGB[3]));
@@ -258,11 +252,6 @@ public abstract class ColorPicker extends AlertDialog {
 	 */
 	private class ClickListener implements View.OnClickListener {
 
-		/**
-		 * onClick()
-		 *
-		 * @param view
-		 */
 		@Override
 		public void onClick(View view) {
 			int color = (Integer) view.getTag();
@@ -298,12 +287,10 @@ public abstract class ColorPicker extends AlertDialog {
 		}
 
 		@Override
-		public void onStartTrackingTouch(SeekBar seekBar) {
-		}
+		public void onStartTrackingTouch(SeekBar seekBar) {}
 
 		@Override
-		public void onStopTrackingTouch(SeekBar seekBar) {
-		}
+		public void onStopTrackingTouch(SeekBar seekBar) {}
 	};
 
 	/**

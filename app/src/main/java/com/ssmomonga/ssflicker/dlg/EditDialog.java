@@ -100,12 +100,6 @@ public class EditDialog extends AlertDialog {
 		et_label = (EditText) view.findViewById(R.id.et_label);
 		
 		setButton(BUTTON_NEGATIVE, r.getText(R.string.cancel), new DialogInterface.OnClickListener() {
-			/**
-			 * onClick()
-			 *
-			 * @param dialog
-			 * @param id
-			 */
 			@Override
 			public void onClick(DialogInterface dialog, int id) {}
 		});
@@ -274,12 +268,6 @@ public class EditDialog extends AlertDialog {
 				app.getIntentAppInfo().getIntentAppType() != IntentAppInfo.INTENT_APP_TYPE_SHORTCUT) {
 			
 			setButton(BUTTON_NEUTRAL, r.getText(R.string.initial), new DialogInterface.OnClickListener() {
-				/**
-				 * onClick()
-				 *
-				 * @param dialog
-				 * @param id
-				 */
 				@Override
 				public void onClick(DialogInterface dialog, int id){}
 			});
@@ -387,11 +375,6 @@ public class EditDialog extends AlertDialog {
 		});
 
 		setOnDismissListener(new OnDismissListener() {
-			/**
-			 * onDismiss()
-			 *
-			 * @param dialog
-			 */
 			@Override
 			public void onDismiss(DialogInterface dialog) {
 				editAppIf.onDismissDialog();

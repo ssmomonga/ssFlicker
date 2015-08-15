@@ -63,6 +63,7 @@ public class Drawer extends AlertDialog {
 	public void execute() {
 		
 		new GetAppListTask(context) {
+
 			/**
 			 * asyncComplete()
 			 *
