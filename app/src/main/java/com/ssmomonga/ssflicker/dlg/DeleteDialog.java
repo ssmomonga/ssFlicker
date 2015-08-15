@@ -62,12 +62,25 @@ public abstract class DeleteDialog extends AlertDialog {
 		}
 	
 		setButton(BUTTON_POSITIVE, button, new DialogInterface.OnClickListener(){
+			/**
+			 * onClick()
+			 *
+			 * @param dialog
+			 * @param id
+			 */
+			@Override
 			public void onClick(DialogInterface dialog, int id){
 				onDelete();
 			}
 		});
 		
 		setButton(BUTTON_NEGATIVE, r.getText(R.string.cancel), new DialogInterface.OnClickListener() {
+			/**
+			 * onClick()
+			 *
+			 * @param dialog
+			 * @param id
+			 */
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				onCancelDialog();
@@ -75,6 +88,11 @@ public abstract class DeleteDialog extends AlertDialog {
 		});
 
 		setOnDismissListener(new DialogInterface.OnDismissListener() {
+			/**
+			 * onDismiss()
+			 *
+			 * @param dialog
+			 */
 			@Override
 			public void onDismiss(DialogInterface dialog) {
 				onDismissDialog();
@@ -82,6 +100,10 @@ public abstract class DeleteDialog extends AlertDialog {
 		});
 		
 		setOnCancelListener(new DialogInterface.OnCancelListener() {
+			/**
+			 * onCancel()
+			 * @param dialog
+			 */
 			@Override
 			public void onCancel(DialogInterface dialog) {
 				onCancelDialog();

@@ -76,10 +76,21 @@ public class PrefSubActivity extends Activity {
 	private static Intent bindOverlayServiceIntent;
 	private static Messenger overlayServiceMessenger;
 	private static ServiceConnection overlayServiceConn = new ServiceConnection() {
+		/**
+		 * onServiceConnected()
+		 *
+		 * @param name
+		 * @param service
+		 */
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			overlayServiceMessenger = new Messenger(service);
 		}
+
+		/**
+		 * onServiceDisconnected()
+		 * @param name
+		 */
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
 			overlayServiceMessenger = null;			

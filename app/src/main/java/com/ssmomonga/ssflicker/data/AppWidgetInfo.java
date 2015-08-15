@@ -292,11 +292,11 @@ public class AppWidgetInfo {
 		
 		//targetVersionにより計算式の変数値が異なる。
 		if (targetVersion < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			sizePerCell = r.getDimensionPixelSize(R.dimen.cell_size_old);
-			sizePerCellMinus = r.getDimensionPixelSize(R.dimen.cell_size_minus_old);
+			sizePerCell = r.getDimensionPixelSize(R.dimen.cell_size_old);		//80dp
+			sizePerCellMinus = r.getDimensionPixelSize(R.dimen.cell_size_minus_old);	//0dp
 		} else {
-			sizePerCell = r.getDimensionPixelSize(R.dimen.cell_size);
-			sizePerCellMinus = r.getDimensionPixelSize(R.dimen.cell_size_minus);
+			sizePerCell = r.getDimensionPixelSize(R.dimen.cell_size);		//80dp
+			sizePerCellMinus = r.getDimensionPixelSize(R.dimen.cell_size_minus);	//16dp
 		}
 
 		//minSizeが0の場合はcellSizeも0にする。

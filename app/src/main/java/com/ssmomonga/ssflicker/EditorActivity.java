@@ -554,20 +554,40 @@ public class EditorActivity extends Activity {
 	 */
 	private class OnPointerFlickListener extends OnFlickListener {
 
+		/**
+		 * Constructor
+		 *
+		 * @param context
+		 */
 		public OnPointerFlickListener(Context context) {
 			super(context);
 		}
 
+		/**
+		 * setId()
+		 *
+		 * @param id
+		 */
 		@Override
 		public void setId(int id) {
 			pointerId = id;
 		}
 
+		/**
+		 * hasData()
+		 *
+		 * @return
+		 */
 		@Override
-		public boolean isData() {
+		public boolean hasData() {
 			return pointerList[pointerId] != null;
 		}
 
+		/**
+		 * onDown()
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onDown(int position) {
 			pointer_window.setPointerPointed(true, pointerId);
@@ -577,22 +597,39 @@ public class EditorActivity extends Activity {
 			action_window.setVisibility(View.VISIBLE);
 		}
 
+		/**
+		 * onMove()
+		 *
+		 * @param oldPosition
+		 * @param position
+		 */
 		@Override
 		public void onMove(int oldPosition, int position) {
 			action_window.setActionPointed(true, oldPosition, position);
 		}
 
+		/**
+		 * onUp()
+		 *
+		 * @param position
+		 * @param r
+		 */
 		@Override
 		public void onUp(int position, Rect r) {
 			action_window.setVisibility(View.INVISIBLE);
 			action_window.setActionPointed(false, position, -1);
-			if (isData()) {
+			if (hasData()) {
 				editPointer(position);
 			} else {
 				addPointer(position);
 			}
 		}
 
+		/**
+		 * onCancel()
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onCancel(int position) {}
 		
@@ -704,21 +741,38 @@ public class EditorActivity extends Activity {
 	private void viewEditPointerDialog() {
 		
 		editDialog = new EditDialog(this, pointerList[pointerId], new EditPointerIf() {
+
+			/**
+			 * getAppList()
+			 * @return
+			 */
 			@Override
 			public App[] getAppList() {
 				return appListList[pointerId];
 			}
 
+			/**
+			 * onTrimmingImage()
+			 * @param iconTarget
+			 * @param iconType
+			 */
 			@Override
 			public void onTrimmingImage(int iconTarget, int iconType) {
 				trimmingImage(iconTarget, iconType);
 			}
-				
+
+			/**
+			 * onSettings()
+			 * @param pointer
+			 */
 			@Override
 			public void onSettings(Pointer pointer) {
 				editPointer(pointer);
 			}
 
+			/**
+			 * onDismissDialog()
+			 */
 			@Override
 			public void onDismissDialog() {
 				pointer_window.setPointerPointed(false, pointerId);
@@ -742,19 +796,30 @@ public class EditorActivity extends Activity {
 				pointerList[pointerId].getPointerIcon(),
 				pointerList[pointerId].getPointerLabel()) {
 
+			/**
+			 * onDelete()
+			 */
 			@Override
 			public void onDelete() {
 				deletePointer();
 			}
 
+			/**
+			 * onDismissDialog()
+			 */
 			@Override
 			public void onDismissDialog() {
 				pointer_window.setPointerPointed(false, pointerId);
 				app_window.setPointerPointed(false);
 				setOnFlickListener();
 			}
+
+			/**
+			 * onCancelDialog()
+			 */
 			@Override
 			public void onCancelDialog() {}
+
 		};
 		deleteDialog.show();
 	}
@@ -858,21 +923,41 @@ public class EditorActivity extends Activity {
 	 */
 	private class OnAppFlickListener extends OnFlickListener {
 
+		/**
+		 * Constructur
+		 *
+		 * @param context
+		 */
 		public OnAppFlickListener(Context context) {
 			super(context);
 		}
 
+		/**
+		 * setId()
+		 *
+		 * @param id
+		 */
 		@Override
 		public void setId(int id) {
 			pointerId = (Integer) app_window.getTag();
 			appId = id;
 		}
 
+		/**
+		 * hasData()
+		 *
+		 * @return
+		 */
 		@Override
-		public boolean isData() {
+		public boolean hasData() {
 			return appListList[pointerId][appId] != null;
 		}
 
+		/**
+		 * onDown()
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onDown(int position) {
 			action_window.setActionPointed(true, -1, position);
@@ -881,22 +966,39 @@ public class EditorActivity extends Activity {
 			app_window.setAppPointed(true, appId);
 		}
 
+		/**
+		 * onMove()
+		 *
+		 * @param oldPosition
+		 * @param position
+		 */
 		@Override
 		public void onMove(int oldPosition, int position) {
 			action_window.setActionPointed(true, oldPosition, position);
 		}
 
+		/**
+		 * onUp()
+		 *
+		 * @param position
+		 * @param r
+		 */
 		@Override
 		public void onUp(int position, Rect r) {
 			action_window.setVisibility(View.INVISIBLE);
 			action_window.setActionPointed(false, position, -1);
-			if (isData()) {
+			if (hasData()) {
 				editApp(position);
 			} else {
 				addApp(position);
 			}
 		}
 
+		/**
+		 * onCancel()
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onCancel(int position) {}
 	}
@@ -906,21 +1008,40 @@ public class EditorActivity extends Activity {
 	 */
 	private class OnDockFlickListener extends OnFlickListener {
 
+		/**
+		 * Constructor
+		 * @param context
+		 */
 		public OnDockFlickListener(Context context) {
 			super(context);
 		}
 
+		/**
+		 * setId()
+		 *
+		 * @param id
+		 */
 		@Override
 		public void setId(int id) {
 			pointerId = Pointer.DOCK_POINTER_ID;
 			appId = id;
 		}
 
+		/**
+		 * hasData()
+		 *
+		 * @return
+		 */
 		@Override
-		public boolean isData() {
+		public boolean hasData() {
 			return appListList[pointerId][appId] != null;
 		}
 
+		/**
+		 * onDown()
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onDown(int position) {
 			dock_window.setDockPointed(true, appId);
@@ -929,22 +1050,39 @@ public class EditorActivity extends Activity {
 			action_window.setVisibility(View.VISIBLE);
 		}
 
+		/**
+		 * onMove()
+		 *
+		 * @param oldPosition
+		 * @param position
+		 */
 		@Override
 		public void onMove(int oldPosition, int position) {
 			action_window.setActionPointed(true, oldPosition, position);
 		}
 
+		/**
+		 * onUp()
+		 *
+		 * @param position
+		 * @param r
+		 */
 		@Override
 		public void onUp(int position, Rect r) {
 			action_window.setActionPointed(false, position, -1);
 			action_window.setVisibility(View.INVISIBLE);
-			if (isData()) {
+			if (hasData()) {
 				editApp(position);
 			} else {
 				addApp(position);
 			}
 		}
 
+		/**
+		 * onCancel()
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onCancel(int position) {}
 
@@ -1158,16 +1296,30 @@ public class EditorActivity extends Activity {
 		
 		editDialog = new EditDialog(this, appListList[pointerId][appId], new EditDialog.EditAppIf() {
 
+			/**
+			 * onTrimmingImage()
+			 *
+			 * @param iconTarget
+			 * @param iconType
+			 */
 			@Override
 			public void onTrimmingImage(int iconTarget, int iconType) {
 				trimmingImage(iconTarget, iconType);
 			}
 
+			/**
+			 * onSettings()
+			 *
+			 * @param app
+			 */
 			@Override
 			public void onSettings(App app) {
 				editApp(app);
 			}
 
+			/**
+			 * onDismissDialog()
+			 */
 			@Override
 			public void onDismissDialog() {
 				if (pointerId != Pointer.DOCK_POINTER_ID) {
@@ -1191,10 +1343,17 @@ public class EditorActivity extends Activity {
 				DeleteDialog.DELETE_APP, appListList[pointerId][appId].getAppIcon(),
 				appListList[pointerId][appId].getAppLabel()) {
 
+			/**
+			 * onDelete()
+			 */
 			@Override
 			public void onDelete() {
 				deleteApp();
 			}
+
+			/**
+			 * onDismissDialog()
+			 */
 			@Override
 			public void onDismissDialog() {
 				if (pointerId != Pointer.DOCK_POINTER_ID) {
@@ -1204,9 +1363,13 @@ public class EditorActivity extends Activity {
 				}
 				setOnFlickListener();
 			}
+
+			/**
+			 * onCancelDialog()
+			 */
 			@Override
-			public void onCancelDialog() {
-			}
+			public void onCancelDialog() {}
+
 		};
 		deleteDialog.show();
 	}
@@ -1311,6 +1474,7 @@ public class EditorActivity extends Activity {
 		} else {
 			dock_window.setDockPointed(false, appId);
 		}
+
 		if (app != null) {
 			sdao.insertAppTable(pointerId, appId, app);
 			resetAppForEdit();
@@ -1392,18 +1556,37 @@ public class EditorActivity extends Activity {
 	 */
 	private class OnMenuFlickListener extends OnFlickListener {
 
+		/**
+		 * Constructor
+		 * @param context
+		 */
 		public OnMenuFlickListener(Context context) {
 			super(context);
 		}
 
+		/**
+		 * setId()
+		 *
+		 * @param id
+		 */
 		@Override
 		public void setId(int id) {}
-		
+
+		/**
+		 * hasData()
+		 *
+		 * @return
+		 */
 		@Override
-		public boolean isData() {
+		public boolean hasData() {
 			return true;
 		}
-			
+
+		/**
+		 * onDown()
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onDown(int position) {
 			dock_window.setMenuPointed(true);
@@ -1412,11 +1595,23 @@ public class EditorActivity extends Activity {
 			action_window.setVisibility(View.VISIBLE);
 		}
 
+		/**
+		 * onMove()
+		 *
+		 * @param oldPosition
+		 * @param position
+		 */
 		@Override
 		public void onMove(int oldPosition, int position) {
 			action_window.setActionPointed(true, oldPosition, position);
 		}
 
+		/**
+		 * onUp()
+		 *
+		 * @param position
+		 * @param r
+		 */
 		@Override
 		public void onUp(int position, Rect r) {
 			dock_window.setMenuPointed(false);
@@ -1425,6 +1620,11 @@ public class EditorActivity extends Activity {
 			menu(position);
 		}
 
+		/**
+		 * onCancel()
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onCancel(int position) {}
 	}

@@ -128,45 +128,89 @@ public class OverlayService extends Service {
 	 * OverlayPointFlickListener
 	 */
 	private class OnOverlayPointFlickListener extends OnFlickListener {
-		
+
+		private int overlayPointAction;
+
+		/**
+		 * Constructor
+		 *
+		 * @param context
+		 * @param vibrateTime
+		 */
 		public OnOverlayPointFlickListener (Context context, int vibrateTime) {
 			super(context, vibrateTime);
 		}
 
-		private int overlayPointAction;
-		
+		/**
+		 * setId()
+		 *
+		 * @param id
+		 */
 		@Override
 		public void setId(int id) {
 			overlayPointAction = overlayFlickListenerParams.getOverlayPointAction();
 		}
-		
+
+		/**
+		 * hasData()
+		 *
+		 * @return
+		 */
 		@Override
-		public boolean isData() {
+		public boolean hasData() {
 			return true;
 		}
 
+		/**
+		 * onDown()
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onDown(int position) {
 			overlay_window.setVisibility(View.VISIBLE);
 			overlay_window.changeSelected(isPointed(position));
 		}
 
+		/**
+		 * onMove()
+		 *
+		 * @param oldPosition
+		 * @param position
+		 */
 		@Override
 		public void onMove (int oldPosition, int position) {
 			overlay_window.changeSelected(isPointed(position));
 		}
 
+		/**
+		 * onUp()
+		 *
+		 * @param position
+		 * @param r
+		 */
 		@Override
 		public void onUp (int position, Rect r) {
 			l.launchFlickerActivityFromService(isPointed(position));
 			overlay_window.setVisibility(View.INVISIBLE);
 		}
 
+		/**
+		 * onCancel()
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onCancel (int position) {
 			overlay_window.setVisibility(View.INVISIBLE);
 		}
-		
+
+		/**
+		 * isPointed()
+		 *
+		 * @param position
+		 * @return
+		 */
 		private boolean isPointed (int position) {
 			return ((overlayPointAction == 0 && position != -1) || (overlayPointAction == 1 && position == -1));
 		}
@@ -188,6 +232,12 @@ public class OverlayService extends Service {
 	 * Incominghandler
 	 */
 	private class IncomingHandler extends Handler {
+
+		/**
+		 * handleMessage()
+		 *
+		 * @param msg
+		 */
 		@Override
 		public void handleMessage (Message msg) {
 			Bundle b = msg.getData();

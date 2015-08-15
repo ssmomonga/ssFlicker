@@ -69,6 +69,12 @@ public class VolumeDialog extends AlertDialog {
 		});
 
 		setButton(BUTTON_NEGATIVE, context.getResources().getText(R.string.cancel), new DialogInterface.OnClickListener(){
+			/**
+			 * onClick()
+			 *
+			 * @param dialog
+			 * @param id
+			 */
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 			}

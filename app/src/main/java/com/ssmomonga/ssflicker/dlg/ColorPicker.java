@@ -195,6 +195,12 @@ public abstract class ColorPicker extends AlertDialog {
 		}
 		
 		setButton(BUTTON_POSITIVE, context.getResources().getText(R.string.settings), new DialogInterface.OnClickListener() {
+			/**
+			 * onClick()
+			 *
+			 * @param dialog
+			 * @param id
+			 */
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				for (int i = 0; i < ARGB_COUNT; i ++) {
@@ -205,9 +211,14 @@ public abstract class ColorPicker extends AlertDialog {
 		});
 
 		setButton(BUTTON_NEGATIVE, context.getResources().getText(R.string.cancel), new DialogInterface.OnClickListener() {
+			/**
+			 * onClick()
+			 *
+			 * @param dialog
+			 * @param id
+			 */
 			@Override
-			public void onClick(DialogInterface dialog, int id) {
-			}
+			public void onClick(DialogInterface dialog, int id) {}
 		});
 		
 	}
@@ -247,6 +258,11 @@ public abstract class ColorPicker extends AlertDialog {
 	 */
 	private class ClickListener implements View.OnClickListener {
 
+		/**
+		 * onClick()
+		 *
+		 * @param view
+		 */
 		@Override
 		public void onClick(View view) {
 			int color = (Integer) view.getTag();

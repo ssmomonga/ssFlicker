@@ -64,7 +64,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 				break;
 		}
 
-		if (isData() || editorMode) {
+		if (hasData() || editorMode) {
 			switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:						//ACTION_DOWN
 					l.vibrate(vibrateTime);
@@ -98,11 +98,11 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	abstract public void setId(int id);
 
 	/**
-	 * isData()
+	 * hasData()
 	 *
 	 * @return
 	 */
-	abstract public boolean isData();
+	abstract public boolean hasData();
 
 	/**
 	 * onDown()

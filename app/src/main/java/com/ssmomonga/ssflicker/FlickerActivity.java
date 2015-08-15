@@ -257,27 +257,53 @@ public class FlickerActivity extends Activity {
 		private int appId;
 		private App dock;
 
+		/**
+		 * Construcor
+		 *
+		 * @param context
+		 */
 		public OnDockFlickListener(Context context) {
 			super(context);
 		}
 
+		/**
+		 * setId()
+		 *
+		 * @param id
+		 */
 		@Override
 		public void setId(int id) {
 			pointerId = Pointer.DOCK_POINTER_ID;
 			appId = id;
 			dock = appListList[pointerId][appId];
 		}
-		
+
+		/**
+		 * hasData()
+		 *
+		 * @return
+		 */
 		@Override
-		public boolean isData() {
+		public boolean hasData() {
 			return dock != null;
 		}
-		
+
+		/**
+		 * onDown()
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onDown(int position) {
 			dock_window.setDockPointed(true, appId);		
 		}
-		
+
+		/**
+		 * onMove()
+		 *
+		 * @param oldPosition
+		 * @param position
+		 */
 		@Override
 		public void onMove(int oldPosition, int position) {
 			if (oldPosition == -1 ) {
@@ -286,7 +312,13 @@ public class FlickerActivity extends Activity {
 				dock_window.setDockPointed(true, appId);				
 			}
 		}
-		
+
+		/**
+		 * onUp()
+		 *
+		 * @param position
+		 * @param r
+		 */
 		@Override
 		public void onUp(int position, Rect r) {
 			if (position == -1 ) {
@@ -299,6 +331,11 @@ public class FlickerActivity extends Activity {
 			}
 		}
 
+		/**
+		 * onCancel
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onCancel(int position) {}
 	}
@@ -311,21 +348,41 @@ public class FlickerActivity extends Activity {
 		private int pointerId;
 		private Pointer pointer;
 
+		/**
+		 * Constructor
+		 *
+		 * @param context
+		 */
 		public OnPointerFlickListener(Context context) {
 			super(context);
 		}
 
+		/**
+		 * setId()
+		 *
+		 * @param id
+		 */
 		@Override
 		public void setId(int id) {
 			pointerId = id;
 			pointer = pointerList[pointerId];
 		}
 
+		/**
+		 * hasData()
+		 *
+		 * @return
+		 */
 		@Override
-		public boolean isData() {
+		public boolean hasData() {
 			return pointer != null;
 		}
 
+		/**
+		 * onDown
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onDown(int position) {
 			pointer_window.setPointerPointed(true, pointerId);
@@ -357,12 +414,23 @@ public class FlickerActivity extends Activity {
 			action_window.setVisibility(View.VISIBLE);
 		}
 
+		/**
+		 * onMove()
+		 *
+		 * @param oldPosition
+		 * @param position
+		 */
 		@Override
 		public void onMove(int oldPosition, int position) {
 			action_window.setActionPointed(true, oldPosition, position);
 		}
 
-		
+		/**
+		 * onUp()
+		 *
+		 * @param position
+		 * @param r
+		 */
 		@Override
 		public void onUp(int position, Rect r) {
 			pointer_window.setPointerPointed(false, pointerId);
@@ -381,6 +449,11 @@ public class FlickerActivity extends Activity {
 			}
 		}
 
+		/**
+		 * onCancel
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onCancel(int position) {}
 	}
@@ -390,18 +463,38 @@ public class FlickerActivity extends Activity {
 	 */
 	private class OnMenuFlickListener extends OnFlickListener {
 
+		/**
+		 * Constructor
+		 *
+		 * @param context
+		 */
 		public OnMenuFlickListener(Context context) {
 			super(context);
 		}
 
+		/**
+		 * setId()
+		 *
+		 * @param id
+		 */
 		@Override
 		public void setId(int id) {}
-		
+
+		/**
+		 * hasData()
+		 *
+		 * @return
+		 */
 		@Override
-		public boolean isData() {
+		public boolean hasData() {
 			return true;
 		}
 
+		/**
+		 * onDown()
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onDown(int position) {
 			dock_window.setMenuPointed(true);			
@@ -410,11 +503,23 @@ public class FlickerActivity extends Activity {
 			action_window.setVisibility(View.VISIBLE);
 		}
 
+		/**
+		 * onMove()
+		 *
+		 * @param oldPosition
+		 * @param position
+		 */
 		@Override
 		public void onMove(int oldPosition, int position) {
 			action_window.setActionPointed(true, oldPosition, position);
 		}
 
+		/**
+		 * onUp()
+		 *
+		 * @param position
+		 * @param r
+		 */
 		@Override
 		public void onUp(int position, Rect r) {
 			dock_window.setMenuPointed(false);
@@ -423,6 +528,11 @@ public class FlickerActivity extends Activity {
 			menu(position);
 		}
 
+		/**
+		 * onCancel()
+		 *
+		 * @param position
+		 */
 		@Override
 		public void onCancel(int position) {
 			dock_window.setMenuPointed(false);

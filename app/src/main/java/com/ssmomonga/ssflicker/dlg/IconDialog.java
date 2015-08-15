@@ -53,6 +53,12 @@ public class IconDialog {
 			final CharSequence[] iconTypeList = IconList.getIconTypeList(context, iconTarget, pointerType);
 			
 			setItems(iconTypeList, new DialogInterface.OnClickListener() {
+				/**
+				 * onClick()
+				 *
+				 * @param dialog
+				 * @param witch
+				 */
 				@Override
 				public void onClick(DialogInterface dialog, int witch) {
 					
@@ -79,6 +85,11 @@ public class IconDialog {
 			
 			//キャンセルボタン
 			setNegativeButton(r.getText(R.string.cancel), new DialogInterface.OnClickListener() {
+				/**
+				 * onClick()
+				 * @param dialog
+				 * @param id
+				 */
 				@Override
 				public void onClick(DialogInterface dialog, int id) {
 				}
@@ -133,6 +144,14 @@ public class IconDialog {
 			
 			gv_icon = (GridView) view.findViewById(R.id.gv_icon);
 			gv_icon.setOnItemClickListener(new OnItemClickListener() {
+				/**
+				 * onItemClick()
+				 *
+				 * @param parent
+				 * @param view
+				 * @param position
+				 * @param id
+				 */
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					BaseData icon = (BaseData) parent.getItemAtPosition(position);
@@ -147,6 +166,12 @@ public class IconDialog {
 				
 				//アイコンカラー
 				setButton(BUTTON_NEUTRAL, context.getResources().getText(R.string.icon_color), new DialogInterface.OnClickListener(){
+					/**
+					 * onClick()
+					 *
+					 * @param dialog
+					 * @param id
+					 */
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
 					}
@@ -154,12 +179,21 @@ public class IconDialog {
 				
 				//アイコンカラー
 				setOnShowListener(new DialogInterface.OnShowListener() {
+					/**
+					 * onShow()
+					 * @param dialog
+					 */
 					@Override
 					public void onShow (DialogInterface dialog) {
 						getButton(BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
 							@Override
 							public void onClick (View v) {
 								new ColorPicker (context, ColorPicker.COLOR_TYPE_ICON, iconColor) {
+									/**
+									 * onSettings()
+									 *
+									 * @param newColor
+									 */
 									@Override
 									public void onSettings (int newColor) {
 										iconColor = newColor;
@@ -175,9 +209,14 @@ public class IconDialog {
 
 			//キャンセルボタン
 			setButton(BUTTON_NEGATIVE, context.getResources().getText(R.string.cancel), new DialogInterface.OnClickListener() {
+				/**
+				 * onClick()
+				 *
+				 * @param dialog
+				 * @param id
+				 */
 				@Override
-				public void onClick(DialogInterface dialog, int id) {
-				}
+				public void onClick(DialogInterface dialog, int id) {}
 			});
 			
 		}

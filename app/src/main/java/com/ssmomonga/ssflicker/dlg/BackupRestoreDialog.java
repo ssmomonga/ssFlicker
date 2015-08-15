@@ -74,15 +74,25 @@ public class BackupRestoreDialog extends AlertDialog{
 		});
 		
 		setButton(BUTTON_POSITIVE, r.getString(R.string.run), new DialogInterface.OnClickListener() {
+			/**
+			 * onClick()
+			 *
+			 * @param dialog
+			 * @param id
+			 */
 			@Override
-			public void onClick(DialogInterface dialog, int id){
-			}
+			public void onClick(DialogInterface dialog, int id){}
 		});
 		
 		setOnShowListener(new DialogInterface.OnShowListener() {
 			@Override
 			public void onShow(DialogInterface dialog) {
 				getButton(BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+					/**
+					 * onClick()
+					 *
+					 * @param v
+					 */
 					@Override
 					public void onClick(View v) {
 						int radioButtonId = rg_backup_restore.getCheckedRadioButtonId();
@@ -100,9 +110,14 @@ public class BackupRestoreDialog extends AlertDialog{
 		});
 
 		setButton(BUTTON_NEGATIVE, r.getString(R.string.cancel), new DialogInterface.OnClickListener() {
+			/**
+			 * onClick()
+			 *
+			 * @param dialog
+			 * @param id
+			 */
 			@Override
-			public void onClick(DialogInterface dialog, int id) {
-			}
+			public void onClick(DialogInterface dialog, int id) {}
 		});
 		
 	}
@@ -149,6 +164,13 @@ public class BackupRestoreDialog extends AlertDialog{
 			
 			setButton(BUTTON_POSITIVE, r.getString(R.string.run), new DialogInterface.OnClickListener() {
 //			setPositiveButton(r.getString(R.string.run), new DialogInterface.OnClickListener(){
+
+				/**
+				 * onClick()
+				 *
+				 * @param dialog
+				 * @param id
+				 */
 				@Override
 				public void onClick(DialogInterface dialog, int id){
 				
@@ -205,9 +227,15 @@ public class BackupRestoreDialog extends AlertDialog{
 	
 			setButton(BUTTON_NEGATIVE, r.getString(R.string.cancel), new DialogInterface.OnClickListener() {
 //			setNegativeButton(r.getString(R.string.cancel), new DialogInterface.OnClickListener(){
+
+				/**
+				 * onClick()
+				 *
+				 * @param dialog
+				 * @param id
+				 */
 				@Override
-				public void onClick(DialogInterface dialog, int id){
-				}
+				public void onClick(DialogInterface dialog, int id){}
 			});
 			
 		}

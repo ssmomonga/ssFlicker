@@ -63,6 +63,11 @@ public class Drawer extends AlertDialog {
 	public void execute() {
 		
 		new GetAppListTask(context) {
+			/**
+			 * asyncComplete()
+			 *
+			 * @param appList
+			 */
 			@Override
 			public void asyncComplete(App[] appList) {
 				for (App app: appList) adapter.add(app);
@@ -70,9 +75,12 @@ public class Drawer extends AlertDialog {
 				show();
 			}
 
+			/**
+			 * asyncCancel()
+			 */
 			@Override
-			public void asyncCancel() {
-			}
+			public void asyncCancel() {}
+
 		}.execute(App.APP_TYPE_INTENT_APP, IntentAppInfo.INTENT_APP_TYPE_LAUNCHER);
 		
 	}

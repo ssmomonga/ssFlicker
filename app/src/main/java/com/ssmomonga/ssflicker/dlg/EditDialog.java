@@ -100,9 +100,14 @@ public class EditDialog extends AlertDialog {
 		et_label = (EditText) view.findViewById(R.id.et_label);
 		
 		setButton(BUTTON_NEGATIVE, r.getText(R.string.cancel), new DialogInterface.OnClickListener() {
+			/**
+			 * onClick()
+			 *
+			 * @param dialog
+			 * @param id
+			 */
 			@Override
-			public void onClick(DialogInterface dialog, int id) {
-			}
+			public void onClick(DialogInterface dialog, int id) {}
 		});
 		
 	}
@@ -115,6 +120,11 @@ public class EditDialog extends AlertDialog {
 		ib_icon.setImageDrawable(pointer.getPointerIcon());
 		ib_icon.setLayoutParams(params);
 		ib_icon.setOnClickListener(new View.OnClickListener() {
+			/**
+			 * onClick()
+			 *
+			 * @param v
+			 */
 			@Override
 			public void onClick(View v) {
 				viewSelectIconTypeDialog(IconList.TARGET_ICON_POINTER, pointer.getPointerType());
@@ -126,6 +136,12 @@ public class EditDialog extends AlertDialog {
 		et_label.setSelection(et_label.getText().length());
 		
 		EditDialog.this.setButton(BUTTON_POSITIVE, r.getText(R.string.settings), new DialogInterface.OnClickListener() {
+			/**
+			 * onClick()
+			 *
+			 * @param dialog
+			 * @param id
+			 */
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				pointer.setPointerLabel(et_label.getText().toString());
@@ -149,6 +165,11 @@ public class EditDialog extends AlertDialog {
 	private void setAppLayout() {
 		ib_icon.setImageDrawable(app.getAppIcon());
 		ib_icon.setOnClickListener(new View.OnClickListener() {
+			/**
+			 * onClick()
+			 *
+			 * @param v
+			 */
 			@Override
 			public void onClick(View v) {
 				viewSelectIconTypeDialog(IconList.TARGET_ICON_APP, Pointer.POINTER_TYPE_CUSTOM);
@@ -253,15 +274,31 @@ public class EditDialog extends AlertDialog {
 				app.getIntentAppInfo().getIntentAppType() != IntentAppInfo.INTENT_APP_TYPE_SHORTCUT) {
 			
 			setButton(BUTTON_NEUTRAL, r.getText(R.string.initial), new DialogInterface.OnClickListener() {
+				/**
+				 * onClick()
+				 *
+				 * @param dialog
+				 * @param id
+				 */
 				@Override
-				public void onClick(DialogInterface dialog, int id){
-				}
+				public void onClick(DialogInterface dialog, int id){}
 			});
 				
 			setOnShowListener(new DialogInterface.OnShowListener() {
+				/**
+				 * onShow()
+				 *
+				 * @param dialog
+				 */
 				@Override
 				public void onShow(DialogInterface dialog) {
 					getButton(BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
+
+						/**
+						 * onClick()
+						 *
+						 * @param v
+						 */
 						@Override
 						public void onClick(View v) {
 							et_label.setText(app.getAppRawLabel());
@@ -289,6 +326,13 @@ public class EditDialog extends AlertDialog {
 		}
 
 		setButton(BUTTON_POSITIVE, r.getText(R.string.settings), new DialogInterface.OnClickListener() {
+
+			/**
+			 * onClick()
+			 *
+			 * @param dialog
+			 * @param id
+			 */
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				app.setAppIcon(ib_icon.getDrawable());
@@ -343,6 +387,11 @@ public class EditDialog extends AlertDialog {
 		});
 
 		setOnDismissListener(new OnDismissListener() {
+			/**
+			 * onDismiss()
+			 *
+			 * @param dialog
+			 */
 			@Override
 			public void onDismiss(DialogInterface dialog) {
 				editAppIf.onDismissDialog();
@@ -363,6 +412,12 @@ public class EditDialog extends AlertDialog {
 	 */
 	private void viewSelectIconTypeDialog(final int iconTarget, int pointerType) {
 		new IconDialog.SelectIconTypeDialog(context, iconTarget, pointerType) {
+
+			/**
+			 * onSelectedIconType()
+			 *
+			 * @param iconType
+			 */
 			@Override
 			public void onSelectedIconType(int iconType) {
 				App[] appList;
@@ -412,6 +467,12 @@ public class EditDialog extends AlertDialog {
 	 */
 	private void viewIconChooser(Context context, BaseData[] iconList, final int iconTarget, final int iconType) {
 		new IconDialog.IconChooser(context, iconList, iconType) {
+			/**
+			 * onSelectedIcon()
+			 *
+			 * @param icon
+			 * @param appId
+			 */
 			@Override
 			public void onSelectedIcon(Drawable icon, int appId) {
 				setIconDrawable(icon, iconTarget, iconType, appId);

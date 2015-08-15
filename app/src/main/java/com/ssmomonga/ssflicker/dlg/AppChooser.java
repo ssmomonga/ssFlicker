@@ -62,9 +62,14 @@ public abstract class AppChooser extends AlertDialog {
 		setView(view);
 
 		setButton(BUTTON_NEGATIVE, context.getResources().getText(R.string.cancel), new DialogInterface.OnClickListener(){
+			/**
+			 * onClick()
+			 *
+			 * @param dialog
+			 * @param id
+			 */
 			@Override
-			public void onClick(DialogInterface dialog, int id) {
-			}
+			public void onClick(DialogInterface dialog, int id) {}
 		});
 		
 		setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -83,6 +88,11 @@ public abstract class AppChooser extends AlertDialog {
 		
 		new GetAppListTask(context) {
 
+			/**
+			 * asyncComplete()
+			 *
+			 * @param appList
+			 */
 			@Override
 			public void asyncComplete(App[] appList) {
 
@@ -100,7 +110,10 @@ public abstract class AppChooser extends AlertDialog {
 				show();
 				
 			}
-			
+
+			/**
+			 * asyncCancel()
+			 */
 			@Override
 			public void asyncCancel() {
 				onDismissDialog();
@@ -157,7 +170,6 @@ public abstract class AppChooser extends AlertDialog {
 	/**
 	 * onDismissDialog()
 	 * キャンセル
-	 *
 	 */
 	public abstract void onDismissDialog();
 }
