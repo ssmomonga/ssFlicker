@@ -5,7 +5,7 @@
 	android:versionCode="76"
 	android:versionName="v1.5.7" >
 
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="22" />
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="23" />
 
 	<supports-screens android:largeScreens="true" android:xlargeScreens="true" />
 
