@@ -400,7 +400,8 @@ public class OverlaySettings {
 			overlayWindowLP = new WindowManager.LayoutParams(
 					ViewGroup.LayoutParams.WRAP_CONTENT,
 					ViewGroup.LayoutParams.WRAP_CONTENT,
-					WindowManager.LayoutParams.TYPE_SYSTEM_ERROR,
+//					WindowManager.LayoutParams.TYPE_SYSTEM_ERROR,
+					WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
 					WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR |
 					WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN |
 					WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |

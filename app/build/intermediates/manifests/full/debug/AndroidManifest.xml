@@ -45,6 +45,7 @@
     <application
         android:allowBackup="true"
         android:backupAgent="com.ssmomonga.ssflicker.proc.CloudBackup"
+        android:fullBackupOnly="true"
         android:icon="@mipmap/icon_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Flicker" >
