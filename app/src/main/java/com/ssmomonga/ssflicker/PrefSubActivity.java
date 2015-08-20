@@ -107,10 +107,13 @@ public class PrefSubActivity extends Activity {
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) l.launchPrefActivity();
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			l.launchPrefActivity();
+			finish();
+		}
 		return false;
 	}
-	
+
 	/**
 	 * PrefFragment
 	 */
@@ -160,10 +163,7 @@ public class PrefSubActivity extends Activity {
 				activity.unbindService(overlayServiceConn);
 				overlay_point_background_color.dismissColorPicker();
 			}
-			
 			if (dialog != null && dialog.isShowing()) dialog.dismiss();
-
-			activity.finish();
 		}
 
 		/**
@@ -381,7 +381,7 @@ public class PrefSubActivity extends Activity {
 				} else if (preference == home_key_click_mode) {
 					switch (Integer.parseInt(newValue.toString())) {
 						case 1:
-							home_key_click_interval.setEnabled(false);					
+							home_key_click_interval.setEnabled(false);
 							break;
 						case 2:
 							home_key_click_interval.setEnabled(true);
@@ -392,51 +392,61 @@ public class PrefSubActivity extends Activity {
 				} else if (preference == now) {
 				} else if (preference == search_key) {
 				} else if (preference == overlay_point[0] || preference == overlay_point[1]) {
-					b.putBoolean(preference.getKey(),  (Boolean) newValue);
-					msg.setData(b);
-					try {
-						overlayServiceMessenger.send(msg);
-					} catch (RemoteException e) {
-						e.printStackTrace();
+					if (overlayServiceMessenger != null) {
+						b.putBoolean(preference.getKey(), (Boolean) newValue);
+						msg.setData(b);
+						try {
+							overlayServiceMessenger.send(msg);
+						} catch (RemoteException e) {
+							e.printStackTrace();
+						}
 					}
 
 				} else if (preference == overlay_point_side[0] || preference == overlay_point_side[1] ||
 						preference == overlay_point_position[0] || preference == overlay_point_position[1] ||
 						preference == overlay_point_width[0] || preference == overlay_point_width[1] ) {
 
-					b.putInt(preference.getKey(),  Integer.valueOf((String) newValue));
-					msg.setData(b);
-					try {
-						overlayServiceMessenger.send(msg);
-					} catch (RemoteException e) {
-						e.printStackTrace();
+					if (overlayServiceMessenger != null) {
+						b.putInt(preference.getKey(), Integer.valueOf((String) newValue));
+						msg.setData(b);
+						try {
+							overlayServiceMessenger.send(msg);
+						} catch (RemoteException e) {
+							e.printStackTrace();
+						}
 					}
 
 				} else if (preference == overlay_point_background_color) {
-					b.putInt(preference.getKey(),  (Integer) newValue);
-					msg.setData(b);
-					try {
-						overlayServiceMessenger.send(msg);
-					} catch (RemoteException e) {
-						e.printStackTrace();
+					if (overlayServiceMessenger != null) {
+						b.putInt(preference.getKey(), (Integer) newValue);
+						msg.setData(b);
+						try {
+							overlayServiceMessenger.send(msg);
+						} catch (RemoteException e) {
+							e.printStackTrace();
+						}
 					}
 
 				} else if  (preference == overlay_point_action) {
-					b.putInt(preference.getKey(),  Integer.valueOf((String) newValue));
-					msg.setData(b);
-					try {
-						overlayServiceMessenger.send(msg);
-					} catch (RemoteException e) {
-						e.printStackTrace();
+					if (overlayServiceMessenger != null) {
+						b.putInt(preference.getKey(), Integer.valueOf((String) newValue));
+						msg.setData(b);
+						try {
+							overlayServiceMessenger.send(msg);
+						} catch (RemoteException e) {
+							e.printStackTrace();
+						}
 					}
 				
 				} else if (preference == overlay_foreground) {
-					b.putBoolean(preference.getKey(),  (Boolean) newValue);
-					msg.setData(b);
-					try {
-						overlayServiceMessenger.send(msg);
-					} catch (RemoteException e) {
-						e.printStackTrace();
+					if (overlayServiceMessenger != null) {
+						b.putBoolean(preference.getKey(), (Boolean) newValue);
+						msg.setData(b);
+						try {
+							overlayServiceMessenger.send(msg);
+						} catch (RemoteException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 
@@ -455,8 +465,9 @@ public class PrefSubActivity extends Activity {
 			} else if (preference == home_key_another_home) {
 				if (value != null) {
 					try {
-						App anotherHome = new App(activity, App.APP_TYPE_INTENT_APP, null, null, IconList.LABEL_ICON_TYPE_ACTIVITY,
-													null, IconList.LABEL_ICON_TYPE_ACTIVITY, new IntentAppInfo(IntentAppInfo.INTENT_APP_TYPE_HOME, Intent.parseUri((String) value, 0)));
+						App anotherHome = new App(activity, App.APP_TYPE_INTENT_APP, null, null,
+								IconList.LABEL_ICON_TYPE_ACTIVITY, null, IconList.LABEL_ICON_TYPE_ACTIVITY,
+								new IntentAppInfo(IntentAppInfo.INTENT_APP_TYPE_HOME, Intent.parseUri((String) value, 0)));
 						home_key_another_home.setSummary(anotherHome.getAppLabel());
 					} catch (URISyntaxException e) {
 						e.printStackTrace();

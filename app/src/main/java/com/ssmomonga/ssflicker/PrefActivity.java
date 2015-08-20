@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
@@ -89,7 +90,7 @@ public class PrefActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefFragment()).commit();
 	}
-	
+
 	/**
 	 * onKeyDown()
 	 *
@@ -102,8 +103,33 @@ public class PrefActivity extends Activity {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			l.launchFlickerActivity();
 			Toast.makeText(this, R.string.enter_flick_mode, Toast.LENGTH_SHORT).show();
+			finish();
 		}
 		return false;
+	}
+
+	/**
+	 * onRequestPermissionResult()
+	 *
+	 * @param requestCode
+	 * @param permissions
+	 * @param grantResults
+	 */
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		switch(requestCode) {
+			case FlickerActivity.REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE:
+				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					dialog = new BackupRestoreDialog(activity);
+					dialog.show();
+
+				} else {
+					Toast.makeText(activity, getResources().getString(R.string.require_permission_write_external_storage), Toast.LENGTH_SHORT).show();
+
+				}
+				break;
+
+		}
 	}
 
 	/**
@@ -163,8 +189,7 @@ public class PrefActivity extends Activity {
 		@Override
 		public void onResume() {
 			super.onResume();
-			if (pdao.isOverlay()) activity.bindService(bindOverlayServiceIntent,
-					overlayServiceConn, BIND_AUTO_CREATE);
+			if (pdao.isOverlay()) activity.bindService(bindOverlayServiceIntent, overlayServiceConn, BIND_AUTO_CREATE);
 			setLayout();
 		}
 		
@@ -175,12 +200,9 @@ public class PrefActivity extends Activity {
 		public void onPause() {
 			super.onPause();
 			if (pdao.isOverlay()) activity.unbindService(overlayServiceConn);
-			
 			if (dialog != null && dialog.isShowing()) dialog.dismiss();
 			window_background_color.dismissColorPicker();
 			text_color.dismissColorPicker();
-
-			activity.finish();
 		}
 
 		/**
@@ -339,7 +361,7 @@ public class PrefActivity extends Activity {
 				} else if (preference == text_color) {
 				} else if (preference == text_size) {
 				} else if (preference == vibrate) {
-					if (pdao.isOverlay()) {
+					if (overlayServiceMessenger != null) {
 						Message msg = Message.obtain();
 						Bundle b = new Bundle();
 						int vibrateTime = 0;

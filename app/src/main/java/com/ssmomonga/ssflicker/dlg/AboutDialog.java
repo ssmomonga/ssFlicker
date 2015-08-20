@@ -3,13 +3,17 @@ package com.ssmomonga.ssflicker.dlg;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
 import com.ssmomonga.ssflicker.R;
+import com.ssmomonga.ssflicker.proc.Launch;
 
 /**
  * AboutDialog
@@ -48,8 +52,15 @@ public class AboutDialog extends AlertDialog {
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		setButton(BUTTON_NEGATIVE, context.getResources().getText(R.string.close), new DialogInterface.OnClickListener() {
+
+		setButton(this.BUTTON_NEUTRAL, context.getResources().getString(R.string.app_info), new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				new Launch(context).launchAppInfo();
+			}
+		});
+
+		setButton(BUTTON_NEGATIVE, context.getResources().getString(R.string.close), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {}
 		});

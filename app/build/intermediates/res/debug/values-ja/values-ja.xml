@@ -372,6 +372,8 @@
     <string name="receiver_name_boot">ssFlicker</string>
     <string name="receiver_name_invisible_appwidget">ssFlicker（透明ウィジェット）</string>
     <string name="recent_pointer_error">Android 5.0以降では履歴ポインタは利用できません</string>
+    <string name="require_permission_call_phone">電話番号発信のパーミッションが必要です</string>
+    <string name="require_permission_write_external_storage">ストレージの書込みパーミッションが必要です</string>
     <string name="restore">リストア</string>
     <string name="restore_complete">リストアが完了しました</string>
     <string name="restore_error">リストアに失敗しました</string>

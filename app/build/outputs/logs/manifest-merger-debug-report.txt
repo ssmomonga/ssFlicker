@@ -79,19 +79,19 @@ uses-permission#android.permission.CHANGE_WIFI_STATE
 ADDED from AndroidManifest.xml:24:2
 	android:name
 		ADDED from AndroidManifest.xml:24:19
-uses-permission#android.permission.READ_SYNC_SETTINGS
+uses-permission#android.permission.BLUETOOTH
 ADDED from AndroidManifest.xml:25:2
 	android:name
 		ADDED from AndroidManifest.xml:25:19
-uses-permission#android.permission.WRITE_SYNC_SETTINGS
+uses-permission#android.permission.BLUETOOTH_ADMIN
 ADDED from AndroidManifest.xml:26:2
 	android:name
 		ADDED from AndroidManifest.xml:26:19
-uses-permission#android.permission.BLUETOOTH
+uses-permission#android.permission.READ_SYNC_SETTINGS
 ADDED from AndroidManifest.xml:27:2
 	android:name
 		ADDED from AndroidManifest.xml:27:19
-uses-permission#android.permission.BLUETOOTH_ADMIN
+uses-permission#android.permission.WRITE_SYNC_SETTINGS
 ADDED from AndroidManifest.xml:28:2
 	android:name
 		ADDED from AndroidManifest.xml:28:19

@@ -1,5 +1,7 @@
 package com.ssmomonga.ssflicker.proc;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -13,7 +15,9 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Rect;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.widget.Toast;
@@ -61,16 +65,42 @@ public class Launch {
 			case App.APP_TYPE_INTENT_APP:
 				IntentAppInfo intentApp = app.getIntentAppInfo();
 
-				switch (intentApp.getIntentAppType()) {
-					case IntentAppInfo.INTENT_APP_TYPE_RECENT:
-					case IntentAppInfo.INTENT_APP_TYPE_TASK:
-						launchTaskApp(intentApp, r);
-						break;
+				if (!intentApp.getIntent().getAction().equals(Intent.ACTION_CALL)) {
+					switch (intentApp.getIntentAppType()) {
+						case IntentAppInfo.INTENT_APP_TYPE_RECENT:
+						case IntentAppInfo.INTENT_APP_TYPE_TASK:
+							launchTaskApp(intentApp, r);
+							break;
 
-					default:
-						launchIntentApp(intentApp, r);
-						break;
+						default:
+							launchIntentApp(intentApp, r);
+							break;
+					}
+					((Activity) context).finish();
+
+				} else {
+					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
+							context.checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+
+						switch (intentApp.getIntentAppType()) {
+							case IntentAppInfo.INTENT_APP_TYPE_RECENT:
+							case IntentAppInfo.INTENT_APP_TYPE_TASK:
+								launchTaskApp(intentApp, r);
+								break;
+
+							default:
+								launchIntentApp(intentApp, r);
+								break;
+						}
+						((Activity) context).finish();
+
+					} else {
+						((Activity) context).requestPermissions(new String[] { Manifest.permission.CALL_PHONE },
+								FlickerActivity.REQUEST_PERMISSION_CODE_CALL_PHONE);
+
+					}
 				}
+
 				break;
 		
 			case App.APP_TYPE_FUNCTION:
@@ -286,7 +316,7 @@ public class Launch {
 	 * rotate()
 	 */
 	private void rotate() {
-		boolean rotate = Settings.System.getInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0) == 1;		
+		boolean rotate = Settings.System.getInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0) == 1;
 		if (rotate) {
 			Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
 			Toast.makeText(context, R.string.rotate_off, Toast.LENGTH_SHORT).show();
@@ -361,7 +391,16 @@ public class Launch {
 		Intent intent = new Intent().setClass(context, DonateActivity.class);
 		context.startActivity(intent);
 	}
-	
+
+	/**
+	 * launchAppinfo()
+	 */
+	public void launchAppInfo() {
+		Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+		intent.setData(Uri.parse("package:" + context.getPackageName()));
+		context.startActivity(intent);
+	}
+
 	/**
 	 * launchAndroidSettings()
 	 */
@@ -379,7 +418,7 @@ public class Launch {
 	public void launchAnotherHome(boolean b) {
 		if (b) launchIntentApp(new HomeKeySettings(context).getAnotherHome().getIntentAppInfo(), null);
 	}
-	
+
 	/**
 	 * startStatusbar()
 	 *
@@ -433,7 +472,7 @@ public class Launch {
 	public void startOverlayService(boolean b) {
 		if (b) context.startService(new Intent(context, OverlayService.class));
 	}
-	
+
 	/**
 	 * stopOverlayService()
 	 */

@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Build;
@@ -40,6 +41,9 @@ import com.ssmomonga.ssflicker.view.PointerWindow;
  */
 public class FlickerActivity extends Activity {
 
+	public static final int REQUEST_PERMISSION_CODE_CALL_PHONE = 0;
+	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE = 1;
+
 	private static FrameLayout fl_all;
 	private static AppWidgetLayer app_widget_layer;
 	private static DockWindow dock_window;
@@ -54,12 +58,15 @@ public class FlickerActivity extends Activity {
 	private static boolean homeKey;
 	private static Pointer[] pointerList;
 	private static App[][] appListList;
+	private static int pointerId;
+	private static int appId;
 	
-	private static final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+	private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
 				l.launchAnotherHome(homeKey);
+				finish();
 			}
 		}
 	};
@@ -132,7 +139,6 @@ public class FlickerActivity extends Activity {
 		volumeDialog = l.getVolumeDialog();
 		if (volumeDialog != null && volumeDialog.isShowing()) volumeDialog.dismiss();
 		if (drawer != null && drawer.isShowing()) drawer.dismiss();
-		if (!isFinishing()) finish();
 	}
 
 	/**
@@ -144,6 +150,31 @@ public class FlickerActivity extends Activity {
 		app_widget_layer.stopListening();
 	}
 
+	/**
+	 * onRequestPermissionsResult()
+	 *
+	 * @param requestCode
+	 * @param permissions
+	 * @param grantResults
+	 */
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		switch(requestCode) {
+			case FlickerActivity.REQUEST_PERMISSION_CODE_CALL_PHONE:
+				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					App app = appListList[pointerId][appId];
+					Rect r = new Rect(0, 0, 0, 0);
+					l.launch(app, r);
+
+				} else {
+					Toast.makeText(this, getResources().getString(R.string.require_permission_call_phone),
+							Toast.LENGTH_SHORT).show();
+
+				}
+				break;
+
+		}
+	}
 
 	/**
 	 * onInitialLayout()
@@ -229,7 +260,8 @@ public class FlickerActivity extends Activity {
 			}
 
 			if (update) {
-				long updateTime = appWidgetInfo.getAppWidgetUpdateTime() == 0 ? updateTime = System.currentTimeMillis() : 0;
+				long updateTime = appWidgetInfo.getAppWidgetUpdateTime() == 0 ?
+						updateTime = System.currentTimeMillis() : 0;
 				appListList[pointerId][appId].getAppWidgetInfo().setAppWidgetUpdateTime(updateTime);
 				sdao.updateAppWidgetUpdateTime(appWidgetInfo.getAppWidgetId(), updateTime);
 			}
@@ -253,8 +285,6 @@ public class FlickerActivity extends Activity {
 	 */
 	private class OnDockFlickListener extends OnFlickListener {
 
-		private int pointerId;
-		private int appId;
 		private App dock;
 
 		/**
@@ -345,7 +375,6 @@ public class FlickerActivity extends Activity {
 	 */
 	private class OnPointerFlickListener extends OnFlickListener {
 
-		private int pointerId;
 		private Pointer pointer;
 
 		/**
@@ -390,22 +419,27 @@ public class FlickerActivity extends Activity {
 
 			switch (pointer.getPointerType()) {
 				case Pointer.POINTER_TYPE_HOME:
-					appListList[pointerId] = AppList.getIntentAppList(FlickerActivity.this, IntentAppInfo.INTENT_APP_TYPE_HOME, App.FLICK_APP_COUNT);
+					appListList[pointerId] = AppList.getIntentAppList(FlickerActivity.this,
+							IntentAppInfo.INTENT_APP_TYPE_HOME, App.FLICK_APP_COUNT);
 					break;
 				
 				case Pointer.POINTER_TYPE_RECENT:
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-						Toast.makeText(FlickerActivity.this, R.string.recent_pointer_error, Toast.LENGTH_SHORT).show();
+						Toast.makeText(FlickerActivity.this, R.string.recent_pointer_error,
+								Toast.LENGTH_SHORT).show();
 					} else {
-						appListList[pointerId] = AppList.getTaskAppList(FlickerActivity.this, IntentAppInfo.INTENT_APP_TYPE_RECENT);
+						appListList[pointerId] = AppList.getTaskAppList(FlickerActivity.this,
+								IntentAppInfo.INTENT_APP_TYPE_RECENT);
 					}
 					break;
 			
 				case Pointer.POINTER_TYPE_TASK:
 					if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-						Toast.makeText(FlickerActivity.this, R.string.task_pointer_error, Toast.LENGTH_SHORT).show();
+						Toast.makeText(FlickerActivity.this, R.string.task_pointer_error,
+								Toast.LENGTH_SHORT).show();
 					} else {
-						appListList[pointerId] = AppList.getTaskAppList(FlickerActivity.this, IntentAppInfo.INTENT_APP_TYPE_TASK);
+						appListList[pointerId] = AppList.getTaskAppList(FlickerActivity.this,
+								IntentAppInfo.INTENT_APP_TYPE_TASK);
 					}
 					break;
 			}
@@ -438,12 +472,13 @@ public class FlickerActivity extends Activity {
 			action_window.setVisibility(View.GONE);
 			
 			if (position != -1) {
-				App app = appListList[pointerId][position];
+				appId = position;
+				App app = appListList[pointerId][appId];
 				if (app != null) {
 					if (app.getAppType() != App.APP_TYPE_APPWIDGET) {
 						l.launch(app, r);
 					} else {
-						viewAppWidget(pointerId, position, app.getAppWidgetInfo(), true);
+						viewAppWidget(pointerId, appId, app.getAppWidgetInfo(), true);
 					}
 				}
 			}
@@ -555,15 +590,18 @@ public class FlickerActivity extends Activity {
 		
 			case MenuList.MENU_ANDROID_SETTINGS:
 				l.launchAndroidSettings();
+				finish();
 				break;
 		
 			case MenuList.MENU_SSFLICKER_SETTINGS:
 				l.launchPrefActivity();
+				finish();
 				break;
 		
 			case MenuList.MENU_EDIT_MODE:
 				l.launchEditorActivity();
 				Toast.makeText(this, R.string.enter_edit_mode, Toast.LENGTH_SHORT).show();
+				finish();
 				break;
 		
 			default:

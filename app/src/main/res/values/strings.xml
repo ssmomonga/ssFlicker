@@ -17,9 +17,11 @@
 	<string name="view_appwidget_error">Cannot show this widget</string>
 	<string name="recent_pointer_error">Can\'t use recent pointer at Android 5.0 or later</string>
 	<string name="task_pointer_error">Can\'t use task pointer at Android 5.0 or later</string>
+	<string name="require_permission_call_phone">Require directly call phone numbers permission</string>
 
 <!-- EditorActivity -->
 	<string name="enter_edit_mode">Enter edit mode</string>
+	<string name="require_permission_write_external_storage">Require write storage permission</string>
 
 	<string name="pointer_custom">Pointer</string>
 	<string name="pointer_home">Home pointer</string>
@@ -94,7 +96,7 @@
 	<string name="backup_restore">Backup / Restore</string>
 	<string name="no_storage">No storage</string>
 	<string name="donation">Donation</string>
-	
+
 <!-- PrefSubActivity -->
 	<string name="launch_by_default">Launch by default</string>
 	<string name="clear_default">Clear to launch ssFlicker by default for some actions?</string>

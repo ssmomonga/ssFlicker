@@ -5,21 +5,23 @@
 	<string name="app_name">ssFlicker</string>
 	<string name="activity_name_home_key">ssFlicker</string>
 	<string name="activity_name_flick">ssFlicker</string>
-    <string name="activity_name_edit">ssFlicker - 編集モード</string>
-    <string name="activity_name_pref">ssFlicker - 設定</string>
-    <string name="activity_name_donate">ssFlicker - 寄付</string>
-    <string name="service_name_overlay">ssFlicker - オーバーレイサービス</string>
-    <string name="receiver_name_boot">ssFlicker</string>
-    <string name="receiver_name_invisible_appwidget">ssFlicker（透明ウィジェット）</string>
+	<string name="activity_name_edit">ssFlicker - 編集モード</string>
+	<string name="activity_name_pref">ssFlicker - 設定</string>
+	<string name="activity_name_donate">ssFlicker - 寄付</string>
+	<string name="service_name_overlay">ssFlicker - オーバーレイサービス</string>
+	<string name="receiver_name_boot">ssFlicker</string>
+	<string name="receiver_name_invisible_appwidget">ssFlicker（透明ウィジェット）</string>
 
 <!-- FlickerActivity -->
 	<string name="enter_flick_mode">フリックモードに変更しました</string>
 	<string name="view_appwidget_error">ウィジェットを表示できませんでした</string>
 	<string name="recent_pointer_error">Android 5.0以降では履歴ポインタは利用できません</string>
 	<string name="task_pointer_error">Android 5.0以降ではタスクポインタは利用できません</string>
-	
+	<string name="require_permission_call_phone">電話番号発信のパーミッションが必要です</string>
+
 <!-- EditorActivity -->
 	<string name="enter_edit_mode">編集モードに変更しました</string>
+	<string name="require_permission_write_external_storage">ストレージの書込みパーミッションが必要です</string>
 
 	<string name="pointer_custom">ポインタ</string>
 	<string name="pointer_home">ホームポインタ</string>
@@ -94,7 +96,7 @@
 	<string name="backup_restore">バックアップ／リストア</string>
 	<string name="no_storage">ストレージがありません</string>
 	<string name="donation">寄付</string>
-	
+
 <!-- PrefSubActivity -->
 	<string name="launch_by_default">デフォルト起動</string>
 	<string name="clear_default">ssFlickerのデフォルト設定を解除しますか？</string>

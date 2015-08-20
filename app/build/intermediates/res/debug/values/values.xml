@@ -433,6 +433,8 @@
     <string name="receiver_name_boot">ssFlicker</string>
     <string name="receiver_name_invisible_appwidget">ssFlicker - Invisible widget</string>
     <string name="recent_pointer_error">Can\'t use recent pointer at Android 5.0 or later</string>
+    <string name="require_permission_call_phone">Require directly call phone numbers permission</string>
+    <string name="require_permission_write_external_storage">Require write storage permission</string>
     <string name="restore">Restore</string>
     <string name="restore_complete">Restore completed</string>
     <string name="restore_error">Restore failed</string>

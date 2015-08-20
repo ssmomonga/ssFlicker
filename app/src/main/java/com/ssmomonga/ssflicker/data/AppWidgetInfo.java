@@ -291,12 +291,12 @@ public class AppWidgetInfo {
 		Resources r = context.getResources();
 		
 		//targetVersionにより計算式の変数値が異なる。
-		if (targetVersion < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			sizePerCell = r.getDimensionPixelSize(R.dimen.cell_size_old);		//80dp
-			sizePerCellMinus = r.getDimensionPixelSize(R.dimen.cell_size_minus_old);	//0dp
-		} else {
+		if (targetVersion >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			sizePerCell = r.getDimensionPixelSize(R.dimen.cell_size);		//80dp
 			sizePerCellMinus = r.getDimensionPixelSize(R.dimen.cell_size_minus);	//16dp
+		} else {
+			sizePerCell = r.getDimensionPixelSize(R.dimen.cell_size_old);		//80dp
+			sizePerCellMinus = r.getDimensionPixelSize(R.dimen.cell_size_minus_old);	//0dp
 		}
 
 		//minSizeが0の場合はcellSizeも0にする。

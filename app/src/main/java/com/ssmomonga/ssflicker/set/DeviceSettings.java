@@ -210,14 +210,16 @@ public class DeviceSettings {
 	 * @return
 	 */
 	public static boolean hasExternalStorage(Context context) {
+		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
+/*
 		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 			File externalDir = new File(getExternalDir(context));
 			return (externalDir.exists() || externalDir.mkdir());
 		} else { 
 			return false;
-		}
+		}*/
 	}
-	
+
 	/**
 	 * getExternalDir()
 	 *
@@ -225,7 +227,9 @@ public class DeviceSettings {
 	 * @return
 	 */
 	public static String getExternalDir(Context context) {
-		return Environment.getExternalStorageDirectory() + "/" + context.getApplicationInfo().loadLabel(context.getPackageManager()) + "/";
+		String externalDirPath = Environment.getExternalStorageDirectory() + "/" + context.getApplicationInfo().loadLabel(context.getPackageManager()) + "/";
+		File externalDir = new File(externalDirPath);
+		return (externalDir.exists() || externalDir.mkdir()) ? externalDirPath : null;
 	}
 	
 	/**
