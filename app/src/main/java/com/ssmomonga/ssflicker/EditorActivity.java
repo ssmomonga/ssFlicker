@@ -405,6 +405,7 @@ public class EditorActivity extends Activity {
 						}
 
 						editDialog.setIconBitmap(bitmap, targetIcon, IconList.LABEL_ICON_TYPE_CUSTOM, 0);
+
 						deleteTrimmingCacheFile();
 						editDialog.setCancelable(true);
 						editDialog.setCanceledOnTouchOutside(true);
@@ -429,8 +430,10 @@ public class EditorActivity extends Activity {
 						addApp(null);
 						setOnFlickListener();
 						break;
-			
+
+					case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING:
 					case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING_2:
+					case REQUEST_CODE_EDIT_APP_ICON_TRIMMING:
 					case REQUEST_CODE_EDIT_APP_ICON_TRIMMING_2:
 						deleteTrimmingCacheFile();
 						editDialog.setCancelable(true);
