@@ -449,38 +449,42 @@ public class EditorActivity extends Activity {
 	 * deleteTrimmingCacheFile()
 	 */
 	private void deleteTrimmingCacheFile() {
-		(new Thread (new Runnable() {
-			@Override
-			public void run() {
-				File[] files = new File(DeviceSettings.getExternalDir(EditorActivity.this)).listFiles(new FilenameFilter() {
-					@Override
-					public boolean accept(File file, String name) {
-						return (name.endsWith(TRIMMING_CACHE_FILE_NAME));
-					}
-				});
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
+				checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
-				if (files != null && files.length > 0) {
-					Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-					for (File file: files) {
-
-						Cursor c = getContentResolver().query(
-								baseUri,
-								null,
-								MediaStore.Images.ImageColumns.DATA + " = ?",
-								new String[] { file.toString() },
-								null);
-						if (c.getCount() != 0) {
-							c.moveToFirst();
-							String contentName = baseUri.toString() + "/" +
-									c.getInt(c.getColumnIndex(MediaStore.MediaColumns._ID));
-							Uri uri = Uri.parse(contentName);
-							getContentResolver().delete(uri, null, null);
+			(new Thread(new Runnable() {
+				@Override
+				public void run() {
+					File[] files = new File(DeviceSettings.getExternalDir(EditorActivity.this)).listFiles(new FilenameFilter() {
+						@Override
+						public boolean accept(File file, String name) {
+							return (name.endsWith(TRIMMING_CACHE_FILE_NAME));
 						}
-						c.close();
+					});
+
+					if (files != null && files.length > 0) {
+						Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+						for (File file : files) {
+
+							Cursor c = getContentResolver().query(
+									baseUri,
+									null,
+									MediaStore.Images.ImageColumns.DATA + " = ?",
+									new String[]{file.toString()},
+									null);
+							if (c.getCount() != 0) {
+								c.moveToFirst();
+								String contentName = baseUri.toString() + "/" +
+										c.getInt(c.getColumnIndex(MediaStore.MediaColumns._ID));
+								Uri uri = Uri.parse(contentName);
+								getContentResolver().delete(uri, null, null);
+							}
+							c.close();
+						}
 					}
 				}
-			}
-		})).start();
+			})).start();
+		}
 	}
 
 	/**
