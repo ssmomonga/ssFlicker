@@ -32,7 +32,7 @@ import com.ssmomonga.ssflicker.set.DeviceSettings;
  */
 public class EditDialog extends AlertDialog {
 	
-	private Context context;
+	private static Context context;
 	private static Resources r;
 	
 	private static LinearLayout.LayoutParams params;
@@ -402,7 +402,7 @@ public class EditDialog extends AlertDialog {
 			 * @param iconType
 			 */
 			@Override
-			public void onSelectedIconType(int iconType) {
+			public void onSelectIconType(int iconType) {
 				App[] appList;
 				
 				switch (iconType) {
@@ -457,7 +457,7 @@ public class EditDialog extends AlertDialog {
 			 * @param appId
 			 */
 			@Override
-			public void onSelectedIcon(Drawable icon, int appId) {
+			public void onSelectIcon(Drawable icon, int appId) {
 				setIconDrawable(icon, iconTarget, iconType, appId);
 			}
 		}.show();

@@ -777,7 +777,7 @@ public class EditorActivity extends Activity {
 	 */
 	private void viewEditPointerDialog() {
 		
-		editDialog = new EditDialog(this, pointerList[pointerId], new EditPointerIf() {
+		editDialog = new EditDialog(this, pointerList[pointerId], new  EditDialog.EditPointerIf() {
 
 			/**
 			 * getAppList()

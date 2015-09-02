@@ -2,7 +2,6 @@ package com.ssmomonga.ssflicker.dlg;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.BaseData;
+import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.db.PrefDAO;
 
 /**
@@ -157,6 +157,7 @@ public class CustomAdapters {
 		
 		private Context context;
 		private int resource;
+		private int iconType;
 		private int iconColor;
 		private LinearLayout.LayoutParams params;
 
@@ -167,10 +168,11 @@ public class CustomAdapters {
 		 * @param resource
 		 * @param iconColor
 		 */
-		public IconAdapter(Context context, int resource, int iconColor) {
+		public IconAdapter(Context context, int resource, int iconType, int iconColor) {
 			super(context, resource);
 			this.context = context;
 			this.resource = resource;
+			this.iconType = iconType;
 			this.iconColor = iconColor;
 			int iconSize = new PrefDAO(context).getIconSize();
 			params = new LinearLayout.LayoutParams(iconSize, iconSize);
@@ -192,7 +194,9 @@ public class CustomAdapters {
 				convertView = inflater.inflate(resource, parent, false);
 				holder = new ViewHolder();
 				holder.iv_icon = (ImageView) convertView.findViewById(R.id.iv_icon);
-				holder.iv_icon.setColorFilter(iconColor);
+				if (iconType == IconList.LABEL_ICON_TYPE_ORIGINAL) {
+					holder.iv_icon.setColorFilter(iconColor);
+				}
 				convertView.setTag(holder);
 
 			} else {
@@ -200,7 +204,7 @@ public class CustomAdapters {
 			}
 			
 			holder.iv_icon.setLayoutParams(params);
-			holder.iv_icon.setImageDrawable((Drawable) getItem(position).getIcon());
+			holder.iv_icon.setImageDrawable(getItem(position).getIcon());
 
 			return convertView;
 		}

@@ -60,20 +60,20 @@ public class IconDialog {
 					
 					//オリジナルアイコン
 					if (iconTypeList[witch].equals(r.getString(R.string.original_icon))) {
-						onSelectedIconType(IconList.LABEL_ICON_TYPE_ORIGINAL);
+						onSelectIconType(IconList.LABEL_ICON_TYPE_ORIGINAL);
 
 					//マルチアプリアイコン
 					} else if (iconTypeList[witch].equals(r.getString(R.string.multi_app_icon))) {
-						onSelectedIconType(IconList.LABEL_ICON_TYPE_MULTI_APPS);
+						onSelectIconType(IconList.LABEL_ICON_TYPE_MULTI_APPS);
 						dialog.cancel();
 							
 					//アプリアイコン
 					} else if (iconTypeList[witch].equals(r.getString(R.string.app_icon))) {
-						onSelectedIconType(IconList.LABEL_ICON_TYPE_APP);
+						onSelectIconType(IconList.LABEL_ICON_TYPE_APP);
 						
 					//画像を選択＆トリミング
 					} else if (iconTypeList[witch].equals(r.getString(R.string.image))) {
-						onSelectedIconType(IconList.LABEL_ICON_TYPE_CUSTOM);
+						onSelectIconType(IconList.LABEL_ICON_TYPE_CUSTOM);
 						
 					}
 				}
@@ -87,11 +87,11 @@ public class IconDialog {
 		}
 
 		/**
-		 * onSelectedIconType()
+		 * onSelectIconType()
 		 *
 		 * @param iconType
 		 */
-		public abstract void onSelectedIconType(int iconType);
+		public abstract void onSelectIconType(int iconType);
 		
 	}
 
@@ -103,6 +103,7 @@ public class IconDialog {
 		private Context context;
 		private static BaseData[] iconList;
 		private static GridView gv_icon;
+		private static int iconType;
 		private static int iconColor;
 		private static IconAdapter adapter;
 
@@ -117,17 +118,16 @@ public class IconDialog {
 			super(context);
 			this.context = context;
 			this.iconList = iconList;
+			this.iconType = iconType;
 			iconColor = context.getResources().getColor(android.R.color.white);
-			setInitialLayout(iconList, iconType);
+//			iconColor = context.getResources().getColor(android.R.color.white, null);		API 23以上
+			setInitialLayout();
 		}
 
 		/**
 		 * setInitialLayout()
-		 *
-		 * @param iconList
-		 * @param iconType
 		 */
-		private void setInitialLayout(BaseData[] iconList, int iconType) {
+		private void setInitialLayout() {
 			LayoutInflater inflater = LayoutInflater.from(context);
 			View view = inflater.inflate(R.layout.icon_chooser, null);
 			setView(view);
@@ -145,7 +145,7 @@ public class IconDialog {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					BaseData icon = (BaseData) parent.getItemAtPosition(position);
-					onSelectedIcon(icon.getIcon(), (Integer) icon.getTag());
+					onSelectIcon(icon.getIcon(), (Integer) icon.getTag());
 					cancel();
 				}
 			});
@@ -153,7 +153,7 @@ public class IconDialog {
 			changeIconColor();
 
 			if (iconType == IconList.LABEL_ICON_TYPE_ORIGINAL) {
-				
+
 				//アイコンカラー
 				setButton(BUTTON_NEUTRAL, context.getResources().getText(R.string.icon_color), new DialogInterface.OnClickListener(){
 					/**
@@ -210,18 +210,18 @@ public class IconDialog {
 		 * changeIconColor()
 		 */
 		private void changeIconColor() {
-			IconAdapter adapter = new IconAdapter(context, R.layout.icon_grid_view, iconColor);
+			IconAdapter adapter = new IconAdapter(context, R.layout.icon_grid_view, iconType, iconColor);
 			for (BaseData icon: iconList) if (icon != null) adapter.add(icon);
 			gv_icon.setAdapter(adapter);
 		}
 
 		/**
-		 * onSelectedIcon()
+		 * onSelectIcon()
 		 *
 		 * @param icon
 		 * @param appId
 		 */
-		abstract public void onSelectedIcon(Drawable icon, int appId);
+		abstract public void onSelectIcon(Drawable icon, int appId);
 		
 	}
 	
