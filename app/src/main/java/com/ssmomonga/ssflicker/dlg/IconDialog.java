@@ -26,7 +26,7 @@ public class IconDialog {
 	 */
 	public abstract static class SelectIconTypeDialog extends AlertDialog.Builder {
 
-		private Context context;
+		private static Context context;
 		
 		/**
 		 * Constructor
@@ -120,7 +120,7 @@ public class IconDialog {
 			this.iconList = iconList;
 			this.iconType = iconType;
 			iconColor = context.getResources().getColor(android.R.color.white);
-//			iconColor = context.getResources().getColor(android.R.color.white, null);		API 23以上
+//			iconColor = context.getResources().getColor(android.R.color.white, null);		//API 23以上
 			setInitialLayout();
 		}
 
@@ -153,7 +153,7 @@ public class IconDialog {
 			changeIconColor();
 
 			if (iconType == IconList.LABEL_ICON_TYPE_ORIGINAL) {
-
+				
 				//アイコンカラー
 				setButton(BUTTON_NEUTRAL, context.getResources().getText(R.string.icon_color), new DialogInterface.OnClickListener(){
 					/**

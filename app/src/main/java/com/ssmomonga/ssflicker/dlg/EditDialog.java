@@ -32,7 +32,7 @@ import com.ssmomonga.ssflicker.set.DeviceSettings;
  */
 public class EditDialog extends AlertDialog {
 	
-	private static Context context;
+	private Context context;
 	private static Resources r;
 	
 	private static LinearLayout.LayoutParams params;

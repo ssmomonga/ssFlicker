@@ -38,7 +38,7 @@ public class ColorPickerSettings {
 		fillLP(pdao);
 		windowBackgroundColor = pdao.getWindowBackgroundColor();
 		this.iconColor = context.getResources().getColor(android.R.color.white);
-//		this.iconColor = context.getResources().getColor(android.R.color.white, null);		API 23以上
+//		this.iconColor = context.getResources().getColor(android.R.color.white, null);		//API 23以上
 		textVisibility = pdao.isTextVisibility();
 		textColor = pdao.getTextColor();
 		textSize = pdao.getTextSize();
