@@ -449,6 +449,7 @@ public class EditorActivity extends Activity {
 	 * deleteTrimmingCacheFile()
 	 */
 	private void deleteTrimmingCacheFile() {
+
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
 				checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
@@ -465,13 +466,15 @@ public class EditorActivity extends Activity {
 					if (files != null && files.length > 0) {
 						Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 						for (File file : files) {
-
+							file.delete();
+/*
 							Cursor c = getContentResolver().query(
 									baseUri,
 									null,
 									MediaStore.Images.ImageColumns.DATA + " = ?",
-									new String[]{file.toString()},
+									new String[] { file.toString() },
 									null);
+
 							if (c.getCount() != 0) {
 								c.moveToFirst();
 								String contentName = baseUri.toString() + "/" +
@@ -480,6 +483,7 @@ public class EditorActivity extends Activity {
 								getContentResolver().delete(uri, null, null);
 							}
 							c.close();
+*/
 						}
 					}
 				}
