@@ -1,4 +1,4 @@
-package com.ssmomonga.ssflicker.dlg;
+package com.ssmomonga.ssflicker.data;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,9 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.data.App;
-import com.ssmomonga.ssflicker.data.BaseData;
-import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.db.PrefDAO;
 
 /**
@@ -215,7 +212,7 @@ public class CustomAdapters {
 		private class ViewHolder {
 			ImageView iv_icon;
 		}
-		
+
 	}
 	
 }

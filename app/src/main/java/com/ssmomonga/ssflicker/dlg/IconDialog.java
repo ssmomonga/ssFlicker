@@ -14,7 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.BaseData;
 import com.ssmomonga.ssflicker.data.IconList;
-import com.ssmomonga.ssflicker.dlg.CustomAdapters.IconAdapter;
+import com.ssmomonga.ssflicker.data.CustomAdapters.IconAdapter;
 
 /**
  * IconDialog
@@ -150,7 +150,7 @@ public class IconDialog {
 				}
 			});
 
-			changeIconColor();
+			setAdapter();
 
 			if (iconType == IconList.LABEL_ICON_TYPE_ORIGINAL) {
 				
@@ -187,7 +187,7 @@ public class IconDialog {
 									@Override
 									public void onSettings (int newColor) {
 										iconColor = newColor;
-										changeIconColor();
+										setAdapter();
 									}
 								}.show();
 							}
@@ -207,9 +207,9 @@ public class IconDialog {
 		}
 
 		/**
-		 * changeIconColor()
+		 * setAdapter()
 		 */
-		private void changeIconColor() {
+		private void setAdapter() {
 			IconAdapter adapter = new IconAdapter(context, R.layout.icon_grid_view, iconType, iconColor);
 			for (BaseData icon: iconList) if (icon != null) adapter.add(icon);
 			gv_icon.setAdapter(adapter);

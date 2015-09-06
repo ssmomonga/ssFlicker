@@ -11,7 +11,7 @@ import android.widget.GridView;
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
-import com.ssmomonga.ssflicker.dlg.CustomAdapters.AppAdapter;
+import com.ssmomonga.ssflicker.data.CustomAdapters.AppAdapter;
 import com.ssmomonga.ssflicker.proc.GetAppListTask;
 import com.ssmomonga.ssflicker.proc.Launch;
 
