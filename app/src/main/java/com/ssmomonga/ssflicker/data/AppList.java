@@ -101,7 +101,8 @@ public class AppList {
 						IconList.LABEL_ICON_TYPE_ACTIVITY,
 						activityInfo.loadIcon(pm),
 						IconList.LABEL_ICON_TYPE_ACTIVITY,
-						new IntentAppInfo(intentType, ((Intent) intent.clone()).setClassName(packageName, activityInfo.name)));
+						new IntentAppInfo(intentType,
+								((Intent) intent.clone()).setClassName(packageName, activityInfo.name)));
 				appList.add(intentApp);
 
 			}
@@ -208,13 +209,62 @@ public class AppList {
 	public static App[] getFunctionList(Context context) {
 		Resources r = context.getResources();
 		App[] functionAppList = {
-				new App(context, App.APP_TYPE_FUNCTION, null, r.getString(R.string.wifi), IconList.LABEL_ICON_TYPE_ORIGINAL, r.getDrawable(R.mipmap.icon_20_function_wifi, null), IconList.LABEL_ICON_TYPE_ORIGINAL, new FunctionInfo (FunctionInfo.FUNCTION_TYPE_WIFI)),
-				new App(context, App.APP_TYPE_FUNCTION, null, r.getString(R.string.bluetooth), IconList.LABEL_ICON_TYPE_ORIGINAL, r.getDrawable(R.mipmap.icon_21_function_bluetooth, null), IconList.LABEL_ICON_TYPE_ORIGINAL, new FunctionInfo (FunctionInfo.FUNCTION_TYPE_BLUETOOTH)),
-				new App(context, App.APP_TYPE_FUNCTION, null, r.getString(R.string.sync), IconList.LABEL_ICON_TYPE_ORIGINAL, r.getDrawable(R.mipmap.icon_22_function_sync, null), IconList.LABEL_ICON_TYPE_ORIGINAL, new FunctionInfo (FunctionInfo.FUNCTION_TYPE_SYNC)),
-				new App(context, App.APP_TYPE_FUNCTION, null, r.getString(R.string.silent_mode), IconList.LABEL_ICON_TYPE_ORIGINAL, r.getDrawable(R.mipmap.icon_23_function_silent_mode, null), IconList.LABEL_ICON_TYPE_ORIGINAL, new FunctionInfo (FunctionInfo.FUNCTION_TYPE_SILENT_MODE)),
-				new App(context, App.APP_TYPE_FUNCTION, null, r.getString(R.string.volume), IconList.LABEL_ICON_TYPE_ORIGINAL, r.getDrawable(R.mipmap.icon_24_function_volume, null), IconList.LABEL_ICON_TYPE_ORIGINAL, new FunctionInfo (FunctionInfo.FUNCTION_TYPE_VOLUME)),
-				new App(context, App.APP_TYPE_FUNCTION, null, r.getString(R.string.rotate), IconList.LABEL_ICON_TYPE_ORIGINAL, r.getDrawable(R.mipmap.icon_25_function_rotate, null), IconList.LABEL_ICON_TYPE_ORIGINAL, new FunctionInfo (FunctionInfo.FUNCTION_TYPE_ROTATE)),
-				new App(context, App.APP_TYPE_FUNCTION, null, r.getString(R.string.search), IconList.LABEL_ICON_TYPE_ORIGINAL, r.getDrawable(R.mipmap.icon_26_function_search, null), IconList.LABEL_ICON_TYPE_ORIGINAL, new FunctionInfo (FunctionInfo.FUNCTION_TYPE_SEARCH)) };
+				new App(context,
+						App.APP_TYPE_FUNCTION,
+						null,
+						r.getString(R.string.wifi),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						r.getDrawable(R.mipmap.icon_20_function_wifi,null),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						new FunctionInfo (FunctionInfo.FUNCTION_TYPE_WIFI)),
+				new App(context,
+						App.APP_TYPE_FUNCTION,
+						null,
+						r.getString(R.string.bluetooth),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						r.getDrawable(R.mipmap.icon_21_function_bluetooth, null),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						new FunctionInfo (FunctionInfo.FUNCTION_TYPE_BLUETOOTH)),
+				new App(context,
+						App.APP_TYPE_FUNCTION,
+						null,
+						r.getString(R.string.sync),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						r.getDrawable(R.mipmap.icon_22_function_sync, null),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						new FunctionInfo (FunctionInfo.FUNCTION_TYPE_SYNC)),
+				new App(context,
+						App.APP_TYPE_FUNCTION,
+						null,
+						r.getString(R.string.silent_mode),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						r.getDrawable(R.mipmap.icon_23_function_silent_mode, null),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						new FunctionInfo (FunctionInfo.FUNCTION_TYPE_SILENT_MODE)),
+				new App(context,
+						App.APP_TYPE_FUNCTION,
+						null,
+						r.getString(R.string.volume),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						r.getDrawable(R.mipmap.icon_24_function_volume, null),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						new FunctionInfo (FunctionInfo.FUNCTION_TYPE_VOLUME)),
+				new App(context,
+						App.APP_TYPE_FUNCTION,
+						null,
+						r.getString(R.string.rotate),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						r.getDrawable(R.mipmap.icon_25_function_rotate, null),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						new FunctionInfo (FunctionInfo.FUNCTION_TYPE_ROTATE)),
+				new App(context,
+						App.APP_TYPE_FUNCTION,
+						null,
+						r.getString(R.string.search),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						r.getDrawable(R.mipmap.icon_26_function_search, null),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						new FunctionInfo (FunctionInfo.FUNCTION_TYPE_SEARCH)) };
 		return functionAppList;
 	}
 
@@ -243,7 +293,9 @@ public class AppList {
 		String thisPackageName = context.getPackageName();
 		String anotherHomePackageName = null;
 		App anotherHome = new HomeKeySettings(context).getAnotherHome();
-		if (anotherHome != null) anotherHomePackageName = (anotherHome.getIntentAppInfo().getIntent()).getComponent().getPackageName();
+		if (anotherHome != null) {
+			anotherHomePackageName = (anotherHome.getIntentAppInfo().getIntent()).getComponent().getPackageName();
+		}
 
 		for (ActivityManager.RecentTaskInfo rti: recentTaskList) {
 
@@ -252,7 +304,8 @@ public class AppList {
 
 			Intent intent = new Intent(rti.baseIntent);
 			if (rti.origActivity != null) intent.setComponent(rti.origActivity);
-			intent.setFlags((intent.getFlags() &~ Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED) | Intent.FLAG_ACTIVITY_NEW_TASK);
+			intent.setFlags((intent.getFlags() &~ Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED) |
+					Intent.FLAG_ACTIVITY_NEW_TASK);
 
 			ResolveInfo ri = pm.resolveActivity(intent, 0);
 
@@ -272,7 +325,8 @@ public class AppList {
 								IconList.LABEL_ICON_TYPE_ACTIVITY,
 								actInfo.loadIcon(pm),
 								IconList.LABEL_ICON_TYPE_ACTIVITY,
-								new IntentAppInfo(intentType, intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY), rti.id));
+								new IntentAppInfo(intentType,
+										intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY), rti.id));
 
 						appList.add(intentApp);
 

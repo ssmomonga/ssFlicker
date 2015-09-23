@@ -2,7 +2,7 @@
 
 <ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/lp_mp_0" >
+	style="@style/lp_mp_0" >
 		
 	<LinearLayout
 		style="@style/lp_mp_wc"
@@ -11,7 +11,7 @@
 
 		<LinearLayout
 			style="@style/lp_mp_wc"
-		    android:orientation="vertical" >
+			android:orientation="vertical" >
 			<TextView
 				style="@style/lp_mp_wc"
 				android:text="@string/app_info"
@@ -20,7 +20,7 @@
 				style="@style/lp_mp_wc"
 				android:padding="8dp"
 				android:orientation="vertical" >
-		    	<TextView
+				<TextView
 					style="@style/lp_mp_wc"
 					android:text="@string/play_store" />
 				<TextView
@@ -42,161 +42,165 @@
 		</LinearLayout>
 
 		<LinearLayout
-		   	style="@style/lp_mp_wc"
-	        android:orientation="vertical" >
+			style="@style/lp_mp_wc"
+			android:orientation="vertical" >
 			<TextView
-			    style="@style/lp_mp_wc"
-			    android:text="@string/dev_info"
+				style="@style/lp_mp_wc"
+				android:text="@string/dev_info"
 				android:textColor="?android:colorAccent" />
 			<LinearLayout
-	        	style="@style/lp_mp_wc"
+				style="@style/lp_mp_wc"
 				android:padding="8dp"
-	       		android:orientation="vertical" >
+		   		android:orientation="vertical" >
 				<TextView
-				    style="@style/lp_mp_wc"
-				    android:text="@string/email" />
+					style="@style/lp_mp_wc"
+					android:text="@string/email" />
 				<TextView android:id="@+id/tv_email_address"
-				    style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingLeft="8dp"
 					android:paddingBottom="8dp"
-				    android:text="@string/email_address"
+					android:text="@string/email_address"
 					android:autoLink="email" />
 				<TextView
-				    style="@style/lp_mp_wc"
-				    android:text="@string/twitter" />
+					style="@style/lp_mp_wc"
+					android:text="@string/twitter" />
 				<TextView
-				    style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingLeft="8dp"
 					android:paddingBottom="8dp"
-				    android:text="@string/twitter_account"
+					android:text="@string/twitter_account"
 					android:autoLink="web" />
 				<TextView
-				    style="@style/lp_mp_wc"
-			    	android:text="@string/blog" />
+					style="@style/lp_mp_wc"
+					android:text="@string/blog" />
 				<TextView
-				    style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingLeft="8dp"
 					android:paddingBottom="8dp"
-				    android:text="@string/blog_url"
+					android:text="@string/blog_url"
 					android:autoLink="web" />
+				<!-- TextView
+					style="@style/lp_mp_wc"
+					android:text="@string/qa" />
 				<TextView
-				    style="@style/lp_mp_wc"
-				    android:text="@string/qa" />
-				<TextView
-				    style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingLeft="8dp"
 					android:paddingBottom="8dp"
-				    android:text="@string/qa_url"
-					android:autoLink="web" />
+					android:text="@string/qa_url"
+					android:autoLink="web" /-->
 			</LinearLayout>
 		</LinearLayout>
 
 		<LinearLayout
 		   	style="@style/lp_mp_wc"
-	        android:orientation="vertical" >
+			android:orientation="vertical" >
 			<TextView
-			    style="@style/lp_mp_wc"
-			    android:text="@string/ver_info"
+				style="@style/lp_mp_wc"
+				android:text="@string/ver_info"
 				android:textColor="?android:colorAccent" />
 			<LinearLayout
-	   	    	style="@style/lp_mp_wc"
+	   			style="@style/lp_mp_wc"
 				android:padding="8dp"
-	       		android:orientation="vertical" >
+		   		android:orientation="vertical" >
 				<TextView
-				    style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingBottom="8dp"
-				    android:text="@string/ver_0" />
+					android:text="@string/ver_0" />
 				<TextView
-				    style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingBottom="8dp"
-				    android:text="@string/ver_4" />
+					android:text="@string/ver_1" />
 				<TextView
-				    style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingBottom="8dp"
-				    android:text="@string/ver_5" />
+					android:text="@string/ver_2" />
 			</LinearLayout>
 		</LinearLayout>
 
-		<LinearLayout
-		   	style="@style/lp_mp_wc"
-	        android:orientation="vertical" >
+		<LinearLayout 
+			style="@style/lp_mp_wc"
+			android:orientation="vertical" >
 			<TextView
-			    style="@style/lp_mp_wc"
-			    android:text="@string/permission"
+				style="@style/lp_mp_wc"
+				android:text="@string/permission"
 				android:textColor="?android:colorAccent" />
-			<LinearLayout
-	        	style="@style/lp_mp_wc"
+			<LinearLayout 
+				style="@style/lp_mp_wc"
 				android:padding="8dp"
-	       		android:orientation="vertical" >
+				android:orientation="vertical" >
 				<TextView
-				    style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingBottom="8dp"
-				    android:text="@string/prm_1" />
+					android:text="@string/prm_0" />
 				<TextView
-				    style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingBottom="8dp"
-			    	android:text="@string/prm_2" />
+					android:text="@string/prm_1" />
 				<TextView
-				    style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingBottom="8dp"
-				    android:text="@string/prm_3" />
+					android:text="@string/prm_2" />
 				<TextView
-				    style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingBottom="8dp"
-				    android:text="@string/prm_4" />
+					android:text="@string/prm_3" />
 				<TextView
-				    style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingBottom="8dp"
-				    android:text="@string/prm_6" />
+					android:text="@string/prm_4" />
 				<TextView
-				    style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingBottom="8dp"
-				    android:text="@string/prm_7" />
+					android:text="@string/prm_5" />
+				<TextView
+					style="@style/lp_mp_wc"
+					android:paddingBottom="8dp"
+					android:text="@string/prm_6" />
 			</LinearLayout>
 		</LinearLayout>
 
-		<LinearLayout
-		   	style="@style/lp_mp_wc"
-		       android:orientation="vertical" >
-			<TextView
-			    style="@style/lp_mp_wc"
-			    android:text="@string/hint"
+		<LinearLayout 
+			style="@style/lp_mp_wc"
+			android:orientation="vertical" >
+			<TextView 
+				style="@style/lp_mp_wc"
+				android:text="@string/hint"
 				android:textColor="?android:colorAccent" />
-			<LinearLayout
-	        	style="@style/lp_mp_wc"
+			<LinearLayout 
+				style="@style/lp_mp_wc"
 				android:padding="8dp"
-	       		android:orientation="vertical" >
+				android:orientation="vertical" >
 				<TextView
-			    	style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingBottom="8dp"
-				    android:text="@string/hint_0" />
+					android:text="@string/hint_0" />
+				<TextView 
+					style="@style/lp_mp_wc"
+					android:paddingBottom="8dp"
+					android:text="@string/hint_1" />
 				<TextView
-			    	style="@style/lp_mp_wc"
+					style="@style/lp_mp_wc"
 					android:paddingBottom="8dp"
-				    android:text="@string/hint_1" />
-				<TextView
-				    style="@style/lp_mp_wc"
-					android:paddingBottom="8dp"
-			    	android:text="@string/hint_2" />
+					android:text="@string/hint_2" />
 			</LinearLayout>
 		</LinearLayout>
 
 		<LinearLayout
 		   	style="@style/lp_mp_wc"
-		       android:orientation="vertical" >
+			   android:orientation="vertical" >
 			<TextView
-			    style="@style/lp_mp_wc"
-			    android:text="@string/thanks"
+				style="@style/lp_mp_wc"
+				android:text="@string/thanks"
 				android:textColor="?android:colorAccent" />
 			<LinearLayout
-	        	style="@style/lp_mp_wc"
+				style="@style/lp_mp_wc"
 				android:paddingLeft="8dp"
 				android:paddingTop="8dp"
 				android:paddingRight="8dp"
-	       		android:orientation="vertical" >
+				android:orientation="vertical" >
 				<TextView
-			    	style="@style/lp_mp_wc"
-				    android:text="@string/thanks_0" />
+					style="@style/lp_mp_wc"
+					android:text="@string/thanks_0" />
 			</LinearLayout>
 		</LinearLayout>
 

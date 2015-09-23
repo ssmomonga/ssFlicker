@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Boot
  */
-public class Boot extends BroadcastReceiver {
+public class BootReceiver extends BroadcastReceiver {
 
 	/**
 	 * onReceive()
@@ -85,7 +85,7 @@ public class Boot extends BroadcastReceiver {
 				//アプリの無効化
 				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED:
 				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER:
-//				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED:	よく分からないので無視する。
+				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED:	//よく分からないけど、とりあえず入れておく。
 					rebuildAppTable(context, intent);
 					rebuildAppCacheTable(context);
 					break;

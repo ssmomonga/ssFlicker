@@ -4,7 +4,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/lp_wc_wc" >
 
-   	<LinearLayout
+	<LinearLayout
 		style="@style/lp_0_wc"
 		android:layout_weight="0.5" />
 

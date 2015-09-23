@@ -30,16 +30,20 @@ public class MenuList {
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
 			switch (i) {
 				case MENU_DRAWER:
-					menu[i] = new BaseData(r.getString(R.string.app_launcher), r.getDrawable(R.mipmap.icon_10_app_launcher, null));
+					menu[i] = new BaseData(r.getString(R.string.app_launcher),
+							r.getDrawable(R.mipmap.icon_10_app_launcher, null));
 					break;
 				case MENU_ANDROID_SETTINGS:
-					menu[i] = new BaseData(r.getString(R.string.menu_item_android_settings), r.getDrawable(android.R.drawable.ic_menu_preferences, null));
+					menu[i] = new BaseData(r.getString(R.string.menu_item_android_settings),
+							r.getDrawable(android.R.drawable.ic_menu_preferences, null));
 					break;
 				case MENU_SSFLICKER_SETTINGS:
-					menu[i] = new BaseData(r.getString(R.string.menu_item_ssflicker_settings), r.getDrawable(android.R.drawable.ic_menu_preferences, null));
+					menu[i] = new BaseData(r.getString(R.string.menu_item_ssflicker_settings),
+							r.getDrawable(android.R.drawable.ic_menu_preferences, null));
 					break;
 				case MENU_EDIT_MODE:
-					menu[i] = new BaseData(r.getString(R.string.menu_item_edit_mode), r.getDrawable(android.R.drawable.ic_menu_edit, null));
+					menu[i] = new BaseData(r.getString(R.string.menu_item_edit_mode),
+							r.getDrawable(android.R.drawable.ic_menu_edit, null));
 					break;
 			}
 		}
@@ -58,13 +62,16 @@ public class MenuList {
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
 			switch (i) {
 				case MENU_ANDROID_SETTINGS:
-					menu[i] = new BaseData(r.getString(R.string.menu_item_android_settings), r.getDrawable(android.R.drawable.ic_menu_preferences, null));
+					menu[i] = new BaseData(r.getString(R.string.menu_item_android_settings),
+							r.getDrawable(android.R.drawable.ic_menu_preferences, null));
 					break;
 				case MENU_SSFLICKER_SETTINGS:
-					menu[i] = new BaseData(r.getString(R.string.menu_item_ssflicker_settings), r.getDrawable(android.R.drawable.ic_menu_preferences, null));
+					menu[i] = new BaseData(r.getString(R.string.menu_item_ssflicker_settings),
+							r.getDrawable(android.R.drawable.ic_menu_preferences, null));
 					break;
 				case MENU_FLICK_MODE:
-					menu[i] = new BaseData(r.getString(R.string.menu_item_flick_mode), r.getDrawable(android.R.drawable.ic_menu_edit, null));
+					menu[i] = new BaseData(r.getString(R.string.menu_item_flick_mode),
+							r.getDrawable(android.R.drawable.ic_menu_edit, null));
 					break;
 			}
 		}

@@ -52,11 +52,12 @@ public abstract class AppChooser extends AlertDialog {
 		LayoutInflater inflater = LayoutInflater.from(context);
 		if (appType == App.APP_TYPE_INTENT_APP || appType == App.APP_TYPE_FUNCTION) {
 			view = inflater.inflate(R.layout.app_chooser, null);
-			adapter = new AppAdapter(context, R.layout.app_grid_view);	
+			adapter = new AppAdapter(context, R.layout.app_grid_view);
 			gv_apps = (GridView) view.findViewById(R.id.gv_apps);
+
 		} else if (appType == App.APP_TYPE_APPWIDGET) {
-			view = inflater.inflate(R.layout.appwidget_chooser, null);	
-			widgetAdapter = new AppWidgetAdapter(context, R.layout.appwidget_grid_view);	
+			view = inflater.inflate(R.layout.appwidget_chooser, null);
+			widgetAdapter = new AppWidgetAdapter(context, R.layout.appwidget_grid_view);
 			gv_app_widgets = (GridView) view.findViewById(R.id.gv_app_widgets);
 		}
 		setView(view);

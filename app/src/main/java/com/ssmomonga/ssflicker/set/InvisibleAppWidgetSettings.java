@@ -36,7 +36,7 @@ public class InvisibleAppWidgetSettings {
 	 * @param invisibleAppWidgetBackground
 	 */
 	private void fillResourceId(boolean invisibleAppWidgetBackground) {
-		resourceId = invisibleAppWidgetBackground ? R.mipmap.icon_appwidget_preview : R.mipmap.invisible;
+		resourceId = invisibleAppWidgetBackground ? R.mipmap.icon_appwidget_preview : R.drawable.invisible;
 
 /**		if (invisibleAppWidgetBackground) {
 			resourceId = R.mipmap.icon_appwidget_preview;

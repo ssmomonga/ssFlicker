@@ -23,7 +23,7 @@ public class HomeKeyClickListener extends Activity {
 	 * @param savedInstanceState
 	 */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		b = false;
@@ -59,34 +59,16 @@ public class HomeKeyClickListener extends Activity {
 	}
 
 	/**
-	 * onResume()
-	 */
-	public void onResume() {
-		super.onResume();
-	}
-	
-	/**
 	 * onNewIntent()
 	 *
 	 * @param intent
 	 */
 	@Override
-	public void onNewIntent(Intent intent) {
+	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
 		b = true;
 		l.launchFlickerActivity();
 		finish();
 	}
 
-	/**
-	 * onActivityResult
-	 *
-	 * @param requestCode
-	 * @param resultCode
-	 * @param data
-	 */
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-	}
 }

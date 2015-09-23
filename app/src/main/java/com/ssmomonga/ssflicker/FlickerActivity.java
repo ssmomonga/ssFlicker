@@ -1,5 +1,6 @@
 package com.ssmomonga.ssflicker;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import android.widget.Toast;
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.AppList;
 import com.ssmomonga.ssflicker.data.AppWidgetInfo;
+import com.ssmomonga.ssflicker.data.FunctionInfo;
+import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
 import com.ssmomonga.ssflicker.data.MenuList;
 import com.ssmomonga.ssflicker.data.Pointer;
@@ -28,6 +32,7 @@ import com.ssmomonga.ssflicker.dlg.Drawer;
 import com.ssmomonga.ssflicker.dlg.VolumeDialog;
 import com.ssmomonga.ssflicker.proc.Launch;
 import com.ssmomonga.ssflicker.set.BootSettings;
+import com.ssmomonga.ssflicker.set.DeviceSettings;
 import com.ssmomonga.ssflicker.set.WindowOrientationParams;
 import com.ssmomonga.ssflicker.set.WindowParams;
 import com.ssmomonga.ssflicker.view.ActionWindow;
@@ -41,8 +46,9 @@ import com.ssmomonga.ssflicker.view.PointerWindow;
  */
 public class FlickerActivity extends Activity {
 
+	public static final int REQUEST_CODE_WRITE_SETTINGS = 0;
+
 	public static final int REQUEST_PERMISSION_CODE_CALL_PHONE = 0;
-	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE = 1;
 
 	private static FrameLayout fl_all;
 	private static AppWidgetLayer app_widget_layer;
@@ -77,7 +83,7 @@ public class FlickerActivity extends Activity {
 	 * @param savedInstanceState
 	 */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		sdao = new SQLiteDAO(this);
@@ -97,7 +103,7 @@ public class FlickerActivity extends Activity {
 	 * onResume()
 	 */
 	@Override
-	public void onResume() {
+	protected void onResume() {
 		super.onResume();
 		if (homeKey = new BootSettings(this).isHomeKey()) {
 			IntentFilter filter = new IntentFilter();
@@ -133,7 +139,7 @@ public class FlickerActivity extends Activity {
 	 * onPause()
 	 */
 	@Override
-	public void onPause() {
+	protected void onPause() {
 		super.onPause();
 		if (homeKey) unregisterReceiver(mReceiver);
 		volumeDialog = l.getVolumeDialog();
@@ -145,9 +151,46 @@ public class FlickerActivity extends Activity {
 	 * onDestroy()
 	 */
 	@Override
-	public void onDestroy() {
+	protected void onDestroy() {
 		super.onDestroy();
 		app_widget_layer.stopListening();
+	}
+
+	/**
+	 * onActivityResult()
+	 * 表示された許可設定画面で許可設定をONにしても、結局バックキーで戻る必要があり、設定値に関わらず
+	 * RESULT_CANCELEDが呼び出される。
+	 *
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
+	 */
+	@Override
+	protected void onActivityResult(final int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		switch (resultCode) {
+			case RESULT_OK:
+			case RESULT_CANCELED:
+
+				switch (requestCode) {
+					case REQUEST_CODE_WRITE_SETTINGS:
+						if (DeviceSettings.checkPermission(this, Manifest.permission.WRITE_SETTINGS )) {
+							Resources r = this.getResources();
+							l.launch(new App(this,
+											App.APP_TYPE_FUNCTION,
+											null,
+											r.getString(R.string.rotate),
+											IconList.LABEL_ICON_TYPE_ORIGINAL,
+											r.getDrawable(R.mipmap.icon_25_function_rotate, null),
+											IconList.LABEL_ICON_TYPE_ORIGINAL,
+											new FunctionInfo(FunctionInfo.FUNCTION_TYPE_ROTATE)),
+									new Rect(0, 0, 0, 0));
+						}
+						break;
+				}
+				break;
+		}
 	}
 
 	/**
@@ -255,6 +298,7 @@ public class FlickerActivity extends Activity {
 			if ((!update && appWidgetInfo.getAppWidgetUpdateTime() != 0) ||
 					(update && appWidgetInfo.getAppWidgetUpdateTime() == 0)) {
 				app_widget_layer.addView(appWidgetInfo);
+
 			} else {
 				app_widget_layer.removeView(appWidgetInfo);
 			}
@@ -337,9 +381,9 @@ public class FlickerActivity extends Activity {
 		@Override
 		public void onMove(int oldPosition, int position) {
 			if (oldPosition == -1 ) {
-				dock_window.setDockPointed(false, appId);				
+				dock_window.setDockPointed(false, appId);
 			} else if (position == -1) {
-				dock_window.setDockPointed(true, appId);				
+				dock_window.setDockPointed(true, appId);
 			}
 		}
 
@@ -532,7 +576,7 @@ public class FlickerActivity extends Activity {
 		 */
 		@Override
 		public void onDown(int position) {
-			dock_window.setMenuPointed(true);			
+			dock_window.setMenuPointed(true);
 			action_window.setActionPointed(true, -1, position);
 			action_window.setMenuForFlick(FlickerActivity.this);
 			action_window.setVisibility(View.VISIBLE);

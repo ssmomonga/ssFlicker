@@ -1,5 +1,6 @@
 package com.ssmomonga.ssflicker;
 
+import android.Manifest;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -49,8 +50,9 @@ public class OverlayService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		
-		//オーバーレイポイントの色変更⇒オーバーレイ起動OFF⇒オーバーレイ起動ONの操作で、色が元に戻る。の不具合対応のためifで囲ってる。詳細原因は不明。
+		// オーバーレイポイントの色変更⇒オーバーレイ起動OFF⇒オーバーレイ起動ONの操作で、色が元に戻ってしまう、
+		// の不具合対応のためifで囲ってる。
+		// 詳細原因は不明。
 		if (overlaySettings == null) {
 			overlaySettings = new OverlaySettings(this);
 			overlayPointParams = overlaySettings.getOverlayPointParams();
@@ -60,7 +62,9 @@ public class OverlayService extends Service {
 		
 		l = new Launch(this);
 		rotateReceiver = new RotateReceiver();
-		
+
+		overlay_layer = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+
 		IntentFilter rotateFilter = new IntentFilter(Intent.ACTION_CONFIGURATION_CHANGED);
 		registerReceiver(rotateReceiver, rotateFilter);
 
@@ -74,22 +78,23 @@ public class OverlayService extends Service {
 	 * viewOverlay()
 	 */
 	private void viewOverlay() {
-		
-		overlay_layer = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 
-		for (int i = 0; i < OverlaySettings.OVERLAY_POINT_COUNT; i ++) {
+		if (!DeviceSettings.checkPermission(this, Manifest.permission.SYSTEM_ALERT_WINDOW)) return;
+
+		for (int i = 0; i < OverlaySettings.OVERLAY_POINT_COUNT; i++) {
 			if (overlayPointParams[i].isOverlayPoint()) {
 				overlay_point[i] = new OverlayPoint(this);
 				overlay_point[i].setTag(String.valueOf(i));
 				overlay_point[i].setBackgroundColor(overlaySettings.getOverlayPointBackgroundColor());
-				overlay_point[i].setOnFlickListener(new OnOverlayPointFlickListener(this, overlayFlickListenerParams.getVibrateTime()));
+				overlay_point[i].setOnFlickListener(new OnOverlayPointFlickListener(
+						this, overlayFlickListenerParams.getVibrateTime()));
 				overlay_layer.addView(overlay_point[i], overlayPointParams[i].getOverlayPointLP());
 
 			} else {
 				overlay_point[i] = null;
 			}
 		}
-		
+
 		overlay_window = new OverlayWindow(this);
 		overlay_layer.addView(overlay_window, overlayWindowParams.getOverlayWindowLP());
 
@@ -118,7 +123,9 @@ public class OverlayService extends Service {
 	 */
 	private void overlayForeground(boolean b) {
 		if (b) {
-			startForeground(1, l.getNotification(getString(R.string.launch_from_overlay) + getString(R.string.colon) + getString(R.string.running_foreground)));
+			startForeground(1,l.getNotification(getString(R.string.launch_from_overlay)
+					+ getString(R.string.colon) + getString(R.string.running_foreground)));
+
 		} else {
 			stopForeground(true);
 		}
@@ -212,7 +219,8 @@ public class OverlayService extends Service {
 		 * @return
 		 */
 		private boolean isPointed (int position) {
-			return ((overlayPointAction == 0 && position != -1) || (overlayPointAction == 1 && position == -1));
+			return ((overlayPointAction == 0 && position != -1) ||
+					(overlayPointAction == 1 && position == -1));
 		}
 		
 	}
@@ -260,10 +268,12 @@ public class OverlayService extends Service {
 				overlayPointParams[1].setPattern(b.getInt(PrefDAO.OVERLAY_POINT_POSITION_1));
 				
 			} else if (b.containsKey(PrefDAO.OVERLAY_POINT_WIDTH_0)) {
-				overlayPointParams[0].setWidth(DeviceSettings.dimenToPixel(OverlayService.this, b.getInt(PrefDAO.OVERLAY_POINT_WIDTH_0)));
+				overlayPointParams[0].setWidth(DeviceSettings.dimenToPixel(
+						OverlayService.this, b.getInt(PrefDAO.OVERLAY_POINT_WIDTH_0)));
 			
 			} else if (b.containsKey(PrefDAO.OVERLAY_POINT_WIDTH_1)) {
-				overlayPointParams[1].setWidth(DeviceSettings.dimenToPixel(OverlayService.this, b.getInt(PrefDAO.OVERLAY_POINT_WIDTH_1)));
+				overlayPointParams[1].setWidth(DeviceSettings.dimenToPixel(
+						OverlayService.this, b.getInt(PrefDAO.OVERLAY_POINT_WIDTH_1)));
 			
 			} else if (b.containsKey(PrefDAO.OVERLAY_POINT_BACKGROUND_COLOR)) {
 				overlaySettings.setOverlayPointBackgroundColor(b.getInt(PrefDAO.OVERLAY_POINT_BACKGROUND_COLOR));

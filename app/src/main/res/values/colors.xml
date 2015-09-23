@@ -12,9 +12,11 @@
 	
 	<color name="window_background_color_default_value">#802196F3</color>
 	<color name="overlay_point_background_color_default_value">#80FFEB3B</color>
-	
-	<color name="wallpaper">#40000000</color>
-	
+
+	<color name="activity_background">#40000000</color>
+	<color name="appwidget_chooser_background">#40ffffff</color>
+	<color name="invisible">#00000000</color>
+
 	<color name="material_red">#F44336</color>
 	<color name="material_pink">#E91E63</color>
 	<color name="material_purple">#9C27B0</color>

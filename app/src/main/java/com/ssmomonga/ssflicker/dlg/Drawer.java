@@ -51,7 +51,8 @@ public class Drawer extends AlertDialog {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Rect r = new Rect();
 				view.getGlobalVisibleRect(r);
-				new Launch(context).launch((App) parent.getItemAtPosition(position), new Rect(r.left, r.top, r.right, r.bottom));
+				new Launch(context).launch((App) parent.getItemAtPosition(position),
+						new Rect(r.left, r.top, r.right, r.bottom));
 			}
 		});
 

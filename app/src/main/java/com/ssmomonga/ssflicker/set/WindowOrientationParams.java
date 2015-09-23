@@ -112,7 +112,8 @@ public class WindowOrientationParams {
 		
 		switch (orientation) {
 			case Configuration.ORIENTATION_PORTRAIT:
-				dockWindowLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+				dockWindowLP = new RelativeLayout.LayoutParams(
+						ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 				
 				switch (dockWindowPosition) {
 					case Gravity.TOP:
@@ -126,7 +127,8 @@ public class WindowOrientationParams {
 				break;
 			
 			case Configuration.ORIENTATION_LANDSCAPE:
-				dockWindowLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+				dockWindowLP = new RelativeLayout.LayoutParams(
+						ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
 				
 				switch (dockWindowPosition) {
 					case Gravity.LEFT:
@@ -199,7 +201,8 @@ public class WindowOrientationParams {
 	 */
 	private void fillPointerWindowLP() {
 		
-		pointerWindowLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		pointerWindowLP = new RelativeLayout.LayoutParams(
+				ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 		int margin = r.getDimensionPixelSize(R.dimen.int_48_dp);
 		switch (orientation) {
@@ -319,7 +322,8 @@ public class WindowOrientationParams {
 	 */
 	public void fillAppWindowForEditLP() {
 
-		appWindowForEditLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		appWindowForEditLP = new RelativeLayout.LayoutParams(
+				ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		int margin = r.getDimensionPixelSize(R.dimen.int_48_dp);
 		switch (orientation) {
 			case Configuration.ORIENTATION_PORTRAIT:
@@ -433,7 +437,8 @@ public class WindowOrientationParams {
 	 */
 	private void fillActionWindowLP() {
 		
-		actionWindowLP = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		actionWindowLP = new RelativeLayout.LayoutParams(
+				ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 		int margin = r.getDimensionPixelSize(R.dimen.int_32_dp);
 		switch (orientation) {

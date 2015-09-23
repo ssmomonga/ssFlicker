@@ -53,22 +53,26 @@ public class EditList {
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
 			switch (i) {
 				case ADD_POINTER_CUSTOM:
-					edit[i] = new BaseData(r.getString(R.string.pointer_custom), r.getDrawable(R.mipmap.icon_00_pointer_custom, null));
+					edit[i] = new BaseData(r.getString(R.string.pointer_custom),
+							r.getDrawable(R.mipmap.icon_00_pointer_custom, null));
 					break;
 					
 				case ADD_POINTER_HOME:
-					edit[i] = new BaseData(r.getString(R.string.pointer_home), r.getDrawable(R.mipmap.icon_01_pointer_home, null));
+					edit[i] = new BaseData(r.getString(R.string.pointer_home),
+							r.getDrawable(R.mipmap.icon_01_pointer_home, null));
 					break;
 				
 				case ADD_POINTER_RECENT:
 					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-						edit[i] = new BaseData(r.getString(R.string.pointer_recent), r.getDrawable(R.mipmap.icon_51_unused_recent, null));
+						edit[i] = new BaseData(r.getString(R.string.pointer_recent),
+								r.getDrawable(R.mipmap.icon_51_unused_recent, null));
 					}
 					break;
 				
 				case ADD_POINTER_TASK:
 					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-						edit[i] = new BaseData(r.getString(R.string.pointer_task), r.getDrawable(R.mipmap.icon_52_unused_task, null));
+						edit[i] = new BaseData(r.getString(R.string.pointer_task),
+								r.getDrawable(R.mipmap.icon_52_unused_task, null));
 					}
 					break;
 			}
@@ -92,35 +96,43 @@ public class EditList {
 				case EDIT_POINTER_OPEN_CLOSE:
 					if (pointer.getPointerType() == Pointer.POINTER_TYPE_CUSTOM) {
 						if (pointerWindowVisibility == View.VISIBLE) {
-							edit[i] = new BaseData(r.getString(R.string.open), r.getDrawable(android.R.drawable.ic_menu_more, null));
+							edit[i] = new BaseData(r.getString(R.string.open),
+									r.getDrawable(android.R.drawable.ic_menu_more, null));
 						} else {
-							edit[i] = new BaseData(r.getString(R.string.close), r.getDrawable(android.R.drawable.ic_menu_close_clear_cancel, null));
+							edit[i] = new BaseData(r.getString(R.string.close),
+									r.getDrawable(android.R.drawable.ic_menu_close_clear_cancel,null));
 						}
 					}
 					break;
 				
 				case EDIT_POINTER_UP:
-					edit[i] = new BaseData(r.getString(R.string.move), r.getDrawable(R.mipmap.ic_menu_up, null));
+					edit[i] = new BaseData(r.getString(R.string.move),
+							r.getDrawable(R.mipmap.ic_menu_up, null));
 					break;
 					
 				case EDIT_POINTER_EDIT:
-					edit[i] = new BaseData(r.getString(R.string.edit), r.getDrawable(android.R.drawable.ic_menu_edit, null));
+					edit[i] = new BaseData(r.getString(R.string.edit),
+							r.getDrawable(android.R.drawable.ic_menu_edit, null));
 					break;
 				
 				case EDIT_POINTER_LEFT:
-					edit[i] = new BaseData(r.getString(R.string.move), r.getDrawable(R.mipmap.ic_menu_left, null));
+					edit[i] = new BaseData(r.getString(R.string.move),
+							r.getDrawable(R.mipmap.ic_menu_left, null));
 					break;
 				
 				case EDIT_POINTER_RIGHT:
-					edit[i] = new BaseData(r.getString(R.string.move), r.getDrawable(R.mipmap.ic_menu_right, null));
+					edit[i] = new BaseData(r.getString(R.string.move),
+							r.getDrawable(R.mipmap.ic_menu_right, null));
 					break;
 				
 				case EDIT_POINTER_DOWN:
-					edit[i] = new BaseData(r.getString(R.string.move), r.getDrawable(R.mipmap.ic_menu_down, null));
+					edit[i] = new BaseData(r.getString(R.string.move),
+							r.getDrawable(R.mipmap.ic_menu_down, null));
 					break;
 				
 				case EDIT_POINTER_DELETE:
-					edit[i] = new BaseData(r.getString(R.string.delete), r.getDrawable(android.R.drawable.ic_menu_delete, null));
+					edit[i] = new BaseData(r.getString(R.string.delete),
+							r.getDrawable(android.R.drawable.ic_menu_delete, null));
 					break;
 			}
 		}
@@ -139,22 +151,28 @@ public class EditList {
 		for (int i = 0; i < App.FLICK_APP_COUNT; i++) {
 			switch (i) {
 				case ADD_APP_LAUNCHER:
-					edit[i] = new BaseData(r.getString(R.string.app_launcher), r.getDrawable(R.mipmap.icon_10_app_launcher, null));
+					edit[i] = new BaseData(r.getString(R.string.app_launcher),
+							r.getDrawable(R.mipmap.icon_10_app_launcher, null));
 					break;
 				case ADD_APP_HOME:
-					edit[i] = new BaseData(r.getString(R.string.app_home), r.getDrawable(R.mipmap.icon_01_pointer_home, null));
+					edit[i] = new BaseData(r.getString(R.string.app_home),
+							r.getDrawable(R.mipmap.icon_01_pointer_home, null));
 					break;
 				case ADD_APP_SEND:
-					edit[i] = new BaseData(r.getString(R.string.app_send), r.getDrawable(R.mipmap.icon_11_app_send, null));
+					edit[i] = new BaseData(r.getString(R.string.app_send),
+							r.getDrawable(R.mipmap.icon_11_app_send, null));
 					break;
 				case ADD_APP_SHORTCUT:
-					edit[i] = new BaseData(r.getString(R.string.app_shortcut), r.getDrawable(R.mipmap.icon_12_app_shortcut, null));
+					edit[i] = new BaseData(r.getString(R.string.app_shortcut),
+							r.getDrawable(R.mipmap.icon_12_app_shortcut, null));
 					break;
 				case ADD_APP_APPWIDGET:
-					edit[i] = new BaseData(r.getString(R.string.app_appwidget), r.getDrawable(R.mipmap.icon_13_app_appwidget, null));
+					edit[i] = new BaseData(r.getString(R.string.app_appwidget),
+							r.getDrawable(R.mipmap.icon_13_app_appwidget, null));
 					break;
 				case ADD_APP_FUNCTION:
-					edit[i] = new BaseData(r.getString(R.string.app_function), r.getDrawable(R.mipmap.icon_14_app_function, null));
+					edit[i] = new BaseData(r.getString(R.string.app_function),
+							r.getDrawable(R.mipmap.icon_14_app_function, null));
 					break;
 			}
 		}
@@ -173,22 +191,28 @@ public class EditList {
 		for (int i = 0; i < App.FLICK_APP_COUNT; i++) {
 			switch (i) {
 				case EDIT_APP_UP:
-					edit[i] = new BaseData(r.getString(R.string.move), r.getDrawable(R.mipmap.ic_menu_up, null));
+					edit[i] = new BaseData(r.getString(R.string.move),
+							r.getDrawable(R.mipmap.ic_menu_up, null));
 					break;
 				case EDIT_APP_EDIT:
-					edit[i] = new BaseData(r.getString(R.string.edit), r.getDrawable(android.R.drawable.ic_menu_edit, null));
+					edit[i] = new BaseData(r.getString(R.string.edit),
+							r.getDrawable(android.R.drawable.ic_menu_edit, null));
 					break;
 				case EDIT_APP_LEFT:
-					edit[i] = new BaseData(r.getString(R.string.move), r.getDrawable(R.mipmap.ic_menu_left, null));
+					edit[i] = new BaseData(r.getString(R.string.move),
+							r.getDrawable(R.mipmap.ic_menu_left, null));
 					break;
 				case EDIT_APP_RIGHT:
-					edit[i] = new BaseData(r.getString(R.string.move), r.getDrawable(R.mipmap.ic_menu_right, null));
+					edit[i] = new BaseData(r.getString(R.string.move),
+							r.getDrawable(R.mipmap.ic_menu_right, null));
 					break;
 				case EDIT_APP_DOWN:
-					edit[i] = new BaseData(r.getString(R.string.move), r.getDrawable(R.mipmap.ic_menu_down, null));
+					edit[i] = new BaseData(r.getString(R.string.move),
+							r.getDrawable(R.mipmap.ic_menu_down, null));
 					break;
 				case EDIT_APP_DELETE:
-					edit[i] = new BaseData(r.getString(R.string.delete), r.getDrawable(android.R.drawable.ic_menu_delete, null));
+					edit[i] = new BaseData(r.getString(R.string.delete),
+							r.getDrawable(android.R.drawable.ic_menu_delete, null));
 					break;
 			}
 		}

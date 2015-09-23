@@ -98,7 +98,7 @@ public class DonateActivity extends Activity {
 	 * @param savedInstanceState
 	 */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		l = new Launch(this);
@@ -147,7 +147,8 @@ public class DonateActivity extends Activity {
 			pDialog = new Dialog(context);
 			pDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 			ProgressBar progress = new ProgressBar(context);
-			progress.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+			progress.setLayoutParams(new ViewGroup.LayoutParams(
+					ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 			int padding = context.getResources().getDimensionPixelSize(R.dimen.int_16_dp);
 			progress.setPadding(padding, padding, padding, padding);
 			pDialog.setContentView(progress);

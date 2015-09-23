@@ -128,7 +128,7 @@ public class CustomAdapters {
 			}
 			
 			App app = getItem(position);
-			Bitmap previewImage = app.getAppWidgetInfo().getAppWidgetPreviewImage();		
+			Bitmap previewImage = app.getAppWidgetInfo().getAppWidgetPreviewImage();
 			holder.iv_preview_image.setImageBitmap(previewImage);
 			holder.tv_label.setText(app.getAppLabel());
 			holder.tv_size.setText(app.getAppWidgetInfo().getAppWidgetMinCellSizeString());

@@ -174,7 +174,8 @@ public class EditDialog extends AlertDialog {
 		et_label.setSelection(et_label.getText().length());
 				
 		//共有アプリ
-		if (app.getAppType() == App.APP_TYPE_INTENT_APP && app.getIntentAppInfo().getIntentAppType() == IntentAppInfo.INTENT_APP_TYPE_SEND) {
+		if (app.getAppType() == App.APP_TYPE_INTENT_APP &&
+				app.getIntentAppInfo().getIntentAppType() == IntentAppInfo.INTENT_APP_TYPE_SEND) {
 			view.findViewById(R.id.ll_send_template).setVisibility(View.VISIBLE);
 			et_send_template = (EditText) view.findViewById(R.id.et_send_template);
 			et_send_template.setText(app.getIntentAppInfo().getSendTemplate());
@@ -190,9 +191,11 @@ public class EditDialog extends AlertDialog {
 			sp_appwidget_position_y = (Spinner) view.findViewById(R.id.sp_appwidget_position_y);
 			sp_appwidget_position_x = (Spinner) view.findViewById(R.id.sp_appwidget_position_x);
 				
-			ArrayAdapter<Integer> adapterPositionX = new ArrayAdapter<Integer> (context, android.R.layout.simple_spinner_item);
+			ArrayAdapter<Integer> adapterPositionX = new ArrayAdapter<Integer> (
+					context, android.R.layout.simple_spinner_item);
 			adapterPositionX.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			ArrayAdapter<Integer> adapterPositionY = new ArrayAdapter<Integer> (context, android.R.layout.simple_spinner_item);		
+			ArrayAdapter<Integer> adapterPositionY = new ArrayAdapter<Integer> (
+					context, android.R.layout.simple_spinner_item);
 			adapterPositionY.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 			for (int i = 0; i < deviceCellSize; i ++) {
@@ -217,9 +220,11 @@ public class EditDialog extends AlertDialog {
 			sp_appwidget_cell_width = (Spinner) view.findViewById(R.id.sp_appwidget_cell_width);
 			sp_appwidget_cell_height = (Spinner) view.findViewById(R.id.sp_appwidget_cell_height);
 
-			ArrayAdapter<Integer> adapterWidth = new ArrayAdapter<Integer> (context, android.R.layout.simple_spinner_item);		
+			ArrayAdapter<Integer> adapterWidth = new ArrayAdapter<Integer> (
+					context, android.R.layout.simple_spinner_item);
 			adapterWidth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			ArrayAdapter<Integer> adapterHeight = new ArrayAdapter<Integer> (context, android.R.layout.simple_spinner_item);		
+			ArrayAdapter<Integer> adapterHeight = new ArrayAdapter<Integer> (
+					context, android.R.layout.simple_spinner_item);
 			adapterHeight.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 			int resizeMode = appWidgetInfo.getAppWidgetResizeMode();

@@ -76,7 +76,8 @@ public class HomeKeySettings {
 					IconList.LABEL_ICON_TYPE_ACTIVITY,
 					null,
 					IconList.LABEL_ICON_TYPE_ACTIVITY,
-					new IntentAppInfo(IntentAppInfo.INTENT_APP_TYPE_HOME, ((Intent) intent.clone()).setClassName(actInfo.packageName, actInfo.name)));
+					new IntentAppInfo(IntentAppInfo.INTENT_APP_TYPE_HOME,
+							((Intent) intent.clone()).setClassName(actInfo.packageName, actInfo.name)));
 		}
 
 	}

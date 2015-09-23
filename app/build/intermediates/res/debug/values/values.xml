@@ -193,12 +193,15 @@
 	</string-array>
     <!-- From: file:/development/workspace/ssFlicker/app/src/main/res/values/colors.xml -->
     <eat-comment/>
+    <color name="activity_background">#40000000</color>
+    <color name="appwidget_chooser_background">#40ffffff</color>
     <color name="blue">#0000FF</color>
     <color name="color_accent">#00B0FF</color>
     <color name="color_accent_light">#FF3D00</color>
     <color name="color_primary">#03A9F4</color>
     <color name="color_primary_dark">#0288D1</color>
     <color name="green">#00FF00</color>
+    <color name="invisible">#00000000</color>
     <color name="material_amber">#FFC107</color>
     <color name="material_black">#000000</color>
     <color name="material_blue">#2196F3</color>
@@ -222,7 +225,6 @@
     <color name="material_yellow">#FFEB3B</color>
     <color name="overlay_point_background_color_default_value">#80FFEB3B</color>
     <color name="red">#FF0000</color>
-    <color name="wallpaper">#40000000</color>
     <color name="window_background_color_default_value">#802196F3</color>
     <!-- From: file:/development/workspace/ssFlicker/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
@@ -276,7 +278,6 @@
     <string name="background_color">Background color</string>
     <string name="backup">Backup</string>
     <string name="backup_complete">Backup completed</string>
-    <string name="backup_error">Backup failed</string>
     <string name="backup_restore">Backup / Restore</string>
     <string name="below_pointer_window">Below pointer window</string>
     <string name="blog">- Blog</string>
@@ -284,14 +285,14 @@
     <string name="bluetooth">Bluetooth</string>
     <string name="bluetooth_off">Turn off bluetooth</string>
     <string name="bluetooth_on">Turn on bluetooth</string>
-    <string name="can_not_clear_default">Can\'t change each launch by default.\nOnly can clear all launch by default from switch on top of screen.</string>
+    <string name="can_not_set_default">Can\'t set nor clear launch by default on this screen.\nOnly can clear all launch by default from switch on top of screen.\nLaunch by default please set according to the procedure of Android.</string>
     <string name="cancel">Cancel</string>
     <string name="center">Center</string>
     <string name="clear">Clear</string>
     <string name="clear_default">Clear to launch ssFlicker by default for some actions?</string>
     <string name="close">Close</string>
     <string name="cloud_backup">Cloud backup</string>
-    <string name="cloud_backup_0">- You can backup/restore your settings as set in ssFlicker settings to and from cloud.</string>
+    <string name="cloud_backup_0">- You can backup/restore your settings as set in ssFlicker settings to and from cloud. (Android 6.0 or later, as well as backup/restore your settings as set in edit mode.)</string>
     <string name="cloud_backup_1">- Cloud backup is performed automatically. Restore is performed automatically when you re-install ssFlicker. No action is required.</string>
     <string name="cloud_backup_2">- To perform cloud backup, you need to enable “Back up my data” and “Automatic restore” in android settings.</string>
     <string name="cloud_backup_3">- Depending on the device, cloud backup is not available.</string>
@@ -319,6 +320,9 @@
     <string name="error_iab">An error occurred at in-app purchases</string>
     <string name="etc">Etc</string>
     <string name="etc...">Etc…</string>
+    <string name="fail_backup">Failed to backup</string>
+    <string name="fail_restore">failed to restore</string>
+    <string name="fail_set_image">Failed to set a image</string>
     <string name="height">Height</string>
     <string name="hint">- Hint</string>
     <string name="hint_0">- You can set the template of share apps in edit mode. Some share apps will not start unless you set the template.</string>
@@ -422,22 +426,24 @@
     <string name="pointer_recent">Recent pointer</string>
     <string name="pointer_task">Tasks pointer</string>
     <string name="pointer_window">Pointer window</string>
-    <string name="prm_1">- read phone status and identity: To stop launch by sensor, due to an incoming call or during a call.</string>
-    <string name="prm_2">- modify or delete the contents of your USB storage / read the contents of your USB storage: For backup / restore.</string>
+    <string name="prm_0">- directly call phone numbers: For direct dial of shortcut.</string>
+    <string name="prm_1">- modify or delete the contents of your USB storage / read the contents of your USB storage: For storage backup, trimming image.</string>
+    <string name="prm_2">- Google Play billing service: For donation.</string>
     <string name="prm_3">- connect and disconnect from Wi-Fi / view Wi-Fi connections / access Bluetooth settings / pair with Bluetooth devices / read sync settings / toggle sync on and off / modify system settings: For various functions.</string>
-    <string name="prm_4">- reorder running apps / retrieve running apps: For recent pointer and tasks pointer.</string>
-    <string name="prm_6">- draw over other apps: For launch from overlay.</string>
-    <string name="prm_7">- control vibration: For vibration.</string>
+    <string name="prm_4">- run at startup: For running launch from overlay or launch from status bar when start the device.</string>
+    <string name="prm_5">- draw over other apps: For launch from overlay.</string>
+    <string name="prm_6">- control vibration: For vibration.</string>
     <string name="qa">- Q&amp;A site</string>
     <string name="qa_url">http://ssmomonga.blogspot.jp/2012/06/ssflicker-qa.html</string>
     <string name="receiver_name_boot">ssFlicker</string>
     <string name="receiver_name_invisible_appwidget">ssFlicker - Invisible widget</string>
     <string name="recent_pointer_error">Can\'t use recent pointer at Android 5.0 or later</string>
     <string name="require_permission_call_phone">Require directly call phone numbers permission</string>
+    <string name="require_permission_system_alert_window">Require draw over other apps permission</string>
     <string name="require_permission_write_external_storage">Require write storage permission</string>
+    <string name="require_permission_write_settings">Require modify system settings permission</string>
     <string name="restore">Restore</string>
     <string name="restore_complete">Restore completed</string>
-    <string name="restore_error">Restore failed</string>
     <string name="right">Right</string>
     <string name="right_of_pointer_window">Right of pointer window</string>
     <string name="rotate">Rotate</string>
@@ -500,8 +506,8 @@
     <string name="upper_left">Upper left</string>
     <string name="upper_right">Upper right</string>
     <string name="ver_0">- After the end of development, you can continue to use ssFlicker in old version, but can not update.</string>
-    <string name="ver_4">- Android 4.0 : The end of development is in v1.3.3.</string>
-    <string name="ver_5">- Android 4.x : The end of development is in v1.4.4.</string>
+    <string name="ver_1">- Android 4.0 : The end of development is in v1.3.3.</string>
+    <string name="ver_2">- Android 4.x : The end of development is in v1.4.4.</string>
     <string name="ver_info">Version</string>
     <string name="versionup_history">- Version update history</string>
     <string name="versionup_history_url">http://ssmomonga.blogspot.jp/2012/05/versionup-history-of-ssflicker.html</string>
@@ -575,7 +581,7 @@
 	</style>
     <style name="Theme.Editor" parent="Theme.Base">
 		<item name="android:colorPrimaryDark">@android:color/transparent</item>
-		<item name="android:windowBackground">@color/wallpaper</item>
+		<item name="android:windowBackground">@color/activity_background</item>
 		<item name="android:navigationBarColor">@android:color/transparent</item>
 		<item name="android:windowIsTranslucent">true</item>
 		<item name="android:windowActionBar">false</item>
@@ -583,7 +589,7 @@
 	</style>
     <style name="Theme.Flicker" parent="Theme.Base.Light">
 		<item name="android:colorPrimaryDark">@android:color/transparent</item>
-	   	<item name="android:windowBackground">@color/wallpaper</item>
+	   	<item name="android:windowBackground">@color/activity_background</item>
 		<item name="android:navigationBarColor">@android:color/transparent</item>
 		<item name="android:windowIsTranslucent">true</item>
 		<item name="android:windowActionBar">false</item>

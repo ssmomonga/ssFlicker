@@ -34,7 +34,10 @@ public class InvisibleAppWidget extends AppWidgetProvider {
 	 * @param appWidgetIds
 	 * @param settings
 	 */
-	public void viewInvisibleAppWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, InvisibleAppWidgetSettings settings) {
+	public void viewInvisibleAppWidget(Context context,
+									   AppWidgetManager appWidgetManager,
+									   int[] appWidgetIds,
+									   InvisibleAppWidgetSettings settings) {
 
 		Intent intent = new Intent(Intent.ACTION_MAIN)
 				.addCategory(Intent.CATEGORY_LAUNCHER)

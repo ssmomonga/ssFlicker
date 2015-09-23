@@ -124,7 +124,8 @@ public class SQLiteDAO {
 		SQLiteDatabase db = sdbh.getReadableDatabase();
 		String[] columns = { AppTableColumnName_8.POINTER_ID, AppTableColumnName_8.APP_ID };
 		String selection =  AppTableColumnName_8.APP_TYPE + "=" + App.APP_TYPE_APPWIDGET;
-		Cursor c = db.query(SQLiteDBH.APP_TABLE_8, columns, selection, null, null, null, AppTableColumnName_8.APPWIDGET_UPDATE_TIME);
+		Cursor c = db.query(SQLiteDBH.APP_TABLE_8, columns, selection, null, null, null,
+				AppTableColumnName_8.APPWIDGET_UPDATE_TIME);
 		
 		int[][] appWidgetList = new int[c.getCount()][2];
 		while (c.moveToNext()) {
@@ -371,11 +372,13 @@ public class SQLiteDAO {
 		if (appId == -1) {
 			selection = AppTableColumnName_8.POINTER_ID + "=" + pointerId;
 		} else {
-			selection = AppTableColumnName_8.POINTER_ID + "=" + pointerId + " and " + AppTableColumnName_8.APP_ID + "=" + appId;
+			selection = AppTableColumnName_8.POINTER_ID + "=" + pointerId + " and " +
+					AppTableColumnName_8.APP_ID + "=" + appId;
 		}
 		
 		SQLiteDatabase db = sdbh.getReadableDatabase();
-		Cursor c = db.query(SQLiteDBH.APP_TABLE_8, new String[]{AppTableColumnName_8.APPWIDGET_ID}, selection, null, null, null, null);
+		Cursor c = db.query(SQLiteDBH.APP_TABLE_8, new String[] { AppTableColumnName_8.APPWIDGET_ID },
+				selection, null, null, null, null);
 		
 		int[] appWidgetIds = new int[c.getCount()];
 		int i = 0;
@@ -425,9 +428,11 @@ public class SQLiteDAO {
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT + Pointer.DOCK_POINTER_COUNT; i ++) {
 			for (int j = 0; j < App.FLICK_APP_COUNT; j ++) {
 				
-				String selection = AppTableColumnName_8.POINTER_ID + "=" + i + " and " + AppTableColumnName_8.APP_ID + "=" + j;
+				String selection = AppTableColumnName_8.POINTER_ID + "=" + i + " and " +
+						AppTableColumnName_8.APP_ID + "=" + j;
 				SQLiteDatabase db = sdbh.getReadableDatabase();
-				Cursor c = db.query(SQLiteDBH.APP_TABLE_8, new String[] { AppTableColumnName_8.APPWIDGET_ID }, selection, null, null, null, null);
+				Cursor c = db.query(SQLiteDBH.APP_TABLE_8, new String[] { AppTableColumnName_8.APPWIDGET_ID },
+						selection, null, null, null, null);
 				boolean b = false;
 				if (c.getCount() >= 2) b = true; 
 				c.close();
@@ -526,7 +531,8 @@ public class SQLiteDAO {
 						if (app != null) {
 							pointer.setPointerIcon(app.getAppIcon());
 						} else {
-							pointer.setPointerIcon(context.getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null));
+							pointer.setPointerIcon(context.getResources().getDrawable(
+									R.mipmap.icon_00_pointer_custom, null));
 							pointer.setPointerIconType(IconList.LABEL_ICON_TYPE_ORIGINAL);
 							pointer.setPointerIconTypeAppAppId(0);
 						}
@@ -602,7 +608,7 @@ public class SQLiteDAO {
 		whereClause[0] = PointerTableColumnName_8.POINTER_ID + "=?";
 		whereArgs[0] = new String[]{ String.valueOf(toPointerId) };
 		cv[1].put(AppTableColumnName_8.POINTER_ID, -1);
-		whereClause[1] = AppTableColumnName_8.POINTER_ID + "=?";			
+		whereClause[1] = AppTableColumnName_8.POINTER_ID + "=?";
 		whereArgs[1] = new String[]{ String.valueOf(toPointerId) };
 		cv[2].put(PointerTableColumnName_8.POINTER_ID, toPointerId);
 		whereClause[2] = PointerTableColumnName_8.POINTER_ID + "=?";
@@ -680,7 +686,7 @@ public class SQLiteDAO {
 
 		SQLiteDatabase db = sdbh.getReadableDatabase();
 		String selection = AppTableColumnName_8.POINTER_ID + "=" + pointerId;
-		Cursor c = db.query(SQLiteDBH.APP_TABLE_8, null, selection, null, null, null, null);			
+		Cursor c = db.query(SQLiteDBH.APP_TABLE_8, null, selection, null, null, null, null);
 		App[] appList = new App[App.FLICK_APP_COUNT];
 		while (c.moveToNext()) {
 			int appId = c.getInt(c.getColumnIndex(AppTableColumnName_8.APP_ID));
@@ -708,7 +714,8 @@ public class SQLiteDAO {
 		return new Pointer(
 				c.getInt(c.getColumnIndex(PointerTableColumnName_8.POINTER_TYPE)),
 				c.getString(c.getColumnIndex(PointerTableColumnName_8.POINTER_LABEL)),
-				ImageConverter.createDrawable(context, c.getBlob(c.getColumnIndex(PointerTableColumnName_8.POINTER_ICON))),
+				ImageConverter.createDrawable(context,
+						c.getBlob(c.getColumnIndex(PointerTableColumnName_8.POINTER_ICON))),
 				c.getInt(c.getColumnIndex(PointerTableColumnName_8.POINTER_ICON_TYPE)),
 				c.getInt(c.getColumnIndex(PointerTableColumnName_8.POINTER_ICON_TYPE_APP_APP_ID))
 				);
@@ -732,7 +739,8 @@ public class SQLiteDAO {
 						c.getString(c.getColumnIndex(AppTableColumnName_8.PACKAGE_NAME)),
 						c.getString(c.getColumnIndex(AppTableColumnName_8.APP_LABEL)),
 						c.getInt(c.getColumnIndex(AppTableColumnName_8.APP_LABEL_TYPE)),
-						ImageConverter.createDrawable(context, c.getBlob(c.getColumnIndex(AppTableColumnName_8.APP_ICON))),
+						ImageConverter.createDrawable(context,
+								c.getBlob(c.getColumnIndex(AppTableColumnName_8.APP_ICON))),
 						c.getInt(c.getColumnIndex(AppTableColumnName_8.APP_ICON_TYPE)),
 						new IntentAppInfo(c.getInt(c.getColumnIndex(AppTableColumnName_8.INTENT_APP_TYPE)),
 								c.getString(c.getColumnIndex(AppTableColumnName_8.INTENT_URI))));
@@ -744,7 +752,8 @@ public class SQLiteDAO {
 						c.getString(c.getColumnIndex(AppTableColumnName_8.PACKAGE_NAME)),
 						c.getString(c.getColumnIndex(AppTableColumnName_8.APP_LABEL)),
 						c.getInt(c.getColumnIndex(AppTableColumnName_8.APP_LABEL_TYPE)),
-						ImageConverter.createDrawable(context, c.getBlob(c.getColumnIndex(AppTableColumnName_8.APP_ICON))),
+						ImageConverter.createDrawable(context,
+								c.getBlob(c.getColumnIndex(AppTableColumnName_8.APP_ICON))),
 						c.getInt(c.getColumnIndex(AppTableColumnName_8.APP_ICON_TYPE)),
 						new AppWidgetInfo(context,
 								c.getInt(c.getColumnIndex(AppTableColumnName_8.APPWIDGET_ID)),
@@ -761,7 +770,8 @@ public class SQLiteDAO {
 						c.getString(c.getColumnIndex(AppTableColumnName_8.PACKAGE_NAME)),
 						c.getString(c.getColumnIndex(AppTableColumnName_8.APP_LABEL)),
 						c.getInt(c.getColumnIndex(AppTableColumnName_8.APP_LABEL_TYPE)),
-						ImageConverter.createDrawable(context, c.getBlob(c.getColumnIndex(AppTableColumnName_8.APP_ICON))),
+						ImageConverter.createDrawable(context,
+								c.getBlob(c.getColumnIndex(AppTableColumnName_8.APP_ICON))),
 						c.getInt(c.getColumnIndex(AppTableColumnName_8.APP_ICON_TYPE)),
 						new FunctionInfo(c.getInt(c.getColumnIndex(AppTableColumnName_8.FUNCTION_TYPE))));
 
@@ -785,7 +795,8 @@ public class SQLiteDAO {
 				c.getString(c.getColumnIndex(AppCacheTableColumnName_8.PACKAGE_NAME)),
 				c.getString(c.getColumnIndex(AppCacheTableColumnName_8.APP_LABEL)),
 				IconList.LABEL_ICON_TYPE_ACTIVITY,
-				ImageConverter.createDrawable(context, c.getBlob(c.getColumnIndex(AppCacheTableColumnName_8.APP_ICON))),
+				ImageConverter.createDrawable(context,
+						c.getBlob(c.getColumnIndex(AppCacheTableColumnName_8.APP_ICON))),
 				IconList.LABEL_ICON_TYPE_ACTIVITY,
 				new IntentAppInfo(IntentAppInfo.INTENT_APP_TYPE_LAUNCHER,
 						c.getString(c.getColumnIndex(AppCacheTableColumnName_8.INTENT_URI))));
@@ -805,7 +816,8 @@ public class SQLiteDAO {
 		cv.put(PointerTableColumnName_8.POINTER_ID, pointerId);
 		cv.put(PointerTableColumnName_8.POINTER_TYPE, pointer.getPointerType());
 		cv.put(PointerTableColumnName_8.POINTER_LABEL, pointer.getPointerLabel());
-		cv.put(PointerTableColumnName_8.POINTER_ICON, ImageConverter.createByte(context, pointer.getPointerIcon()));
+		cv.put(PointerTableColumnName_8.POINTER_ICON,
+				ImageConverter.createByte(context, pointer.getPointerIcon()));
 		cv.put(PointerTableColumnName_8.POINTER_ICON_TYPE, pointer.getPointerIconType());
 		cv.put(PointerTableColumnName_8.POINTER_ICON_TYPE_APP_APP_ID, pointer.getPointerIconTypeAppAppId());
 				

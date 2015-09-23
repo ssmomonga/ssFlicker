@@ -15,8 +15,8 @@
 		android:background="@drawable/appwidget_chooser_background" />
 
 	<LinearLayout
-	    style="@style/lp_mp_wc"
-	    android:paddingTop="4dp" >
+		style="@style/lp_mp_wc"
+		android:paddingTop="4dp" >
     
 		<TextView android:id="@+id/tv_label"
 			style="@style/lp_wc_wc"
@@ -33,6 +33,5 @@
 			android:ellipsize="end"
 			android:textSize="12sp" />
 	</LinearLayout>
-	
-				
+
 </LinearLayout>

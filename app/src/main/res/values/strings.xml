@@ -21,7 +21,6 @@
 
 <!-- EditorActivity -->
 	<string name="enter_edit_mode">Enter edit mode</string>
-	<string name="require_permission_write_external_storage">Require write storage permission</string>
 
 	<string name="pointer_custom">Pointer</string>
 	<string name="pointer_home">Home pointer</string>
@@ -44,6 +43,8 @@
 	<string name="settings">Settings</string>
 	<string name="initial">Initial</string>
 	<string name="cancel">Cancel</string>
+
+	<string name="fail_set_image">Failed to set a image</string>
 
 <!-- EditDialog -->
 	<string name="edit_send_text_template">Text template</string>
@@ -95,12 +96,13 @@
 	<string name="etc">Etc</string>
 	<string name="backup_restore">Backup / Restore</string>
 	<string name="no_storage">No storage</string>
+	<string name="require_permission_write_external_storage">Require write storage permission</string>
 	<string name="donation">Donation</string>
 
 <!-- PrefSubActivity -->
 	<string name="launch_by_default">Launch by default</string>
 	<string name="clear_default">Clear to launch ssFlicker by default for some actions?</string>
-	<string name="can_not_clear_default">Can\'t change each launch by default.\nOnly can clear all launch by default from switch on top of screen.</string>
+	<string name="can_not_set_default">Can\'t set nor clear launch by default on this screen.\nOnly can clear all launch by default from switch on top of screen.\nLaunch by default please set according to the procedure of Android.</string>
 	<string name="launch_by_home_key">Launch by home key</string>
 	<string name="home_key_another_home">Another home</string>
 	<string name="home_key_click_mode">Click mode</string>
@@ -109,6 +111,7 @@
 	<string name="launch_by_search_key">Launch by search key</string>
 				
 	<string name="launch_from_overlay">Launch from overlay</string>
+	<string name="require_permission_system_alert_window">Require draw over other apps permission</string>
 	<string name="start_overlay_service">Turn on launch from overlay</string>
 	<string name="stop_overlay_service">Turn off launch from overlay</string>
 	<string name="overlay_point_0">Overlay point 1</string>
@@ -222,15 +225,16 @@
 	<string name="blog_url">http://ssmomonga.blogspot.com/</string>
 	<string name="ver_info">Version</string>
 	<string name="ver_0">- After the end of development, you can continue to use ssFlicker in old version, but can not update.</string>
-	<string name="ver_4">- Android 4.0 : The end of development is in v1.3.3.</string>
-	<string name="ver_5">- Android 4.x : The end of development is in v1.4.4.</string>
+	<string name="ver_1">- Android 4.0 : The end of development is in v1.3.3.</string>
+	<string name="ver_2">- Android 4.x : The end of development is in v1.4.4.</string>
 	<string name="permission">Permissions</string>
-	<string name="prm_1">- read phone status and identity: To stop launch by sensor, due to an incoming call or during a call.</string>
-	<string name="prm_2">- modify or delete the contents of your USB storage / read the contents of your USB storage: For backup / restore.</string>
+	<string name="prm_0">- directly call phone numbers: For direct dial of shortcut.</string>
+	<string name="prm_1">- modify or delete the contents of your USB storage / read the contents of your USB storage: For storage backup, trimming image.</string>
+	<string name="prm_2">- Google Play billing service: For donation.</string>
 	<string name="prm_3">- connect and disconnect from Wi-Fi / view Wi-Fi connections / access Bluetooth settings / pair with Bluetooth devices / read sync settings / toggle sync on and off / modify system settings: For various functions.</string>
-	<string name="prm_4">- reorder running apps / retrieve running apps: For recent pointer and tasks pointer.</string>
-	<string name="prm_6">- draw over other apps: For launch from overlay.</string>
-	<string name="prm_7">- control vibration: For vibration.</string>
+	<string name="prm_4">- run at startup: For running launch from overlay or launch from status bar when start the device.</string>
+	<string name="prm_5">- draw over other apps: For launch from overlay.</string>
+	<string name="prm_6">- control vibration: For vibration.</string>
 	<string name="hint">- Hint</string>
 	<string name="hint_0">- You can set the template of share apps in edit mode. Some share apps will not start unless you set the template.</string>
 	<string name="hint_1">- When you flick a widget, it is toggeled between show/hide.</string>
@@ -247,7 +251,7 @@
 	<string name="storage_backup_4">- You must not rename backup files.</string>
 	<string name="storage_backup_5">- To perform storage backup/restore you need to install the latest version.</string>
 	<string name="cloud_backup">Cloud backup</string>
-	<string name="cloud_backup_0">- You can backup/restore your settings as set in ssFlicker settings to and from cloud.</string>
+	<string name="cloud_backup_0">- You can backup/restore your settings as set in ssFlicker settings to and from cloud. (Android 6.0 or later, as well as backup/restore your settings as set in edit mode.)</string>
 	<string name="cloud_backup_1">- Cloud backup is performed automatically. Restore is performed automatically when you re-install ssFlicker. No action is required.</string>
 	<string name="cloud_backup_2">- To perform cloud backup, you need to enable &#8220;Back up my data&#8221; and &#8220;Automatic restore&#8221; in android settings.</string>
 	<string name="cloud_backup_3">- Depending on the device, cloud backup is not available.</string>
@@ -261,8 +265,8 @@
 	<string name="no_restore_file">No restore file</string>
 	<string name="backup_complete">Backup completed</string>
 	<string name="restore_complete">Restore completed</string>
-	<string name="backup_error">Backup failed</string>
-	<string name="restore_error">Restore failed</string>
+	<string name="fail_backup">Failed to backup</string>
+	<string name="fail_restore">failed to restore</string>
 
 <!-- DonateActivity -->
 	<string name="donate">Donate</string>
@@ -288,6 +292,7 @@
 	<string name="silent_mode_off">Turn off silent mode</string>
 	<string name="vibrate_mode_on">Turn on vibrate mode</string>
 	<string name="silent_mode_on">Turn on silent mode</string>
+	<string name="require_permission_write_settings">Require modify system settings permission</string>
 	<string name="rotate_off">Turn off auto rotate</string>
 	<string name="rotate_on">Turn on auto rotate</string>
 	<string name="airplane_mode_error">Can\'t change airplane mode at Android 4.2 or later</string>

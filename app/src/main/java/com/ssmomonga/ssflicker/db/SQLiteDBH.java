@@ -307,24 +307,39 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv[i].put(PointerTableColumnName_1.POINTER_ID, i);
 					cv[i].put(PointerTableColumnName_1.POINTER_TYPE, Pointer.POINTER_TYPE_CUSTOM);
 					cv[i].put(PointerTableColumnName_1.POINTER_LABEL, r.getString(R.string.pointer_custom));
-					cv[i].put(PointerTableColumnName_1.POINTER_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_00_pointer_custom, null)));
-					cv[i].put(PointerTableColumnName_1.POINTER_ICON_PRESSED, ImageConverter.createByte(context, ImageConverter.changeIconColor(context, r.getDrawable(R.mipmap.icon_00_pointer_custom, null), 1)));
+					cv[i].put(PointerTableColumnName_1.POINTER_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_00_pointer_custom, null)));
+					cv[i].put(PointerTableColumnName_1.POINTER_ICON_PRESSED,
+							ImageConverter.createByte(context,
+									ImageConverter.changeIconColor(context,
+											r.getDrawable(R.mipmap.icon_00_pointer_custom, null), 1)));
 					break;
 				
 				case 13:
 					cv[i].put(PointerTableColumnName_1.POINTER_ID, i);
 					cv[i].put(PointerTableColumnName_1.POINTER_TYPE, Pointer.POINTER_TYPE_CUSTOM);
 					cv[i].put(PointerTableColumnName_1.POINTER_LABEL, r.getString(R.string.app_function));
-					cv[i].put(PointerTableColumnName_1.POINTER_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_14_app_function, null)));
-					cv[i].put(PointerTableColumnName_1.POINTER_ICON_PRESSED, ImageConverter.createByte(context, ImageConverter.changeIconColor(context, r.getDrawable(R.mipmap.icon_14_app_function, null), 1)));
+					cv[i].put(PointerTableColumnName_1.POINTER_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_14_app_function, null)));
+					cv[i].put(PointerTableColumnName_1.POINTER_ICON_PRESSED,
+							ImageConverter.createByte(context,
+									ImageConverter.changeIconColor(context,
+											r.getDrawable(R.mipmap.icon_14_app_function, null), 1)));
 					break;
 			
 				case 14:
 					cv[i].put(PointerTableColumnName_1.POINTER_ID, i);
 					cv[i].put(PointerTableColumnName_1.POINTER_TYPE, Pointer.POINTER_TYPE_HOME);
 					cv[i].put(PointerTableColumnName_1.POINTER_LABEL, r.getString(R.string.pointer_home));
-					cv[i].put(PointerTableColumnName_1.POINTER_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_01_pointer_home, null)));
-					cv[i].put(PointerTableColumnName_1.POINTER_ICON_PRESSED, ImageConverter.createByte(context, ImageConverter.changeIconColor(context, r.getDrawable(R.mipmap.icon_01_pointer_home, null), 1)));
+					cv[i].put(PointerTableColumnName_1.POINTER_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_01_pointer_home, null)));
+					cv[i].put(PointerTableColumnName_1.POINTER_ICON_PRESSED,
+							ImageConverter.createByte(context,
+									ImageConverter.changeIconColor(context,
+											r.getDrawable(R.mipmap.icon_01_pointer_home, null), 1)));
 					break;
 
 				default:
@@ -356,7 +371,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_1.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_1.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_WIFI);
 					cv.put(AppTableColumnName_1.APP_LABEL, r.getString(R.string.wifi));
-					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_20_function_wifi, null)));
+					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context,
+							r.getDrawable(R.mipmap.icon_20_function_wifi, null)));
 					break;
 				
 				case 1:
@@ -365,7 +381,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_1.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_1.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_BLUETOOTH);
 					cv.put(AppTableColumnName_1.APP_LABEL, r.getString(R.string.bluetooth));
-					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_21_function_bluetooth, null)));
+					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context,
+							r.getDrawable(R.mipmap.icon_21_function_bluetooth, null)));
 					break;
 				
 				case 2:
@@ -374,7 +391,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_1.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_1.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_SYNC);
 					cv.put(AppTableColumnName_1.APP_LABEL, r.getString(R.string.sync));
-					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_22_function_sync, null)));
+					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context,
+							r.getDrawable(R.mipmap.icon_22_function_sync, null)));
 					break;
 				
 				case 3:
@@ -383,7 +401,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_1.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_1.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_SILENT_MODE);
 					cv.put(AppTableColumnName_1.APP_LABEL, r.getString(R.string.silent_mode));
-					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_23_function_silent_mode, null)));
+					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context,
+							r.getDrawable(R.mipmap.icon_23_function_silent_mode, null)));
 					break;
 				
 				case 4:
@@ -392,7 +411,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_1.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_1.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_VOLUME);
 					cv.put(AppTableColumnName_1.APP_LABEL, r.getString(R.string.volume));
-					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_24_function_volume, null)));
+					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context,
+							r.getDrawable(R.mipmap.icon_24_function_volume, null)));
 					break;
 			
 				case 5:
@@ -401,7 +421,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_1.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_1.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_ROTATE);
 					cv.put(AppTableColumnName_1.APP_LABEL, r.getString(R.string.rotate));
-					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_25_function_rotate, null)));
+					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context,
+							r.getDrawable(R.mipmap.icon_25_function_rotate, null)));
 					break;
 			
 				case 6:
@@ -410,7 +431,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_1.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_1.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_SEARCH);
 					cv.put(AppTableColumnName_1.APP_LABEL, r.getString(R.string.search));
-					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_26_function_search, null)));
+					cv.put(AppTableColumnName_1.APP_ICON, ImageConverter.createByte(context,
+							r.getDrawable(R.mipmap.icon_26_function_search, null)));
 					break;
 			
 			}
@@ -424,12 +446,18 @@ public class SQLiteDBH extends SQLiteOpenHelper {
  */
 
 	private static final String[] ALTER_POINTER_TABLE_TEMPLATE_4 = {
-			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_TYPE + " integer",
-			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_TYPE_APP_APP_ID + " integer",
-			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_PRESSED_TYPE + " integer",
-			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.POINTER_ICON_PRESSED_TYPE_APP_APP_ID + " integer",
-			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.FLOAT_POINT_PATTERN + " integer",
-			"alter table " + POINTER_TABLE_1 + " add " + PointerTableColumnName_1.FLOAT_POINT_WIDTH + " integer" };
+			"alter table " + POINTER_TABLE_1 + " add "
+					+ PointerTableColumnName_1.POINTER_ICON_TYPE + " integer",
+			"alter table " + POINTER_TABLE_1 + " add "
+					+ PointerTableColumnName_1.POINTER_ICON_TYPE_APP_APP_ID + " integer",
+			"alter table " + POINTER_TABLE_1 + " add "
+					+ PointerTableColumnName_1.POINTER_ICON_PRESSED_TYPE + " integer",
+			"alter table " + POINTER_TABLE_1 + " add "
+					+ PointerTableColumnName_1.POINTER_ICON_PRESSED_TYPE_APP_APP_ID + " integer",
+			"alter table " + POINTER_TABLE_1 + " add "
+					+ PointerTableColumnName_1.FLOAT_POINT_PATTERN + " integer",
+			"alter table " + POINTER_TABLE_1 + " add "
+					+ PointerTableColumnName_1.FLOAT_POINT_WIDTH + " integer" };
 
 	private static final String[] ALTER_APP_TABLE_TEMPLATE_4 = {
 			"alter table " + APP_TABLE_1 + " add " + AppTableColumnName_1.APPWIDGET_CELL_WIDTH + " integer",
@@ -471,7 +499,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		for (String str: ALTER_APP_TABLE_TEMPLATE_5) db.execSQL(str);
 		
 		//インテントアプリのパッケージ名初期化
-		String[] columns = { AppTableColumnName_1.POINTER_ID, AppTableColumnName_1.APP_ID, AppTableColumnName_1.INTENT_URI };
+		String[] columns = { AppTableColumnName_1.POINTER_ID, AppTableColumnName_1.APP_ID,
+				AppTableColumnName_1.INTENT_URI };
 		String selection = AppTableColumnName_1.APP_TYPE + "=" + App.APP_TYPE_INTENT_APP;
 		Cursor c = db.query(APP_TABLE_1, columns, selection, null, null, null, null);
 		
@@ -479,7 +508,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 			
 			int pionterId = c.getInt(c.getColumnIndex(AppTableColumnName_1.POINTER_ID));
 			int appId = c.getInt(c.getColumnIndex(AppTableColumnName_1.APP_ID));
-			String whereClause = AppTableColumnName_1.POINTER_ID + "=" + pionterId + " and " + AppTableColumnName_1.APP_ID + "=" + appId;
+			String whereClause = AppTableColumnName_1.POINTER_ID + "=" + pionterId + " and "
+					+ AppTableColumnName_1.APP_ID + "=" + appId;
 
 			String intentUri = c.getString(c.getColumnIndex(AppTableColumnName_1.INTENT_URI));
 			Intent intent = null;
@@ -706,7 +736,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv[i].put(PointerTableColumnName_8.POINTER_ID, i);
 					cv[i].put(PointerTableColumnName_8.POINTER_TYPE, Pointer.POINTER_TYPE_CUSTOM);
 					cv[i].put(PointerTableColumnName_8.POINTER_LABEL, r.getString(R.string.pointer_custom));
-					cv[i].put(PointerTableColumnName_8.POINTER_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_00_pointer_custom, null)));
+					cv[i].put(PointerTableColumnName_8.POINTER_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_00_pointer_custom, null)));
 					cv[i].put(PointerTableColumnName_8.POINTER_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
 					break;
 					
@@ -714,7 +746,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv[i].put(PointerTableColumnName_8.POINTER_ID, i);
 					cv[i].put(PointerTableColumnName_8.POINTER_TYPE, Pointer.POINTER_TYPE_CUSTOM);
 					cv[i].put(PointerTableColumnName_8.POINTER_LABEL, r.getString(R.string.app_function));
-					cv[i].put(PointerTableColumnName_8.POINTER_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_14_app_function, null)));
+					cv[i].put(PointerTableColumnName_8.POINTER_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_14_app_function, null)));
 					cv[i].put(PointerTableColumnName_8.POINTER_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
 					break;
 			
@@ -722,7 +756,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv[i].put(PointerTableColumnName_8.POINTER_ID, i);
 					cv[i].put(PointerTableColumnName_8.POINTER_TYPE, Pointer.POINTER_TYPE_HOME);
 					cv[i].put(PointerTableColumnName_8.POINTER_LABEL, r.getString(R.string.pointer_home));
-					cv[i].put(PointerTableColumnName_8.POINTER_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_01_pointer_home, null)));
+					cv[i].put(PointerTableColumnName_8.POINTER_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_01_pointer_home, null)));
 					cv[i].put(PointerTableColumnName_8.POINTER_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
 					break;
 
@@ -755,7 +791,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_8.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_8.APP_LABEL, r.getString(R.string.wifi));
 					cv.put(AppTableColumnName_8.APP_LABEL_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
-					cv.put(AppTableColumnName_8.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_20_function_wifi, null)));
+					cv.put(AppTableColumnName_8.APP_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_20_function_wifi, null)));
 					cv.put(AppTableColumnName_8.APP_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
 					cv.put(AppTableColumnName_8.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_WIFI);
 					break;
@@ -766,7 +804,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_8.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_8.APP_LABEL, r.getString(R.string.bluetooth));
 					cv.put(AppTableColumnName_8.APP_LABEL_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
-					cv.put(AppTableColumnName_8.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_21_function_bluetooth, null)));
+					cv.put(AppTableColumnName_8.APP_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_21_function_bluetooth, null)));
 					cv.put(AppTableColumnName_8.APP_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
 					cv.put(AppTableColumnName_8.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_BLUETOOTH);
 					break;
@@ -777,7 +817,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_8.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_8.APP_LABEL, r.getString(R.string.sync));
 					cv.put(AppTableColumnName_8.APP_LABEL_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
-					cv.put(AppTableColumnName_8.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_22_function_sync, null)));
+					cv.put(AppTableColumnName_8.APP_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_22_function_sync, null)));
 					cv.put(AppTableColumnName_8.APP_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
 					cv.put(AppTableColumnName_8.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_SYNC);
 					break;
@@ -788,7 +830,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_8.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_8.APP_LABEL, r.getString(R.string.silent_mode));
 					cv.put(AppTableColumnName_8.APP_LABEL_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
-					cv.put(AppTableColumnName_8.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_23_function_silent_mode, null)));
+					cv.put(AppTableColumnName_8.APP_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_23_function_silent_mode, null)));
 					cv.put(AppTableColumnName_8.APP_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
 					cv.put(AppTableColumnName_8.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_SILENT_MODE);
 					break;
@@ -799,7 +843,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_8.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_8.APP_LABEL, r.getString(R.string.volume));
 					cv.put(AppTableColumnName_8.APP_LABEL_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
-					cv.put(AppTableColumnName_8.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_24_function_volume, null)));
+					cv.put(AppTableColumnName_8.APP_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_24_function_volume, null)));
 					cv.put(AppTableColumnName_8.APP_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
 					cv.put(AppTableColumnName_8.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_VOLUME);
 					break;
@@ -810,7 +856,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_8.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_8.APP_LABEL, r.getString(R.string.rotate));
 					cv.put(AppTableColumnName_8.APP_LABEL_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
-					cv.put(AppTableColumnName_8.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_25_function_rotate, null)));
+					cv.put(AppTableColumnName_8.APP_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_25_function_rotate, null)));
 					cv.put(AppTableColumnName_8.APP_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
 					cv.put(AppTableColumnName_8.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_ROTATE);
 					break;
@@ -821,7 +869,9 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 					cv.put(AppTableColumnName_8.APP_TYPE, App.APP_TYPE_FUNCTION);
 					cv.put(AppTableColumnName_8.APP_LABEL, r.getString(R.string.search));
 					cv.put(AppTableColumnName_8.APP_LABEL_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
-					cv.put(AppTableColumnName_8.APP_ICON, ImageConverter.createByte(context, r.getDrawable(R.mipmap.icon_26_function_search, null)));
+					cv.put(AppTableColumnName_8.APP_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_26_function_search, null)));
 					cv.put(AppTableColumnName_8.APP_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
 					cv.put(AppTableColumnName_8.FUNCTION_TYPE, FunctionInfo.FUNCTION_TYPE_SEARCH);
 					break;
@@ -888,7 +938,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		return new Pointer(
 				c.getInt(c.getColumnIndex(PointerTableColumnName_1.POINTER_TYPE)),
 				c.getString(c.getColumnIndex(PointerTableColumnName_1.POINTER_LABEL)),
-				ImageConverter.createDrawable(context, c.getBlob(c.getColumnIndex(PointerTableColumnName_1.POINTER_ICON))),
+				ImageConverter.createDrawable(
+						context, c.getBlob(c.getColumnIndex(PointerTableColumnName_1.POINTER_ICON))),
 				c.getInt(c.getColumnIndex(PointerTableColumnName_1.POINTER_ICON_TYPE)),
 				c.getInt(c.getColumnIndex(PointerTableColumnName_1.POINTER_ICON_TYPE_APP_APP_ID))
 				);
@@ -912,7 +963,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 						c.getString(c.getColumnIndex(AppTableColumnName_1.PACKAGE_NAME)),
 						c.getString(c.getColumnIndex(AppTableColumnName_1.APP_LABEL)),
 						c.getInt(c.getColumnIndex(AppTableColumnName_1.APP_LABEL_TYPE)),
-						ImageConverter.createDrawable(context, c.getBlob(c.getColumnIndex(AppTableColumnName_1.APP_ICON))),
+						ImageConverter.createDrawable(
+								context, c.getBlob(c.getColumnIndex(AppTableColumnName_1.APP_ICON))),
 						c.getInt(c.getColumnIndex(AppTableColumnName_1.APP_ICON_TYPE)),
 						new IntentAppInfo(c.getInt(c.getColumnIndex(AppTableColumnName_1.INTENT_APP_TYPE)),
 								c.getString(c.getColumnIndex(AppTableColumnName_1.INTENT_URI))));
@@ -924,7 +976,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 						c.getString(c.getColumnIndex(AppTableColumnName_1.PACKAGE_NAME)),
 						c.getString(c.getColumnIndex(AppTableColumnName_1.APP_LABEL)),
 						c.getInt(c.getColumnIndex(AppTableColumnName_1.APP_LABEL_TYPE)),
-						ImageConverter.createDrawable(context, c.getBlob(c.getColumnIndex(AppTableColumnName_1.APP_ICON))),
+						ImageConverter.createDrawable(
+								context, c.getBlob(c.getColumnIndex(AppTableColumnName_1.APP_ICON))),
 						c.getInt(c.getColumnIndex(AppTableColumnName_1.APP_ICON_TYPE)),
 						new AppWidgetInfo(context,
 								c.getInt(c.getColumnIndex(AppTableColumnName_1.APPWIDGET_ID)),
@@ -941,7 +994,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 						c.getString(c.getColumnIndex(AppTableColumnName_1.PACKAGE_NAME)),
 						c.getString(c.getColumnIndex(AppTableColumnName_1.APP_LABEL)),
 						c.getInt(c.getColumnIndex(AppTableColumnName_1.APP_LABEL_TYPE)),
-						ImageConverter.createDrawable(context, c.getBlob(c.getColumnIndex(AppTableColumnName_1.APP_ICON))),
+						ImageConverter.createDrawable(
+								context, c.getBlob(c.getColumnIndex(AppTableColumnName_1.APP_ICON))),
 						c.getInt(c.getColumnIndex(AppTableColumnName_1.APP_ICON_TYPE)),
 						new FunctionInfo(c.getInt(c.getColumnIndex(AppTableColumnName_1.FUNCTION_TYPE))));
 
@@ -995,7 +1049,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		cv.put(PointerTableColumnName_8.POINTER_ID, pointerId);
 		cv.put(PointerTableColumnName_8.POINTER_TYPE, pointer.getPointerType());
 		cv.put(PointerTableColumnName_8.POINTER_LABEL, pointer.getPointerLabel());
-		cv.put(PointerTableColumnName_8.POINTER_ICON, ImageConverter.createByte(context, pointer.getPointerIcon()));
+		cv.put(PointerTableColumnName_8.POINTER_ICON,
+				ImageConverter.createByte(context, pointer.getPointerIcon()));
 		cv.put(PointerTableColumnName_8.POINTER_ICON_TYPE, pointer.getPointerIconType());
 		cv.put(PointerTableColumnName_8.POINTER_ICON_TYPE_APP_APP_ID, pointer.getPointerIconTypeAppAppId());
 	
@@ -1031,7 +1086,8 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	
 			case App.APP_TYPE_APPWIDGET:
 				cv.put(AppTableColumnName_8.APPWIDGET_ID, app.getAppWidgetInfo().getAppWidgetId());
-				cv.put(AppTableColumnName_8.APPWIDGET_UPDATE_TIME, app.getAppWidgetInfo().getAppWidgetUpdateTime());
+				cv.put(AppTableColumnName_8.APPWIDGET_UPDATE_TIME,
+						app.getAppWidgetInfo().getAppWidgetUpdateTime());
 				int[] cellPosition = app.getAppWidgetInfo().getAppWidgetCellPosition();
 				int[] cellSize = app.getAppWidgetInfo().getAppWidgetCellSize();
 				cv.put(AppTableColumnName_8.APPWIDGET_CELL_POSITION_X, cellPosition[0]);

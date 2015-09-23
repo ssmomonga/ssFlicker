@@ -226,5 +226,5 @@
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
-	</TableRow>	
+	</TableRow>
 </merge><!-- From: file:/development/workspace/ssFlicker/app/src/main/res/layout/pointer_window.xml -->

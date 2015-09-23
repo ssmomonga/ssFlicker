@@ -2,7 +2,7 @@
 
 <ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/lp_mp_0" >
+	style="@style/lp_mp_0" >
 		
 	<LinearLayout
 		style="@style/lp_mp_wc"
@@ -10,11 +10,11 @@
 		android:gravity="right"
 		android:orientation="vertical" >
 
-	    <TableLayout
-	        style="@style/lp_mp_wc"
-	        android:gravity="center"
-	        android:layout_weight="1"
-	        android:paddingBottom="8dp" >
+		<TableLayout
+			style="@style/lp_mp_wc"
+			android:gravity="center"
+			android:layout_weight="1"
+			android:paddingBottom="8dp" >
 			<TableRow
 				android:gravity="center" >
 				<ImageView android:id="@+id/iv_color_pallet_0"
@@ -38,7 +38,7 @@
 				<ImageView android:id="@+id/iv_color_pallet_6"
 					style="@style/lp_32_32"
 					android:layout_margin="4dp" />
-			</TableRow>			    
+			</TableRow>				
 			<TableRow
 				android:gravity="center" >
 				<ImageView android:id="@+id/iv_color_pallet_7"
@@ -90,70 +90,70 @@
 		</TableLayout>
 		
 		<LinearLayout
-	        style="@style/lp_mp_wc"
-	        android:gravity="center"
-	        android:paddingBottom="8dp"
-	        android:orientation="vertical" >
-		    <LinearLayout
-		        style="@style/lp_mp_wc"
-		        android:gravity="center" >
-		        <SeekBar android:id="@+id/sb_red"
-		            style="@style/SeekBar.Red" />
-		        <EditText android:id="@+id/et_red"
-		            style="@style/lp_48_wc"
-		            android:gravity="right"
-		            android:inputType="number"
-		            android:maxLength="3" />
-		    </LinearLayout>
-		    <LinearLayout
-		        style="@style/lp_mp_wc"
-		        android:gravity="center" >
-		        <SeekBar android:id="@+id/sb_green"
-		            style="@style/SeekBar.Green" />
-		        <EditText android:id="@+id/et_green"
-		            style="@style/lp_48_wc"
-		            android:gravity="right"
-		            android:inputType="number"
-		            android:maxLength="3" />
-		    </LinearLayout>
-		    <LinearLayout
-		        style="@style/lp_mp_wc"
-		        android:gravity="center" >
-		        <SeekBar android:id="@+id/sb_blue"
-		            style="@style/SeekBar.Blue" />
-		        <EditText android:id="@+id/et_blue"
-		            style="@style/lp_48_wc"
-		            android:gravity="right"
-		            android:inputType="number"
-		            android:maxLength="3" />
-		    </LinearLayout>
-		    <LinearLayout
-		        style="@style/lp_mp_wc"
-		        android:gravity="center" >
-		        <SeekBar android:id="@+id/sb_alpha"
-		            style="@style/SeekBar.Alpha" />
-		        <EditText android:id="@+id/et_alpha"
-		            style="@style/lp_48_wc"
-		            android:gravity="right"
-		            android:inputType="number"
-		            android:maxLength="3" />
-		    </LinearLayout>
+			style="@style/lp_mp_wc"
+			android:gravity="center"
+			android:paddingBottom="8dp"
+			android:orientation="vertical" >
+			<LinearLayout
+				style="@style/lp_mp_wc"
+				android:gravity="center" >
+				<SeekBar android:id="@+id/sb_red"
+					style="@style/SeekBar.Red" />
+				<EditText android:id="@+id/et_red"
+					style="@style/lp_48_wc"
+					android:gravity="right"
+					android:inputType="number"
+					android:maxLength="3" />
+			</LinearLayout>
+			<LinearLayout
+				style="@style/lp_mp_wc"
+				android:gravity="center" >
+				<SeekBar android:id="@+id/sb_green"
+					style="@style/SeekBar.Green" />
+				<EditText android:id="@+id/et_green"
+					style="@style/lp_48_wc"
+					android:gravity="right"
+					android:inputType="number"
+					android:maxLength="3" />
+			</LinearLayout>
+			<LinearLayout
+				style="@style/lp_mp_wc"
+				android:gravity="center" >
+				<SeekBar android:id="@+id/sb_blue"
+					style="@style/SeekBar.Blue" />
+				<EditText android:id="@+id/et_blue"
+					style="@style/lp_48_wc"
+					android:gravity="right"
+					android:inputType="number"
+					android:maxLength="3" />
+			</LinearLayout>
+			<LinearLayout
+				style="@style/lp_mp_wc"
+				android:gravity="center" >
+				<SeekBar android:id="@+id/sb_alpha"
+					style="@style/SeekBar.Alpha" />
+				<EditText android:id="@+id/et_alpha"
+					style="@style/lp_48_wc"
+					android:gravity="right"
+					android:inputType="number"
+					android:maxLength="3" />
+			</LinearLayout>
 		</LinearLayout>
 		
 		<FrameLayout
-	        style="@style/lp_mp_128" >
+			style="@style/lp_mp_128" >
 			<LinearLayout android:id="@+id/ll_wallpaper"
-			    style="@style/lp_mp_mp" />
+				style="@style/lp_mp_mp" />
 			<LinearLayout
-			    style="@style/lp_mp_mp"
-			    android:baselineAligned="false"
-			    android:background="@color/wallpaper" >
+				style="@style/lp_mp_mp"
+				android:baselineAligned="false"
+				android:background="@color/activity_background" >
 				<LinearLayout android:id="@+id/ll_overlay_point_preview_0"
 					style="@style/lp_16_mp"
-				    android:visibility="gone" />
+					android:visibility="gone" />
 				<LinearLayout
-				    style="@style/lp_wc_wc"
-				    android:layout_weight="1" />
+					style="@style/lp_wc_wc"
+					android:layout_weight="1" />
 				<LinearLayout android:id="@+id/ll_window_preview_0"
 					style="@style/lp_wc_wc"
 					android:gravity="center"
@@ -165,13 +165,13 @@
 					<TextView android:id="@+id/tv_pointer_preview_0"
 						style="@style/lp_wc_wc"
 					android:gravity="center"
-					    android:visibility="gone"
-					    android:text="@string/pointer_custom"
+						android:visibility="gone"
+						android:text="@string/pointer_custom"
 						android:maxLines="1" />
 				</LinearLayout>
 				<LinearLayout
-				    style="@style/lp_wc_wc"
-				    android:layout_weight="1" />
+					style="@style/lp_wc_wc"
+					android:layout_weight="1" />
 				<LinearLayout android:id="@+id/ll_window_preview_1"
 					android:tag="0"
 					style="@style/lp_wc_wc"
@@ -184,16 +184,16 @@
 					<TextView android:id="@+id/tv_pointer_preview_1"
 						style="@style/lp_wc_wc"
 						android:gravity="center"
-					    android:visibility="gone"
-					    android:text="@string/pointer_custom"
+						android:visibility="gone"
+						android:text="@string/pointer_custom"
 						android:maxLines="1" />
 				</LinearLayout>
 				<LinearLayout
-				    style="@style/lp_wc_wc"
-				    android:layout_weight="1" />
+					style="@style/lp_wc_wc"
+					android:layout_weight="1" />
 				<LinearLayout android:id="@+id/ll_overlay_point_preview_1"
 					style="@style/lp_16_mp"
-				    android:visibility="gone" />
+					android:visibility="gone" />
 			</LinearLayout>
 		</FrameLayout>
 

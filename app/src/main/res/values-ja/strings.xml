@@ -21,7 +21,6 @@
 
 <!-- EditorActivity -->
 	<string name="enter_edit_mode">編集モードに変更しました</string>
-	<string name="require_permission_write_external_storage">ストレージの書込みパーミッションが必要です</string>
 
 	<string name="pointer_custom">ポインタ</string>
 	<string name="pointer_home">ホームポインタ</string>
@@ -44,7 +43,9 @@
 	<string name="settings">設定</string>
 	<string name="initial">初期化</string>
 	<string name="cancel">キャンセル</string>
-		
+
+	<string name="fail_set_image">画像の設定に失敗しました</string>
+
 <!-- EditDialog -->
 	<string name="edit_send_text_template">テキストテンプレート</string>
 	<string name="edit_appwidget_position">位置</string>
@@ -95,12 +96,13 @@
 	<string name="etc">その他</string>
 	<string name="backup_restore">バックアップ／リストア</string>
 	<string name="no_storage">ストレージがありません</string>
+	<string name="require_permission_write_external_storage">ストレージの書込みパーミッションが必要です</string>
 	<string name="donation">寄付</string>
 
 <!-- PrefSubActivity -->
 	<string name="launch_by_default">デフォルト起動</string>
 	<string name="clear_default">ssFlickerのデフォルト設定を解除しますか？</string>
-	<string name="can_not_clear_default">各デフォルト起動を変更することはできません。\n画面右上のスイッチから全デフォルト起動を解除することのみできます。</string>
+	<string name="can_not_set_default">この画面からデフォルト起動を設定、解除することはできません。\n画面右上のスイッチから全デフォルト起動を解除することのみできます。\nデフォルト起動の設定はAndroidの手順に従って設定してください。</string>
 	<string name="launch_by_home_key">ホームキー起動</string>
 	<string name="home_key_another_home">アナザーホーム</string>
 	<string name="home_key_click_mode">クリックモード</string>
@@ -109,6 +111,7 @@
 	<string name="launch_by_search_key">検索キー起動</string>
 		
 	<string name="launch_from_overlay">オーバーレイ起動</string>
+	<string name="require_permission_system_alert_window">他アプリの上に重ねて表示のパーミッションが必要です</string>
 	<string name="start_overlay_service">オーバーレイ起動を開始しました</string>
 	<string name="stop_overlay_service">オーバーレイ起動を終了しました</string>
 	<string name="overlay_point_0">オーバーレイポイント１</string>
@@ -222,15 +225,16 @@
 	<string name="blog_url">http://ssmomonga.blogspot.com/</string>
 	<string name="ver_info">バージョン</string>
 	<string name="ver_0">・開発の終了後も引き続き旧バージョンで利用できますが、バージョンアップは行われません。</string>
-	<string name="ver_4">・Android 4.0：v1.3.3をもって開発を終了しています。</string>
-	<string name="ver_5">・Android 4.x：v1.4.4をもって開発を終了しています。</string>
+	<string name="ver_1">・Android 4.0：v1.3.3をもって開発を終了しています。</string>
+	<string name="ver_2">・Android 4.x：v1.4.4をもって開発を終了しています。</string>
 	<string name="permission">パーミッション</string>
-	<string name="prm_1">・電話番号発信：ショートカットで直接発信を利用するため。</string>
-	<string name="prm_2">・USBストレージのコンテンツの変更または削除／USBストレージの読み取り：バックアップ／リストアのため。</string>
+	<string name="prm_0">・電話番号発信：ショートカットの直接発信のため。</string>
+	<string name="prm_1">・USBストレージのコンテンツの変更または削除／USBストレージの読み取り：バックアップ／リストア、画像のトリミングのため。</string>
+	<string name="prm_2">・Google Play請求サービス：寄付のため。</string>
 	<string name="prm_3">・Wi-Fiからの接続と切断／Wi-Fi接続の表示／Bluetoothデバイスのペアの設定／Bluetoothの設定へのアクセス／同期のON/OFFの切り替え／同期設定の読み取り／システム設定の変更：各種ファンクションを利用するため。</string>
-	<string name="prm_4">・起動時の実行：端末起動時にオーバーレイ起動、センサー起動などを起動するため。</string>
-	<string name="prm_6">・他のアプリの上に重ねて表示：オーバーレイ起動を利用するため。</string>
-	<string name="prm_7">・バイブレーションの制御：バイブを利用するため。</string>
+	<string name="prm_4">・起動時の実行：端末起動時にオーバーレイ起動、ステータス起動を開始するため。</string>
+	<string name="prm_5">・他のアプリの上に重ねて表示：オーバーレイ起動のため。</string>
+	<string name="prm_6">・バイブレーションの制御：バイブを利用するため。</string>
 	<string name="hint">ヒント</string>
 	<string name="hint_0">・共有アプリは、編集モードのアプリの編集からテンプレートを設定できます。テンプレートを設定しないと起動しない場合があります。</string>
 	<string name="hint_1">・ウィジェットはフリックすると表示／非表示が切替わります。</string>
@@ -247,7 +251,7 @@
 	<string name="storage_backup_4">・バックアップファイルはリネームをしないでください。</string>
 	<string name="storage_backup_5">・ストレージバックアップ／リストアは最新バージョンで行ってください。</string>
 	<string name="cloud_backup">クラウドバックアップ</string>
-	<string name="cloud_backup_0">・設定画面で設定した内容はクラウドにバックアップ／クラウドからリストアされます。</string>
+	<string name="cloud_backup_0">・設定画面で設定した内容はクラウドにバックアップ／クラウドからリストアされます。（Android 6.0以上では、同様に編集モードで設定した内容もバックアップ／リストアされます。）</string>
 	<string name="cloud_backup_1">・クラウドバックアップは自動で行われます。リストアはssFlickerの再インストール時に自動で行われます。操作は必要ありません。</string>
 	<string name="cloud_backup_2">・クラウドバックアップを利用するためには、Androidの設定の「データのバックアップ」と「自動復元」を有効にしておく必要があります。</string>
 	<string name="cloud_backup_3">・デバイスによってはクラウドバックアップは利用できません。</string>
@@ -261,8 +265,8 @@
 	<string name="no_restore_file">リストアファイルがありません</string>
 	<string name="backup_complete">バックアップが完了しました</string>
 	<string name="restore_complete">リストアが完了しました</string>
-	<string name="backup_error">バックアップに失敗しました</string>
-	<string name="restore_error">リストアに失敗しました</string>	
+	<string name="fail_backup">バックアップに失敗しました</string>
+	<string name="fail_restore">リストアに失敗しました</string>
 
 <!-- DonateActivity -->
 	<string name="donate">寄付する</string>
@@ -288,6 +292,7 @@
 	<string name="silent_mode_off">マナーモードをOFFにしました</string>
 	<string name="vibrate_mode_on">バイブモードをONにしました</string>
 	<string name="silent_mode_on">マナーモードをONにしました</string>
+	<string name="require_permission_write_settings">システム設定の変更のパーミッションが必要です</string>
 	<string name="rotate_off">画面の自動回転をOFFにしました</string>
 	<string name="rotate_on">画面の自動回転をONにしました</string>
 	<string name="airplane_mode_error">Android 4.2以降では機内モードを変更できません</string>

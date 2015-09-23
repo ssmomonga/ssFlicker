@@ -27,7 +27,6 @@ import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.os.Parcelable;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -47,7 +46,6 @@ import com.ssmomonga.ssflicker.db.SQLiteDAO;
 import com.ssmomonga.ssflicker.dlg.AppChooser;
 import com.ssmomonga.ssflicker.dlg.DeleteDialog;
 import com.ssmomonga.ssflicker.dlg.EditDialog;
-import com.ssmomonga.ssflicker.dlg.EditDialog.EditPointerIf;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
 import com.ssmomonga.ssflicker.proc.Launch;
 import com.ssmomonga.ssflicker.set.AppWidgetHostSettings;
@@ -83,6 +81,9 @@ public class EditorActivity extends Activity {
 	private static final int REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING_2 = 12;
 	private static final int REQUEST_CODE_EDIT_APP_ICON_TRIMMING = 21;
 	private static final int REQUEST_CODE_EDIT_APP_ICON_TRIMMING_2 = 22;
+
+	private static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_POINTER_ICON = 0;
+	private static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_APP_ICON = 1;
 
 	private static final String TRIMMING_CACHE_FILE_NAME = "_trimming_cache_file";
 	
@@ -130,7 +131,7 @@ public class EditorActivity extends Activity {
 	 * @param savedInstanceState
 	 */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		sdao = new SQLiteDAO(this);
@@ -150,7 +151,7 @@ public class EditorActivity extends Activity {
 	 * onResume()
 	 */
 	@Override
-	public void onResume() {
+	protected void onResume() {
 		super.onResume();
 		if (homeKey = new BootSettings(this).isHomeKey()) {
 			IntentFilter filter = new IntentFilter();
@@ -182,7 +183,7 @@ public class EditorActivity extends Activity {
 	 * onPause()
 	 */
 	@Override
-	public void onPause() {
+	protected void onPause() {
 		super.onPause();
 		if (homeKey) unregisterReceiver(mReceiver);
 	}
@@ -191,7 +192,7 @@ public class EditorActivity extends Activity {
 	 * onDestroy()
 	 */
 	@Override
-	public void onDestroy() {
+	protected void onDestroy() {
 		super.onDestroy();
 		if (appChooser != null && appChooser.isShowing()) appChooser.dismiss();
 		if (editDialog != null && editDialog.isShowing()) editDialog.dismiss();
@@ -207,7 +208,7 @@ public class EditorActivity extends Activity {
 	 * @param data
 	 */
 	@Override
-	public void onActivityResult(final int requestCode, int resultCode, Intent data) {
+	protected void onActivityResult(final int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 
 		Intent intent = null;
@@ -304,6 +305,15 @@ public class EditorActivity extends Activity {
 
 					case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING:
 					case REQUEST_CODE_EDIT_APP_ICON_TRIMMING:
+
+						if (!DeviceSettings.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
+								editDialog == null || !editDialog.isShowing()) {
+
+							Toast.makeText(this, R.string.fail_set_image, Toast.LENGTH_SHORT).show();
+							onActivityResult(requestCode, Activity.RESULT_CANCELED, intent);
+							break;
+						}
+
 						Uri uri = data.getData();
 						Cursor c = getContentResolver().query(uri, null, null, null, null);
 						c.moveToFirst();
@@ -311,84 +321,92 @@ public class EditorActivity extends Activity {
 						final String mimeType = c.getString(index);
 						c.close();
 
-						if (mimeType != null && mimeType.contains("image")) {
+						if (mimeType == null && mimeType.contains("image")) break;
 
-							File cacheFile = new File(DeviceSettings.getExternalDir(this),
-									System.currentTimeMillis() + TRIMMING_CACHE_FILE_NAME);
-							final String[] cacheFileName = {cacheFile.toString()};
+						File cacheFile = new File(DeviceSettings.getExternalDir(this),
+								System.currentTimeMillis() + TRIMMING_CACHE_FILE_NAME);
+						final String[] cacheFileName = {cacheFile.toString()};
 
-							try {
-								InputStream is = getContentResolver().openInputStream(uri);
-								FileOutputStream fos = new FileOutputStream(cacheFile);
-								BufferedOutputStream bos = new BufferedOutputStream(fos);
+						try {
+							InputStream is = getContentResolver().openInputStream(uri);
+							FileOutputStream fos = new FileOutputStream(cacheFile);
+							BufferedOutputStream bos = new BufferedOutputStream(fos);
 
-								byte[] buffer = new byte[1024 * 4];
-								int size;
-								while (-1 != (size = is.read(buffer))) {
-									bos.write(buffer, 0, size);
-								}
-
-								bos.close();
-								fos.close();
-								is.close();
-
-							} catch (FileNotFoundException e) {
-								deleteTrimmingCacheFile();
-								e.printStackTrace();
-
-							} catch (IOException e) {
-								deleteTrimmingCacheFile();
-								e.printStackTrace();
+							byte[] buffer = new byte[1024 * 4];
+							int size;
+							while (-1 != (size = is.read(buffer))) {
+								bos.write(buffer, 0, size);
 							}
 
-							MediaScannerConnection.scanFile(this, cacheFileName, new String[]{mimeType},
-									new MediaScannerConnection.OnScanCompletedListener() {
+							bos.close();
+							fos.close();
+							is.close();
 
-								@Override
-								public void onScanCompleted(String string, Uri uris) {
+						} catch (FileNotFoundException e) {
+							deleteTrimmingCacheFile();
+							e.printStackTrace();
 
-									Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-									Cursor c = getContentResolver().query(
-											baseUri,
-											null,
-											MediaStore.Images.ImageColumns.DATA + " = ?",
-											cacheFileName,
-											null);
-									c.moveToFirst();
-
-									String contentName = baseUri.toString() + "/" +
-											c.getInt(c.getColumnIndex(MediaStore.MediaColumns._ID));
-									c.close();
-									Uri cacheFileUri = Uri.parse(contentName);
-
-									File trimmingCacheFile = new File(DeviceSettings.getExternalDir(EditorActivity.this),
-											System.currentTimeMillis() + TRIMMING_CACHE_FILE_NAME);
-									Uri trimmingFileUri = Uri.fromFile(trimmingCacheFile);
-
-									Intent intent = new Intent()
-											.setDataAndType(cacheFileUri, mimeType)
-											.setAction("com.android.camera.action.CROP")
-											.putExtra("outputX", getResources().getDimensionPixelSize(R.dimen.icon_size))
-											.putExtra("outputY", getResources().getDimensionPixelSize(R.dimen.icon_size))
-											.putExtra("aspectX", 1)
-											.putExtra("aspectY", 1)
-											.putExtra("scale", true)
-											.putExtra("outputFormat", Bitmap.CompressFormat.PNG.name())
-											.putExtra(MediaStore.EXTRA_OUTPUT, trimmingFileUri);
-									startActivityForResult(intent, requestCode + 1);
-
-								}
-							});
+						} catch (IOException e) {
+							deleteTrimmingCacheFile();
+							e.printStackTrace();
 						}
+
+						MediaScannerConnection.scanFile(this, cacheFileName, new String[]{mimeType},
+								new MediaScannerConnection.OnScanCompletedListener() {
+
+							@Override
+							public void onScanCompleted(String string, Uri uris) {
+								Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+								Cursor c = getContentResolver().query(
+										baseUri,
+										null,
+										MediaStore.Images.ImageColumns.DATA + " = ?",
+										cacheFileName,
+										null);
+								c.moveToFirst();
+
+								String contentName = baseUri.toString() + "/" +
+										c.getInt(c.getColumnIndex(MediaStore.MediaColumns._ID));
+								c.close();
+								Uri cacheFileUri = Uri.parse(contentName);
+
+								File trimmingCacheFile = new File(DeviceSettings.getExternalDir(EditorActivity.this),
+										System.currentTimeMillis() + TRIMMING_CACHE_FILE_NAME);
+								Uri trimmingFileUri = Uri.fromFile(trimmingCacheFile);
+
+								Intent intent = new Intent()
+										.setDataAndType(cacheFileUri, mimeType)
+										.setAction("com.android.camera.action.CROP")
+										.putExtra("outputX", getResources().getDimensionPixelSize(R.dimen.icon_size))
+										.putExtra("outputY", getResources().getDimensionPixelSize(R.dimen.icon_size))
+										.putExtra("aspectX", 1)
+										.putExtra("aspectY", 1)
+										.putExtra("scale", true)
+										.putExtra("outputFormat", Bitmap.CompressFormat.PNG.name())
+										.putExtra(MediaStore.EXTRA_OUTPUT, trimmingFileUri);
+								startActivityForResult(intent, requestCode + 1);
+
+							}
+						});
 						break;
 
 					case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING_2:
 					case REQUEST_CODE_EDIT_APP_ICON_TRIMMING_2:
+
+						if (!DeviceSettings.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
+								editDialog == null || !editDialog.isShowing()) {
+
+							Toast.makeText(this, R.string.fail_set_image, Toast.LENGTH_SHORT).show();
+							onActivityResult(requestCode, Activity.RESULT_CANCELED, intent);
+							break;
+						}
+
 						try {
 							ParcelFileDescriptor parcelFileDescriptor = getContentResolver().
 									openFileDescriptor(data.getData(), "r");
 							FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-							bitmap = ImageConverter.roundBitmap(this, BitmapFactory.decodeFileDescriptor(fileDescriptor));
+							bitmap = ImageConverter.roundBitmap(this,
+									BitmapFactory.decodeFileDescriptor(fileDescriptor));
 							parcelFileDescriptor.close();
 
 						} catch (FileNotFoundException e) {
@@ -409,8 +427,8 @@ public class EditorActivity extends Activity {
 						deleteTrimmingCacheFile();
 						editDialog.setCancelable(true);
 						editDialog.setCanceledOnTouchOutside(true);
+
 						break;
-			
 				}
 				break;
 
@@ -436,8 +454,10 @@ public class EditorActivity extends Activity {
 					case REQUEST_CODE_EDIT_APP_ICON_TRIMMING:
 					case REQUEST_CODE_EDIT_APP_ICON_TRIMMING_2:
 						deleteTrimmingCacheFile();
-						editDialog.setCancelable(true);
-						editDialog.setCanceledOnTouchOutside(true);
+						if (editDialog != null && editDialog.isShowing()) {
+							editDialog.setCancelable(true);
+							editDialog.setCanceledOnTouchOutside(true);
+						}
 						break;
 				}
 				break;
@@ -450,45 +470,45 @@ public class EditorActivity extends Activity {
 	 */
 	private void deleteTrimmingCacheFile() {
 
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
-				checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+		if (!DeviceSettings.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) return;
 
-			(new Thread(new Runnable() {
-				@Override
-				public void run() {
-					File[] files = new File(DeviceSettings.getExternalDir(EditorActivity.this)).listFiles(new FilenameFilter() {
-						@Override
-						public boolean accept(File file, String name) {
-							return (name.endsWith(TRIMMING_CACHE_FILE_NAME));
-						}
-					});
+		(new Thread(new Runnable() {
+			@Override
+			public void run() {
+				File[] files = new File(DeviceSettings.getExternalDir(EditorActivity.this)).
+						listFiles(new FilenameFilter() {
 
-					if (files != null && files.length > 0) {
-						Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-						for (File file : files) {
-							file.delete();
+					@Override
+					public boolean accept(File file, String name) {
+						return (name.endsWith(TRIMMING_CACHE_FILE_NAME));
+					}
+				});
+
+				if (files != null && files.length > 0) {
+					Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+					for (File file : files) {
+						file.delete();
 /*
-							Cursor c = getContentResolver().query(
-									baseUri,
-									null,
-									MediaStore.Images.ImageColumns.DATA + " = ?",
-									new String[] { file.toString() },
-									null);
+						Cursor c = getContentResolver().query(
+								baseUri,
+								null,
+								MediaStore.Images.ImageColumns.DATA + " = ?",
+								new String[] { file.toString() },
+								null);
 
-							if (c.getCount() != 0) {
-								c.moveToFirst();
-								String contentName = baseUri.toString() + "/" +
-										c.getInt(c.getColumnIndex(MediaStore.MediaColumns._ID));
-								Uri uri = Uri.parse(contentName);
-								getContentResolver().delete(uri, null, null);
-							}
-							c.close();
-*/
+						if (c.getCount() != 0) {
+							c.moveToFirst();
+							String contentName = baseUri.toString() + "/" +
+									c.getInt(c.getColumnIndex(MediaStore.MediaColumns._ID));
+							Uri uri = Uri.parse(contentName);
+							getContentResolver().delete(uri, null, null);
 						}
+						c.close();
+*/
 					}
 				}
-			})).start();
-		}
+			}
+		})).start();
 	}
 
 	/**
@@ -501,16 +521,20 @@ public class EditorActivity extends Activity {
 	@Override
 	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 		switch(requestCode) {
-			case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING:
-			case REQUEST_CODE_EDIT_APP_ICON_TRIMMING:
+
+			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_POINTER_ICON:
+			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_APP_ICON:
 				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
 					int iconTarget = 0;
 					switch (requestCode) {
-						case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING:
+						case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_POINTER_ICON:
 							iconTarget = IconList.TARGET_ICON_POINTER;
 							break;
-						case REQUEST_CODE_EDIT_APP_ICON_TRIMMING:
+
+						case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_APP_ICON:
 							iconTarget = IconList.TARGET_ICON_APP;
+							break;
 					}
 					trimmingImage(iconTarget);
 
@@ -558,7 +582,7 @@ public class EditorActivity extends Activity {
 		rl_all.setOnTouchListener(null);
 		dock_window.setOnFlickListener(null, null);
 		pointer_window.setOnFlickListener(null);
-		app_window.setOnFlickListener(null, null);		
+		app_window.setOnFlickListener(null, null);
 	}
 	
 	/**
@@ -684,32 +708,41 @@ public class EditorActivity extends Activity {
 	private void addPointer(int position) {
 
 		pointer_window.setPointerPointed(false, pointerId);
+
 		switch (position) {
 			case EditList.ADD_POINTER_CUSTOM:
-				addPointer(new Pointer(Pointer.POINTER_TYPE_CUSTOM, getString(R.string.pointer_custom),
-						getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null),
-						IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
+				addPointer(new Pointer(Pointer.POINTER_TYPE_CUSTOM,
+						getString(R.string.pointer_custom),
+						getResources().getDrawable(R.mipmap.icon_00_pointer_custom,null),
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						0));
 				break;
 
 			case EditList.ADD_POINTER_HOME:
-				addPointer(new Pointer(Pointer.POINTER_TYPE_HOME, getString(R.string.pointer_home),
+				addPointer(new Pointer(Pointer.POINTER_TYPE_HOME,
+						getString(R.string.pointer_home),
 						getResources().getDrawable(R.mipmap.icon_01_pointer_home, null),
-						IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
+						IconList.LABEL_ICON_TYPE_ORIGINAL,
+						0));
 				break;
 
 			case EditList.ADD_POINTER_RECENT:
 				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-					addPointer(new Pointer(Pointer.POINTER_TYPE_RECENT, getString(R.string.pointer_recent),
+					addPointer(new Pointer(Pointer.POINTER_TYPE_RECENT,
+							getString(R.string.pointer_recent),
 							getResources().getDrawable(R.mipmap.icon_51_unused_recent, null),
-							IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
+							IconList.LABEL_ICON_TYPE_ORIGINAL,
+							0));
 				}
 				break;
 
 			case EditList.ADD_POINTER_TASK:
 				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-					addPointer(new Pointer(Pointer.POINTER_TYPE_TASK, getString(R.string.pointer_task),
+					addPointer(new Pointer(Pointer.POINTER_TYPE_TASK,
+							getString(R.string.pointer_task),
 							getResources().getDrawable(R.mipmap.icon_52_unused_task, null),
-							IconList.LABEL_ICON_TYPE_ORIGINAL, 0));
+							IconList.LABEL_ICON_TYPE_ORIGINAL,
+							0));
 				}
 				break;
 
@@ -1200,10 +1233,12 @@ public class EditorActivity extends Activity {
 					app_window.setAppPointed(false, appId);
 					app_window.setAppPointed(false, getToAppId(DIRECTION_UP));
 					sortApp(getToAppId(DIRECTION_UP));
+
 				} else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
 					dock_window.setDockPointed(false, appId);
 					dock_window.setDockPointed(false, getToAppId(DIRECTION_UP));
 					sortApp(getToAppId(DIRECTION_UP));
+
 				} else {
 					dock_window.setDockPointed(false, appId);
 				}
@@ -1219,10 +1254,12 @@ public class EditorActivity extends Activity {
 					app_window.setAppPointed(false, appId);
 					app_window.setAppPointed(false, getToAppId(DIRECTION_LEFT));
 					sortApp(getToAppId(DIRECTION_LEFT));
+
 				} else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
 					dock_window.setDockPointed(false, appId);
 					dock_window.setDockPointed(false, getToAppId(DIRECTION_LEFT));
 					sortApp(getToAppId(DIRECTION_LEFT));
+
 				} else {
 					dock_window.setDockPointed(false, appId);
 				}
@@ -1233,10 +1270,12 @@ public class EditorActivity extends Activity {
 					app_window.setAppPointed(false, appId);
 					app_window.setAppPointed(false, getToAppId(DIRECTION_RIGHT));
 					sortApp(getToAppId(DIRECTION_RIGHT));
+
 				} else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
 					dock_window.setDockPointed(false, appId);
 					dock_window.setDockPointed(false, getToAppId(DIRECTION_RIGHT));
 					sortApp(getToAppId(DIRECTION_RIGHT));
+
 				} else {
 					dock_window.setDockPointed(false, appId);
 				}
@@ -1247,10 +1286,12 @@ public class EditorActivity extends Activity {
 					app_window.setAppPointed(false, appId);
 					app_window.setAppPointed(false, getToAppId(DIRECTION_DOWN));
 					sortApp(getToAppId(DIRECTION_DOWN));
+
 				} else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
 					dock_window.setDockPointed(false, appId);
 					dock_window.setDockPointed(false, getToAppId(DIRECTION_DOWN));
 					sortApp(getToAppId(DIRECTION_DOWN));
+
 				} else {
 					dock_window.setDockPointed(false, appId);
 				}
@@ -1264,6 +1305,7 @@ public class EditorActivity extends Activity {
 			default:
 				if (pointerId != Pointer.DOCK_POINTER_ID) {
 					app_window.setAppPointed(false, appId);
+
 				} else {
 					dock_window.setDockPointed(false, appId);
 				}
@@ -1305,12 +1347,14 @@ public class EditorActivity extends Activity {
 				int appWidgetId = appWidgetHost.allocateAppWidgetId();
 				AppWidgetProviderInfo info = app.getAppWidgetInfo().getAppWidgetProviderInfo();
 				ComponentName componentName = info.provider;
-				boolean allowed = AppWidgetManager.getInstance(EditorActivity.this).bindAppWidgetIdIfAllowed(appWidgetId, componentName);
+				boolean allowed = AppWidgetManager.getInstance(EditorActivity.this).
+						bindAppWidgetIdIfAllowed(appWidgetId, componentName);
 
 				if (allowed) {
 					Intent intent = new Intent()
 							.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 					onActivityResult(REQUEST_CODE_ADD_APPWIDGET, RESULT_OK, intent);
+
 				} else {
 					Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_BIND)
 							.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
@@ -1725,19 +1769,17 @@ public class EditorActivity extends Activity {
 	private void trimmingImage(int iconTarget) {
 
 		int requestCode = 0;
-		switch (iconTarget) {
-			case IconList.TARGET_ICON_POINTER:
-				requestCode = REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING;
-				break;
+		if (DeviceSettings.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
 
-			case (IconList.TARGET_ICON_APP):
-				requestCode = REQUEST_CODE_EDIT_APP_ICON_TRIMMING;
-				break;
+			switch (iconTarget) {
+				case IconList.TARGET_ICON_POINTER:
+					requestCode = REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING;
+					break;
 
-		}
-
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
-				checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+				case (IconList.TARGET_ICON_APP):
+					requestCode = REQUEST_CODE_EDIT_APP_ICON_TRIMMING;
+					break;
+			}
 
 			editDialog.setCancelable(false);
 			editDialog.setCanceledOnTouchOutside(false);
@@ -1745,10 +1787,19 @@ public class EditorActivity extends Activity {
 			startActivityForResult(intent, requestCode);
 
 		} else {
+			switch (iconTarget) {
+				case IconList.TARGET_ICON_POINTER:
+					requestCode = REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_POINTER_ICON;
+					break;
+
+				case (IconList.TARGET_ICON_APP):
+					requestCode = REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_APP_ICON;
+					break;
+			}
+
 			requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE }, requestCode);
 
 		}
-
 	}
 
 	/**
@@ -1776,6 +1827,5 @@ public class EditorActivity extends Activity {
 		if (keyCode == KeyEvent.KEYCODE_BACK) backWindow();
 		return false;
 	}
-
 
 }

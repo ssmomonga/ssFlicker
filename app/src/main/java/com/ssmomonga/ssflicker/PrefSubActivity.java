@@ -1,11 +1,13 @@
 package com.ssmomonga.ssflicker;
 
+import android.Manifest;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
@@ -16,8 +18,8 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.CompoundButton;
@@ -42,14 +44,15 @@ import java.net.URISyntaxException;
  * PrefSubActivity
  */
 public class PrefSubActivity extends Activity {
-	
+
+	public static final int REQUEST_CODE_SYSTEM_ALERT_WINDOW = 0;
+
 	public static final String KEY = "key";
 	public static final int KEY_DEFAULT_PREF = 0;
 	public static final int KEY_OVERLAY_PREF = 1;
 	private static int key;
 	
 	private static Switch sw_default;
-	private static PreferenceScreen launch_by_default;
 	private static SwitchPreference home_key;
 	private static ListPreference home_key_another_home;
 	private static ListPreference home_key_click_mode;
@@ -57,8 +60,6 @@ public class PrefSubActivity extends Activity {
 	private static SwitchPreference now;
 	private static SwitchPreference search_key;
 	
-	private static Switch sw_overlay;
-	private static PreferenceScreen launch_from_overlay;
 	private static SwitchPreference[] overlay_point = new SwitchPreference[OverlaySettings.OVERLAY_POINT_COUNT];
 	private static ListPreference[] overlay_point_side = new ListPreference[OverlaySettings.OVERLAY_POINT_COUNT];
 	private static ListPreference[] overlay_point_position = new ListPreference[OverlaySettings.OVERLAY_POINT_COUNT];
@@ -68,11 +69,11 @@ public class PrefSubActivity extends Activity {
 	private static SwitchPreference overlay_foreground;
 
 	private static Dialog dialog;
-	
+
 	private static Activity activity;
 	private static PrefDAO pdao;
 	private static Launch l;
-	
+
 	private static Intent bindOverlayServiceIntent;
 	private static Messenger overlayServiceMessenger;
 	private static ServiceConnection overlayServiceConn = new ServiceConnection() {
@@ -83,7 +84,7 @@ public class PrefSubActivity extends Activity {
 
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
-			overlayServiceMessenger = null;			
+			overlayServiceMessenger = null;
 		}
 	};
 
@@ -115,6 +116,46 @@ public class PrefSubActivity extends Activity {
 	}
 
 	/**
+	 * onActivityResult()
+	 *
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
+	 */
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		switch(resultCode) {
+			case Activity.RESULT_OK:
+			case Activity.RESULT_CANCELED:
+
+				switch (requestCode) {
+					case REQUEST_CODE_SYSTEM_ALERT_WINDOW:
+
+						//以下2事象に対応するため、一旦両ポイントの描画を消去する。
+						//両ポイントON→オーバーレイパーミッション削除→再度片方ポインタをON→オーバーレイパーミッション許可、で
+						//両ポイントが描画されてしまう。
+						//ポイント0ON→オーバーレイパーミッション削除→ポイント0ON→オーバーレイパーミッション許可、で
+						//ポイント0が二重描画されてしまう。
+						for (SwitchPreference preference : overlay_point) {
+							preference.getOnPreferenceChangeListener().onPreferenceChange(preference, false);
+						}
+
+						for (SwitchPreference preference : overlay_point) {
+							if (preference.isChecked()) {
+								preference.getOnPreferenceChangeListener().onPreferenceChange(preference,
+										DeviceSettings.checkPermission(this,
+												Manifest.permission.SYSTEM_ALERT_WINDOW));
+							}
+						}
+						break;
+				}
+				break;
+		}
+	}
+
+	/**
 	 * PrefFragment
 	 */
 	public static class PrefSubFragment extends PreferenceFragment {
@@ -132,10 +173,9 @@ public class PrefSubActivity extends Activity {
 			key = activity.getIntent().getIntExtra(KEY, 0);
 			pdao = new PrefDAO(activity);
 			l = new Launch(activity);
-			
-			 if (key == KEY_OVERLAY_PREF) {
+
+			if (key == KEY_OVERLAY_PREF) {
 				bindOverlayServiceIntent = new Intent().setClass(activity, OverlayService.class);
-				l.startOverlayService(pdao.isOverlay());
 			}
 
 			setInitialLayout();
@@ -147,7 +187,11 @@ public class PrefSubActivity extends Activity {
 		@Override
 		public void onResume() {
 			super.onResume();
-			if (key == KEY_OVERLAY_PREF) {
+			if (key == KEY_DEFAULT_PREF) {
+				Toast.makeText(activity, R.string.can_not_set_default, Toast.LENGTH_LONG).show();
+
+			} else if (key == KEY_OVERLAY_PREF) {
+				l.startOverlayService(pdao.isOverlay());
 				activity.bindService(bindOverlayServiceIntent, overlayServiceConn, BIND_AUTO_CREATE);
 			}
 			setLayout();
@@ -173,23 +217,21 @@ public class PrefSubActivity extends Activity {
 			switch (key) {
 				case KEY_DEFAULT_PREF:
 					activity.setTitle(getString(R.string.launch_by_default));
-				
+
 					sw_default = new Switch(activity);
-					sw_default.setPadding(0, 0, 16, 0);
-					//リスナを設定する前に、初期値を設定する。リスナ設定後だと、リスナが動作してしまうため。
-					sw_default.setChecked(DeviceSettings.isDefault(activity));
 					sw_default.setOnCheckedChangeListener(new CheckedChangeListener());
-					activity.getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM);
+
+					activity.getActionBar().setDisplayOptions(
+							ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM);
 					activity.getActionBar().setCustomView(sw_default, new ActionBar.LayoutParams(
 							ActionBar.LayoutParams.WRAP_CONTENT,
 							ActionBar.LayoutParams.WRAP_CONTENT,
 							Gravity.CENTER_VERTICAL | Gravity.RIGHT));
 
 					addPreferencesFromResource(R.xml.pref_default_activity);
-					launch_by_default = (PreferenceScreen) findPreference(PrefDAO.LAUNCH_BY_DEFAULT);
 					home_key = (SwitchPreference) findPreference(PrefDAO.HOME_KEY);
-					home_key.setOnPreferenceChangeListener(new PreferenceChangeListener());
 					home_key.setOnPreferenceClickListener(new PreferenceClickListener());
+					home_key.setOnPreferenceChangeListener(new PreferenceChangeListener());
 					home_key_another_home = (ListPreference) findPreference(PrefDAO.HOME_KEY_ANOTHER_HOME);
 					home_key_another_home.setOnPreferenceChangeListener(new PreferenceChangeListener());
 					home_key_click_mode = (ListPreference) findPreference(PrefDAO.HOME_KEY_CLICK_MODE);
@@ -197,35 +239,16 @@ public class PrefSubActivity extends Activity {
 					home_key_click_interval = (ListPreference) findPreference(PrefDAO.HOME_KEY_CLICK_INTERVAL);
 					home_key_click_interval.setOnPreferenceChangeListener(new PreferenceChangeListener());
 					now = (SwitchPreference) findPreference(PrefDAO.NOW);
-					now.setOnPreferenceChangeListener(new PreferenceChangeListener());
 					now.setOnPreferenceClickListener(new PreferenceClickListener());
+					now.setOnPreferenceChangeListener(new PreferenceChangeListener());
 					search_key = (SwitchPreference) findPreference(PrefDAO.SEARCH_KEY);
-					search_key.setOnPreferenceChangeListener(new PreferenceChangeListener());
 					search_key.setOnPreferenceClickListener(new PreferenceClickListener());
+					search_key.setOnPreferenceChangeListener(new PreferenceChangeListener());
 					break;
 			
 				case KEY_OVERLAY_PREF:
 					activity.setTitle(getString(R.string.launch_from_overlay));
-				
-					sw_overlay = new Switch(activity);
-					sw_overlay.setPadding(0, 0, 16, 0);
-					//リスナを設定する前に、初期値を設定する。リスナ設定後だと、リスナが動作してしまうため。
-					sw_overlay.setChecked(pdao.isOverlay());
-					sw_overlay.setOnCheckedChangeListener(new CheckedChangeListener());
-					activity.getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM, ActionBar.DISPLAY_SHOW_CUSTOM);
-					activity.getActionBar().setCustomView(sw_overlay, new ActionBar.LayoutParams(
-							ActionBar.LayoutParams.WRAP_CONTENT,
-							ActionBar.LayoutParams.WRAP_CONTENT,
-							Gravity.CENTER_VERTICAL | Gravity.RIGHT));
-				
 					addPreferencesFromResource(R.xml.pref_overlay_activity);
-					launch_from_overlay = (PreferenceScreen) findPreference(PrefDAO.LAUNCH_FROM_OVERLAY);
-					overlay_foreground = (SwitchPreference) findPreference(PrefDAO.OVERLAY_FOREGROUND);
-					overlay_foreground.setOnPreferenceChangeListener(new PreferenceChangeListener());
-					overlay_point_action = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_ACTION);
-					overlay_point_action.setOnPreferenceChangeListener(new PreferenceChangeListener());
-					overlay_point_background_color = (ColorPreference) findPreference(PrefDAO.OVERLAY_POINT_BACKGROUND_COLOR);
-					overlay_point_background_color.setOnPreferenceChangeListener(new PreferenceChangeListener());
 					overlay_point[0] = (SwitchPreference) findPreference(PrefDAO.OVERLAY_POINT_0);
 					overlay_point[0].setOnPreferenceChangeListener(new PreferenceChangeListener());
 					overlay_point_side[0] = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_SIDE_0);
@@ -242,6 +265,13 @@ public class PrefSubActivity extends Activity {
 					overlay_point_position[1].setOnPreferenceChangeListener(new PreferenceChangeListener());
 					overlay_point_width[1] = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_WIDTH_1);
 					overlay_point_width[1].setOnPreferenceChangeListener(new PreferenceChangeListener());
+					overlay_point_background_color =
+							(ColorPreference) findPreference(PrefDAO.OVERLAY_POINT_BACKGROUND_COLOR);
+					overlay_point_background_color.setOnPreferenceChangeListener(new PreferenceChangeListener());
+					overlay_point_action = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_ACTION);
+					overlay_point_action.setOnPreferenceChangeListener(new PreferenceChangeListener());
+					overlay_foreground = (SwitchPreference) findPreference(PrefDAO.OVERLAY_FOREGROUND);
+					overlay_foreground.setOnPreferenceChangeListener(new PreferenceChangeListener());
 					break;
 				
 			}
@@ -254,12 +284,13 @@ public class PrefSubActivity extends Activity {
 			switch (key) {
 				case KEY_DEFAULT_PREF:
 					boolean b_default = DeviceSettings.isDefault(activity);
+					sw_default.setChecked(b_default);
 					sw_default.setEnabled(b_default);
-//					launch_by_default.setEnabled(b_default);
-				
-					boolean homeKey = DeviceSettings.isHomeKey(activity);
-					home_key.setChecked(homeKey);
-					setSummary(home_key, homeKey);
+
+					boolean b_homeKey = DeviceSettings.isHomeKey(activity);
+					home_key.setChecked(b_homeKey);
+					home_key.setEnabled(b_homeKey);
+					setSummary(home_key, b_homeKey);
 				
 					App[] appList = AppList.getIntentAppList(activity, IntentAppInfo.INTENT_APP_TYPE_HOME, 0);
 					int appCount = appList.length;
@@ -269,52 +300,48 @@ public class PrefSubActivity extends Activity {
 						entriesList[i] = appList[i].getAppLabel();
 						entryValuesList[i] = appList[i].getIntentAppInfo().getIntentUri();
 					}
+
 					home_key_another_home.setEntries(entriesList);
 					home_key_another_home.setEntryValues(entryValuesList);
-					if (entryValuesList.length > 0) home_key_another_home.setDefaultValue(entryValuesList[0].toString());
+					if (entryValuesList.length > 0) {
+						home_key_another_home.setDefaultValue(entryValuesList[0].toString());
+					}
 					setSummary(home_key_another_home, pdao.getHomeKeyAnotherHome());
 					setSummary(home_key_click_mode, pdao.getRawHomeKeyClickMode());
-					setSummary(home_key_click_interval, pdao.getRawHomeKeyClickInterval());
 					if (pdao.getHomeKeyClickMode() == 1) home_key_click_interval.setEnabled(false);
-				
-					boolean b_now = DeviceSettings.isNow(activity); 
+					setSummary(home_key_click_interval, pdao.getRawHomeKeyClickInterval());
+
+					boolean b_now = DeviceSettings.isNow(activity);
 					now.setChecked(b_now);
+					now.setEnabled(b_now);
 					setSummary(now, b_now);
 				
 					boolean searchKey = DeviceSettings.isSearchKey(activity);
 					search_key.setChecked(searchKey);
+					search_key.setEnabled(searchKey);
 					setSummary(search_key, searchKey);
 				
 					break;
 
 				case KEY_OVERLAY_PREF:
-					boolean b_overlay = pdao.isOverlay();
-					launch_from_overlay.setEnabled(b_overlay);
-
 					for (int i = 0; i < OverlaySettings.OVERLAY_POINT_COUNT; i ++) {
+						overlay_point[i].setChecked(pdao.isOverlayPoint(i));
 						setSummary(overlay_point[i], pdao.isOverlayPoint(i));
 						setSummary(overlay_point_side[i], pdao.getRawOverlayPointSide(i));
 						setSummary(overlay_point_position[i], pdao.getRawOverlayPointPosition(i));
-						setSummary(overlay_point_width[i], pdao.getRawOverlayPointWidth(i));			
+						setSummary(overlay_point_width[i], pdao.getRawOverlayPointWidth(i));
 					}
+
+					boolean b_overlay = pdao.isOverlay();
+					overlay_point_background_color.setEnabled(b_overlay);
 					setSummary(overlay_point_background_color, null);
+					overlay_point_action.setEnabled(b_overlay);
 					setSummary(overlay_point_action, pdao.getRawOverlayPointAction());
+					overlay_foreground.setEnabled(b_overlay);
 					setSummary(overlay_foreground, pdao.isOverlayForeground());
 
 					break;
 
-			}
-		}
-
-		/**
-		 * PreferenceClickListener
-		 */
-		private class PreferenceClickListener implements OnPreferenceClickListener {
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				Toast.makeText(activity, getString(R.string.can_not_clear_default), Toast.LENGTH_LONG).show();
-				((SwitchPreference) preference).setChecked(!((SwitchPreference) preference).isChecked());
-				return false;
 			}
 		}
 
@@ -324,45 +351,46 @@ public class PrefSubActivity extends Activity {
 		private class CheckedChangeListener implements OnCheckedChangeListener {
 			@Override
 			public void onCheckedChanged(CompoundButton button, final boolean newValue) {
+
 				if (button == sw_default) {
-					sw_default.setEnabled(newValue);
-					launch_by_default.setEnabled(newValue);
 					if (!newValue) {
 						dialog = new DeleteDialog(activity, DeleteDialog.CLEAR_DEFAULT, null, null) {
 							@Override
 							public void onDelete() {
 								l.clearDefault(activity);
+								sw_default.setEnabled(newValue);
 								home_key.setChecked(newValue);
+								home_key.setEnabled(newValue);
 								now.setChecked(newValue);
+								now.setEnabled(newValue);
 								search_key.setChecked(newValue);
+								search_key.setEnabled(newValue);
 							}
+
 							@Override
 							public void onDismissDialog() {
 							}
+
 							@Override
 							public void onCancelDialog() {
-								sw_default.setChecked(true);
+								sw_default.setChecked(!newValue);
 							}
 						};
 						dialog.show();
 					}
-				
-				} else if (button == sw_overlay) {
-					pdao.setOverlay(newValue);
-					launch_from_overlay.setEnabled(newValue);
-					overlay_point_background_color.setEnabled(newValue);
-					for (int i = 0; i < OverlaySettings.OVERLAY_POINT_COUNT; i ++) {
-						overlay_point[i].setChecked(newValue);
-						overlay_point[i].getOnPreferenceChangeListener().onPreferenceChange(overlay_point[i], newValue);
-					}
-					if (newValue) {
-						Toast.makeText(activity, getString(R.string.start_overlay_service), Toast.LENGTH_SHORT).show();
-						l.startOverlayService(true);
-					} else {
-						Toast.makeText(activity, getString(R.string.stop_overlay_service), Toast.LENGTH_SHORT).show();
-						l.stopOverlayService();
-					}
 				}
+			}
+		}
+
+		/**
+		 * PreferenceClickListener
+		 */
+		private class PreferenceClickListener implements OnPreferenceClickListener {
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				Toast.makeText(activity, getString(R.string.can_not_set_default), Toast.LENGTH_SHORT).show();
+				((SwitchPreference) preference).setChecked(!((SwitchPreference) preference).isChecked());
+				return false;
 			}
 		}
 
@@ -392,13 +420,54 @@ public class PrefSubActivity extends Activity {
 				} else if (preference == now) {
 				} else if (preference == search_key) {
 				} else if (preference == overlay_point[0] || preference == overlay_point[1]) {
-					if (overlayServiceMessenger != null) {
+
+					if ((Boolean) newValue) {
+						if (DeviceSettings.checkPermission(activity, Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+
+							overlay_point_background_color.setEnabled(true);
+							overlay_point_action.setEnabled(true);
+							overlay_foreground.setEnabled(true);
+
+							l.startOverlayService(true);
+
+							b.putBoolean(preference.getKey(), (Boolean) newValue);
+							msg.setData(b);
+							try {
+								overlayServiceMessenger.send(msg);
+							} catch (RemoteException e) {
+								e.printStackTrace();
+							}
+
+						} else {
+
+							Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+									Uri.parse("package:" + activity.getPackageName()));
+							activity.startActivityForResult(intent, REQUEST_CODE_SYSTEM_ALERT_WINDOW);
+							Toast.makeText(activity, R.string.require_permission_system_alert_window,
+									Toast.LENGTH_SHORT).show();
+
+						}
+
+					} else {
+
 						b.putBoolean(preference.getKey(), (Boolean) newValue);
 						msg.setData(b);
 						try {
 							overlayServiceMessenger.send(msg);
 						} catch (RemoteException e) {
 							e.printStackTrace();
+						}
+
+						//オーバーレイポイントが全てfalseとなった場合
+						if ((preference == overlay_point[0] && !overlay_point[1].isChecked()) ||
+								(preference == overlay_point[1] && !overlay_point[0].isChecked())) {
+
+							overlay_point_background_color.setEnabled(false);
+							overlay_point_action.setEnabled(false);
+							overlay_foreground.setEnabled(false);
+
+							l.stopOverlayService();
+
 						}
 					}
 
@@ -453,7 +522,7 @@ public class PrefSubActivity extends Activity {
 				return true;
 			}
 		}
-		
+
 		/**
 		 * setSummary()
 		 *
@@ -463,11 +532,13 @@ public class PrefSubActivity extends Activity {
 		private void setSummary(Preference preference, Object value) {
 			if (preference == home_key) {
 			} else if (preference == home_key_another_home) {
+
 				if (value != null) {
 					try {
 						App anotherHome = new App(activity, App.APP_TYPE_INTENT_APP, null, null,
 								IconList.LABEL_ICON_TYPE_ACTIVITY, null, IconList.LABEL_ICON_TYPE_ACTIVITY,
-								new IntentAppInfo(IntentAppInfo.INTENT_APP_TYPE_HOME, Intent.parseUri((String) value, 0)));
+								new IntentAppInfo(IntentAppInfo.INTENT_APP_TYPE_HOME,
+										Intent.parseUri((String) value, 0)));
 						home_key_another_home.setSummary(anotherHome.getAppLabel());
 					} catch (URISyntaxException e) {
 						e.printStackTrace();
@@ -475,6 +546,7 @@ public class PrefSubActivity extends Activity {
 				}
 
 			} else if (preference == home_key_click_mode) {
+
 				switch (Integer.parseInt((String) value)) {
 					case 1:
 						preference.setSummary(R.string.home_key_click_mode_single);
@@ -485,6 +557,7 @@ public class PrefSubActivity extends Activity {
 				}
 
 			} else if (preference == home_key_click_interval) {
+
 				switch (Integer.parseInt((String) value)) {
 					case 200:
 						preference.setSummary(R.string.int_200_ms);
@@ -518,8 +591,8 @@ public class PrefSubActivity extends Activity {
 			} else if (preference == now) {
 			} else if (preference == search_key) {
 			} else if (preference == overlay_point[0] || preference == overlay_point[1]) {
-
 			} else if (preference == overlay_point_side[0] || preference == overlay_point_side[1]) {
+
 				switch (Integer.valueOf((String) value)) {
 					case 0:
 						preference.setSummary(R.string.left);
@@ -537,6 +610,7 @@ public class PrefSubActivity extends Activity {
 
 			} else if (preference == overlay_point_position[0] || preference == overlay_point_position[1]) {
 				switch (Integer.valueOf((String) value)) {
+
 					case 0:
 						preference.setSummary(R.string.overlay_point_position_0);
 						break;
@@ -576,6 +650,7 @@ public class PrefSubActivity extends Activity {
 				}
 				
 			} else if (preference == overlay_point_width[0] || preference == overlay_point_width[1]) {
+
 				switch (Integer.valueOf((String) value)) {
 					case 8:
 						preference.setSummary(R.string.overlay_point_width_thin);
@@ -593,6 +668,7 @@ public class PrefSubActivity extends Activity {
 				
 			} else if (preference == overlay_point_background_color) {
 			} else if (preference == overlay_point_action) {
+
 				switch (Integer.valueOf((String) value)) {
 					case 0:
 						preference.setSummary(R.string.swipe);

@@ -206,7 +206,8 @@ public abstract class ColorPicker extends AlertDialog {
 				for (int i = 0; i < ARGB_COUNT; i ++) {
 					et_ARGB[i].clearFocus();
 				}
-				onSettings(Color.argb(sb_ARGB[0].getProgress(), sb_ARGB[1].getProgress(), sb_ARGB[2].getProgress(), sb_ARGB[3].getProgress()));
+				onSettings(Color.argb(sb_ARGB[0].getProgress(), sb_ARGB[1].getProgress(),
+						sb_ARGB[2].getProgress(), sb_ARGB[3].getProgress()));
 			}
 		});
 

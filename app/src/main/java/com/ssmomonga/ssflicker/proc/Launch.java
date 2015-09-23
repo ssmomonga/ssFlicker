@@ -17,9 +17,9 @@ import android.graphics.Rect;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Vibrator;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.ssmomonga.ssflicker.DonateActivity;
@@ -32,7 +32,9 @@ import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.FunctionInfo;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
+import com.ssmomonga.ssflicker.db.PrefDAO;
 import com.ssmomonga.ssflicker.dlg.VolumeDialog;
+import com.ssmomonga.ssflicker.set.DeviceSettings;
 import com.ssmomonga.ssflicker.set.HomeKeySettings;
 
 import java.util.List;
@@ -61,51 +63,79 @@ public class Launch {
 	 * @param r
 	 */
 	public void launch(App app, Rect r) {
+		if (!checkPermission(app)) return;
+
 		switch (app.getAppType()) {
 			case App.APP_TYPE_INTENT_APP:
 				IntentAppInfo intentApp = app.getIntentAppInfo();
 
-				if (!intentApp.getIntent().getAction().equals(Intent.ACTION_CALL)) {
-					switch (intentApp.getIntentAppType()) {
-						case IntentAppInfo.INTENT_APP_TYPE_RECENT:
-						case IntentAppInfo.INTENT_APP_TYPE_TASK:
-							launchTaskApp(intentApp, r);
-							break;
+				switch (intentApp.getIntentAppType()) {
+					case IntentAppInfo.INTENT_APP_TYPE_RECENT:
+					case IntentAppInfo.INTENT_APP_TYPE_TASK:
+						launchTaskApp(intentApp, r);
+						break;
 
-						default:
-							launchIntentApp(intentApp, r);
-							break;
-					}
-					((Activity) context).finish();
+					default:
+						launchIntentApp(intentApp, r);
+						break;
+				}
+				((Activity) context).finish();
 
-				} else {
-					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
-							context.checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+				break;
 
-						switch (intentApp.getIntentAppType()) {
-							case IntentAppInfo.INTENT_APP_TYPE_RECENT:
-							case IntentAppInfo.INTENT_APP_TYPE_TASK:
-								launchTaskApp(intentApp, r);
-								break;
+			case App.APP_TYPE_FUNCTION:
+				launchFunction(app.getFunctionInfo());
+				break;
+			}
 
-							default:
-								launchIntentApp(intentApp, r);
-								break;
-						}
-						((Activity) context).finish();
+	}
+
+	/**
+	 * checkPermission()
+	 *
+	 * @param app
+	 * @return
+	 */
+	private boolean checkPermission(App app) {
+		switch (app.getAppType()) {
+			case App.APP_TYPE_INTENT_APP:
+				IntentAppInfo intentApp = app.getIntentAppInfo();
+
+				if (intentApp.getIntent().getAction().equals(Intent.ACTION_CALL)) {
+					if (DeviceSettings.checkPermission(context, Manifest.permission.CALL_PHONE)) {
+						return true;
 
 					} else {
 						((Activity) context).requestPermissions(new String[] { Manifest.permission.CALL_PHONE },
 								FlickerActivity.REQUEST_PERMISSION_CODE_CALL_PHONE);
+						return false;
 
 					}
+				} else {
+					return true;
+
 				}
 
-				break;
-		
 			case App.APP_TYPE_FUNCTION:
-				launchFunction(app.getFunctionInfo());
-				break;
+				FunctionInfo functionApp = app.getFunctionInfo();
+				if (functionApp.getFunctionType() == FunctionInfo.FUNCTION_TYPE_ROTATE) {
+					if (DeviceSettings.checkPermission(context, Manifest.permission.WRITE_SETTINGS)) {
+						return true;
+
+					} else {
+						Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS,
+								Uri.parse("package:" + context.getPackageName()));
+						((Activity) context).startActivityForResult(intent, FlickerActivity.REQUEST_CODE_WRITE_SETTINGS);
+						Toast.makeText(context, R.string.require_permission_write_settings, Toast.LENGTH_SHORT).show();
+						return false;
+
+					}
+				} else {
+					return true;
+				}
+
+			default:
+				return true;
 		}
 	}
 
@@ -132,7 +162,8 @@ public class Launch {
 				
 				PackageManager pm = context.getPackageManager();
 				List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(intent, 0);
-				intent.setClassName(resolveInfoList.get(0).activityInfo.packageName, resolveInfoList.get(0).activityInfo.name);
+				intent.setClassName(resolveInfoList.get(0).activityInfo.packageName,
+						resolveInfoList.get(0).activityInfo.name);
 				
 				context.startActivity(intent);
 
@@ -316,14 +347,18 @@ public class Launch {
 	 * rotate()
 	 */
 	private void rotate() {
-		boolean rotate = Settings.System.getInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0) == 1;
-		if (rotate) {
-			Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
-			Toast.makeText(context, R.string.rotate_off, Toast.LENGTH_SHORT).show();
+		if (DeviceSettings.checkPermission(context, Manifest.permission.WRITE_SETTINGS)) {
+			boolean rotate = Settings.System.getInt(context.getContentResolver(),
+					Settings.System.ACCELEROMETER_ROTATION, 0) == 1;
 
-		} else {
-			Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
-			Toast.makeText(context, R.string.rotate_on, Toast.LENGTH_SHORT).show();
+			if (rotate) {
+				Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+				Toast.makeText(context, R.string.rotate_off, Toast.LENGTH_SHORT).show();
+
+			} else {
+				Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
+				Toast.makeText(context, R.string.rotate_on, Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 
@@ -461,7 +496,7 @@ public class Launch {
 	 * stopStatusbar()
 	 */
 	public void stopStatusbar() {
-		((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).cancel(0);		
+		((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).cancel(0);
 	}
 	
 	/**
@@ -470,7 +505,17 @@ public class Launch {
 	 * @param b
 	 */
 	public void startOverlayService(boolean b) {
-		if (b) context.startService(new Intent(context, OverlayService.class));
+		if (b) {
+			if (DeviceSettings.checkPermission(context, Manifest.permission.SYSTEM_ALERT_WINDOW)) {
+				context.startService(new Intent(context, OverlayService.class));
+
+			} else {
+				PrefDAO pdao = new PrefDAO(context);
+				pdao.setOverlay(false);
+				stopOverlayService();
+
+			}
+		}
 	}
 
 	/**

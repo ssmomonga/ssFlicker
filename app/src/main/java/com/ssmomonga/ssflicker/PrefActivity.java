@@ -1,5 +1,6 @@
 package com.ssmomonga.ssflicker;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.backup.BackupManager;
@@ -37,6 +38,8 @@ import com.ssmomonga.ssflicker.set.InvisibleAppWidgetSettings;
  * PrefActivity
  */
 public class PrefActivity extends Activity {
+
+	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE = 0;
 
 	private static PreferenceScreen launch_by_default;
 	private static PreferenceScreen launch_from_overlay;
@@ -117,8 +120,9 @@ public class PrefActivity extends Activity {
 	 */
 	@Override
 	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+
 		switch(requestCode) {
-			case FlickerActivity.REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE:
+			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE:
 				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					dialog = new BackupRestoreDialog(activity);
 					dialog.show();
@@ -177,9 +181,6 @@ public class PrefActivity extends Activity {
 
 			bindOverlayServiceIntent = new Intent().setClass(activity, OverlayService.class);
 
-			l.startStatusbar(pdao.isStatusbar());
-			l.startOverlayService(pdao.isOverlay());
-
 			setInitialLayout();
 		}
 
@@ -189,7 +190,11 @@ public class PrefActivity extends Activity {
 		@Override
 		public void onResume() {
 			super.onResume();
-			if (pdao.isOverlay()) activity.bindService(bindOverlayServiceIntent, overlayServiceConn, BIND_AUTO_CREATE);
+			l.startStatusbar(pdao.isStatusbar());
+			l.startOverlayService(pdao.isOverlay());
+			if (pdao.isOverlay()) {
+				activity.bindService(bindOverlayServiceIntent, overlayServiceConn, BIND_AUTO_CREATE);
+			}
 			setLayout();
 		}
 		
@@ -243,15 +248,20 @@ public class PrefActivity extends Activity {
 			statusbar = (SwitchPreference) findPreference(PrefDAO.STATUSBAR);
 			statusbar.setOnPreferenceChangeListener(new PreferenceChangeListener());
 
-			window_background_color = (ColorPreference) findPreference(PrefDAO.WINDOW_BACKGROUND_COLOR);
+			window_background_color =
+					(ColorPreference) findPreference(PrefDAO.WINDOW_BACKGROUND_COLOR);
 			window_background_color.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			pointer_window_position_portrait = (ListPreference) findPreference(PrefDAO.POINTER_WINDOW_POSITION_PORTRAIT);
+			pointer_window_position_portrait =
+					(ListPreference) findPreference(PrefDAO.POINTER_WINDOW_POSITION_PORTRAIT);
 			pointer_window_position_portrait.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			dock_window_position_portrait = (ListPreference) findPreference(PrefDAO.DOCK_WINDOW_POSITION_PORTRAIT);
+			dock_window_position_portrait =
+					(ListPreference) findPreference(PrefDAO.DOCK_WINDOW_POSITION_PORTRAIT);
 			dock_window_position_portrait.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			pointer_window_position_landscape = (ListPreference) findPreference(PrefDAO.POINTER_WINDOW_POSITION_LANDSCAPE);
+			pointer_window_position_landscape =
+					(ListPreference) findPreference(PrefDAO.POINTER_WINDOW_POSITION_LANDSCAPE);
 			pointer_window_position_landscape.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			dock_window_position_landscape = (ListPreference) findPreference(PrefDAO.DOCK_WINDOW_POSITION_LANDSCAPE);
+			dock_window_position_landscape =
+					(ListPreference) findPreference(PrefDAO.DOCK_WINDOW_POSITION_LANDSCAPE);
 			dock_window_position_landscape.setOnPreferenceChangeListener(new PreferenceChangeListener());
 
 			icon_size = (ListPreference) findPreference(PrefDAO.ICON_SIZE);
@@ -267,15 +277,25 @@ public class PrefActivity extends Activity {
 			vibrate.setOnPreferenceChangeListener(new PreferenceChangeListener());
 			statusbar_visibility = (SwitchPreference) findPreference(PrefDAO.STATUSBAR_VISIBILITY);
 			statusbar_visibility.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			invisible_appwidget_background_visibility = (SwitchPreference) findPreference(PrefDAO.INVISIBLE_APPWIDGET_BACKGROUND_VISIBILITY);
-			invisible_appwidget_background_visibility.setOnPreferenceChangeListener(new PreferenceChangeListener());
+			invisible_appwidget_background_visibility =
+					(SwitchPreference) findPreference(PrefDAO.INVISIBLE_APPWIDGET_BACKGROUND_VISIBILITY);
+			invisible_appwidget_background_visibility
+					.setOnPreferenceChangeListener(new PreferenceChangeListener());
 			
 			backup_restore = (PreferenceScreen) findPreference(PrefDAO.BACKUP_RESTORE);
 			backup_restore.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
-					dialog = new BackupRestoreDialog(activity);
-					dialog.show();
+
+					if (DeviceSettings.checkPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+						dialog = new BackupRestoreDialog(activity);
+						dialog.show();
+
+					} else {
+						activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+								PrefActivity.REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE);
+					}
+
 					return false;
 				}
 			});
@@ -309,6 +329,7 @@ public class PrefActivity extends Activity {
 			
 			if (DeviceSettings.hasVibrator(activity)) {
 				setSummary(vibrate, pdao.isVibrate());
+
 			} else {
 				vibrate.setEnabled(false);
 				setSummary(vibrate, null);
@@ -319,6 +340,7 @@ public class PrefActivity extends Activity {
 			if (DeviceSettings.isInvisibleAppWidget(activity)) {
 				setSummary(invisible_appwidget_background_visibility,
 						pdao.isInvisibleAppWidgetBackgroundVisibility());
+
 			} else {
 				invisible_appwidget_background_visibility.setEnabled(false);
 				setSummary(invisible_appwidget_background_visibility, null);
@@ -326,6 +348,7 @@ public class PrefActivity extends Activity {
 			
 			if (DeviceSettings.hasExternalStorage(activity)) {
 				setSummary(backup_restore, true);
+
 			} else {
 				backup_restore.setEnabled(false);
 				setSummary(backup_restore, false);
@@ -383,7 +406,8 @@ public class PrefActivity extends Activity {
 					ComponentName compName = new ComponentName(activity, InvisibleAppWidget.class);
 					int appWidgetIds[] = appWidgetManager.getAppWidgetIds(compName);
 					InvisibleAppWidgetSettings settings = new InvisibleAppWidgetSettings((Boolean) newValue);
-					new InvisibleAppWidget().viewInvisibleAppWidget(activity, appWidgetManager, appWidgetIds, settings);
+					new InvisibleAppWidget().viewInvisibleAppWidget(
+							activity, appWidgetManager, appWidgetIds, settings);
 
 				} else if (preference == backup_restore) {
 				} else if (preference == donation) {
@@ -400,11 +424,14 @@ public class PrefActivity extends Activity {
 		 * @param value
 		 */
 		private void setSummary(Preference preference, Object value) {
+
 			if (preference == launch_by_default) {
 			} else if (preference == launch_from_overlay) {
 			} else if (preference == statusbar) {
 			} else if (preference == window_background_color || preference == text_color) {
-			} else if (preference == pointer_window_position_portrait || preference == pointer_window_position_landscape) {
+			} else if (preference == pointer_window_position_portrait ||
+					preference == pointer_window_position_landscape) {
+
 				switch (Integer.parseInt((String) value)) {
 					case 19:
 						preference.setSummary(getString(R.string.left));
@@ -435,7 +462,9 @@ public class PrefActivity extends Activity {
 						break;
 				}
 
-			} else if (preference == dock_window_position_portrait || preference == dock_window_position_landscape) {
+			} else if (preference == dock_window_position_portrait ||
+					preference == dock_window_position_landscape) {
+
 				switch (Integer.parseInt((String) value)) {
 					case 3:
 						preference.setSummary(getString(R.string.left_of_pointer_window));
@@ -452,6 +481,7 @@ public class PrefActivity extends Activity {
 				}
 				
 			} else if (preference == icon_size) {
+
 				switch (Integer.parseInt((String) value)) {
 					case 24:
 						preference.setSummary(getString(R.string.icon_size_tiny));
@@ -473,6 +503,7 @@ public class PrefActivity extends Activity {
 			} else if (preference == text_visibility) {
 			} else if (preference == text_color) {
 			} else if (preference == text_size) {
+
 				switch (Integer.parseInt((String) value)) {
 					case 10:
 						text_size.setSummary(getString(R.string.text_size_small));
@@ -486,12 +517,14 @@ public class PrefActivity extends Activity {
 				}
 
 			} else if (preference == vibrate) {
+
 				if (value == null) {
 					preference.setSummary(R.string.no_vibrator);
 				}
 
 			} else if (preference == statusbar_visibility) {
 			} else if (preference == invisible_appwidget_background_visibility) {
+
 				if (value != null) {
 					if ((Boolean) value) {
 						preference.setSummary(R.string.image);
@@ -503,6 +536,7 @@ public class PrefActivity extends Activity {
 				}
 
 			} else if (preference == backup_restore) {
+
 				if ((Boolean) value) {
 					preference.setSummary(null);
 				}else {

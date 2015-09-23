@@ -1,5 +1,6 @@
 package com.ssmomonga.ssflicker.proc;
 
+import android.Manifest;
 import android.appwidget.AppWidgetHost;
 import android.content.Context;
 import android.text.format.DateFormat;
@@ -49,12 +50,12 @@ public class BackupRestore {
 	 * @return
 	 * @throws IOException
 	 */
-	public String backup() throws IOException {
+	public boolean backup() throws IOException {
 		String date = (String) DateFormat.format("_yyyyMMdd_kkmmss_", new Date());
 		String backupFileName = SQLiteDBH.DATABASE_VERSION + date + SQLiteDBH.DATABASE_FILE_NAME;
 		String fullBackupFileName = backupDirPath + "/" + backupFileName;
-		fileCopy(dbFileName, fullBackupFileName);
-		return backupFileName;
+
+		return fileCopy(dbFileName, fullBackupFileName);
 	}
 
 	/**
@@ -63,25 +64,17 @@ public class BackupRestore {
 	 * @param fileName
 	 * @return
 	 */
-	public boolean restore(String fileName) {
+	public boolean restore(String fileName) throws IOException {
 
 		boolean b = false;
-		
-		try {
-			String restoreFileName = backupDirPath + "/" + fileName;
-			String restoreFileName2 = backupDirPath2 + "/" + fileName;
+		String restoreFileName = backupDirPath + "/" + fileName;
+		String restoreFileName2 = backupDirPath2 + "/" + fileName;
 
-			if ((new File(restoreFileName)).exists()) {
-				fileCopy(restoreFileName, dbFileName);
-				b = true;
+		if ((new File(restoreFileName)).exists()) {
+			b = fileCopy(restoreFileName, dbFileName);
 
-			} else if ((new File(restoreFileName2)).exists()) {
-				fileCopy(restoreFileName2, dbFileName);
-				b = true;
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
+		} else if ((new File(restoreFileName2)).exists()) {
+			b = fileCopy(restoreFileName2, dbFileName);
 		}
 
 		if (b) {
@@ -100,17 +93,25 @@ public class BackupRestore {
 	 * @param outputFileName
 	 * @throws IOException
 	 */
-	private void fileCopy(String inputFileName, String outputFileName) throws IOException {
-		FileInputStream fis = new FileInputStream(inputFileName);
-		FileOutputStream fos = new FileOutputStream(outputFileName);
-		
-		FileChannel inputChannel = fis.getChannel();
-		FileChannel outputChannel = fos.getChannel();
-		inputChannel.transferTo(0, inputChannel.size(), outputChannel);
-		inputChannel.close();
-	    outputChannel.close();
-	    fis.close();
-	    fos.close();
+	private boolean fileCopy(String inputFileName, String outputFileName) throws IOException {
+		if (DeviceSettings.checkPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+			FileInputStream fis = new FileInputStream(inputFileName);
+			FileOutputStream fos = new FileOutputStream(outputFileName);
+
+			FileChannel inputChannel = fis.getChannel();
+			FileChannel outputChannel = fos.getChannel();
+			inputChannel.transferTo(0, inputChannel.size(), outputChannel);
+			inputChannel.close();
+			outputChannel.close();
+			fis.close();
+			fos.close();
+
+			return true;
+
+		} else {
+			return false;
+		}
 	}
 	
 	/**
@@ -119,37 +120,38 @@ public class BackupRestore {
 	 * @return
 	 */
 	public ArrayAdapter<String> getBackupFileList() {
-		FilenameFilter filter = new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String filename) {
-				return filename.endsWith(SQLiteDBH.DATABASE_FILE_NAME);
-			}
-		};
-		File backupDir = new File(backupDirPath);
-		File[] files = backupDir.listFiles(filter);
-		File backupDir2 = new File(backupDirPath2);
-		File[] files2 = backupDir2.listFiles(filter);
-
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-		if (files != null) {
-			for (int i = files.length - 1; i >= 0; i --) {
-				adapter.add(files[i].getName());
+		if (DeviceSettings.checkPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+			FilenameFilter filter = new FilenameFilter() {
+				@Override
+				public boolean accept(File dir, String filename) {
+					return filename.endsWith(SQLiteDBH.DATABASE_FILE_NAME);
+				}
+			};
+			File backupDir = new File(backupDirPath);
+			File[] files = backupDir.listFiles(filter);
+			File backupDir2 = new File(backupDirPath2);
+			File[] files2 = backupDir2.listFiles(filter);
+
+			if (files != null) {
+				for (int i = files.length - 1; i >= 0; i--) {
+					adapter.add(files[i].getName());
+				}
+			}
+
+			if (files2 != null) {
+				for (int i = files2.length - 1; i >= 0; i--) {
+					adapter.add(files2[i].getName());
+				}
 			}
 		}
 
-		if (files2 != null) {
-			for (int i = files2.length - 1; i >= 0; i --) {
-				adapter.add(files2[i].getName());
-			}
-		}
-		
-		if (adapter.isEmpty()) {
-			adapter.add(context.getResources().getString(R.string.no_restore_file));
-		}
+		if (adapter.isEmpty()) adapter.add(context.getResources().getString(R.string.no_restore_file));
 
 		return adapter;
+
 	}
 
 }

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ssmomonga.ssflicker"
     android:installLocation="internalOnly"
-    android:versionCode="76"
-    android:versionName="v1.5.7" >
+    android:versionCode="77"
+    android:versionName="v1.5.8" >
 
     <uses-sdk
         android:minSdkVersion="21"
@@ -134,7 +134,7 @@
         </service>
 
         <receiver
-            android:name="com.ssmomonga.ssflicker.Boot"
+            android:name="com.ssmomonga.ssflicker.BootReceiver"
             android:exported="false"
             android:label="@string/receiver_name_boot" >
             <intent-filter>

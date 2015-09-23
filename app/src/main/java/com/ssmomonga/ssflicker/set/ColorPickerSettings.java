@@ -114,7 +114,6 @@ public class ColorPickerSettings {
 		int strokeRGB = 16777215;
 		int cornerRadius = context.getResources().getDimensionPixelSize(R.dimen.corner_radius);;
 		Drawable windowBackground = ImageConverter.createBackground(
-				context,
 				windowBackgroundColor,
 				strokeThickness, strokeRGB,
 				cornerRadius);

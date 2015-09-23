@@ -36,7 +36,7 @@
 
 	<style name="Theme.Flicker" parent="Theme.Base.Light">
 		<item name="android:colorPrimaryDark">@android:color/transparent</item>
-	   	<item name="android:windowBackground">@color/wallpaper</item>
+	   	<item name="android:windowBackground">@color/activity_background</item>
 		<item name="android:navigationBarColor">@android:color/transparent</item>
 		<item name="android:windowIsTranslucent">true</item>
 		<item name="android:windowActionBar">false</item>
@@ -44,7 +44,7 @@
 	</style>
 	<style name="Theme.Editor" parent="Theme.Base" >
 		<item name="android:colorPrimaryDark">@android:color/transparent</item>
-		<item name="android:windowBackground">@color/wallpaper</item>
+		<item name="android:windowBackground">@color/activity_background</item>
 		<item name="android:navigationBarColor">@android:color/transparent</item>
 		<item name="android:windowIsTranslucent">true</item>
 		<item name="android:windowActionBar">false</item>

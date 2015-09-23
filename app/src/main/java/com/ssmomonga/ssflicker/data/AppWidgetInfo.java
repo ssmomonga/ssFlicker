@@ -42,8 +42,14 @@ public class AppWidgetInfo {
 	 * @param appWidgetCellHeight
 	 * @param appWidgetUpdateTime
 	 */
-	public AppWidgetInfo(Context context, int appWidgetId, int appWidgetCellPositionX, int appWidgetCellPositionY,
-			int appWidgetCellWidth, int appWidgetCellHeight, long appWidgetUpdateTime) {
+	public AppWidgetInfo(Context context,
+						 int appWidgetId,
+						 int appWidgetCellPositionX,
+						 int appWidgetCellPositionY,
+						 int appWidgetCellWidth,
+						 int appWidgetCellHeight,
+						 long appWidgetUpdateTime) {
+
 		this.context = context;
 		this.appWidgetId = appWidgetId;
 		this.appWidgetCellPositionX = appWidgetCellPositionX;
@@ -98,7 +104,8 @@ public class AppWidgetInfo {
 	 */
 	public Drawable getAppWidgetRawIcon() {
 		return appWidgetProviderInfo != null ?
-				context.getPackageManager().getDrawable(appWidgetProviderInfo.provider.getPackageName(), appWidgetProviderInfo.icon, null) :
+				context.getPackageManager().getDrawable(
+						appWidgetProviderInfo.provider.getPackageName(), appWidgetProviderInfo.icon, null) :
 						context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
 
 /**		if (appWidgetProviderInfo != null) {
@@ -248,12 +255,15 @@ public class AppWidgetInfo {
 	private Bitmap createAppWidgetPreviewImage() {
 		if (appWidgetProviderInfo != null) {
 			if (appWidgetProviderInfo.previewImage != 0) {
-				Drawable previewImageDrawable = context.getPackageManager().
-						getDrawable(appWidgetProviderInfo.provider.getPackageName(), appWidgetProviderInfo.previewImage, null);
-				return previewImage = ImageConverter.resizeAppWidgetPreviewImage(context, ImageConverter.createBitmap(previewImageDrawable));
+				Drawable previewImageDrawable = context.getPackageManager().getDrawable(
+						appWidgetProviderInfo.provider.getPackageName(),
+						appWidgetProviderInfo.previewImage, null);
+				return previewImage = ImageConverter.resizeAppWidgetPreviewImage(
+						context, ImageConverter.createBitmap(previewImageDrawable));
 			} else {
 				Drawable icon = context.getPackageManager().
-						getDrawable(appWidgetProviderInfo.provider.getPackageName(), appWidgetProviderInfo.icon, null);
+						getDrawable(appWidgetProviderInfo.provider.getPackageName(),
+								appWidgetProviderInfo.icon, null);
 				return previewImage = ImageConverter.resizeBitmap(context, ImageConverter.createBitmap(icon));
 			}
 		} else {
@@ -282,7 +292,8 @@ public class AppWidgetInfo {
 	private int[] toCellSize(double width, double height) throws NameNotFoundException {
 
 		PackageManager manager = context.getPackageManager();
-		ApplicationInfo ai = manager.getApplicationInfo(appWidgetProviderInfo.provider.getPackageName(), PackageManager.GET_META_DATA);
+		ApplicationInfo ai = manager.getApplicationInfo(
+				appWidgetProviderInfo.provider.getPackageName(), PackageManager.GET_META_DATA);
 		int targetVersion = ai.targetSdkVersion;
 
 		int [] cellSize = new int[2];

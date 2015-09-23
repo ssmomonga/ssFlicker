@@ -27,7 +27,6 @@ public class PrefDAO {
 	public static final String SEARCH_KEY = "search_key";
 	
 	public static final String LAUNCH_FROM_OVERLAY ="launch_from_overlay";
-	public static final String OVERLAY = "overlay";
 	public static final String OVERLAY_POINT_0 = "overlay_point_0";
 	public static final String OVERLAY_POINT_SIDE_0 = "overlay_point_side_0";
 	public static final String OVERLAY_POINT_POSITION_0 = "overlay_point_position_0";
@@ -118,6 +117,7 @@ public class PrefDAO {
 		String anotherHome = prefs.getString(HOME_KEY_ANOTHER_HOME, null);
 		if (anotherHome != null) {
 			return anotherHome;
+
 		} else {
 			App app = AppList.getIntentAppList(context, IntentAppInfo.INTENT_APP_TYPE_HOME, 1)[0];
 			if (app != null) {
@@ -170,7 +170,7 @@ public class PrefDAO {
 	 * @return
 	 */
 	public boolean isOverlay() {
-		return prefs.getBoolean(OVERLAY, false);
+		return isOverlayPoint(0) || isOverlayPoint(1);
 	}
 	
 	/**
@@ -180,7 +180,8 @@ public class PrefDAO {
 	 */
 	public void setOverlay(boolean b) {
 		Editor editor = prefs.edit();
-		editor.putBoolean(OVERLAY, b);
+		editor.putBoolean(OVERLAY_POINT_0, b);
+		editor.putBoolean(OVERLAY_POINT_1, b);
 		editor.commit();
 	}
 	
@@ -297,7 +298,10 @@ public class PrefDAO {
 	 * @return
 	 */
 	public int getOverlayPointBackgroundColor() {
-		return prefs.getInt(OVERLAY_POINT_BACKGROUND_COLOR, context.getResources().getColor(R.color.overlay_point_background_color_default_value));
+		return prefs.getInt(OVERLAY_POINT_BACKGROUND_COLOR, context.getResources().
+				getColor(R.color.overlay_point_background_color_default_value));
+//		return prefs.getInt(OVERLAY_POINT_BACKGROUND_COLOR, context.getResources().
+//				getColor(R.color.overlay_point_background_color_default_value, null));		API23以上
 	}
 	
 	/**
@@ -333,7 +337,10 @@ public class PrefDAO {
 	 * @return
 	 */
 	public int getWindowBackgroundColor() {
-		return prefs.getInt(WINDOW_BACKGROUND_COLOR, context.getResources().getColor(R.color.window_background_color_default_value));
+		return prefs.getInt(WINDOW_BACKGROUND_COLOR, context.getResources().
+				getColor(R.color.window_background_color_default_value));
+//		return prefs.getInt(WINDOW_BACKGROUND_COLOR, context.getResources().
+//				getColor(R.color.window_background_color_default_value, null));		API23以上
 	}
 	
 	/**
@@ -503,6 +510,7 @@ public class PrefDAO {
 		boolean b = false;
 		try {
 			b = prefs.getBoolean(VIBRATE, false);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			Editor editor = prefs.edit();

@@ -39,7 +39,8 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 		progressDialog = new Dialog(context);
 		progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		ProgressBar progress = new ProgressBar(context);
-		progress.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+		progress.setLayoutParams(new ViewGroup.LayoutParams(
+				ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 		int padding = context.getResources().getDimensionPixelSize(R.dimen.int_16_dp);
 		progress.setPadding(padding, padding, padding, padding);
 		progressDialog.setContentView(progress);
@@ -97,13 +98,13 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 	/**
 	 * asyncCancel()
 	 */
-	public abstract void asyncCancel();
+	protected abstract void asyncCancel();
 
 	/**
 	 * asyncComplete()
 	 *
 	 * @param appList
 	 */
-	public abstract void asyncComplete(App[] appList);
+	protected abstract void asyncComplete(App[] appList);
 
 }

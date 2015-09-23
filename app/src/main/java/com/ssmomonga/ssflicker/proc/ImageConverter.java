@@ -137,10 +137,16 @@ public class ImageConverter {
 			float scale = (float) (finalWidth * 5) / (float) (width * 4);
 			Matrix matrix = new Matrix();
 			matrix.postScale(scale, scale);
-			return Bitmap.createBitmap(bitmap, 0, 0, Math.min((int) (finalWidth / scale), width), Math.min((int) (finalHeight / scale), height), matrix, true);
+			return Bitmap.createBitmap(bitmap, 0, 0,
+					Math.min((int) (finalWidth / scale), width),
+					Math.min((int) (finalHeight / scale), height),
+					matrix, true);
 
 		} else {
-			return Bitmap.createBitmap(bitmap, 0, 0, Math.min(width, finalWidth), Math.min(height, finalHeight), null, true);
+			return Bitmap.createBitmap(bitmap, 0, 0,
+					Math.min(width, finalWidth),
+					Math.min(height, finalHeight),
+					null, true);
 		}
 		
 
@@ -234,14 +240,14 @@ public class ImageConverter {
 
 		Bitmap multiAppIcon = Bitmap.createBitmap(length_3, length_3, Bitmap.Config.ARGB_8888);
 		Canvas c2 = new Canvas(multiAppIcon);
-		c2.drawBitmap(resizeAppIcon[0], 0, 0, (Paint) null);
-		c2.drawBitmap(resizeAppIcon[1], length, 0, (Paint) null);
-		c2.drawBitmap(resizeAppIcon[2], length_2, 0, (Paint) null);
-		c2.drawBitmap(resizeAppIcon[3], 0, length, (Paint) null);
-		c2.drawBitmap(resizeAppIcon[4], length_2, length, (Paint) null);
-		c2.drawBitmap(resizeAppIcon[5], 0, length_2, (Paint) null);
-		c2.drawBitmap(resizeAppIcon[6], length, length_2, (Paint) null);
-		c2.drawBitmap(resizeAppIcon[7], length_2, length_2, (Paint) null);
+		c2.drawBitmap(resizeAppIcon[0], 0, 0, null);
+		c2.drawBitmap(resizeAppIcon[1], length, 0, null);
+		c2.drawBitmap(resizeAppIcon[2], length_2, 0, null);
+		c2.drawBitmap(resizeAppIcon[3], 0, length, null);
+		c2.drawBitmap(resizeAppIcon[4], length_2, length, null);
+		c2.drawBitmap(resizeAppIcon[5], 0, length_2, null);
+		c2.drawBitmap(resizeAppIcon[6], length, length_2, null);
+		c2.drawBitmap(resizeAppIcon[7], length_2, length_2, null);
 
 		return createDrawable(context, multiAppIcon);
 	}
@@ -260,14 +266,17 @@ public class ImageConverter {
 	/**
 	 * createBackground()
 	 *
-	 * @param context
 	 * @param backgroundColor
 	 * @param strokeThickness
 	 * @param strokeRGB
 	 * @param cornerRadius
 	 * @return
 	 */
-	public static Drawable createBackground(Context context, int backgroundColor, int strokeThickness, int strokeRGB, int cornerRadius) {
+	public static Drawable createBackground(int backgroundColor,
+											int strokeThickness,
+											int strokeRGB,
+											int cornerRadius) {
+
 		GradientDrawable d = new GradientDrawable();
 		d.setColor(backgroundColor);
 		d.setStroke(strokeThickness, createColor(255, strokeRGB));

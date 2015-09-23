@@ -31,7 +31,12 @@ public class Pointer {
 	 * @param pointerIconType
 	 * @param pointerIconTypeAppAppId
 	 */
-	public Pointer(int pointerType, String pointerLabel, Drawable pointerIcon, int pointerIconType, int pointerIconTypeAppAppId) {
+	public Pointer(int pointerType,
+				   String pointerLabel,
+				   Drawable pointerIcon,
+				   int pointerIconType,
+				   int pointerIconTypeAppAppId) {
+
 		this.pointerType = pointerType;
 		this.pointerLabel = pointerLabel;
 		this.pointerIconType = pointerIconType;

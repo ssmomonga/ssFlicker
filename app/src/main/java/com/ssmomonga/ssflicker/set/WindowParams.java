@@ -63,17 +63,14 @@ public class WindowParams {
 		int strokeRGB = 16777215;
 		int cornerRadius = context.getResources().getDimensionPixelSize(R.dimen.corner_radius);;
 		appWindowBackground = ImageConverter.createBackground(
-				context,
 				backgroundColor,
 				strokeThickness, strokeRGB,
 				cornerRadius);
 		pointerWindowBackground = ImageConverter.createBackground(
-				context,
 				backgroundColor,
 				strokeThickness, strokeRGB,
 				cornerRadius);
 		actionWindowBackground = ImageConverter.createBackground(
-				context,
 				backgroundColor,
 				strokeThickness, strokeRGB,
 				cornerRadius);
