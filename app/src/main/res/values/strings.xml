@@ -102,7 +102,7 @@
 <!-- PrefSubActivity -->
 	<string name="launch_by_default">Launch by default</string>
 	<string name="clear_default">Clear to launch ssFlicker by default for some actions?</string>
-	<string name="can_not_set_default">Can\'t set nor clear launch by default on this screen.\nOnly can clear all launch by default from switch on top of screen.\nLaunch by default please set according to the procedure of Android.</string>
+	<string name="can_not_set_default">Can\'t set nor clear each launch by default on this screen.\nOnly can clear all launch by default from switch on top of screen.\nLaunch by default please set according to the procedure of Android.</string>
 	<string name="launch_by_home_key">Launch by home key</string>
 	<string name="home_key_another_home">Another home</string>
 	<string name="home_key_click_mode">Click mode</string>

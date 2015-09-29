@@ -222,7 +222,7 @@
     <string name="bluetooth">Bluetooth</string>
     <string name="bluetooth_off">BluetoothをOFFにしました</string>
     <string name="bluetooth_on">BluetoothをONにしました</string>
-    <string name="can_not_set_default">この画面からデフォルト起動を設定、解除することはできません。\n画面右上のスイッチから全デフォルト起動を解除することのみできます。\nデフォルト起動の設定はAndroidの手順に従って設定してください。</string>
+    <string name="can_not_set_default">この画面から各デフォルト起動を設定、解除することはできません。\n画面右上のスイッチから全デフォルト起動を解除することのみできます。\nデフォルト起動の設定はAndroidの手順に従って設定してください。</string>
     <string name="cancel">キャンセル</string>
     <string name="center">中心</string>
     <string name="clear">解除</string>

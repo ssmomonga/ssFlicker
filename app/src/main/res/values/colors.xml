@@ -13,7 +13,7 @@
 	<color name="window_background_color_default_value">#802196F3</color>
 	<color name="overlay_point_background_color_default_value">#80FFEB3B</color>
 
-	<color name="activity_background">#40000000</color>
+	<color name="activity_background">#80000000</color>
 	<color name="appwidget_chooser_background">#40ffffff</color>
 	<color name="invisible">#00000000</color>
 

@@ -102,7 +102,7 @@
 <!-- PrefSubActivity -->
 	<string name="launch_by_default">デフォルト起動</string>
 	<string name="clear_default">ssFlickerのデフォルト設定を解除しますか？</string>
-	<string name="can_not_set_default">この画面からデフォルト起動を設定、解除することはできません。\n画面右上のスイッチから全デフォルト起動を解除することのみできます。\nデフォルト起動の設定はAndroidの手順に従って設定してください。</string>
+	<string name="can_not_set_default">この画面から各デフォルト起動を設定、解除することはできません。\n画面右上のスイッチから全デフォルト起動を解除することのみできます。\nデフォルト起動の設定はAndroidの手順に従って設定してください。</string>
 	<string name="launch_by_home_key">ホームキー起動</string>
 	<string name="home_key_another_home">アナザーホーム</string>
 	<string name="home_key_click_mode">クリックモード</string>

@@ -193,7 +193,7 @@
 	</string-array>
     <!-- From: file:/development/workspace/ssFlicker/app/src/main/res/values/colors.xml -->
     <eat-comment/>
-    <color name="activity_background">#40000000</color>
+    <color name="activity_background">#80000000</color>
     <color name="appwidget_chooser_background">#40ffffff</color>
     <color name="blue">#0000FF</color>
     <color name="color_accent">#00B0FF</color>
@@ -285,7 +285,7 @@
     <string name="bluetooth">Bluetooth</string>
     <string name="bluetooth_off">Turn off bluetooth</string>
     <string name="bluetooth_on">Turn on bluetooth</string>
-    <string name="can_not_set_default">Can\'t set nor clear launch by default on this screen.\nOnly can clear all launch by default from switch on top of screen.\nLaunch by default please set according to the procedure of Android.</string>
+    <string name="can_not_set_default">Can\'t set nor clear each launch by default on this screen.\nOnly can clear all launch by default from switch on top of screen.\nLaunch by default please set according to the procedure of Android.</string>
     <string name="cancel">Cancel</string>
     <string name="center">Center</string>
     <string name="clear">Clear</string>
