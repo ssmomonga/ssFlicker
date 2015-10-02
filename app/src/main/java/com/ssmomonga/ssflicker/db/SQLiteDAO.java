@@ -112,7 +112,37 @@ public class SQLiteDAO {
 		db.close();
 			
 		return appListList;	
-	}	
+	}
+
+	/**
+	 * selectAppTable()
+	 *
+	 * @param targetPackageName
+	 * @return
+	 */
+	public App[][] selectAppTable(String targetPackageName) {
+		String selection = AppTableColumnName_8.PACKAGE_NAME + "=?";
+		String[] selectionArgs = { targetPackageName };
+		SQLiteDatabase db = sdbh.getReadableDatabase();
+		Cursor c = db.query(SQLiteDBH.APP_TABLE_8, null, selection, selectionArgs, null, null, null);
+
+		App[][] appListList = new App[Pointer.FLICK_POINTER_COUNT + Pointer.DOCK_POINTER_COUNT][App.FLICK_APP_COUNT];
+		if (c.getCount() == 0) {
+			appListList = null;
+
+		} else {
+			while (c.moveToNext()) {
+				int pointerId = c.getInt(c.getColumnIndex(AppTableColumnName_8.POINTER_ID));
+				int appId = c.getInt(c.getColumnIndex(AppTableColumnName_8.APP_ID));
+				appListList[pointerId][appId] = createApp(c);
+			}
+		}
+
+		c.close();
+		db.close();
+
+		return appListList;
+	}
 
 	/**
 	 * selectAppWidget()
@@ -123,8 +153,9 @@ public class SQLiteDAO {
 
 		SQLiteDatabase db = sdbh.getReadableDatabase();
 		String[] columns = { AppTableColumnName_8.POINTER_ID, AppTableColumnName_8.APP_ID };
-		String selection =  AppTableColumnName_8.APP_TYPE + "=" + App.APP_TYPE_APPWIDGET;
-		Cursor c = db.query(SQLiteDBH.APP_TABLE_8, columns, selection, null, null, null,
+		String selection =  AppTableColumnName_8.APP_TYPE + "=?";
+		String[] selectionArgs = { String.valueOf(App.APP_TYPE_APPWIDGET) };
+		Cursor c = db.query(SQLiteDBH.APP_TABLE_8, columns, selection, selectionArgs, null, null,
 				AppTableColumnName_8.APPWIDGET_UPDATE_TIME);
 		
 		int[][] appWidgetList = new int[c.getCount()][2];
@@ -348,7 +379,7 @@ public class SQLiteDAO {
 			updatePointerTable(pointerId, appId, null);
 		}
 	}
-	
+
 	/**
 	 * selectAppWidgetIds()
 	 *

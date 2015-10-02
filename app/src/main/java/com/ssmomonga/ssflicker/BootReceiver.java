@@ -34,32 +34,33 @@ public class BootReceiver extends BroadcastReceiver {
 		
 		BootSettings settings = new BootSettings(context);
 		Launch l = new Launch(context);
+		String action = intent.getAction();
 
 		//BOOT_COMPLETE
-		if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+		if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
 			l.launchAnotherHome(settings.isHomeKey());
 			l.startStatusbar(settings.isStatusbar());
 			l.startOverlayService(settings.isOverlay());
 			rebuildAppCacheTable(context);
 
 		//ssFlickerのバージョンアップ
-		} else if (intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
+		} else if (action.equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
 			l.startStatusbar(settings.isStatusbar());
 			l.startOverlayService(settings.isOverlay());
 
 		//アプリの追加
-		} else if (intent.getAction().equals(Intent.ACTION_PACKAGE_ADDED)) {
-			rebuildAppCacheTable(context);
+		} else if (action.equals(Intent.ACTION_PACKAGE_ADDED)) {
+			deleteAppCacheTable(context);
 
 		//アプリの有効化・無効化
-		} else if (intent.getAction().equals(Intent.ACTION_PACKAGE_CHANGED)) {
+		} else if (action.equals(Intent.ACTION_PACKAGE_CHANGED)) {
 			String targetPackageName = intent.getData().getSchemeSpecificPart();
 			int enabledSetting = context.getPackageManager().getApplicationEnabledSetting(targetPackageName);
 			switch (enabledSetting) {
 
 				//アプリの有効化
 				case PackageManager.COMPONENT_ENABLED_STATE_ENABLED:
-					rebuildAppCacheTable(context);
+					deleteAppCacheTable(context);
 					break;
 
 				//アプリの有効・無効をデフォルトに変更
@@ -69,12 +70,12 @@ public class BootReceiver extends BroadcastReceiver {
 						ApplicationInfo appInfo = pm.getApplicationInfo(targetPackageName, 0);
 						//有効
 						if (appInfo.enabled) {
-							rebuildAppCacheTable(context);
+							deleteAppCacheTable(context);
 
 						//無効
 						} else {
 							rebuildAppTable(context, intent);
-							rebuildAppCacheTable(context);
+							deleteAppCacheTable(context);
 						}
 
 					} catch (PackageManager.NameNotFoundException e) {
@@ -87,17 +88,26 @@ public class BootReceiver extends BroadcastReceiver {
 				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER:
 				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED:	//よく分からないけど、とりあえず入れておく。
 					rebuildAppTable(context, intent);
-					rebuildAppCacheTable(context);
+					deleteAppCacheTable(context);
 					break;
 			}
 
 		//アプリの削除、バージョンアップ
-		} else if (intent.getAction().equals(Intent.ACTION_PACKAGE_FULLY_REMOVED) ||
-				intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED)) {
+		} else if (action.equals(Intent.ACTION_PACKAGE_FULLY_REMOVED) ||
+				action.equals(Intent.ACTION_PACKAGE_REPLACED)) {
 			rebuildAppTable(context, intent);
-			rebuildAppCacheTable(context);
+			deleteAppCacheTable(context);
 			
 		}
+	}
+
+	/**
+	 * deleteAppCacheTable()
+	 *
+	 * @param context
+	 */
+	private void deleteAppCacheTable(Context context) {
+		new SQLiteDAO(context).deleteAppCacheTable();
 	}
 
 	/**
@@ -106,10 +116,10 @@ public class BootReceiver extends BroadcastReceiver {
 	 * @param context
 	 */
 	private void rebuildAppCacheTable(Context context) {
-		new SQLiteDAO(context).deleteAppCacheTable();
+		deleteAppCacheTable(context);
 		AppList.getIntentAppList(context, IntentAppInfo.INTENT_APP_TYPE_LAUNCHER, 0);
 	}
-	
+
 	/**
 	 * rebuildAppTable()
 	 *
@@ -117,29 +127,28 @@ public class BootReceiver extends BroadcastReceiver {
 	 * @param intent
 	 */
 	private void rebuildAppTable(Context context, Intent intent) {
-		
 		String targetPackageName = intent.getData().getSchemeSpecificPart();
 		SQLiteDAO sdao = new SQLiteDAO(context);
-		App[][] appListList = sdao.selectAppTable();
+		App[][] appListList = sdao.selectAppTable(targetPackageName);
+
+		if (appListList == null) return;
 
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT + Pointer.DOCK_POINTER_COUNT; i ++) {
 			for (int j = 0; j < App.FLICK_APP_COUNT; j ++) {
-				
 				App app = appListList[i][j];
+
 				if (app != null) {
-					String setPackageName = app.getPackageName();
-					if (targetPackageName.equals(setPackageName)) {
+					String action = intent.getAction();
 
-						//アプリの無効化、削除
-						if (intent.getAction().equals(Intent.ACTION_PACKAGE_CHANGED) ||
-								intent.getAction().equals(Intent.ACTION_PACKAGE_FULLY_REMOVED)) {
-							deleteApp(context, i, j);
-						
-						//アプリのバージョンアップ、バージョンダウン
-						} else if (intent.getAction().equals(Intent.ACTION_PACKAGE_REPLACED)) {
-							updateApp(context, i, j, app);
+					//アプリの無効化、削除
+					if (action.equals(Intent.ACTION_PACKAGE_CHANGED) ||
+							action.equals(Intent.ACTION_PACKAGE_FULLY_REMOVED)) {
+						deleteApp(context, i, j);
 
-						}
+					//アプリのバージョンアップ、バージョンダウン
+					} else if (action.equals(Intent.ACTION_PACKAGE_REPLACED)) {
+						updateApp(context, i, j, app);
+
 					}
 				}
 			}
