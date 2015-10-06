@@ -46,7 +46,6 @@ public class AppList {
 		SQLiteDAO sdao = new SQLiteDAO(context);
 
 		PackageManager pm = context.getPackageManager();
-		String thisPackageName = context.getPackageName();
 		Intent intent = new Intent();
 		List<ResolveInfo> resolveInfoList = null;
 
@@ -87,8 +86,9 @@ public class AppList {
 			
 		}
 
-		for (ResolveInfo resolveInfo: resolveInfoList) {
+		String thisPackageName = context.getPackageName();
 
+		for (ResolveInfo resolveInfo: resolveInfoList) {
 			ActivityInfo activityInfo = resolveInfo.activityInfo;
 			String packageName = activityInfo.packageName;
 			if (!packageName.equals(thisPackageName)) {

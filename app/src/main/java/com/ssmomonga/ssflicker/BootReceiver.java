@@ -31,7 +31,7 @@ public class BootReceiver extends BroadcastReceiver {
 	 */
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		
+
 		BootSettings settings = new BootSettings(context);
 		Launch l = new Launch(context);
 		String action = intent.getAction();
@@ -52,35 +52,23 @@ public class BootReceiver extends BroadcastReceiver {
 		} else if (action.equals(Intent.ACTION_PACKAGE_ADDED)) {
 			deleteAppCacheTable(context);
 
+		//アプリの削除、バージョンアップ
+		} else if (action.equals(Intent.ACTION_PACKAGE_FULLY_REMOVED) ||
+				action.equals(Intent.ACTION_PACKAGE_REPLACED)) {
+			rebuildAppTable(context, intent);
+			deleteAppCacheTable(context);
+
 		//アプリの有効化・無効化
 		} else if (action.equals(Intent.ACTION_PACKAGE_CHANGED)) {
+			rebuildAppCacheTable(context);
+
 			String targetPackageName = intent.getData().getSchemeSpecificPart();
 			int enabledSetting = context.getPackageManager().getApplicationEnabledSetting(targetPackageName);
+
 			switch (enabledSetting) {
 
 				//アプリの有効化
 				case PackageManager.COMPONENT_ENABLED_STATE_ENABLED:
-					deleteAppCacheTable(context);
-					break;
-
-				//アプリの有効・無効をデフォルトに変更
-				case PackageManager.COMPONENT_ENABLED_STATE_DEFAULT:
-					PackageManager pm = context.getPackageManager();
-					try {
-						ApplicationInfo appInfo = pm.getApplicationInfo(targetPackageName, 0);
-						//有効
-						if (appInfo.enabled) {
-							deleteAppCacheTable(context);
-
-						//無効
-						} else {
-							rebuildAppTable(context, intent);
-							deleteAppCacheTable(context);
-						}
-
-					} catch (PackageManager.NameNotFoundException e) {
-						e.printStackTrace();
-					}
 					break;
 
 				//アプリの無効化
@@ -88,16 +76,22 @@ public class BootReceiver extends BroadcastReceiver {
 				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER:
 				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED:	//よく分からないけど、とりあえず入れておく。
 					rebuildAppTable(context, intent);
-					deleteAppCacheTable(context);
 					break;
+
+				//アプリの有効・無効をデフォルトに変更
+				case PackageManager.COMPONENT_ENABLED_STATE_DEFAULT:
+					PackageManager pm = context.getPackageManager();
+					try {
+						ApplicationInfo appInfo = pm.getApplicationInfo(targetPackageName, 0);
+						if (!appInfo.enabled) rebuildAppTable(context, intent);
+
+					} catch (PackageManager.NameNotFoundException e) {
+						e.printStackTrace();
+					}
+					break;
+
 			}
 
-		//アプリの削除、バージョンアップ
-		} else if (action.equals(Intent.ACTION_PACKAGE_FULLY_REMOVED) ||
-				action.equals(Intent.ACTION_PACKAGE_REPLACED)) {
-			rebuildAppTable(context, intent);
-			deleteAppCacheTable(context);
-			
 		}
 	}
 
