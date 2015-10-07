@@ -59,6 +59,8 @@ public class DeviceSettings {
 	 * @return
 	 */
 	public static boolean isNow(Context context) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) return false;
+
 		Intent intent = new Intent(Intent.ACTION_ASSIST)
 				.addCategory(Intent.CATEGORY_DEFAULT);
 		String packageName = context.getPackageManager()
@@ -75,7 +77,8 @@ public class DeviceSettings {
 	public static boolean isSearchKey(Context context) {
 		Intent intent = new Intent(Intent.ACTION_SEARCH_LONG_PRESS)
 				.addCategory(Intent.CATEGORY_DEFAULT);
-		String packageName = context.getPackageManager().resolveActivity(intent, 0).activityInfo.packageName;
+		String packageName = context.getPackageManager()
+				.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY).activityInfo.packageName;
 		return packageName.equals(context.getPackageName());
 	}
 
