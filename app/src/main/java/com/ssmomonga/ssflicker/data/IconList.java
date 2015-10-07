@@ -90,8 +90,8 @@ public class IconList {
 				new BaseData(null, r.getDrawable(R.mipmap.icon_70_unused_airplane_mode, null), 70),
 				new BaseData(null, r.getDrawable(R.mipmap.icon_80_unused_balloon, null), 80),
 				new BaseData(null, r.getDrawable(R.mipmap.icon_81_unused_toggle, null), 81),
-				new BaseData(null, r.getDrawable(R.mipmap.icon_90_etc_question, null), 90),
-				new BaseData(null, r.getDrawable(R.mipmap.icon_91_etc_exclamation, null), 91)
+				new BaseData(null, r.getDrawable(R.mipmap.icon_90_unused_question, null), 90),
+				new BaseData(null, r.getDrawable(R.mipmap.icon_91_unused_exclamation, null), 91)
 		};
 	}
 
