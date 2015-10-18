@@ -91,7 +91,7 @@ public class AppList {
 		for (ResolveInfo resolveInfo: resolveInfoList) {
 			ActivityInfo activityInfo = resolveInfo.activityInfo;
 			String packageName = activityInfo.packageName;
-			if (!packageName.equals(thisPackageName)) {
+			if (packageName != null && !packageName.equals("") && !packageName.equals(thisPackageName)) {
 
 				App intentApp = new App(
 						context,

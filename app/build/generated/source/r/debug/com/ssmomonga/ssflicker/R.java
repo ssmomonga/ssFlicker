@@ -377,17 +377,15 @@ public final class R {
         public static final int icon_70_unused_airplane_mode=0x7f03001a;
         public static final int icon_80_unused_balloon=0x7f03001b;
         public static final int icon_81_unused_toggle=0x7f03001c;
-        public static final int icon_90_unused_question =0x7f03001d;
-        public static final int icon_90_unused_question=0x7f03001e;
-        public static final int icon_91_unused_exclamation =0x7f03001f;
-        public static final int icon_91_unused_exclamation=0x7f030020;
-        public static final int icon_actionbar_information=0x7f030021;
-        public static final int icon_appwidget_preview=0x7f030022;
-        public static final int icon_assist=0x7f030023;
-        public static final int icon_launcher=0x7f030024;
-        public static final int icon_notification=0x7f030025;
-        public static final int icon_overlay_focused=0x7f030026;
-        public static final int icon_overlay_unfocused=0x7f030027;
+        public static final int icon_90_unused_question=0x7f03001d;
+        public static final int icon_91_unused_exclamation=0x7f03001e;
+        public static final int icon_actionbar_information=0x7f03001f;
+        public static final int icon_appwidget_preview=0x7f030020;
+        public static final int icon_assist=0x7f030021;
+        public static final int icon_launcher=0x7f030022;
+        public static final int icon_notification=0x7f030023;
+        public static final int icon_overlay_focused=0x7f030024;
+        public static final int icon_overlay_unfocused=0x7f030025;
     }
     public static final class string {
         public static final int about=0x7f080000;
