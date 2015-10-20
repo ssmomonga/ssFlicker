@@ -52,13 +52,17 @@ public class BootReceiver extends BroadcastReceiver {
 		} else if (action.equals(Intent.ACTION_PACKAGE_ADDED)) {
 			deleteAppCacheTable(context);
 
-		//アプリの削除、バージョンアップ
-		} else if (action.equals(Intent.ACTION_PACKAGE_FULLY_REMOVED) ||
-				action.equals(Intent.ACTION_PACKAGE_REPLACED)) {
+		//バージョンアップ
+		} else if (action.equals(Intent.ACTION_PACKAGE_REPLACED)) {
 			rebuildAppTable(context, intent);
 			deleteAppCacheTable(context);
 
-		//アプリの有効化・無効化
+		//アプリの削除
+		} else if (action.equals(Intent.ACTION_PACKAGE_FULLY_REMOVED)) {
+			rebuildAppTable(context, intent);
+			rebuildAppCacheTable(context);
+
+			//アプリの有効化・無効化
 		} else if (action.equals(Intent.ACTION_PACKAGE_CHANGED)) {
 			rebuildAppCacheTable(context);
 
@@ -80,8 +84,8 @@ public class BootReceiver extends BroadcastReceiver {
 
 				//アプリの有効・無効をデフォルトに変更
 				case PackageManager.COMPONENT_ENABLED_STATE_DEFAULT:
-					PackageManager pm = context.getPackageManager();
 					try {
+						PackageManager pm = context.getPackageManager();
 						ApplicationInfo appInfo = pm.getApplicationInfo(targetPackageName, 0);
 						if (!appInfo.enabled) rebuildAppTable(context, intent);
 
