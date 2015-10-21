@@ -3,7 +3,6 @@ package com.ssmomonga.ssflicker;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 
@@ -36,6 +35,58 @@ public class BootReceiver extends BroadcastReceiver {
 		Launch l = new Launch(context);
 		String action = intent.getAction();
 
+		/*
+		通常アプリ：インストール
+			★PACKAGE_ADDED(false,false)
+			アプリテーブル：なし、キャッシュテーブル：リビルド
+		通常アプリ：アンインストール
+			★PACKAGE_FULLY_REMOVED(false,true)
+			アプリテーブル：リビルド、キャッシュテーブル：リビルド
+		通常アプリ、プリインアプリ：バージョンアップ
+			PACKAGE_ADDED(true,false) → ★PACKAGE_REPLACED(true,false) → ★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
+			アプリテーブル：リビルド、キャッシュテーブル：削除
+		プリインアプリ：アンインストール
+			PACKAGE_ADDED(true,false) → ★PACKAGE_REPLACED(true,false) → ★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
+			アプリテーブル：リビルド、キャッシュテーブル：リビルド
+		プリインアプリ：有効
+			★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
+			アプリテーブル：なし、キャッシュテーブル：リビルド
+		プリインアプリ：無効
+			★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DISABLED_USER)
+			アプリテーブル：リビルド、キャッシュテーブル：リビルド
+		ネット上ではバージョンアップ時は以下の動きになるという情報が散見される。
+			PACKAGE_REMOVED → PACKAGE_ADDED → ★PACKAGE_REPLACED
+		Log.v("ssFlicker", "action= " + action);
+		if (action.equals(Intent.ACTION_PACKAGE_CHANGED)) {
+			String targetPackageName = intent.getData().getSchemeSpecificPart();
+			int enabledSetting = context.getPackageManager().getApplicationEnabledSetting(targetPackageName);
+			String strEnableSetting = "";
+			switch (enabledSetting) {
+				case PackageManager.COMPONENT_ENABLED_STATE_ENABLED:
+					strEnableSetting = "COMPONENT_ENABLED_STATE_ENABLED";
+					break;
+				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED:
+					strEnableSetting = "COMPONENT_ENABLED_STATE_DISABLED";
+					break;
+				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER:
+					strEnableSetting = "COMPONENT_ENABLED_STATE_DISABLED_USER";
+					break;
+				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED:
+					strEnableSetting = "COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED";
+					break;
+				case PackageManager.COMPONENT_ENABLED_STATE_DEFAULT:
+					strEnableSetting = "COMPONENT_ENABLED_STATE_DEFAULT";
+					break;
+			}
+			Log.v("ssFlicker", "enableSetting= " + strEnableSetting);
+		}
+		Boolean replacing = intent.getExtras().getBoolean(Intent.EXTRA_REPLACING);
+		Boolean dataRemoved = intent.getExtras().getBoolean(Intent.EXTRA_DATA_REMOVED);
+		Log.v("ssFlicker", "replacing= " + replacing);
+		Log.v("ssFlicker", "dataRemoved= " + dataRemoved);
+		Toast.makeText(context, action + "\n" + replacing + ", " + dataRemoved, Toast.LENGTH_LONG).show();
+		 */
+
 		//BOOT_COMPLETE
 		if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
 			l.launchAnotherHome(settings.isHomeKey());
@@ -48,53 +99,22 @@ public class BootReceiver extends BroadcastReceiver {
 			l.startStatusbar(settings.isStatusbar());
 			l.startOverlayService(settings.isOverlay());
 
-		//アプリの追加
-		} else if (action.equals(Intent.ACTION_PACKAGE_ADDED)) {
-			deleteAppCacheTable(context);
+		//通常アプリのインストール
+		} else if (action.equals(Intent.ACTION_PACKAGE_ADDED) &&
+				!intent.getExtras().getBoolean(Intent.EXTRA_REPLACING)) {
+			rebuildAppCacheTable(context);
 
-		//バージョンアップ
-		} else if (action.equals(Intent.ACTION_PACKAGE_REPLACED)) {
-			rebuildAppTable(context, intent);
-			deleteAppCacheTable(context);
-
-		//アプリの削除
+		//通常アプリのアンインストール
 		} else if (action.equals(Intent.ACTION_PACKAGE_FULLY_REMOVED)) {
 			rebuildAppTable(context, intent);
 			rebuildAppCacheTable(context);
 
-			//アプリの有効化・無効化
-		} else if (action.equals(Intent.ACTION_PACKAGE_CHANGED)) {
-			rebuildAppCacheTable(context);
-
-			String targetPackageName = intent.getData().getSchemeSpecificPart();
-			int enabledSetting = context.getPackageManager().getApplicationEnabledSetting(targetPackageName);
-
-			switch (enabledSetting) {
-
-				//アプリの有効化
-				case PackageManager.COMPONENT_ENABLED_STATE_ENABLED:
-					break;
-
-				//アプリの無効化
-				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED:
-				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER:
-				case PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED:	//よく分からないけど、とりあえず入れておく。
-					rebuildAppTable(context, intent);
-					break;
-
-				//アプリの有効・無効をデフォルトに変更
-				case PackageManager.COMPONENT_ENABLED_STATE_DEFAULT:
-					try {
-						PackageManager pm = context.getPackageManager();
-						ApplicationInfo appInfo = pm.getApplicationInfo(targetPackageName, 0);
-						if (!appInfo.enabled) rebuildAppTable(context, intent);
-
-					} catch (PackageManager.NameNotFoundException e) {
-						e.printStackTrace();
-					}
-					break;
-
-			}
+		//通常アプリ、プリインアプリのバージョンアップ、プリインアプリのアンインストール、プリインアプリの有効化・無効化
+		//ACTION_PACKAGE_REPLACEDは不要だが、念のため残している。
+		} else if (action.equals(Intent.ACTION_PACKAGE_REPLACED) ||
+				action.equals(Intent.ACTION_PACKAGE_CHANGED)) {
+			rebuildAppTable(context, intent);
+			deleteAppCacheTable(context);
 
 		}
 	}
