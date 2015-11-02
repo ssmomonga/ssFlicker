@@ -1,5 +1,7 @@
 package com.ssmomonga.ssflicker;
 
+import android.appwidget.AppWidgetManager;
+import android.appwidget.AppWidgetProviderInfo;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -41,19 +43,19 @@ public class BootReceiver extends BroadcastReceiver {
 			アプリテーブル：なし、キャッシュテーブル：リビルド
 		通常アプリ：アンインストール
 			★PACKAGE_FULLY_REMOVED(false,true)
-			アプリテーブル：リビルド、キャッシュテーブル：リビルド
+			アプリテーブル：削除、キャッシュテーブル：リビルド
 		通常アプリ、プリインアプリ：バージョンアップ
 			PACKAGE_ADDED(true,false) → ★PACKAGE_REPLACED(true,false) → ★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
 			アプリテーブル：リビルド、キャッシュテーブル：削除
-		プリインアプリ：アンインストール
+		プリインアプリ：アンインストール（バージョンダウン）
 			PACKAGE_ADDED(true,false) → ★PACKAGE_REPLACED(true,false) → ★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
 			アプリテーブル：リビルド、キャッシュテーブル：リビルド
-		プリインアプリ：有効
+		プリインアプリ：有効化
 			★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
 			アプリテーブル：なし、キャッシュテーブル：リビルド
-		プリインアプリ：無効
+		プリインアプリ：無効化
 			★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DISABLED_USER)
-			アプリテーブル：リビルド、キャッシュテーブル：リビルド
+			アプリテーブル：削除、キャッシュテーブル：リビルド
 		ネット上ではバージョンアップ時は以下の動きになるという情報が散見される。
 			PACKAGE_REMOVED → PACKAGE_ADDED → ★PACKAGE_REPLACED
 		Log.v("ssFlicker", "action= " + action);
@@ -99,20 +101,23 @@ public class BootReceiver extends BroadcastReceiver {
 			l.startStatusbar(settings.isStatusbar());
 			l.startOverlayService(settings.isOverlay());
 
-		//通常アプリのインストール
+		//通常アプリ：インストール
 		} else if (action.equals(Intent.ACTION_PACKAGE_ADDED) &&
 				!intent.getExtras().getBoolean(Intent.EXTRA_REPLACING)) {
 			rebuildAppCacheTable(context);
 
-		//通常アプリのアンインストール
+		//通常アプリ：アンインストール
 		} else if (action.equals(Intent.ACTION_PACKAGE_FULLY_REMOVED)) {
 			rebuildAppTable(context, intent);
 			rebuildAppCacheTable(context);
 
-		//通常アプリ、プリインアプリのバージョンアップ、プリインアプリのアンインストール、プリインアプリの有効化・無効化
+		//通常アプリ、プリインアプリ：バージョンアップ
+		//プリインアプリ：アンインストール（バージョンダウン）
+		//プリインアプリ：有効化
+		//プリインアプリ：無効化
 		//ACTION_PACKAGE_REPLACEDは不要だが、念のため残している。
-		} else if (action.equals(Intent.ACTION_PACKAGE_REPLACED) ||
-				action.equals(Intent.ACTION_PACKAGE_CHANGED)) {
+		} else if (action.equals(Intent.ACTION_PACKAGE_CHANGED) ||
+				action.equals(Intent.ACTION_PACKAGE_REPLACED)) {
 			rebuildAppTable(context, intent);
 			deleteAppCacheTable(context);
 
@@ -158,13 +163,12 @@ public class BootReceiver extends BroadcastReceiver {
 				if (app != null) {
 					String action = intent.getAction();
 
-					//アプリの無効化、削除
-					if (action.equals(Intent.ACTION_PACKAGE_CHANGED) ||
-							action.equals(Intent.ACTION_PACKAGE_FULLY_REMOVED)) {
+					//アンインストール
+					if (action.equals(Intent.ACTION_PACKAGE_FULLY_REMOVED)) {
 						deleteApp(context, i, j);
 
-					//アプリのバージョンアップ、バージョンダウン
-					} else if (action.equals(Intent.ACTION_PACKAGE_REPLACED)) {
+					//その他
+					} else {
 						updateApp(context, i, j, app);
 
 					}
@@ -190,14 +194,15 @@ public class BootReceiver extends BroadcastReceiver {
 				PackageManager pm = context.getPackageManager();
 				List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(intent, 0);
 				b = resolveInfoList.size() > 0;
-				if (!b) deleteApp(context, pointerId, appId);
 				break;
 			
 			case App.APP_TYPE_APPWIDGET:
-				b = true;
+				int appWidgetId = app.getAppWidgetInfo().getAppWidgetId();
+				AppWidgetProviderInfo info = AppWidgetManager.getInstance(context).getAppWidgetInfo(appWidgetId);
+				b = info != null;
 				break;
 		}
-			
+
 		if (b) {
 			b = false;
 			if (app.getAppLabelType() == IconList.LABEL_ICON_TYPE_ACTIVITY || 
@@ -211,10 +216,12 @@ public class BootReceiver extends BroadcastReceiver {
 				app.setAppIcon(app.getAppRawIcon());
 				b = true;
 			}
-		
-		}
 
-		if (b) new SQLiteDAO(context).editAppTable(pointerId, appId, app);
+			if (b) new SQLiteDAO(context).editAppTable(pointerId, appId, app);
+
+		} else {
+			deleteApp(context, pointerId, appId);
+		}
 
 	}
 

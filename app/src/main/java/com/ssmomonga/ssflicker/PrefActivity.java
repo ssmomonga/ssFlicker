@@ -39,6 +39,7 @@ import com.ssmomonga.ssflicker.set.InvisibleAppWidgetSettings;
  */
 public class PrefActivity extends Activity {
 
+	public static final int REQUEST_CODE_APP_INFO = 0;
 	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE = 0;
 
 	private static PreferenceScreen launch_by_default;
@@ -68,7 +69,8 @@ public class PrefActivity extends Activity {
 	private static Activity activity;
 	private static PrefDAO pdao;
 	private static Launch l;
-	
+	private static boolean finish = true;
+
 	private static Intent bindOverlayServiceIntent;
 	private static Messenger overlayServiceMessenger;
 	private static ServiceConnection overlayServiceConn = new ServiceConnection() {
@@ -112,6 +114,30 @@ public class PrefActivity extends Activity {
 	}
 
 	/**
+	 * onActivityResult()
+	 *
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
+	 */
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		switch(resultCode) {
+			case Activity.RESULT_OK:
+			case Activity.RESULT_CANCELED:
+				switch (requestCode) {
+					case REQUEST_CODE_APP_INFO:
+						finish = true;
+						break;
+				}
+				break;
+		}
+	}
+
+
+	/**
 	 * onRequestPermissionResult()
 	 *
 	 * @param requestCode
@@ -134,6 +160,8 @@ public class PrefActivity extends Activity {
 				break;
 
 		}
+
+		finish = true;
 	}
 
 	/**
@@ -155,7 +183,12 @@ public class PrefActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.about) {
-			dialog = new AboutDialog(activity);
+			dialog = new AboutDialog(activity) {
+				@Override
+				public void launchAppInfo() {
+					finish = false;
+				}
+			};
 			dialog.show();
 		}
 		return true;
@@ -205,9 +238,12 @@ public class PrefActivity extends Activity {
 		public void onPause() {
 			super.onPause();
 			if (pdao.isOverlay()) activity.unbindService(overlayServiceConn);
-			if (dialog != null && dialog.isShowing()) dialog.dismiss();
-			window_background_color.dismissColorPicker();
-			text_color.dismissColorPicker();
+			if (finish) {
+				if (dialog != null && dialog.isShowing()) dialog.dismiss();
+				window_background_color.dismissColorPicker();
+				text_color.dismissColorPicker();
+				activity.finish();
+			}
 		}
 
 		/**
@@ -294,6 +330,7 @@ public class PrefActivity extends Activity {
 					} else {
 						activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
 								PrefActivity.REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE);
+						finish = false;
 					}
 
 					return false;

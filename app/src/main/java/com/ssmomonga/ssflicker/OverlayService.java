@@ -59,7 +59,7 @@ public class OverlayService extends Service {
 			overlayWindowParams = overlaySettings.getOverlayWindowParams();
 			overlayFlickListenerParams = overlaySettings.getOverlayFlickListenerParams();
 		}
-		
+
 		l = new Launch(this);
 		rotateReceiver = new RotateReceiver();
 
@@ -123,7 +123,7 @@ public class OverlayService extends Service {
 	 */
 	private void overlayForeground(boolean b) {
 		if (b) {
-			startForeground(1,l.getNotification(getString(R.string.launch_from_overlay)
+			startForeground(1, l.getNotification(getString(R.string.launch_from_overlay)
 					+ getString(R.string.colon) + getString(R.string.running_foreground)));
 
 		} else {

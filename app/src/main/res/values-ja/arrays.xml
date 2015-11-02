@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string-array name="home_key_click_mode_entries">
+	<!-- string-array name="home_key_click_mode_entries">
 		<item>@string/home_key_click_mode_single</item>
 		<item>@string/home_key_click_mode_double</item>
 	</string-array>
@@ -31,7 +31,7 @@
 		<item>800</item>
 		<item>900</item>
 		<item>1000</item>
-	</string-array>
+	</string-array -->
 	
 	<string-array name="overlay_point_action_entries">
 		<item>@string/swipe</item>

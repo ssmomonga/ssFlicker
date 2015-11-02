@@ -19,26 +19,22 @@ public final class R {
         public static final int dock_window_position_landscape_entryvalues=0x7f070002;
         public static final int dock_window_position_portrait_entries=0x7f070003;
         public static final int dock_window_position_portrait_entryvalues=0x7f070004;
-        public static final int home_key_click_interval_entries=0x7f070005;
-        public static final int home_key_click_interval_entryvalues=0x7f070006;
-        public static final int home_key_click_mode_entries=0x7f070007;
-        public static final int home_key_click_mode_entryvalues=0x7f070008;
-        public static final int icon_size_entries=0x7f070009;
-        public static final int icon_size_entryvalues=0x7f07000a;
-        public static final int overlay_point_action_entries=0x7f07000b;
-        public static final int overlay_point_action_entryvalues=0x7f07000c;
-        public static final int overlay_point_position_entries=0x7f07000d;
-        public static final int overlay_point_position_entryvalues=0x7f07000e;
-        public static final int overlay_point_side_entries=0x7f07000f;
-        public static final int overlay_point_side_entryvalues=0x7f070010;
-        public static final int overlay_point_width_entries=0x7f070011;
-        public static final int overlay_point_width_entryvalues=0x7f070012;
-        public static final int pointer_window_position_entries=0x7f070013;
-        public static final int pointer_window_position_entryvalues=0x7f070014;
-        public static final int shake_sensitivity_entries=0x7f070015;
-        public static final int shake_sensitivity_entryvalues=0x7f070016;
-        public static final int text_size_entries=0x7f070017;
-        public static final int text_size_entryvalues=0x7f070018;
+        public static final int icon_size_entries=0x7f070005;
+        public static final int icon_size_entryvalues=0x7f070006;
+        public static final int overlay_point_action_entries=0x7f070007;
+        public static final int overlay_point_action_entryvalues=0x7f070008;
+        public static final int overlay_point_position_entries=0x7f070009;
+        public static final int overlay_point_position_entryvalues=0x7f07000a;
+        public static final int overlay_point_side_entries=0x7f07000b;
+        public static final int overlay_point_side_entryvalues=0x7f07000c;
+        public static final int overlay_point_width_entries=0x7f07000d;
+        public static final int overlay_point_width_entryvalues=0x7f07000e;
+        public static final int pointer_window_position_entries=0x7f07000f;
+        public static final int pointer_window_position_entryvalues=0x7f070010;
+        public static final int shake_sensitivity_entries=0x7f070011;
+        public static final int shake_sensitivity_entryvalues=0x7f070012;
+        public static final int text_size_entries=0x7f070013;
+        public static final int text_size_entryvalues=0x7f070014;
     }
     public static final class attr {
     }

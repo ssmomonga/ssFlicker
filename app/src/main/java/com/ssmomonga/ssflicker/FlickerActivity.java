@@ -2,16 +2,16 @@ package com.ssmomonga.ssflicker;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -31,7 +31,6 @@ import com.ssmomonga.ssflicker.db.SQLiteDAO;
 import com.ssmomonga.ssflicker.dlg.Drawer;
 import com.ssmomonga.ssflicker.dlg.VolumeDialog;
 import com.ssmomonga.ssflicker.proc.Launch;
-import com.ssmomonga.ssflicker.set.BootSettings;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
 import com.ssmomonga.ssflicker.set.WindowOrientationParams;
 import com.ssmomonga.ssflicker.set.WindowParams;
@@ -58,24 +57,14 @@ public class FlickerActivity extends Activity {
 	
 	private static Drawer drawer;
 	private static VolumeDialog volumeDialog;
-	
+
 	private static SQLiteDAO sdao;
 	private static Launch l;
-	private static boolean homeKey;
 	private static Pointer[] pointerList;
 	private static App[][] appListList;
 	private static int pointerId;
 	private static int appId;
-	
-	private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
-				l.launchAnotherHome(homeKey);
-				finish();
-			}
-		}
-	};
+	public static boolean finish = true;
 
 	/**
 	 * onCreate()
@@ -91,7 +80,7 @@ public class FlickerActivity extends Activity {
 
 		setContentView(R.layout.flicker_activity);
 		setInitialLayout();
-		
+
 		pointerList = sdao.selectPointerTable();
 		appListList = sdao.selectAppTable();
 		dock_window.setApp(appListList[Pointer.DOCK_POINTER_ID]);
@@ -105,12 +94,6 @@ public class FlickerActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (homeKey = new BootSettings(this).isHomeKey()) {
-			IntentFilter filter = new IntentFilter();
-			filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-			registerReceiver(mReceiver, filter);
-		}
-		
 		setLayout();
 		setOrientationLayout();
 		viewAppWidgetAll();
@@ -141,10 +124,12 @@ public class FlickerActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (homeKey) unregisterReceiver(mReceiver);
 		volumeDialog = l.getVolumeDialog();
-		if (volumeDialog != null && volumeDialog.isShowing()) volumeDialog.dismiss();
-		if (drawer != null && drawer.isShowing()) drawer.dismiss();
+		if (finish) {
+			if (volumeDialog != null && volumeDialog.isShowing()) volumeDialog.dismiss();
+			if (drawer != null && drawer.isShowing()) drawer.dismiss();
+			finish();
+		}
 	}
 
 	/**
@@ -158,8 +143,8 @@ public class FlickerActivity extends Activity {
 
 	/**
 	 * onActivityResult()
-	 * 表示された許可設定画面で許可設定をONにしても、結局バックキーで戻る必要があり、設定値に関わらず
-	 * RESULT_CANCELEDが呼び出される。
+	 * システム設定の変更の許可設定画面で許可設定をONにしてもバックキーで戻る必要があり、
+	 * 設定値に関わらずRESULT_CANCELEDが呼び出される。
 	 *
 	 * @param requestCode
 	 * @param resultCode
@@ -191,6 +176,8 @@ public class FlickerActivity extends Activity {
 				}
 				break;
 		}
+
+		finish = true;
 	}
 
 	/**
@@ -217,6 +204,8 @@ public class FlickerActivity extends Activity {
 				break;
 
 		}
+
+		finish = true;
 	}
 
 	/**
@@ -398,7 +387,7 @@ public class FlickerActivity extends Activity {
 			if (position == -1 ) {
 				dock_window.setDockPointed(false, appId);
 				if (dock.getAppType() != App.APP_TYPE_APPWIDGET) {
-					l.launch(dock, r);
+					checkPermissionAndLaunch(dock, r);
 				} else {
 					viewAppWidget(pointerId, appId, dock.getAppWidgetInfo(), true);
 				}
@@ -520,7 +509,7 @@ public class FlickerActivity extends Activity {
 				App app = appListList[pointerId][appId];
 				if (app != null) {
 					if (app.getAppType() != App.APP_TYPE_APPWIDGET) {
-						l.launch(app, r);
+						checkPermissionAndLaunch(app, r);
 					} else {
 						viewAppWidget(pointerId, appId, app.getAppWidgetInfo(), true);
 					}
@@ -536,7 +525,55 @@ public class FlickerActivity extends Activity {
 		@Override
 		public void onCancel(int position) {}
 	}
-	
+
+	/**
+	 * checkPermission()
+	 *
+	 * @param app
+	 * @return
+	 */
+	private void checkPermissionAndLaunch(App app, Rect r) {
+		switch (app.getAppType()) {
+			case App.APP_TYPE_INTENT_APP:
+
+				IntentAppInfo intentApp = app.getIntentAppInfo();
+				if (intentApp.getIntent().getAction().equals(Intent.ACTION_CALL) &&
+						!DeviceSettings.checkPermission(this, Manifest.permission.CALL_PHONE)) {
+
+					requestPermissions(new String[] { Manifest.permission.CALL_PHONE },
+							FlickerActivity.REQUEST_PERMISSION_CODE_CALL_PHONE);
+					finish = false;
+
+				} else {
+					l.launch(app, r);
+				}
+
+				break;
+
+			case App.APP_TYPE_FUNCTION:
+
+				FunctionInfo functionApp = app.getFunctionInfo();
+				if (functionApp.getFunctionType() == FunctionInfo.FUNCTION_TYPE_ROTATE &&
+						!DeviceSettings.checkPermission(this, Manifest.permission.WRITE_SETTINGS)) {
+
+					Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS,
+							Uri.parse("package:" + getPackageName()));
+					startActivityForResult(intent, FlickerActivity.REQUEST_CODE_WRITE_SETTINGS);
+					Toast.makeText(this, R.string.require_permission_write_settings, Toast.LENGTH_SHORT).show();
+					finish = false;
+
+				} else {
+					l.launch(app, r);
+				}
+
+				break;
+
+			default:
+				l.launch(app, r);
+				break;
+		}
+	}
+
 	/**
 	 * OnMenuFlickListener
 	 */
@@ -634,18 +671,15 @@ public class FlickerActivity extends Activity {
 		
 			case MenuList.MENU_ANDROID_SETTINGS:
 				l.launchAndroidSettings();
-				finish();
 				break;
 		
 			case MenuList.MENU_SSFLICKER_SETTINGS:
 				l.launchPrefActivity();
-				finish();
 				break;
 		
 			case MenuList.MENU_EDIT_MODE:
 				l.launchEditorActivity();
 				Toast.makeText(this, R.string.enter_edit_mode, Toast.LENGTH_SHORT).show();
-				finish();
 				break;
 		
 			default:

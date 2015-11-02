@@ -121,6 +121,7 @@ public class SQLiteDAO {
 	 * @return
 	 */
 	public App[][] selectAppTable(String targetPackageName) {
+
 		String selection = AppTableColumnName_8.PACKAGE_NAME + "=?";
 		String[] selectionArgs = { targetPackageName };
 		SQLiteDatabase db = sdbh.getReadableDatabase();
@@ -177,9 +178,15 @@ public class SQLiteDAO {
 	 * @return
 	 */
 	public boolean existsAppCacheTable() {
+
 		SQLiteDatabase db = sdbh.getReadableDatabase();
 		Cursor c = db.query(SQLiteDBH.APP_CACHE_TABLE_8, null, null, null, null, null, null);
-		return c.getCount() > 0;
+		boolean b = c.getCount() > 0;
+
+		c.close();
+		db.close();
+
+		return b;
 	}
 	
 	/**

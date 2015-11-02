@@ -19,7 +19,6 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Vibrator;
 import android.provider.Settings;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.ssmomonga.ssflicker.DonateActivity;
@@ -63,8 +62,6 @@ public class Launch {
 	 * @param r
 	 */
 	public void launch(App app, Rect r) {
-		if (!checkPermission(app)) return;
-
 		switch (app.getAppType()) {
 			case App.APP_TYPE_INTENT_APP:
 				IntentAppInfo intentApp = app.getIntentAppInfo();
@@ -79,7 +76,6 @@ public class Launch {
 						launchIntentApp(intentApp, r);
 						break;
 				}
-				((Activity) context).finish();
 
 				break;
 
@@ -88,55 +84,6 @@ public class Launch {
 				break;
 			}
 
-	}
-
-	/**
-	 * checkPermission()
-	 *
-	 * @param app
-	 * @return
-	 */
-	private boolean checkPermission(App app) {
-		switch (app.getAppType()) {
-			case App.APP_TYPE_INTENT_APP:
-				IntentAppInfo intentApp = app.getIntentAppInfo();
-
-				if (intentApp.getIntent().getAction().equals(Intent.ACTION_CALL)) {
-					if (DeviceSettings.checkPermission(context, Manifest.permission.CALL_PHONE)) {
-						return true;
-
-					} else {
-						((Activity) context).requestPermissions(new String[] { Manifest.permission.CALL_PHONE },
-								FlickerActivity.REQUEST_PERMISSION_CODE_CALL_PHONE);
-						return false;
-
-					}
-				} else {
-					return true;
-
-				}
-
-			case App.APP_TYPE_FUNCTION:
-				FunctionInfo functionApp = app.getFunctionInfo();
-				if (functionApp.getFunctionType() == FunctionInfo.FUNCTION_TYPE_ROTATE) {
-					if (DeviceSettings.checkPermission(context, Manifest.permission.WRITE_SETTINGS)) {
-						return true;
-
-					} else {
-						Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS,
-								Uri.parse("package:" + context.getPackageName()));
-						((Activity) context).startActivityForResult(intent, FlickerActivity.REQUEST_CODE_WRITE_SETTINGS);
-						Toast.makeText(context, R.string.require_permission_write_settings, Toast.LENGTH_SHORT).show();
-						return false;
-
-					}
-				} else {
-					return true;
-				}
-
-			default:
-				return true;
-		}
 	}
 
 	/**
@@ -407,7 +354,7 @@ public class Launch {
 		Intent intent = new Intent().setClass(context, PrefActivity.class);
 		context.startActivity(intent);
 	}
-	
+
 	/**
 	 * launchPrefSubActivity()
 	 *
@@ -431,9 +378,9 @@ public class Launch {
 	 * launchAppinfo()
 	 */
 	public void launchAppInfo() {
-		Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-		intent.setData(Uri.parse("package:" + context.getPackageName()));
-		context.startActivity(intent);
+		Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+				.setData(Uri.parse("package:" + context.getPackageName()));
+		((Activity) context).startActivityForResult(intent, PrefActivity.REQUEST_CODE_APP_INFO);
 	}
 
 	/**

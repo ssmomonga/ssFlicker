@@ -1,7 +1,6 @@
 package com.ssmomonga.ssflicker.view;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -141,7 +140,7 @@ public class AppWindow extends TableLayout {
 				tv_app[i].setVisibility(View.VISIBLE);
 				
 			} else {
-				tv_app[i].setVisibility(View.GONE);				
+				tv_app[i].setVisibility(View.GONE);
 			}
 		}
 		
@@ -201,15 +200,6 @@ public class AppWindow extends TableLayout {
 	}
 	
 	/**
-	 * setPointerIcon()
-	 *
-	 * @param d
-	 */
-	public void _setPointerIcon(Drawable d) {
-		iv_pointer.setImageDrawable(d);
-	}
-	
-	/**
 	 * setPointed()
 	 *
 	 * @param pointed
@@ -229,15 +219,11 @@ public class AppWindow extends TableLayout {
 	 * @param pointed
 	 */
 	public void setPointerPointed (boolean pointed) {
-//		if (animation) {
-			if (pointed) {
-				ll_pointer.startAnimation(anim_pointer_pointed);
-			} else {
-				ll_pointer.startAnimation(anim_pointer_unpointed);
-			}
-//		} else {
-//			ll_pointer.clearAnimation();
-//		}
+		if (pointed) {
+			ll_pointer.startAnimation(anim_pointer_pointed);
+		} else {
+			ll_pointer.startAnimation(anim_pointer_unpointed);
+		}
 	}
 	
 	/**

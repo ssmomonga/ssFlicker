@@ -1,4 +1,4 @@
-package com.ssmomonga.ssflicker;
+package com.ssmomonga.ssflicker.etc;
 
 import android.app.Activity;
 import android.content.Intent;

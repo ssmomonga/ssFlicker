@@ -55,8 +55,8 @@ public class PrefSubActivity extends Activity {
 	private static Switch sw_default;
 	private static SwitchPreference home_key;
 	private static ListPreference home_key_another_home;
-	private static ListPreference home_key_click_mode;
-	private static ListPreference home_key_click_interval;
+//	private static ListPreference home_key_click_mode;
+//	private static ListPreference home_key_click_interval;
 	private static SwitchPreference now;
 	private static SwitchPreference search_key;
 	
@@ -73,6 +73,7 @@ public class PrefSubActivity extends Activity {
 	private static Activity activity;
 	private static PrefDAO pdao;
 	private static Launch l;
+	private static boolean finish = true;
 
 	private static Intent bindOverlayServiceIntent;
 	private static Messenger overlayServiceMessenger;
@@ -110,7 +111,7 @@ public class PrefSubActivity extends Activity {
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			l.launchPrefActivity();
-			finish();
+//			finish();
 		}
 		return false;
 	}
@@ -153,6 +154,8 @@ public class PrefSubActivity extends Activity {
 				}
 				break;
 		}
+
+		finish = true;
 	}
 
 	/**
@@ -207,7 +210,10 @@ public class PrefSubActivity extends Activity {
 				activity.unbindService(overlayServiceConn);
 				overlay_point_background_color.dismissColorPicker();
 			}
-			if (dialog != null && dialog.isShowing()) dialog.dismiss();
+			if (finish) {
+				if (dialog != null && dialog.isShowing()) dialog.dismiss();
+				activity.finish();
+			}
 		}
 
 		/**
@@ -234,10 +240,10 @@ public class PrefSubActivity extends Activity {
 					home_key.setOnPreferenceChangeListener(new PreferenceChangeListener());
 					home_key_another_home = (ListPreference) findPreference(PrefDAO.HOME_KEY_ANOTHER_HOME);
 					home_key_another_home.setOnPreferenceChangeListener(new PreferenceChangeListener());
-					home_key_click_mode = (ListPreference) findPreference(PrefDAO.HOME_KEY_CLICK_MODE);
-					home_key_click_mode.setOnPreferenceChangeListener(new PreferenceChangeListener());
-					home_key_click_interval = (ListPreference) findPreference(PrefDAO.HOME_KEY_CLICK_INTERVAL);
-					home_key_click_interval.setOnPreferenceChangeListener(new PreferenceChangeListener());
+//					home_key_click_mode = (ListPreference) findPreference(PrefDAO.HOME_KEY_CLICK_MODE);
+//					home_key_click_mode.setOnPreferenceChangeListener(new PreferenceChangeListener());
+//					home_key_click_interval = (ListPreference) findPreference(PrefDAO.HOME_KEY_CLICK_INTERVAL);
+//					home_key_click_interval.setOnPreferenceChangeListener(new PreferenceChangeListener());
 					now = (SwitchPreference) findPreference(PrefDAO.NOW);
 					now.setOnPreferenceClickListener(new PreferenceClickListener());
 					now.setOnPreferenceChangeListener(new PreferenceChangeListener());
@@ -307,9 +313,9 @@ public class PrefSubActivity extends Activity {
 						home_key_another_home.setDefaultValue(entryValuesList[0].toString());
 					}
 					setSummary(home_key_another_home, pdao.getHomeKeyAnotherHome());
-					setSummary(home_key_click_mode, pdao.getRawHomeKeyClickMode());
-					if (pdao.getHomeKeyClickMode() == 1) home_key_click_interval.setEnabled(false);
-					setSummary(home_key_click_interval, pdao.getRawHomeKeyClickInterval());
+//					setSummary(home_key_click_mode, pdao.getRawHomeKeyClickMode());
+//					if (pdao.getHomeKeyClickMode() == 1) home_key_click_interval.setEnabled(false);
+//					setSummary(home_key_click_interval, pdao.getRawHomeKeyClickInterval());
 
 					boolean b_now = DeviceSettings.isNow(activity);
 					now.setChecked(b_now);
@@ -406,7 +412,7 @@ public class PrefSubActivity extends Activity {
 				Bundle b = new Bundle();
 				if (preference == home_key) {
 				} else if (preference == home_key_another_home) {
-				} else if (preference == home_key_click_mode) {
+/*				} else if (preference == home_key_click_mode) {
 					switch (Integer.parseInt(newValue.toString())) {
 						case 1:
 							home_key_click_interval.setEnabled(false);
@@ -417,7 +423,7 @@ public class PrefSubActivity extends Activity {
 					}
 
 				} else if (preference == home_key_click_interval) {
-				} else if (preference == now) {
+*/				} else if (preference == now) {
 				} else if (preference == search_key) {
 				} else if (preference == overlay_point[0] || preference == overlay_point[1]) {
 
@@ -445,6 +451,7 @@ public class PrefSubActivity extends Activity {
 							activity.startActivityForResult(intent, REQUEST_CODE_SYSTEM_ALERT_WINDOW);
 							Toast.makeText(activity, R.string.require_permission_system_alert_window,
 									Toast.LENGTH_SHORT).show();
+							finish = false;
 
 						}
 
@@ -545,7 +552,7 @@ public class PrefSubActivity extends Activity {
 					}
 				}
 
-			} else if (preference == home_key_click_mode) {
+/*			} else if (preference == home_key_click_mode) {
 
 				switch (Integer.parseInt((String) value)) {
 					case 1:
@@ -587,7 +594,7 @@ public class PrefSubActivity extends Activity {
 						preference.setSummary(R.string.int_1000_ms);
 						break;
 				}
-				
+*/
 			} else if (preference == now) {
 			} else if (preference == search_key) {
 			} else if (preference == overlay_point[0] || preference == overlay_point[1]) {

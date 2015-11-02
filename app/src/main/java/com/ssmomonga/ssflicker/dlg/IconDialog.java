@@ -8,13 +8,13 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
 
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.BaseData;
-import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.data.CustomAdapters.IconAdapter;
+import com.ssmomonga.ssflicker.data.IconList;
 
 /**
  * IconDialog
@@ -153,39 +153,24 @@ public class IconDialog {
 			setAdapter();
 
 			if (iconType == IconList.LABEL_ICON_TYPE_ORIGINAL) {
-				
+
 				//アイコンカラー
 				setButton(BUTTON_NEUTRAL, context.getResources().getText(R.string.icon_color), new DialogInterface.OnClickListener(){
-					/**
-					 * onClick()
-					 *
-					 * @param dialog
-					 * @param id
-					 */
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
 					}
 				});
-				
+
 				//アイコンカラー
 				setOnShowListener(new DialogInterface.OnShowListener() {
-					/**
-					 * onShow()
-					 * @param dialog
-					 */
 					@Override
-					public void onShow (DialogInterface dialog) {
+					public void onShow(DialogInterface dialog) {
 						getButton(BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
 							@Override
-							public void onClick (View v) {
-								new ColorPicker (context, ColorPicker.COLOR_TYPE_ICON, iconColor) {
-									/**
-									 * onSettings()
-									 *
-									 * @param newColor
-									 */
+							public void onClick(View v) {
+								new ColorPicker(context, ColorPicker.COLOR_TYPE_ICON, iconColor) {
 									@Override
-									public void onSettings (int newColor) {
+									public void onSettings(int newColor) {
 										iconColor = newColor;
 										setAdapter();
 									}

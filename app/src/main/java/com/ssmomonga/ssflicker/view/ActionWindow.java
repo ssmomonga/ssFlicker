@@ -25,15 +25,18 @@ import com.ssmomonga.ssflicker.set.WindowParams;
 public class ActionWindow extends TableLayout {
 
 	private Context context;
-	
+
+	private static LinearLayout ll_center;
 	private static ImageView iv_center;
 	private static TextView tv_center;
 	private static final LinearLayout[] ll_action = new LinearLayout[App.FLICK_APP_COUNT];
 	private static final ImageView[] iv_action = new ImageView[App.FLICK_APP_COUNT];
 	private static final TextView[] tv_action = new TextView[App.FLICK_APP_COUNT];
 	
-	private static final Animation[] anim_icon_pointed = new Animation[App.FLICK_APP_COUNT];
-	private static final Animation[] anim_icon_unpointed = new Animation[App.FLICK_APP_COUNT];
+	private static Animation anim_center_pointed;
+	private static Animation anim_center_unpointed;
+	private static final Animation[] anim_action_pointed = new Animation[App.FLICK_APP_COUNT];
+	private static final Animation[] anim_action_unpointed = new Animation[App.FLICK_APP_COUNT];
 	private static Animation anim_window_open;
 	
 	/**
@@ -56,6 +59,7 @@ public class ActionWindow extends TableLayout {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.action_window, this, true);
 
+		ll_center = (LinearLayout) findViewById(R.id.ll_center);
 		iv_center = (ImageView) findViewById(R.id.iv_center);
 		tv_center = (TextView) findViewById(R.id.tv_center);
 
@@ -85,10 +89,12 @@ public class ActionWindow extends TableLayout {
 		tv_action[5] = (TextView) findViewById(R.id.tv_action_5);
 		tv_action[6] = (TextView) findViewById(R.id.tv_action_6);
 		tv_action[7] = (TextView) findViewById(R.id.tv_action_7);
-		
+
+		anim_center_pointed = AnimationUtils.loadAnimation(context, R.anim.icon_pointed);
+		anim_center_unpointed = AnimationUtils.loadAnimation(context, R.anim.icon_unpointed);
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
-			anim_icon_pointed[i] = AnimationUtils.loadAnimation(context, R.anim.icon_pointed);
-			anim_icon_unpointed[i] = AnimationUtils.loadAnimation(context, R.anim.icon_unpointed);
+			anim_action_pointed[i] = AnimationUtils.loadAnimation(context, R.anim.icon_pointed);
+			anim_action_unpointed[i] = AnimationUtils.loadAnimation(context, R.anim.icon_unpointed);
 		}
 		anim_window_open = AnimationUtils.loadAnimation(context, R.anim.open_window);
 
@@ -273,9 +279,19 @@ public class ActionWindow extends TableLayout {
 	 */
 	public void setActionPointed(boolean pointed, int oldPosition, int position) {
 		if (pointed) {
-			if (oldPosition != -1) ll_action[oldPosition].startAnimation(anim_icon_unpointed[oldPosition]);
-			if (position != -1) ll_action[position].startAnimation(anim_icon_pointed[position]);
+			if (oldPosition == -1) {
+				ll_center.startAnimation(anim_center_unpointed);
+			} else {
+				ll_action[oldPosition].startAnimation(anim_action_unpointed[oldPosition]);
+			}
+			if (position == -1) {
+				ll_center.startAnimation(anim_center_pointed);
+			} else {
+				ll_action[position].startAnimation(anim_action_pointed[position]);
+			}
+
 		} else {
+			if (oldPosition == -1 || position == -1) ll_center.clearAnimation();
 			if (oldPosition != -1) ll_action[oldPosition].clearAnimation();
 			if (position != -1) ll_action[position].clearAnimation();
 		}

@@ -41,36 +41,6 @@
 		<item>48</item>
 		<item>80</item>
 	</string-array>
-    <string-array name="home_key_click_interval_entries">
-		<item>@string/int_200_ms</item>
-		<item>@string/int_300_ms</item>
-		<item>@string/int_400_ms</item>
-		<item>@string/int_500_ms</item>
-		<item>@string/int_600_ms</item>
-		<item>@string/int_700_ms</item>
-		<item>@string/int_800_ms</item>
-		<item>@string/int_900_ms</item>
-		<item>@string/int_1000_ms</item>
-		</string-array>
-    <string-array name="home_key_click_interval_entryvalues">
-		<item>200</item>
-		<item>300</item>
-		<item>400</item>
-		<item>500</item>
-		<item>600</item>
-		<item>700</item>
-		<item>800</item>
-		<item>900</item>
-		<item>1000</item>
-	</string-array>
-    <string-array name="home_key_click_mode_entries">
-		<item>@string/home_key_click_mode_single</item>
-		<item>@string/home_key_click_mode_double</item>
-	</string-array>
-    <string-array name="home_key_click_mode_entryvalues">
-		<item>1</item>
-		<item>2</item>
-	</string-array>
     <string-array name="icon_size_entries">
 		<item>@string/icon_size_tiny</item>
 		<item>@string/icon_size_small</item>

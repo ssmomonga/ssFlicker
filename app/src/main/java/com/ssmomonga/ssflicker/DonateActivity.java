@@ -62,6 +62,7 @@ public class DonateActivity extends Activity {
 	private static TextView tv_thanks;
 	private static Button b_consume;
 	private static boolean isOwned;
+	private static boolean finish = true;
 
 	private static Launch l;
 	private static PrefDAO pdao;
@@ -111,6 +112,15 @@ public class DonateActivity extends Activity {
 		intent.setPackage("com.android.vending");
 		bindService(intent, mServiceConn, BIND_AUTO_CREATE);
 		
+	}
+
+	/**
+	 * onPause()
+	 */
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (finish) finish();
 	}
 
 	/**
@@ -302,12 +312,13 @@ public class DonateActivity extends Activity {
 					PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
 					startIntentSenderForResult(pendingIntent.getIntentSender(),
 							REQUEST_CODE, new Intent(), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
+					finish = false;
 
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				} catch (SendIntentException e) {
 					e.printStackTrace();
-				} 				
+				}
 			}
 		});
 		
@@ -398,6 +409,8 @@ public class DonateActivity extends Activity {
 			case RESULT_CANCELED:
 				break;
 		}
+
+		finish = true;
 	}
 
 	/**

@@ -3,11 +3,8 @@ package com.ssmomonga.ssflicker.dlg;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.net.Uri;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -18,7 +15,7 @@ import com.ssmomonga.ssflicker.proc.Launch;
 /**
  * AboutDialog
  */
-public class AboutDialog extends AlertDialog {
+public abstract class AboutDialog extends AlertDialog {
 
 	private Context context;
 
@@ -53,10 +50,22 @@ public class AboutDialog extends AlertDialog {
 			e.printStackTrace();
 		}
 
-		setButton(this.BUTTON_NEUTRAL, context.getResources().getString(R.string.app_info), new DialogInterface.OnClickListener() {
+		setButton(BUTTON_NEUTRAL, context.getResources().getString(R.string.app_info), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
-				new Launch(context).launchAppInfo();
+			}
+		});
+
+		setOnShowListener(new DialogInterface.OnShowListener() {
+			@Override
+			public void onShow(DialogInterface dialog) {
+				getButton(BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						launchAppInfo();
+						new Launch(context).launchAppInfo();
+					}
+				});
 			}
 		});
 
@@ -64,7 +73,12 @@ public class AboutDialog extends AlertDialog {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {}
 		});
-		
+
 	}
+
+	/*
+	 * launchAppInfo()
+	 */
+	public abstract void launchAppInfo();
 	
 }

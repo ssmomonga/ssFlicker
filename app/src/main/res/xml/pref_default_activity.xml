@@ -8,7 +8,7 @@
 			android:title="@string/home_key_another_home"
 			android:dialogTitle="@string/home_key_another_home"
 			android:dependency="home_key" />
-	   	<ListPreference
+		<!-- ListPreference
 			android:key="home_key_click_mode"
 			android:title="@string/home_key_click_mode"
 			android:dialogTitle="@string/home_key_click_mode"
@@ -23,7 +23,7 @@
 			android:entries="@array/home_key_click_interval_entries"
 			android:entryValues="@array/home_key_click_interval_entryvalues"
 			android:defaultValue="500"
-			android:dependency="home_key" />
+			android:dependency="home_key" /-->
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/launch_by_now">

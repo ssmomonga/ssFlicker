@@ -5,12 +5,10 @@ import android.app.Activity;
 import android.appwidget.AppWidgetHost;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProviderInfo;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
@@ -27,6 +25,7 @@ import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -49,7 +48,6 @@ import com.ssmomonga.ssflicker.dlg.EditDialog;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
 import com.ssmomonga.ssflicker.proc.Launch;
 import com.ssmomonga.ssflicker.set.AppWidgetHostSettings;
-import com.ssmomonga.ssflicker.set.BootSettings;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
 import com.ssmomonga.ssflicker.set.WindowOrientationParams;
 import com.ssmomonga.ssflicker.set.WindowParams;
@@ -108,23 +106,13 @@ public class EditorActivity extends Activity {
 	private static SQLiteDAO sdao;
 	private static Launch l;
 	private static AppWidgetHost appWidgetHost;
-	private static boolean homeKey;
 	private static int orientation;
 	private static Pointer[] pointerList;
 	private static App[][] appListList;
 	private static int pointerId;
 	private static int appId;
-	
-	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
-				l.launchAnotherHome(homeKey);
-				finish();
-			}
-		}
-	};
-	
+	private static boolean finish = true;
+
 	/**
 	 * onCreate()
 	 *
@@ -153,12 +141,6 @@ public class EditorActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (homeKey = new BootSettings(this).isHomeKey()) {
-			IntentFilter filter = new IntentFilter();
-			filter.addAction(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
-			registerReceiver(mReceiver, filter);
-		}
-
 		setLayout();
 		setOrientationLayout();
 	}
@@ -185,7 +167,7 @@ public class EditorActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (homeKey) unregisterReceiver(mReceiver);
+		if (finish) finish();
 	}
 
 	/**
@@ -235,6 +217,8 @@ public class EditorActivity extends Activity {
 									icon = resources.getDrawable(id, null);
 
 								} catch (NameNotFoundException e) {
+									setOnFlickListener();
+									finish = true;
 									e.printStackTrace();
 								}
 							}
@@ -258,6 +242,7 @@ public class EditorActivity extends Activity {
 
 						addApp(shortcutApp);
 						setOnFlickListener();
+						finish = true;
 						break;
 
 					case REQUEST_CODE_ADD_APPWIDGET:
@@ -272,6 +257,7 @@ public class EditorActivity extends Activity {
 
 						} else {
 							onActivityResult(REQUEST_CODE_ADD_APPWIDGET_2, RESULT_OK, data);
+
 						}
 						break;
 			
@@ -300,7 +286,8 @@ public class EditorActivity extends Activity {
 
 						addApp(appWidget2);
 						setOnFlickListener();
-				
+						finish = true;
+
 						break;
 
 					case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING:
@@ -343,56 +330,63 @@ public class EditorActivity extends Activity {
 							is.close();
 
 						} catch (FileNotFoundException e) {
+							editDialog.setCancelable(true);
+							editDialog.setCanceledOnTouchOutside(true);
+							finish = true;
 							deleteTrimmingCacheFile();
 							e.printStackTrace();
 
 						} catch (IOException e) {
+							editDialog.setCancelable(true);
+							editDialog.setCanceledOnTouchOutside(true);
+							finish = true;
 							deleteTrimmingCacheFile();
 							e.printStackTrace();
 						}
 
+
 						MediaScannerConnection.scanFile(this, cacheFileName, new String[]{mimeType},
 								new MediaScannerConnection.OnScanCompletedListener() {
 
-							@Override
-							public void onScanCompleted(String string, Uri uris) {
-								Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-								Cursor c = getContentResolver().query(
-										baseUri,
-										null,
-										MediaStore.Images.ImageColumns.DATA + " = ?",
-										cacheFileName,
-										null);
-								c.moveToFirst();
+									@Override
+									public void onScanCompleted(String string, Uri uris) {
+										Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+										Cursor c = getContentResolver().query(
+												baseUri,
+												null,
+												MediaStore.Images.ImageColumns.DATA + " = ?",
+												cacheFileName,
+												null);
+										c.moveToFirst();
 
-								String contentName = baseUri.toString() + "/" +
-										c.getInt(c.getColumnIndex(MediaStore.MediaColumns._ID));
-								c.close();
-								Uri cacheFileUri = Uri.parse(contentName);
+										String contentName = baseUri.toString() + "/" +
+												c.getInt(c.getColumnIndex(MediaStore.MediaColumns._ID));
+										c.close();
+										Uri cacheFileUri = Uri.parse(contentName);
 
-								File trimmingCacheFile = new File(DeviceSettings.getExternalDir(EditorActivity.this),
-										System.currentTimeMillis() + TRIMMING_CACHE_FILE_NAME);
-								Uri trimmingFileUri = Uri.fromFile(trimmingCacheFile);
+										File trimmingCacheFile = new File(DeviceSettings.getExternalDir(EditorActivity.this),
+												System.currentTimeMillis() + TRIMMING_CACHE_FILE_NAME);
+										Uri trimmingFileUri = Uri.fromFile(trimmingCacheFile);
 
-								Intent intent = new Intent()
-										.setDataAndType(cacheFileUri, mimeType)
-										.setAction("com.android.camera.action.CROP")
-										.putExtra("outputX", getResources().getDimensionPixelSize(R.dimen.icon_size))
-										.putExtra("outputY", getResources().getDimensionPixelSize(R.dimen.icon_size))
-										.putExtra("aspectX", 1)
-										.putExtra("aspectY", 1)
-										.putExtra("scale", true)
-										.putExtra("outputFormat", Bitmap.CompressFormat.PNG.name())
-										.putExtra(MediaStore.EXTRA_OUTPUT, trimmingFileUri);
-								startActivityForResult(intent, requestCode + 1);
+										Intent intent = new Intent()
+												.setDataAndType(cacheFileUri, mimeType)
+												.setAction("com.android.camera.action.CROP")
+												.putExtra("outputX", getResources().getDimensionPixelSize(R.dimen.icon_size))
+												.putExtra("outputY", getResources().getDimensionPixelSize(R.dimen.icon_size))
+												.putExtra("aspectX", 1)
+												.putExtra("aspectY", 1)
+												.putExtra("scale", true)
+												.putExtra("outputFormat", Bitmap.CompressFormat.PNG.name())
+												.putExtra(MediaStore.EXTRA_OUTPUT, trimmingFileUri);
+										startActivityForResult(intent, requestCode + 1);
 
-							}
-						});
+									}
+								});
+
 						break;
 
 					case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING_2:
 					case REQUEST_CODE_EDIT_APP_ICON_TRIMMING_2:
-
 						if (!DeviceSettings.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
 								editDialog == null || !editDialog.isShowing()) {
 
@@ -410,8 +404,17 @@ public class EditorActivity extends Activity {
 							parcelFileDescriptor.close();
 
 						} catch (FileNotFoundException e) {
+							editDialog.setCancelable(true);
+							editDialog.setCanceledOnTouchOutside(true);
+							finish = true;
+							deleteTrimmingCacheFile();
 							e.printStackTrace();
+
 						} catch (IOException e) {
+							editDialog.setCancelable(true);
+							editDialog.setCanceledOnTouchOutside(true);
+							finish = true;
+							deleteTrimmingCacheFile();
 							e.printStackTrace();
 						}
 
@@ -424,9 +427,10 @@ public class EditorActivity extends Activity {
 
 						editDialog.setIconBitmap(bitmap, targetIcon, IconList.LABEL_ICON_TYPE_CUSTOM, 0);
 
-						deleteTrimmingCacheFile();
 						editDialog.setCancelable(true);
 						editDialog.setCanceledOnTouchOutside(true);
+						finish = true;
+						deleteTrimmingCacheFile();
 
 						break;
 				}
@@ -460,6 +464,8 @@ public class EditorActivity extends Activity {
 						}
 						break;
 				}
+				finish = true;
+
 				break;
 		}
 
@@ -545,6 +551,8 @@ public class EditorActivity extends Activity {
 				}
 				break;
 		}
+
+		finish = true;
 	}
 
 	/**
@@ -1332,6 +1340,8 @@ public class EditorActivity extends Activity {
 			public void onSelectIntentApp (App app) {
 				if (app.getIntentAppInfo().getIntentAppType() == IntentAppInfo.INTENT_APP_TYPE_SHORTCUT) {
 					startActivityForResult(app.getIntentAppInfo().getIntent(), EditorActivity.REQUEST_CODE_ADD_SHORTCUT);
+					finish = false;
+
 				} else {
 					addApp(app);
 				}
@@ -1354,12 +1364,14 @@ public class EditorActivity extends Activity {
 					Intent intent = new Intent()
 							.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 					onActivityResult(REQUEST_CODE_ADD_APPWIDGET, RESULT_OK, intent);
+					finish = false;
 
 				} else {
 					Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_BIND)
 							.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
 							.putExtra(AppWidgetManager.EXTRA_APPWIDGET_PROVIDER, componentName);
 					startActivityForResult(intent, REQUEST_CODE_ADD_APPWIDGET);
+					finish = false;
 				}
 			
 			}
@@ -1741,19 +1753,16 @@ public class EditorActivity extends Activity {
 		switch (position) {
 			case MenuList.MENU_ANDROID_SETTINGS:
 				l.launchAndroidSettings();
-				finish();
 				break;
 		
 			case MenuList.MENU_SSFLICKER_SETTINGS:
 				l.launchPrefActivity();
-				finish();
 				break;
 		
 			case MenuList.MENU_FLICK_MODE:
 				l.launchFlickerActivity();
 				Toast.makeText(this, R.string.enter_flick_mode, Toast.LENGTH_SHORT).show();
-				finish();
-				break;			
+				break;
 		}
 	}
 
@@ -1785,6 +1794,7 @@ public class EditorActivity extends Activity {
 			editDialog.setCanceledOnTouchOutside(false);
 			Intent intent = new Intent(Intent.ACTION_GET_CONTENT).setType("image/*");
 			startActivityForResult(intent, requestCode);
+			finish = false;
 
 		} else {
 			switch (iconTarget) {
@@ -1798,6 +1808,7 @@ public class EditorActivity extends Activity {
 			}
 
 			requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE }, requestCode);
+			finish = false;
 
 		}
 	}
