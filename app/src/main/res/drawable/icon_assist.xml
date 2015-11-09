@@ -3,15 +3,15 @@
 		android:state_enabled="true"
 		android:state_active="false"
 		android:state_focused="false"
-		android:drawable="@drawable/icon_assist" />
+		android:drawable="@mipmap/icon_assist" />
 	<item 
 		android:state_enabled="true"
 		android:state_active="true"
 		android:state_focused="false"
-		android:drawable="@drawable/icon_assist" />
+		android:drawable="@mipmap/icon_assist" />
 	<item 
 		android:state_enabled="true"
 		android:state_active="false"
 		android:state_focused="true"
-		android:drawable="@drawable/icon_assist" />
+		android:drawable="@mipmap/icon_assist" />
 </selector>
