@@ -134,7 +134,8 @@ public class AppList {
 
 		for (AppWidgetProviderInfo info : appWidgetProviderInfoList) {
 
-			int[] minCellSize = new AppWidgetInfo(context, info).getAppWidgetMinCellSize();
+			AppWidgetInfo appwidgetInfo = new AppWidgetInfo(context, info, true);
+			int[] minCellSize = appwidgetInfo.getAppWidgetMinCellSize();
 			int deviceCellCount = DeviceSettings.getDeviceCellSize(context);
 			
 			if (minCellSize[0] > 0 && minCellSize[0] <= deviceCellCount && 
@@ -151,7 +152,7 @@ public class AppList {
 							IconList.LABEL_ICON_TYPE_APPWIDGET,
 							icon,
 							IconList.LABEL_ICON_TYPE_APPWIDGET,
-							new AppWidgetInfo(context, info, 0));
+							appwidgetInfo);
 					appWidgetList.add(appWidget);
 				}
 

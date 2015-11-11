@@ -2,6 +2,7 @@ package com.ssmomonga.ssflicker.data;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,6 +119,7 @@ public class CustomAdapters {
 				LayoutInflater inflater = LayoutInflater.from(context);
 				convertView = inflater.inflate(resource, parent, false);
 				holder = new ViewHolder();
+				holder.iv_appwidget_icon = (ImageView) convertView.findViewById(R.id.iv_appwidget_icon);
 				holder.iv_preview_image = (ImageView) convertView.findViewById(R.id.iv_preview_image);
 				holder.tv_label = (TextView) convertView.findViewById(R.id.tv_label);
 				holder.tv_size = (TextView) convertView.findViewById(R.id.tv_size);
@@ -128,7 +130,9 @@ public class CustomAdapters {
 			}
 			
 			App app = getItem(position);
+			Drawable appWidgetIcon = app.getAppWidgetInfo().getAppWidgetIcon();
 			Bitmap previewImage = app.getAppWidgetInfo().getAppWidgetPreviewImage();
+			holder.iv_appwidget_icon.setImageDrawable(appWidgetIcon);
 			holder.iv_preview_image.setImageBitmap(previewImage);
 			holder.tv_label.setText(app.getAppLabel());
 			holder.tv_size.setText(app.getAppWidgetInfo().getAppWidgetMinCellSizeString());
@@ -140,6 +144,7 @@ public class CustomAdapters {
 		 * ViewHolder
 		 */
 		private class ViewHolder {
+			ImageView iv_appwidget_icon;
 			ImageView iv_preview_image;
 			TextView tv_label;
 			TextView tv_size;

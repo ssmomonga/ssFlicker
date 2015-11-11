@@ -266,7 +266,7 @@ public class EditorActivity extends Activity {
 						AppWidgetProviderInfo info2 = AppWidgetManager.getInstance(this).getAppWidgetInfo(appWidgetId2);
 				
 						int[] cellSize = {1, 1};
-						cellSize = new AppWidgetInfo(this, info2).getAppWidgetMinCellSize();
+						cellSize = new AppWidgetInfo(this, info2, false).getAppWidgetMinCellSize();
 				
 						App appWidget2 = new App (
 								this,

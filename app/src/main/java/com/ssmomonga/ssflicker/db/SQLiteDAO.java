@@ -201,8 +201,7 @@ public class SQLiteDAO {
 
 		App[] appCacheList = new App[c.getCount()];
 		while(c.moveToNext()) {
-			int i = c.getPosition();
-			appCacheList[i] = createAppCache(c);
+			appCacheList[c.getPosition()] = createAppCache(c);
 		}
 
 		c.close();

@@ -547,7 +547,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 				String whereClause = AppTableColumnName_1.APPWIDGET_ID + "=" + appWidgetId;
 
 				int[] cellSize = {1, 1};
-				cellSize = new AppWidgetInfo(context, appWidgetProviderInfo).getAppWidgetMinCellSize();
+				cellSize = new AppWidgetInfo(context, appWidgetProviderInfo, false).getAppWidgetMinCellSize();
 
 				ContentValues cv = new ContentValues();
 				cv.put(AppTableColumnName_1.PACKAGE_NAME, packageName);

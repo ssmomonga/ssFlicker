@@ -21,15 +21,15 @@ import com.ssmomonga.ssflicker.set.DeviceSettings;
 public class AppWidgetInfo {
 
 	private Context context;
+	private AppWidgetProviderInfo appWidgetProviderInfo;
 	private int appWidgetId;
 	private int appWidgetCellPositionX;
 	private int appWidgetCellPositionY;
 	private int appWidgetCellWidth;
 	private int appWidgetCellHeight;
 	private long appWidgetUpdateTime;
+	private Drawable appWidgetIcon;
 	private Bitmap previewImage;
-
-	private AppWidgetProviderInfo appWidgetProviderInfo;
 
 	/**
 	 * Constructor
@@ -65,54 +65,15 @@ public class AppWidgetInfo {
 	 *
 	 * @param context
 	 * @param info
+	 * @param createPreviewImage
 	 */
-	public AppWidgetInfo(Context context, AppWidgetProviderInfo info) {
+	public AppWidgetInfo(Context context, AppWidgetProviderInfo info, boolean createPreviewImage) {
 		this.context = context;
 		this.appWidgetProviderInfo = info;
-	}
-
-	/**
-	 * Constructor
-	 *
-	 * @param context
-	 * @param info
-	 * @param flag
-	 */
-	public AppWidgetInfo(Context context, AppWidgetProviderInfo info, int flag) {
-		this.context = context;
-		this.appWidgetProviderInfo = info;
-		this.previewImage = createAppWidgetPreviewImage();
-	}
-	
-	/**
-	 * getAppWidgetRawLabel()
-	 *
-	 * @return
-	 */
-	public String getAppWidgetRawLabel() {
-		if (appWidgetProviderInfo != null) {
-			return appWidgetProviderInfo.loadLabel(context.getPackageManager()).replaceAll("\n", " ");
-		} else {
-			return context.getResources().getString(R.string.unknown);
+		if (createPreviewImage) {
+			this.appWidgetIcon = createAppWidgetIcon();
+			this.previewImage = createAppWidgetPreviewImage();
 		}
-	}
-
-	/**
-	 * getAppWidgetRawIcon()
-	 *
-	 * @return
-	 */
-	public Drawable getAppWidgetRawIcon() {
-		return appWidgetProviderInfo != null ?
-				context.getPackageManager().getDrawable(
-						appWidgetProviderInfo.provider.getPackageName(), appWidgetProviderInfo.icon, null) :
-						context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
-
-/**		if (appWidgetProviderInfo != null) {
-			return context.getPackageManager().getDrawable(appWidgetProviderInfo.provider.getPackageName(), appWidgetProviderInfo.icon, null);
-		} else {
-			return context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
-		}	 */
 	}
 
 	/**
@@ -139,7 +100,7 @@ public class AppWidgetInfo {
 	 * @return
 	 */
 	public int[] getAppWidgetCellPosition() {
-		return new int[] {appWidgetCellPositionX, appWidgetCellPositionY};
+		return new int[] { appWidgetCellPositionX, appWidgetCellPositionY };
 	}
 
 	/**
@@ -148,7 +109,7 @@ public class AppWidgetInfo {
 	 * @return
 	 */
 	public int[] getAppWidgetCellSize() {
-		return new int[] {appWidgetCellWidth, appWidgetCellHeight};
+		return new int[] { appWidgetCellWidth, appWidgetCellHeight };
 	}
 
 	/**
@@ -191,11 +152,53 @@ public class AppWidgetInfo {
 		this.appWidgetUpdateTime = appWidgetUpdateTime;
 	}
 
+	public Drawable getAppWidgetIcon() {
+		return appWidgetIcon != null ? appWidgetIcon : createAppWidgetIcon();
+	}
 	/**
-	 * getAppWidgetResizeMode()
+	 * getAppWidgetPreviewImage()
 	 *
 	 * @return
 	 */
+	public Bitmap getAppWidgetPreviewImage() {
+		return previewImage != null ? previewImage : createAppWidgetPreviewImage();
+	}
+
+	/**
+	 * getAppWidgetRawLabel()
+	 *
+	 * @return
+	 */
+	public String getAppWidgetRawLabel() {
+		if (appWidgetProviderInfo != null) {
+			return appWidgetProviderInfo.loadLabel(context.getPackageManager()).replaceAll("\n", " ");
+		} else {
+			return context.getResources().getString(R.string.unknown);
+		}
+	}
+
+	/**
+	 * getAppWidgetRawIcon()
+	 *
+	 * @return
+	 */
+	public Drawable getAppWidgetRawIcon() {
+		return appWidgetIcon != null ?
+				appWidgetIcon :
+				context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
+
+/*		if (appWidgetProviderInfo != null) {
+			return context.getPackageManager().getDrawable(appWidgetProviderInfo.provider.getPackageName(), appWidgetProviderInfo.icon, null);
+		} else {
+			return context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
+ 		} */
+	}
+
+	/**
+		 * getAppWidgetResizeMode()
+		 *
+		 * @return
+		 */
 	public int getAppWidgetResizeMode() {
 		return appWidgetProviderInfo != null ?
 				appWidgetProviderInfo.resizeMode : AppWidgetProviderInfo.RESIZE_NONE;
@@ -247,6 +250,15 @@ public class AppWidgetInfo {
 		return minCellSize[0] + " × " + minCellSize[1];
 	}
 
+	private Drawable createAppWidgetIcon() {
+		if (appWidgetProviderInfo != null) {
+			return appWidgetIcon = context.getPackageManager().getDrawable(
+					appWidgetProviderInfo.provider.getPackageName(), appWidgetProviderInfo.icon, null);
+		} else {
+			return null;
+		}
+	}
+
 	/**
 	 * createAppWidgetPreviewImage()
 	 *
@@ -261,10 +273,7 @@ public class AppWidgetInfo {
 				return previewImage = ImageConverter.resizeAppWidgetPreviewImage(
 						context, ImageConverter.createBitmap(previewImageDrawable));
 			} else {
-				Drawable icon = context.getPackageManager().
-						getDrawable(appWidgetProviderInfo.provider.getPackageName(),
-								appWidgetProviderInfo.icon, null);
-				return previewImage = ImageConverter.resizeBitmap(context, ImageConverter.createBitmap(icon));
+				return ImageConverter.createBitmap(getAppWidgetIcon());
 			}
 		} else {
 			return null;
@@ -272,15 +281,6 @@ public class AppWidgetInfo {
 		
 	}
 
-	/**
-	 * getAppWidgetPreviewImage()
-	 *
-	 * @return
-	 */
-	public Bitmap getAppWidgetPreviewImage() {
-		return previewImage != null ? previewImage : createAppWidgetPreviewImage();
-	}
-	
 	/**
 	 * toCellSize()
 	 *
