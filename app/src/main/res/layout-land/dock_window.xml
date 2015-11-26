@@ -21,7 +21,7 @@
 			android:gravity="center" >
 			<ImageView android:id="@+id/iv_menu"
 				style="@style/lp_wc_wc"
-				android:background="@mipmap/icon_30_etc_menu" />
+				android:background="@mipmap/icon_30_menu_menu" />
 		</LinearLayout>
    	
 		<LinearLayout android:id="@+id/ll_dock_4"

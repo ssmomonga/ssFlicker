@@ -17,8 +17,6 @@ import com.ssmomonga.ssflicker.set.WindowParams;
  */
 public class DockWindow extends LinearLayout {
 	
-	private Context context;
-	
 	private static final LinearLayout[] ll_dock = new LinearLayout[App.DOCK_APP_COUNT];
 	private static final ImageView[] iv_dock = new ImageView[App.DOCK_APP_COUNT];
 	private static LinearLayout ll_menu;
@@ -37,7 +35,6 @@ public class DockWindow extends LinearLayout {
 	 */
 	public DockWindow(Context context, AttributeSet attrs) {
 		super (context, attrs);
-		this.context = context;
 		setInitialLayout();
 	}
 
@@ -45,6 +42,8 @@ public class DockWindow extends LinearLayout {
 	 * setInitialLayout()
 	 */
 	public void setInitialLayout() {
+
+		Context context = getContext();
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.dock_window, this, true);
 
@@ -64,7 +63,7 @@ public class DockWindow extends LinearLayout {
 
 		for (int i = 0; i < App.DOCK_APP_COUNT; i ++) {
 			anim_dock_pointed[i] = AnimationUtils.loadAnimation(context, R.anim.icon_pointed);
-			anim_dock_unfocused[i] = AnimationUtils.loadAnimation(context, R.anim.icon_unpointed);			
+			anim_dock_unfocused[i] = AnimationUtils.loadAnimation(context, R.anim.icon_unpointed);
 		}
 		anim_menu_focused = AnimationUtils.loadAnimation(context, R.anim.icon_pointed);
 		anim_menu_unfocused = AnimationUtils.loadAnimation(context, R.anim.icon_unpointed);
@@ -117,7 +116,7 @@ public class DockWindow extends LinearLayout {
 			if (app != null) {
 				iv_dock[i].setImageDrawable(app.getAppIcon());
 			} else {
-				iv_dock[i].setImageResource(android.R.drawable.ic_menu_add);
+				iv_dock[i].setImageResource(R.mipmap.icon_41_edit_add);
 			}
 		}
 	}

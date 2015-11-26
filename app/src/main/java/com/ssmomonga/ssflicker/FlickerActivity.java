@@ -615,7 +615,7 @@ public class FlickerActivity extends Activity {
 		public void onDown(int position) {
 			dock_window.setMenuPointed(true);
 			action_window.setActionPointed(true, -1, position);
-			action_window.setMenuForFlick(FlickerActivity.this);
+			action_window.setMenuForFlick();
 			action_window.setVisibility(View.VISIBLE);
 		}
 

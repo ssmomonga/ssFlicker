@@ -24,8 +24,6 @@ import com.ssmomonga.ssflicker.set.WindowParams;
  */
 public class ActionWindow extends TableLayout {
 
-	private Context context;
-
 	private static LinearLayout ll_center;
 	private static ImageView iv_center;
 	private static TextView tv_center;
@@ -47,7 +45,6 @@ public class ActionWindow extends TableLayout {
 	 */
 	public ActionWindow(Context context, AttributeSet attrs) {
 		super (context, attrs);
-		this.context = context;
 		setInitialLayout();
 	}
 	
@@ -56,6 +53,7 @@ public class ActionWindow extends TableLayout {
 	 */
 	private void setInitialLayout() {
 
+		Context context = getContext();
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.action_window, this, true);
 
@@ -153,7 +151,7 @@ public class ActionWindow extends TableLayout {
 				iv_action[i].setImageDrawable(appList[i].getAppIcon());
 			} else {
 				tv_action[i].setText(null);
-				iv_action[i].setImageDrawable(null);				
+				iv_action[i].setImageDrawable(null);
 			}
 			
 		}
@@ -162,14 +160,14 @@ public class ActionWindow extends TableLayout {
 	/**
 	 * setEditPointer()
 	 *
-	 * @param context
 	 * @param pointer
 	 * @param pointerWindowVisibility
 	 */
-	public void setEditPointer(Context context, Pointer pointer, int pointerWindowVisibility) {
+	public void setEditPointer(Pointer pointer, int pointerWindowVisibility) {
+		Context context = getContext();
 		if (pointer == null) {
 			tv_center.setText(R.string.add);
-			iv_center.setImageResource(android.R.drawable.ic_menu_add);	
+			iv_center.setImageResource(R.mipmap.icon_41_edit_add);
 			setEdit(EditList.getAddPointerList(context));
 		} else {
 			tv_center.setText(pointer.getPointerLabel());
@@ -181,13 +179,13 @@ public class ActionWindow extends TableLayout {
 	/**
 	 * setEditApp()
 	 *
-	 * @param context
 	 * @param app
 	 */
-	public void setEditApp(Context context, App app) {
+	public void setEditApp(App app) {
+		Context context = getContext();
 		if (app == null) {
 			tv_center.setText(R.string.add);
-			iv_center.setImageResource(android.R.drawable.ic_menu_add);	
+			iv_center.setImageResource(R.mipmap.icon_41_edit_add);
 			setEdit(EditList.getAddAppList(context));
 		} else {
 			tv_center.setText(app.getAppLabel());
@@ -195,18 +193,18 @@ public class ActionWindow extends TableLayout {
 			setEdit(EditList.getEditAppList(context));
 		}
 	}
-	
+
 	/**
 	 * setEditDock()
 	 *
-	 * @param context
 	 * @param app
 	 * @param orientation
 	 */
-	public void setEditDock(Context context, App app, int orientation) {
+	public void setEditDock(App app, int orientation) {
+		Context context = getContext();
 		if (app == null) {
 			tv_center.setText(R.string.add);
-			iv_center.setImageResource(android.R.drawable.ic_menu_add);	
+			iv_center.setImageResource(R.mipmap.icon_41_edit_add);
 			setEdit(EditList.getAddDockList(context));
 		} else {
 			tv_center.setText(app.getAppLabel());
@@ -234,20 +232,16 @@ public class ActionWindow extends TableLayout {
 	
 	/**
 	 * setMenuForEdit()
-	 *
-	 * @param context
 	 */
-	public void setMenuForEdit(Context context) {
-		setMenu(MenuList.getEditorMenuList(context));
+	public void setMenuForEdit() {
+		setMenu(MenuList.getEditorMenuList(getContext()));
 	}
 	
 	/**
 	 * setMenuForFlick()
-	 *
-	 * @param context
 	 */
-	public void setMenuForFlick(Context context) {
-		setMenu(MenuList.getFlickerMenuList(context));
+	public void setMenuForFlick() {
+		setMenu(MenuList.getFlickerMenuList(getContext()));
 	}
 	
 	/**
@@ -257,7 +251,7 @@ public class ActionWindow extends TableLayout {
 	 */
 	private void setMenu(BaseData[] menuList) {
 		tv_center.setText(getResources().getString(R.string.menu));
-		iv_center.setImageResource(R.mipmap.icon_30_etc_menu);
+		iv_center.setImageResource(R.mipmap.icon_30_menu_menu);
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
 			BaseData menu = menuList[i];
 			if (menu != null) {

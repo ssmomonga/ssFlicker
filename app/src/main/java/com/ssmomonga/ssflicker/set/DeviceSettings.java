@@ -263,7 +263,7 @@ public class DeviceSettings {
 			return true;
 
 		} else if (permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
-					permission.equals(Manifest.permission.CALL_PHONE)) {
+				permission.equals(Manifest.permission.CALL_PHONE)) {
 			return (context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
 
 		} else if (permission.equals(Manifest.permission.SYSTEM_ALERT_WINDOW)) {

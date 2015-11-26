@@ -666,7 +666,7 @@ public class EditorActivity extends Activity {
 			pointer_window.setPointerPointed(true, pointerId);
 			app_window.setPointerPointed(true);
 			action_window.setActionPointed(true, -1, position);
-			action_window.setEditPointer(EditorActivity.this, pointerList[pointerId], pointer_window.getVisibility());
+			action_window.setEditPointer(pointerList[pointerId], pointer_window.getVisibility());
 			action_window.setVisibility(View.VISIBLE);
 		}
 
@@ -738,7 +738,7 @@ public class EditorActivity extends Activity {
 				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 					addPointer(new Pointer(Pointer.POINTER_TYPE_RECENT,
 							getString(R.string.pointer_recent),
-							getResources().getDrawable(R.mipmap.icon_51_unused_recent, null),
+							getResources().getDrawable(R.mipmap.icon_91_unused_recent, null),
 							IconList.LABEL_ICON_TYPE_ORIGINAL,
 							0));
 				}
@@ -748,7 +748,7 @@ public class EditorActivity extends Activity {
 				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 					addPointer(new Pointer(Pointer.POINTER_TYPE_TASK,
 							getString(R.string.pointer_task),
-							getResources().getDrawable(R.mipmap.icon_52_unused_task, null),
+							getResources().getDrawable(R.mipmap.icon_92_unused_task, null),
 							IconList.LABEL_ICON_TYPE_ORIGINAL,
 							0));
 				}
@@ -1043,7 +1043,7 @@ public class EditorActivity extends Activity {
 		@Override
 		public void onDown(int position) {
 			action_window.setActionPointed(true, -1, position);
-			action_window.setEditApp(EditorActivity.this, appListList[pointerId][appId]);
+			action_window.setEditApp(appListList[pointerId][appId]);
 			action_window.setVisibility(View.VISIBLE);
 			app_window.setAppPointed(true, appId);
 		}
@@ -1128,7 +1128,7 @@ public class EditorActivity extends Activity {
 		public void onDown(int position) {
 			dock_window.setDockPointed(true, appId);
 			action_window.setActionPointed(true, -1, position);
-			action_window.setEditDock(EditorActivity.this, appListList[pointerId][appId], orientation);
+			action_window.setEditDock(appListList[pointerId][appId], orientation);
 			action_window.setVisibility(View.VISIBLE);
 		}
 
@@ -1706,7 +1706,7 @@ public class EditorActivity extends Activity {
 		public void onDown(int position) {
 			dock_window.setMenuPointed(true);
 			action_window.setActionPointed(true, -1, position);
-			action_window.setMenuForEdit(EditorActivity.this);
+			action_window.setMenuForEdit();
 			action_window.setVisibility(View.VISIBLE);
 		}
 

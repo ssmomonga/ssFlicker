@@ -23,7 +23,6 @@ public class EditList {
 	public static final int EDIT_POINTER_EDIT = 2;
 	public static final int EDIT_POINTER_LEFT = 3;
 	public static final int EDIT_POINTER_RIGHT = 4;
-	public static final int EDIT_POINTER_OPTION = 5;
 	public static final int EDIT_POINTER_DOWN = 6;
 	public static final int EDIT_POINTER_DELETE = 7;
 	
@@ -65,14 +64,14 @@ public class EditList {
 				case ADD_POINTER_RECENT:
 					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 						edit[i] = new BaseData(r.getString(R.string.pointer_recent),
-								r.getDrawable(R.mipmap.icon_51_unused_recent, null));
+								r.getDrawable(R.mipmap.icon_91_unused_recent, null));
 					}
 					break;
 				
 				case ADD_POINTER_TASK:
 					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 						edit[i] = new BaseData(r.getString(R.string.pointer_task),
-								r.getDrawable(R.mipmap.icon_52_unused_task, null));
+								r.getDrawable(R.mipmap.icon_92_unused_task, null));
 					}
 					break;
 			}
@@ -97,42 +96,42 @@ public class EditList {
 					if (pointer.getPointerType() == Pointer.POINTER_TYPE_CUSTOM) {
 						if (pointerWindowVisibility == View.VISIBLE) {
 							edit[i] = new BaseData(r.getString(R.string.open),
-									r.getDrawable(android.R.drawable.ic_menu_more, null));
+									r.getDrawable(R.mipmap.icon_42_edit_open, null));
 						} else {
 							edit[i] = new BaseData(r.getString(R.string.close),
-									r.getDrawable(android.R.drawable.ic_menu_close_clear_cancel,null));
+									r.getDrawable(R.mipmap.icon_43_edit_close, null));
 						}
 					}
 					break;
 				
 				case EDIT_POINTER_UP:
 					edit[i] = new BaseData(r.getString(R.string.move),
-							r.getDrawable(R.mipmap.ic_menu_up, null));
+							r.getDrawable(R.mipmap.icon_46_edit_up, null));
 					break;
 					
 				case EDIT_POINTER_EDIT:
 					edit[i] = new BaseData(r.getString(R.string.edit),
-							r.getDrawable(android.R.drawable.ic_menu_edit, null));
+							r.getDrawable(R.mipmap.icon_40_edit_edit, null));
 					break;
 				
 				case EDIT_POINTER_LEFT:
 					edit[i] = new BaseData(r.getString(R.string.move),
-							r.getDrawable(R.mipmap.ic_menu_left, null));
+							r.getDrawable(R.mipmap.icon_45_edit_left, null));
 					break;
 				
 				case EDIT_POINTER_RIGHT:
 					edit[i] = new BaseData(r.getString(R.string.move),
-							r.getDrawable(R.mipmap.ic_menu_right, null));
+							r.getDrawable(R.mipmap.icon_47_edit_right, null));
 					break;
 				
 				case EDIT_POINTER_DOWN:
 					edit[i] = new BaseData(r.getString(R.string.move),
-							r.getDrawable(R.mipmap.ic_menu_down, null));
+							r.getDrawable(R.mipmap.icon_48_edit_down, null));
 					break;
 				
 				case EDIT_POINTER_DELETE:
 					edit[i] = new BaseData(r.getString(R.string.delete),
-							r.getDrawable(android.R.drawable.ic_menu_delete, null));
+							r.getDrawable(R.mipmap.icon_44_edit_delete, null));
 					break;
 			}
 		}
@@ -192,27 +191,27 @@ public class EditList {
 			switch (i) {
 				case EDIT_APP_UP:
 					edit[i] = new BaseData(r.getString(R.string.move),
-							r.getDrawable(R.mipmap.ic_menu_up, null));
+							r.getDrawable(R.mipmap.icon_46_edit_up, null));
 					break;
 				case EDIT_APP_EDIT:
 					edit[i] = new BaseData(r.getString(R.string.edit),
-							r.getDrawable(android.R.drawable.ic_menu_edit, null));
+							r.getDrawable(R.mipmap.icon_40_edit_edit, null));
 					break;
 				case EDIT_APP_LEFT:
 					edit[i] = new BaseData(r.getString(R.string.move),
-							r.getDrawable(R.mipmap.ic_menu_left, null));
+							r.getDrawable(R.mipmap.icon_45_edit_left, null));
 					break;
 				case EDIT_APP_RIGHT:
 					edit[i] = new BaseData(r.getString(R.string.move),
-							r.getDrawable(R.mipmap.ic_menu_right, null));
+							r.getDrawable(R.mipmap.icon_47_edit_right, null));
 					break;
 				case EDIT_APP_DOWN:
 					edit[i] = new BaseData(r.getString(R.string.move),
-							r.getDrawable(R.mipmap.ic_menu_down, null));
+							r.getDrawable(R.mipmap.icon_48_edit_down, null));
 					break;
 				case EDIT_APP_DELETE:
 					edit[i] = new BaseData(r.getString(R.string.delete),
-							r.getDrawable(android.R.drawable.ic_menu_delete, null));
+							r.getDrawable(R.mipmap.icon_44_edit_delete, null));
 					break;
 			}
 		}

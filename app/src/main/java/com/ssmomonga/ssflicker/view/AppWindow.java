@@ -38,20 +38,19 @@ public class AppWindow extends TableLayout {
 	 * Constructor
 	 *
 	 * @param context
-	 * @param _attrs
+	 * @param attrs
 	 */
-	public AppWindow(Context context, AttributeSet _attrs) {
-		super (context, _attrs);
-		setInitialLayout(context);
+	public AppWindow(Context context, AttributeSet attrs) {
+		super (context, attrs);
+		setInitialLayout();
 	}
 	
 	/**
 	 * setInitialLayout()
-	 *
-	 * @param context
 	 */
-	private void setInitialLayout(Context context) {
-		
+	private void setInitialLayout() {
+
+		Context context = getContext();
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.app_window, this, true);
 
@@ -147,30 +146,7 @@ public class AppWindow extends TableLayout {
 		setBackground(settings.getAppWindowBackground());
 
 	}
-	
-	/**
-	 * viewWindow()
-	 *
-	 * @param pointer
-	 * @param appList
-	 */
-	public void setApp(Pointer pointer, App[] appList) {
-		
-		tv_pointer.setText(pointer.getPointerLabel());
 
-		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
-			App app = appList[i];
-			if (app != null) {
-				iv_app[i].setImageDrawable(app.getAppIcon());
-				tv_app[i].setText(app.getAppLabel());
-				
-			} else {
-				iv_app[i].setImageDrawable(null);
-				tv_app[i].setText(null);
-			}
-		}
-	}
-	
 	/**
 	 * setAppForEdit()
 	 *
@@ -192,7 +168,7 @@ public class AppWindow extends TableLayout {
 				tv_app[i].setText(app.getAppLabel());
 
 			} else {
-				iv_app[i].setImageResource(android.R.drawable.ic_menu_add);
+				iv_app[i].setImageResource(R.mipmap.icon_41_edit_add);
 				tv_app[i].setText(R.string.add);
 				
 			}
@@ -234,7 +210,7 @@ public class AppWindow extends TableLayout {
 	@Override
 	public void setVisibility (int visibility) {
 		super.setVisibility(visibility);
-		if (visibility == View.VISIBLE) startAnimation(anim_window_open);		
+		if (visibility == View.VISIBLE) startAnimation(anim_window_open);
 	}
 
 }

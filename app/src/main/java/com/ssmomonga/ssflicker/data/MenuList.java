@@ -31,19 +31,19 @@ public class MenuList {
 			switch (i) {
 				case MENU_DRAWER:
 					menu[i] = new BaseData(r.getString(R.string.app_launcher),
-							r.getDrawable(R.mipmap.icon_10_app_launcher, null));
+									r.getDrawable(R.mipmap.icon_10_app_launcher, null));
 					break;
 				case MENU_ANDROID_SETTINGS:
 					menu[i] = new BaseData(r.getString(R.string.menu_item_android_settings),
-							r.getDrawable(android.R.drawable.ic_menu_preferences, null));
+									r.getDrawable(R.mipmap.icon_34_menu_android_settings, null));
 					break;
 				case MENU_SSFLICKER_SETTINGS:
 					menu[i] = new BaseData(r.getString(R.string.menu_item_ssflicker_settings),
-							r.getDrawable(android.R.drawable.ic_menu_preferences, null));
+									r.getDrawable(R.mipmap.icon_33_menu_settings, null));
 					break;
 				case MENU_EDIT_MODE:
 					menu[i] = new BaseData(r.getString(R.string.menu_item_edit_mode),
-							r.getDrawable(android.R.drawable.ic_menu_edit, null));
+									r.getDrawable(R.mipmap.icon_32_menu_editor, null));
 					break;
 			}
 		}
@@ -63,15 +63,15 @@ public class MenuList {
 			switch (i) {
 				case MENU_ANDROID_SETTINGS:
 					menu[i] = new BaseData(r.getString(R.string.menu_item_android_settings),
-							r.getDrawable(android.R.drawable.ic_menu_preferences, null));
+							r.getDrawable(R.mipmap.icon_34_menu_android_settings, null));
 					break;
 				case MENU_SSFLICKER_SETTINGS:
 					menu[i] = new BaseData(r.getString(R.string.menu_item_ssflicker_settings),
-							r.getDrawable(android.R.drawable.ic_menu_preferences, null));
+							r.getDrawable(R.mipmap.icon_33_menu_settings, null));
 					break;
 				case MENU_FLICK_MODE:
 					menu[i] = new BaseData(r.getString(R.string.menu_item_flick_mode),
-							r.getDrawable(android.R.drawable.ic_menu_edit, null));
+							r.getDrawable(R.mipmap.icon_31_menu_flicker, null));
 					break;
 			}
 		}

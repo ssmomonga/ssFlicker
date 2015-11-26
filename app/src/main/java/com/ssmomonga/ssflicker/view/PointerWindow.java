@@ -1,6 +1,8 @@
 package com.ssmomonga.ssflicker.view;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,16 +38,15 @@ public class PointerWindow extends TableLayout {
 	 */
 	public PointerWindow(Context context, AttributeSet attrs) {
 		super (context, attrs);
-		setInitialLayout(context);
+		setInitialLayout();
 	}
 	
 	/**
 	 * setInitialLayout()
-	 *
-	 * @param context
 	 */
-	private void setInitialLayout(Context context) {
+	private void setInitialLayout() {
 
+		Context context = getContext();
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.pointer_window, this, true);
 
@@ -146,14 +147,13 @@ public class PointerWindow extends TableLayout {
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
 			Pointer pointer = pointerList[i];
 			if (pointer != null) {
-				iv_pointer[i].setImageDrawable(pointer.getPointerIcon());
-				tv_pointer[i].setText(pointer.getPointerLabel());
+				setPointer(i, pointer.getPointerIcon(), pointer.getPointerLabel());
 			}
 		}
 		
 		for (int i = 0; i < 4; i ++) {
 			if (pointerList[4 * i] == null && pointerList[4 * i + 1] == null && pointerList[4 * i + 2] == null && pointerList[4 * i + 3] == null) {
-				for (int j = 0; j < 4; j ++) ll_pointer[4 * i + j].setVisibility(View.GONE);					
+				for (int j = 0; j < 4; j ++) ll_pointer[4 * i + j].setVisibility(View.GONE);
 			}
 			
 			if (pointerList[i] == null && pointerList[i + 4] == null && pointerList[i + 8] == null && pointerList[i + 12] == null) {
@@ -168,19 +168,30 @@ public class PointerWindow extends TableLayout {
 	 * @param pointerList
 	 */
 	public void setPointerForEdit(Pointer[] pointerList) {
-
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
 			Pointer pointer = pointerList[i];
 
 			if (pointer != null) {
-				iv_pointer[i].setImageDrawable(pointer.getPointerIcon());
-				tv_pointer[i].setText(pointer.getPointerLabel());
+				setPointer(i, pointer.getPointerIcon(), pointer.getPointerLabel());
 
 			} else {
-				iv_pointer[i].setImageResource(android.R.drawable.ic_menu_add);
-				tv_pointer[i].setText(R.string.add);
+				Resources r = getContext().getResources();
+				setPointer(i, r.getDrawable(R.mipmap.icon_41_edit_add, null),
+						r.getString(R.string.add));
 			}
 		}
+	}
+
+	/**
+	 * setPointer()
+	 *
+	 * @param pointerId
+	 * @param appIcon
+	 * @param appLabel
+	 */
+	private void setPointer(int pointerId, Drawable appIcon, String appLabel) {
+		iv_pointer[pointerId].setImageDrawable(appIcon);
+		tv_pointer[pointerId].setText(appLabel);
 	}
 
 	/**
@@ -190,15 +201,11 @@ public class PointerWindow extends TableLayout {
 	 * @param pointerId
 	 */
 	public void setPointerPointed(boolean pointed, int pointerId) {
-//		if (animation) {
-			if (pointed) {
-				ll_pointer[pointerId].startAnimation(anim_pointer_pointed[pointerId]);
-			} else {
-				ll_pointer[pointerId].startAnimation(anim_pointer_unpointed[pointerId]);
-			}
-//		} else {
-//			ll_pointer[pointerId].clearAnimation();
-//		}
+		if (pointed) {
+			ll_pointer[pointerId].startAnimation(anim_pointer_pointed[pointerId]);
+		} else {
+			ll_pointer[pointerId].startAnimation(anim_pointer_unpointed[pointerId]);
+		}
 	}
 
 	/**

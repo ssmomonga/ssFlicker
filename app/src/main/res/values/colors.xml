@@ -14,6 +14,7 @@
 	<color name="overlay_point_background_color_default_value">#80FFEB3B</color>
 
 	<color name="activity_background">#80000000</color>
+	<color name="gray_icon_color">#80404040</color>
 	<color name="appwidget_chooser_background">#40ffffff</color>
 	<color name="invisible">#00000000</color>
 
