@@ -50,7 +50,7 @@ public class MenuList {
 		return menu;
 	}
 
-	/**
+/*icon_32_menu_editor.png*
 	 * getEditorMenuList()
 	 *
 	 * @param context
