@@ -348,9 +348,9 @@ public class DonateActivity extends Activity {
 					e.printStackTrace();
 				}
 				
-				isOwned = false;
-				pdao.setDonation(isOwned);
-				setVisibility(isOwned);
+//				isOwned = false;
+//				pdao.setDonation(isOwned);
+//				setVisibility(isOwned);
 				
 			}
 		});
