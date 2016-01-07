@@ -424,9 +424,9 @@
     <string name="view_action">表示／動作</string>
     <string name="view_appwidget_error">ウィジェットを表示できませんでした</string>
     <string name="volume">音量</string>
-    <string name="volume_alarm">アラーム</string>
-    <string name="volume_media">音楽、動画、ゲーム、その他メディア</string>
-    <string name="volume_ringtone_notification">着信音と通知音</string>
+    <string name="volume_alarm">アラームの音量</string>
+    <string name="volume_media">メディアの音量</string>
+    <string name="volume_ringtone_notification">着信音の音量</string>
     <string name="width">幅</string>
     <string name="wifi">Wi-Fi</string>
     <string name="wifi_off">Wi-FiをOFFにしました</string>

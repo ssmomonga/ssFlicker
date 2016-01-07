@@ -298,9 +298,9 @@
 	<string name="airplane_mode_error">Android 4.2以降では機内モードを変更できません</string>
 	
 <!-- VolumeDialog -->
-	<string name="volume_ringtone_notification">着信音と通知音</string>
-	<string name="volume_media">音楽、動画、ゲーム、その他メディア</string>
-	<string name="volume_alarm">アラーム</string>
+	<string name="volume_ringtone_notification">着信音の音量</string>
+	<string name="volume_media">メディアの音量</string>
+	<string name="volume_alarm">アラームの音量</string>
 	
 <!-- Data.java -->
 	<string name="unknown">不明</string>

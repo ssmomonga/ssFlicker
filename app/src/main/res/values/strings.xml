@@ -298,9 +298,9 @@
 	<string name="airplane_mode_error">Can\'t change airplane mode at Android 4.2 or later</string>
 
 <!-- VolumeDialog -->
-	<string name="volume_ringtone_notification">Ringtone &amp; otifications</string>
-	<string name="volume_media">Music, video, games, &amp; other media</string>
-	<string name="volume_alarm">Alarms</string>
+	<string name="volume_ringtone_notification">Ring volume</string>
+	<string name="volume_media">Media volume</string>
+	<string name="volume_alarm">Alarm volume</string>
 
 <!-- Data.java -->
 	<string name="unknown">Unknown</string>

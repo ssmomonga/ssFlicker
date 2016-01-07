@@ -488,9 +488,9 @@
     <string name="view_action">View / Action</string>
     <string name="view_appwidget_error">Cannot show this widget</string>
     <string name="volume">Volume</string>
-    <string name="volume_alarm">Alarms</string>
-    <string name="volume_media">Music, video, games, &amp; other media</string>
-    <string name="volume_ringtone_notification">Ringtone &amp; otifications</string>
+    <string name="volume_alarm">Alarm volume</string>
+    <string name="volume_media">Media volume</string>
+    <string name="volume_ringtone_notification">Ring volume</string>
     <string name="width">Width</string>
     <string name="wifi">Wi-Fi</string>
     <string name="wifi_off">Turn off Wi-Fi</string>
