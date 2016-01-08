@@ -257,9 +257,9 @@ public final class R {
         public static final int sb_alpha=0x7f0e0060;
         public static final int sb_blue=0x7f0e005e;
         public static final int sb_green=0x7f0e005c;
-        public static final int sb_media=0x7f0e00c4;
+        public static final int sb_media=0x7f0e00c5;
         public static final int sb_red=0x7f0e005a;
-        public static final int sb_ringtone_notification=0x7f0e00c5;
+        public static final int sb_ringtone_notification=0x7f0e00c4;
         public static final int sp_appwidget_cell_height=0x7f0e0086;
         public static final int sp_appwidget_cell_width=0x7f0e0085;
         public static final int sp_appwidget_position_x=0x7f0e0082;

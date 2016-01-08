@@ -15,12 +15,12 @@
 			android:orientation="vertical">
 			<TextView
 				style="@style/lp_mp_wc"
-				android:text="@string/volume_media" />
-			<SeekBar android:id="@+id/sb_media"
-				style="@style/lp_mp_wc"
-				android:padding="8dp" />
+				android:text="@string/volume_ringtone_notification" />
+			<SeekBar android:id="@+id/sb_ringtone_notification"
+					 style="@style/lp_mp_wc"
+					 android:padding="8dp" />
 		</LinearLayout>
-	
+
 		<LinearLayout
 			style="@style/lp_mp_wc"
 			android:layout_marginTop="8dp"
@@ -28,12 +28,12 @@
 			android:orientation="vertical">
 			<TextView
 				style="@style/lp_mp_wc"
-				android:text="@string/volume_ringtone_notification" />
-			<SeekBar android:id="@+id/sb_ringtone_notification"
+				android:text="@string/volume_media" />
+			<SeekBar android:id="@+id/sb_media"
 				style="@style/lp_mp_wc"
 				android:padding="8dp" />
 		</LinearLayout>
-
+	
 		<LinearLayout
 			style="@style/lp_mp_wc"
 			android:layout_marginTop="8dp"
