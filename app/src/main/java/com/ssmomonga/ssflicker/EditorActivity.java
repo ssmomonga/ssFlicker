@@ -359,27 +359,34 @@ public class EditorActivity extends Activity {
 												null);
 										c.moveToFirst();
 
-										String contentName = baseUri.toString() + "/" +
-												c.getInt(c.getColumnIndex(MediaStore.MediaColumns._ID));
-										c.close();
-										Uri cacheFileUri = Uri.parse(contentName);
+										if (c.getCount() != 0) {
+											String contentName = baseUri.toString() + "/" +
+													c.getInt(c.getColumnIndex(MediaStore.MediaColumns._ID));
+											c.close();
+											Uri cacheFileUri = Uri.parse(contentName);
 
-										File trimmingCacheFile = new File(DeviceSettings.getExternalDir(EditorActivity.this),
-												System.currentTimeMillis() + TRIMMING_CACHE_FILE_NAME);
-										Uri trimmingFileUri = Uri.fromFile(trimmingCacheFile);
+											File trimmingCacheFile = new File(DeviceSettings.getExternalDir(EditorActivity.this),
+													System.currentTimeMillis() + TRIMMING_CACHE_FILE_NAME);
+											Uri trimmingFileUri = Uri.fromFile(trimmingCacheFile);
 
-										Intent intent = new Intent()
-												.setDataAndType(cacheFileUri, mimeType)
-												.setAction("com.android.camera.action.CROP")
-												.putExtra("outputX", getResources().getDimensionPixelSize(R.dimen.icon_size))
-												.putExtra("outputY", getResources().getDimensionPixelSize(R.dimen.icon_size))
-												.putExtra("aspectX", 1)
-												.putExtra("aspectY", 1)
-												.putExtra("scale", true)
-												.putExtra("outputFormat", Bitmap.CompressFormat.PNG.name())
-												.putExtra(MediaStore.EXTRA_OUTPUT, trimmingFileUri);
-										startActivityForResult(intent, requestCode + 1);
+											Intent intent = new Intent()
+													.setDataAndType(cacheFileUri, mimeType)
+													.setAction("com.android.camera.action.CROP")
+													.putExtra("outputX", getResources().getDimensionPixelSize(R.dimen.icon_size))
+													.putExtra("outputY", getResources().getDimensionPixelSize(R.dimen.icon_size))
+													.putExtra("aspectX", 1)
+													.putExtra("aspectY", 1)
+													.putExtra("scale", true)
+													.putExtra("outputFormat", Bitmap.CompressFormat.PNG.name())
+													.putExtra(MediaStore.EXTRA_OUTPUT, trimmingFileUri);
+											startActivityForResult(intent, requestCode + 1);
 
+										} else {
+											editDialog.setCancelable(true);
+											editDialog.setCanceledOnTouchOutside(true);
+											finish = true;
+											deleteTrimmingCacheFile();
+										}
 									}
 								});
 
