@@ -122,7 +122,7 @@ public class SQLiteDAO {
 	 */
 	public App[][] selectAppTable(String targetPackageName) {
 
-		String selection = AppTableColumnName_8.PACKAGE_NAME + "=?";
+		String selection = AppTableColumnName_8.PACKAGE_NAME + "= ?";
 		String[] selectionArgs = { targetPackageName };
 		SQLiteDatabase db = sdbh.getReadableDatabase();
 		Cursor c = db.query(SQLiteDBH.APP_TABLE_8, null, selection, selectionArgs, null, null, null);

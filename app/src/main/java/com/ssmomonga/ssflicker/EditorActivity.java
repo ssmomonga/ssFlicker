@@ -494,7 +494,7 @@ public class EditorActivity extends Activity {
 					Uri baseUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 					for (File file : files) {
 						file.delete();
-/*
+
 						Cursor c = getContentResolver().query(
 								baseUri,
 								null,
@@ -510,7 +510,7 @@ public class EditorActivity extends Activity {
 							getContentResolver().delete(uri, null, null);
 						}
 						c.close();
-*/
+
 					}
 				}
 			}
