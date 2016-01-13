@@ -334,6 +334,7 @@ public class EditorActivity extends Activity {
 							editDialog.setCanceledOnTouchOutside(true);
 							finish = true;
 							deleteTrimmingCacheFile();
+							Toast.makeText(this, R.string.fail_set_image, Toast.LENGTH_SHORT).show();
 							e.printStackTrace();
 
 						} catch (IOException e) {
@@ -341,6 +342,7 @@ public class EditorActivity extends Activity {
 							editDialog.setCanceledOnTouchOutside(true);
 							finish = true;
 							deleteTrimmingCacheFile();
+							Toast.makeText(this, R.string.fail_set_image, Toast.LENGTH_SHORT).show();
 							e.printStackTrace();
 						}
 
@@ -415,6 +417,7 @@ public class EditorActivity extends Activity {
 							editDialog.setCanceledOnTouchOutside(true);
 							finish = true;
 							deleteTrimmingCacheFile();
+							Toast.makeText(this, R.string.fail_set_image, Toast.LENGTH_SHORT).show();
 							e.printStackTrace();
 
 						} catch (IOException e) {
@@ -422,14 +425,18 @@ public class EditorActivity extends Activity {
 							editDialog.setCanceledOnTouchOutside(true);
 							finish = true;
 							deleteTrimmingCacheFile();
+							Toast.makeText(this, R.string.fail_set_image, Toast.LENGTH_SHORT).show();
 							e.printStackTrace();
 						}
 
 						int targetIcon = 0;
-						if (requestCode == REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING_2) {
-							targetIcon = IconList.TARGET_ICON_POINTER;
-						} else if (requestCode == REQUEST_CODE_EDIT_APP_ICON_TRIMMING_2) {
-							targetIcon = IconList.TARGET_ICON_APP;
+						switch (requestCode) {
+							case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING_2:
+								targetIcon = IconList.TARGET_ICON_POINTER;
+								break;
+							case REQUEST_CODE_EDIT_APP_ICON_TRIMMING_2:
+								targetIcon = IconList.TARGET_ICON_APP;
+								break;
 						}
 
 						editDialog.setIconBitmap(bitmap, targetIcon, IconList.LABEL_ICON_TYPE_CUSTOM, 0);
@@ -482,7 +489,6 @@ public class EditorActivity extends Activity {
 	 * deleteTrimmingCacheFile()
 	 */
 	private void deleteTrimmingCacheFile() {
-
 		if (!DeviceSettings.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) return;
 
 		(new Thread(new Runnable() {
