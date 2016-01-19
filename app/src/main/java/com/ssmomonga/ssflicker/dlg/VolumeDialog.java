@@ -49,16 +49,57 @@ public class VolumeDialog extends AlertDialog {
 		sb_ringtone = (SeekBar) view.findViewById(R.id.sb_ringtone_notification);
 		sb_ringtone.setMax(am.getStreamMaxVolume(AudioManager.STREAM_RING));
 		sb_ringtone.setProgress(initRing);
+		sb_ringtone.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				int setRing = sb_ringtone.getProgress();
+				am.setStreamVolume(AudioManager.STREAM_RING, setRing, 0);
+			}
+		});
 
 		//sb_media
 		sb_media = (SeekBar) view.findViewById(R.id.sb_media);
 		sb_media.setMax(am.getStreamMaxVolume(AudioManager.STREAM_MUSIC));
 		sb_media.setProgress(initMedia);
+		sb_media.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				int setMedia = sb_media.getProgress();
+				am.setStreamVolume(AudioManager.STREAM_MUSIC, setMedia, 0);
+			}
+		});
 
 		//sb_alarm
 		sb_alarm = (SeekBar) view.findViewById(R.id.sb_alarm);
 		sb_alarm.setMax(am.getStreamMaxVolume(AudioManager.STREAM_ALARM));
 		sb_alarm.setProgress(initAlarm);
+		sb_alarm.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				int setAlarm = sb_alarm.getProgress();
+				am.setStreamVolume(AudioManager.STREAM_ALARM, setAlarm, 0);
+			}
+		});
 
 /*
 		setButton(BUTTON_POSITIVE, context.getResources().getText(R.string.settings), new DialogInterface.OnClickListener(){
@@ -93,6 +134,5 @@ public class VolumeDialog extends AlertDialog {
 		am.setStreamVolume(AudioManager.STREAM_RING, setRing, 0);
 		am.setStreamVolume(AudioManager.STREAM_MUSIC, setMedia, 0);
 		am.setStreamVolume(AudioManager.STREAM_ALARM, setAlarm, 0);
-
 	}
 }
