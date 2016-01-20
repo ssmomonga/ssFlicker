@@ -18,7 +18,7 @@ public class FunctionInfo {
 	public static final int FUNCTION_TYPE_VOLUME = 4;
 	public static final int FUNCTION_TYPE_ROTATE = 5;
 	public static final int FUNCTION_TYPE_SEARCH = 6;
-//	public static final int FUNCTION_TYPE_AIRPLANE_MODE = 7;
+	public static final int FUNCTION_TYPE_AIRPLANE_MODE = 7;
 	
 	private int functionType;
 
@@ -64,8 +64,8 @@ public class FunctionInfo {
 				return r.getString(R.string.rotate);
 			case FunctionInfo.FUNCTION_TYPE_SEARCH:
 				return r.getString(R.string.search);
-//			case FunctionInfo.FUNCTION_TYPE_AIRPLANE_MODE:
-//				return r.getString(R.string.airplane_mode);
+			case FunctionInfo.FUNCTION_TYPE_AIRPLANE_MODE:
+				return r.getString(R.string.airplane_mode);
 			default:
 				return null;
 		}
@@ -95,8 +95,8 @@ public class FunctionInfo {
 				return r.getDrawable(R.mipmap.icon_25_function_rotate, null);
 			case FunctionInfo.FUNCTION_TYPE_SEARCH:
 				return r.getDrawable(R.mipmap.icon_26_function_search, null);
-//			case FunctionInfo.FUNCTION_TYPE_AIRPLANE_MODE:
-//				return r.getDrawable(R.mipmap.icon_94_unused_airplane_mode, null);
+			case FunctionInfo.FUNCTION_TYPE_AIRPLANE_MODE:
+				return r.getDrawable(R.mipmap.icon_94_unused_airplane_mode, null);
 			default:
 				return null;
 		}
