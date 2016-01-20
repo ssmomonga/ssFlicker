@@ -349,10 +349,10 @@
     <string name="lower_left">Lower left</string>
     <string name="lower_right">Lower right</string>
     <string name="menu">Menu</string>
-    <string name="menu_item_android_settings">Android settings</string>
+    <string name="menu_item_android_settings">Settings</string>
     <string name="menu_item_edit_mode">Edit mode</string>
     <string name="menu_item_flick_mode">Flick mode</string>
-    <string name="menu_item_ssflicker_settings">ssFlicker settings</string>
+    <string name="menu_item_ssflicker_settings">Settings</string>
     <string name="move">Move</string>
     <string name="multi_app_icon">Multi apps icon</string>
     <string name="no_accel_sensor">No accelerometer</string>

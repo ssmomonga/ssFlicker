@@ -285,10 +285,10 @@
     <string name="lower_left">左下</string>
     <string name="lower_right">右下</string>
     <string name="menu">メニュー</string>
-    <string name="menu_item_android_settings">Androidの設定</string>
+    <string name="menu_item_android_settings">設定</string>
     <string name="menu_item_edit_mode">編集モード</string>
     <string name="menu_item_flick_mode">フリックモード</string>
-    <string name="menu_item_ssflicker_settings">ssFlickerの設定</string>
+    <string name="menu_item_ssflicker_settings">設定</string>
     <string name="move">移動</string>
     <string name="multi_app_icon">マルチアプリアイコン</string>
     <string name="no_accel_sensor">加速度センサーがありません</string>

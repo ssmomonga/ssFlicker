@@ -84,8 +84,7 @@ public class IconList {
 				new BaseData(null, r.getDrawable(R.mipmap.icon_33_menu_settings, null), 33),
 				new BaseData(null, r.getDrawable(R.mipmap.icon_34_menu_android_settings, null), 34),
 				new BaseData(null, r.getDrawable(R.mipmap.icon_41_edit_add, null), 41),
-				new BaseData(null, r.getDrawable(R.mipmap.icon_42_edit_open, null), 42),
-				new BaseData(null, r.getDrawable(R.mipmap.icon_43_edit_close, null), 43),
+				new BaseData(null, r.getDrawable(R.mipmap.icon_42_edit_open_close, null), 42),
 				new BaseData(null, r.getDrawable(R.mipmap.icon_44_edit_delete, null), 44),
 				new BaseData(null, r.getDrawable(R.mipmap.icon_45_edit_left, null), 45),
 				new BaseData(null, r.getDrawable(R.mipmap.icon_46_edit_up, null), 46),
@@ -93,15 +92,16 @@ public class IconList {
 				new BaseData(null, r.getDrawable(R.mipmap.icon_48_edit_down, null), 48),
 				new BaseData(null, r.getDrawable(R.mipmap.icon_50_about_information, null), 50),
 
-				new BaseData(null, r.getDrawable(R.mipmap.icon_90_unused_square, null), 90),
+//				new BaseData(null, r.getDrawable(R.mipmap.icon_90_unused_square, null), 90),
 				new BaseData(null, r.getDrawable(R.mipmap.icon_91_unused_recent, null), 91),
 				new BaseData(null, r.getDrawable(R.mipmap.icon_92_unused_task, null), 92),
-				new BaseData(null, r.getDrawable(R.mipmap.icon_93_unused_eight_arrows, null), 93),
+//				new BaseData(null, r.getDrawable(R.mipmap.icon_93_unused_eight_arrows, null), 93),
 				new BaseData(null, r.getDrawable(R.mipmap.icon_94_unused_airplane_mode, null), 94),
-				new BaseData(null, r.getDrawable(R.mipmap.icon_95_unused_balloon, null), 95),
-				new BaseData(null, r.getDrawable(R.mipmap.icon_96_unused_toggle, null), 96),
-				new BaseData(null, r.getDrawable(R.mipmap.icon_97_unused_question, null), 97),
-				new BaseData(null, r.getDrawable(R.mipmap.icon_98_unused_exclamation, null), 98)
+//				new BaseData(null, r.getDrawable(R.mipmap.icon_95_unused_balloon, null), 95),
+//				new BaseData(null, r.getDrawable(R.mipmap.icon_96_unused_toggle, null), 96),
+//				new BaseData(null, r.getDrawable(R.mipmap.icon_97_unused_question, null), 97),
+//				new BaseData(null, r.getDrawable(R.mipmap.icon_98_unused_exclamation, null), 98),
+				new BaseData(null, r.getDrawable(R.mipmap.icon_99_unused_android, null), 99)
 		};
 	}
 

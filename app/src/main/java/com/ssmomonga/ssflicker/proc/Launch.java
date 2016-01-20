@@ -174,9 +174,9 @@ public class Launch {
 				rotate();
 				break;
 
-			case (FunctionInfo.FUNCTION_TYPE_AIRPLANE_MODE):
-				airplaneMode();
-				break;
+//			case (FunctionInfo.FUNCTION_TYPE_AIRPLANE_MODE):
+//				airplaneMode();
+//				break;
 		}
 	}
 	

@@ -96,10 +96,10 @@ public class EditList {
 					if (pointer.getPointerType() == Pointer.POINTER_TYPE_CUSTOM) {
 						if (pointerWindowVisibility == View.VISIBLE) {
 							edit[i] = new BaseData(r.getString(R.string.open),
-									r.getDrawable(R.mipmap.icon_42_edit_open, null));
+									r.getDrawable(R.mipmap.icon_42_edit_open_close, null));
 						} else {
 							edit[i] = new BaseData(r.getString(R.string.close),
-									r.getDrawable(R.mipmap.icon_43_edit_close, null));
+									r.getDrawable(R.mipmap.icon_42_edit_open_close, null));
 						}
 					}
 					break;

@@ -319,9 +319,9 @@
 
 <!-- menu.xml -->
 	<string name="menu">Menu</string>
-	<string name="menu_item_android_settings">Android settings</string>
-	<string name="menu_item_ssflicker_settings">ssFlicker settings</string>
 	<string name="menu_item_flick_mode">Flick mode</string>
 	<string name="menu_item_edit_mode">Edit mode</string>
+	<string name="menu_item_ssflicker_settings">Settings</string>
+	<string name="menu_item_android_settings">Settings</string>
 
 </resources>
