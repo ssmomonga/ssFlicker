@@ -195,7 +195,7 @@ public class EditList {
 					break;
 				case EDIT_APP_EDIT:
 					edit[i] = new BaseData(r.getString(R.string.edit),
-							r.getDrawable(R.mipmap.icon_30_menu_menu, null));
+							r.getDrawable(R.mipmap.icon_32_menu_editor, null));
 					break;
 				case EDIT_APP_LEFT:
 					edit[i] = new BaseData(r.getString(R.string.move),
