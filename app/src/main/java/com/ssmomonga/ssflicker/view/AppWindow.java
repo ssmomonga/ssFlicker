@@ -168,7 +168,7 @@ public class AppWindow extends TableLayout {
 				tv_app[i].setText(app.getAppLabel());
 
 			} else {
-				iv_app[i].setImageResource(R.mipmap.icon_41_edit_add);
+				iv_app[i].setImageResource(R.mipmap.icon_40_edit_add);
 				tv_app[i].setText(R.string.add);
 				
 			}

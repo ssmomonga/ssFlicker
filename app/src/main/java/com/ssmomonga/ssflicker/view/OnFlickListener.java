@@ -16,12 +16,13 @@ import com.ssmomonga.ssflicker.proc.Launch;
 abstract public class OnFlickListener implements View.OnTouchListener {
 
 	private static Launch l;
-	private static Position p;
+	private static Position position;
 
 	private static int flickDistance;
+
 	private boolean editorMode;
 	private int vibrateTime;
-	
+
 	/**
 	 * Constructor
 	 *
@@ -57,10 +58,11 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 
+		if (!isEnable()) return true;
+
 		switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
 				if (v.getTag() != null) setId(Integer.valueOf((String) v.getTag()));
-				p = new Position(event.getX(), event.getY());
 				break;
 		}
 
@@ -68,27 +70,35 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 			switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:						//ACTION_DOWN
 					l.vibrate(vibrateTime);
-					onDown(p.getPosition());
+					position = new Position(event.getX(), event.getY());
+					onDown(position.getPosition());
 					break;
-		
+
 				case MotionEvent.ACTION_MOVE:						//ACTION_MOVE
-					if (p.setPosition(event.getX(), event.getY())) {
-						onMove(p.getOldPosition(), p.getPosition());
+					if (position.setPosition(event.getX(), event.getY())) {
+						onMove(position.getOldPosition(), position.getPosition());
 					}
 					break;
-		
+
 				case MotionEvent.ACTION_UP:							//ACTION_UP
-					onUp(p.getPosition(), new Rect((int) event.getRawX(), (int) event.getRawY(), (int) event.getRawX(), (int) event.getRawY()));
+					onUp(position.getPosition(), new Rect((int) event.getRawX(), (int) event.getRawY(), (int) event.getRawX(), (int) event.getRawY()));
 					break;
-		
+
 				case MotionEvent.ACTION_CANCEL:						//ACTION_CANCEL
-					onCancel(p.getPosition());
+					onCancel(position.getPosition());
 					break;
 			}
 		}
-		
+
 		return true;
 	}
+
+	/**
+	 * isEnable()
+	 *
+	 * @return
+	 */
+	abstract public boolean isEnable();
 
 	/**
 	 * setId()

@@ -25,7 +25,6 @@ import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.os.Parcelable;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -65,6 +64,7 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+
 
 /**
  * EditorActivity
@@ -111,7 +111,7 @@ public class EditorActivity extends Activity {
 	private static App[][] appListList;
 	private static int pointerId;
 	private static int appId;
-	private static boolean finish = true;
+	private static boolean flickEnable = true;
 
 	/**
 	 * onCreate()
@@ -167,7 +167,7 @@ public class EditorActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (finish) finish();
+		if (flickEnable) finish();
 	}
 
 	/**
@@ -216,14 +216,17 @@ public class EditorActivity extends Activity {
 									int id = resources.getIdentifier(iconResource.resourceName, null, null);
 									icon = resources.getDrawable(id, null);
 
+								} catch (Resources.NotFoundException e) {
+									icon = this.getResources().getDrawable(R.mipmap.icon_12_app_shortcut, null);
+									e.printStackTrace();
+
 								} catch (NameNotFoundException e) {
-									setOnFlickListener();
-									finish = true;
+									icon = this.getResources().getDrawable(R.mipmap.icon_12_app_shortcut, null);
 									e.printStackTrace();
 								}
 							}
 						}
-				
+
 						intent = ((Intent) data.getParcelableExtra(Intent.EXTRA_SHORTCUT_INTENT)).
 								addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -241,8 +244,7 @@ public class EditorActivity extends Activity {
 								new IntentAppInfo(IntentAppInfo.INTENT_APP_TYPE_SHORTCUT, intent));
 
 						addApp(shortcutApp);
-						setOnFlickListener();
-						finish = true;
+						flickEnable = true;
 						break;
 
 					case REQUEST_CODE_ADD_APPWIDGET:
@@ -285,8 +287,7 @@ public class EditorActivity extends Activity {
 										System.currentTimeMillis()));
 
 						addApp(appWidget2);
-						setOnFlickListener();
-						finish = true;
+						flickEnable = true;
 
 						break;
 
@@ -332,18 +333,20 @@ public class EditorActivity extends Activity {
 						} catch (FileNotFoundException e) {
 							editDialog.setCancelable(true);
 							editDialog.setCanceledOnTouchOutside(true);
-							finish = true;
+							flickEnable = true;
 							deleteTrimmingCacheFile();
 							Toast.makeText(this, R.string.fail_set_image, Toast.LENGTH_SHORT).show();
 							e.printStackTrace();
+							break;
 
 						} catch (IOException e) {
 							editDialog.setCancelable(true);
 							editDialog.setCanceledOnTouchOutside(true);
-							finish = true;
+							flickEnable = true;
 							deleteTrimmingCacheFile();
 							Toast.makeText(this, R.string.fail_set_image, Toast.LENGTH_SHORT).show();
 							e.printStackTrace();
+							break;
 						}
 
 
@@ -386,7 +389,7 @@ public class EditorActivity extends Activity {
 										} else {
 											editDialog.setCancelable(true);
 											editDialog.setCanceledOnTouchOutside(true);
-											finish = true;
+											flickEnable = true;
 											deleteTrimmingCacheFile();
 										}
 									}
@@ -415,18 +418,20 @@ public class EditorActivity extends Activity {
 						} catch (FileNotFoundException e) {
 							editDialog.setCancelable(true);
 							editDialog.setCanceledOnTouchOutside(true);
-							finish = true;
+							flickEnable = true;
 							deleteTrimmingCacheFile();
 							Toast.makeText(this, R.string.fail_set_image, Toast.LENGTH_SHORT).show();
 							e.printStackTrace();
+							break;
 
 						} catch (IOException e) {
 							editDialog.setCancelable(true);
 							editDialog.setCanceledOnTouchOutside(true);
-							finish = true;
+							flickEnable = true;
 							deleteTrimmingCacheFile();
 							Toast.makeText(this, R.string.fail_set_image, Toast.LENGTH_SHORT).show();
 							e.printStackTrace();
+							break;
 						}
 
 						int targetIcon = 0;
@@ -443,7 +448,7 @@ public class EditorActivity extends Activity {
 
 						editDialog.setCancelable(true);
 						editDialog.setCanceledOnTouchOutside(true);
-						finish = true;
+						flickEnable = true;
 						deleteTrimmingCacheFile();
 
 						break;
@@ -464,7 +469,6 @@ public class EditorActivity extends Activity {
 							if (appWidgetId != -1) appWidgetHost.deleteAppWidgetId(appWidgetId);
 						}
 						addApp(null);
-						setOnFlickListener();
 						break;
 
 					case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING:
@@ -478,7 +482,7 @@ public class EditorActivity extends Activity {
 						}
 						break;
 				}
-				finish = true;
+				flickEnable = true;
 
 				break;
 		}
@@ -560,12 +564,12 @@ public class EditorActivity extends Activity {
 				} else {
 					Toast.makeText(this, getResources().getString(R.string.require_permission_write_external_storage),
 							Toast.LENGTH_SHORT).show();
+					flickEnable = true;
 
 				}
 				break;
 		}
 
-		finish = true;
 	}
 
 	/**
@@ -573,39 +577,22 @@ public class EditorActivity extends Activity {
 	 */
 	private void setInitialLayout() {
 		rl_all = (RelativeLayout) findViewById(R.id.rl_all);
-		dock_window = (DockWindow) findViewById(R.id.dock_window);
-		pointer_window = (PointerWindow) findViewById(R.id.pointer_window);
-		app_window = (AppWindow) findViewById(R.id.app_window);
-		action_window = (ActionWindow) findViewById(R.id.action_window);
-		setOnFlickListener();
-	}
-	
-	/**
-	 * setOnFlickListener()
-	 */
-	private void setOnFlickListener() {
 		rl_all.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				backWindow();
+				if (flickEnable) backWindow();
 				return false;
 			}
 		});
+		dock_window = (DockWindow) findViewById(R.id.dock_window);
 		dock_window.setOnFlickListener(new OnDockFlickListener(this), new OnMenuFlickListener(this));
+		pointer_window = (PointerWindow) findViewById(R.id.pointer_window);
 		pointer_window.setOnFlickListener(new OnPointerFlickListener(this));
+		app_window = (AppWindow) findViewById(R.id.app_window);
 		app_window.setOnFlickListener(new OnPointerFlickListener(this), new OnAppFlickListener(this));
+		action_window = (ActionWindow) findViewById(R.id.action_window);
 	}
-	
-	/**
-	 * removeOnFlickListener()
-	 */
-	private void removeOnFlickListener() {
-		rl_all.setOnTouchListener(null);
-		dock_window.setOnFlickListener(null, null);
-		pointer_window.setOnFlickListener(null);
-		app_window.setOnFlickListener(null, null);
-	}
-	
+
 	/**
 	 * setLayout()
 	 */
@@ -647,6 +634,16 @@ public class EditorActivity extends Activity {
 		 */
 		public OnPointerFlickListener(Context context) {
 			super(context);
+		}
+
+		/**
+		 * isEnable()
+		 *
+		 * @return
+		 */
+		@Override
+		public boolean isEnable() {
+			return flickEnable;
 		}
 
 		/**
@@ -751,7 +748,7 @@ public class EditorActivity extends Activity {
 				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 					addPointer(new Pointer(Pointer.POINTER_TYPE_RECENT,
 							getString(R.string.pointer_recent),
-							getResources().getDrawable(R.mipmap.icon_91_unused_recent, null),
+							getResources().getDrawable(R.mipmap.icon_90_unused_recent, null),
 							IconList.LABEL_ICON_TYPE_ORIGINAL,
 							0));
 				}
@@ -761,7 +758,7 @@ public class EditorActivity extends Activity {
 				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 					addPointer(new Pointer(Pointer.POINTER_TYPE_TASK,
 							getString(R.string.pointer_task),
-							getResources().getDrawable(R.mipmap.icon_92_unused_task, null),
+							getResources().getDrawable(R.mipmap.icon_91_unused_task, null),
 							IconList.LABEL_ICON_TYPE_ORIGINAL,
 							0));
 				}
@@ -795,7 +792,7 @@ public class EditorActivity extends Activity {
 				break;
 					
 			case EditList.EDIT_POINTER_EDIT:
-				removeOnFlickListener();
+				flickEnable = false;
 				viewEditPointerDialog();
 				break;
 			
@@ -818,7 +815,7 @@ public class EditorActivity extends Activity {
 				break;
 			
 			case EditList.EDIT_POINTER_DELETE:
-				removeOnFlickListener();
+				flickEnable = false;
 				viewDeletePointerDialog();
 				break;
 
@@ -835,7 +832,7 @@ public class EditorActivity extends Activity {
 	 */
 	private void viewEditPointerDialog() {
 		
-		editDialog = new EditDialog(this, pointerList[pointerId], new  EditDialog.EditPointerIf() {
+		editDialog = new EditDialog(this, pointerList[pointerId], new EditDialog.EditPointerIf() {
 
 			/**
 			 * getAppList()
@@ -872,10 +869,22 @@ public class EditorActivity extends Activity {
 			public void onDismissDialog() {
 				pointer_window.setPointerPointed(false, pointerId);
 				app_window.setPointerPointed(false);
-				setOnFlickListener();
 			}
-			
-		});
+
+		}) {
+
+			/**
+			 * onCreate()
+			 *
+			 * @param savedInstanceState
+			 */
+			@Override
+			protected void onCreate(Bundle savedInstanceState) {
+				super.onCreate(savedInstanceState);
+				flickEnable = true;
+			}
+
+		};
 		
 		editDialog.show();
 
@@ -886,10 +895,22 @@ public class EditorActivity extends Activity {
 	 */
 	private void viewDeletePointerDialog() {
 
-		deleteDialog = new DeleteDialog(this,
+		deleteDialog = new DeleteDialog(
+				this,
 				DeleteDialog.DELETE_POINTER,
 				pointerList[pointerId].getPointerIcon(),
 				pointerList[pointerId].getPointerLabel()) {
+
+			/**
+			 * onCreate()
+			 *
+			 * @param savedInstanceState
+			 */
+			@Override
+			protected void onCreate(Bundle savedInstanceState) {
+				super.onCreate(savedInstanceState);
+				flickEnable = true;
+			}
 
 			/**
 			 * onDelete()
@@ -906,7 +927,6 @@ public class EditorActivity extends Activity {
 			public void onDismissDialog() {
 				pointer_window.setPointerPointed(false, pointerId);
 				app_window.setPointerPointed(false);
-				setOnFlickListener();
 			}
 
 			/**
@@ -916,6 +936,7 @@ public class EditorActivity extends Activity {
 			public void onCancelDialog() {}
 
 		};
+
 		deleteDialog.show();
 	}
 	
@@ -1028,6 +1049,16 @@ public class EditorActivity extends Activity {
 		}
 
 		/**
+		 * isEnable()
+		 *
+		 * @return
+		 */
+		@Override
+		public boolean isEnable() {
+			return flickEnable;
+		}
+
+		/**
 		 * setId()
 		 *
 		 * @param id
@@ -1109,6 +1140,16 @@ public class EditorActivity extends Activity {
 		 */
 		public OnDockFlickListener(Context context) {
 			super(context);
+		}
+
+		/**
+		 * isEnable()
+		 *
+		 * @return
+		 */
+		@Override
+		public boolean isEnable() {
+			return flickEnable;
 		}
 
 		/**
@@ -1230,7 +1271,7 @@ public class EditorActivity extends Activity {
 			case EditList.ADD_APP_SHORTCUT:
 			case EditList.ADD_APP_APPWIDGET:
 			case EditList.ADD_APP_FUNCTION:
-				removeOnFlickListener();
+				flickEnable = false;
 				viewAppChooser(appType, intentAppType);
 				break;
 			
@@ -1266,7 +1307,7 @@ public class EditorActivity extends Activity {
 				break;
 					
 			case EditList.EDIT_APP_EDIT:
-				removeOnFlickListener();
+				flickEnable = false;
 				viewEditAppDialog();
 				break;
 			
@@ -1319,7 +1360,7 @@ public class EditorActivity extends Activity {
 				break;
 			
 			case EditList.EDIT_APP_DELETE:
-				removeOnFlickListener();
+				flickEnable = false;
 				viewDeleteAppDialog();
 				break;
 			
@@ -1333,7 +1374,7 @@ public class EditorActivity extends Activity {
 				break;
 		}
 	}
-	
+
 	/**
 	 * viewAppChooser
 	 *
@@ -1345,6 +1386,25 @@ public class EditorActivity extends Activity {
 		appChooser = new AppChooser (this, appType, intentAppType) {
 
 			/**
+			 * onAsyncCanceled()
+			 */
+			@Override
+			public void onAsyncCanceled(int appType, int intentAppType) {
+				flickEnable = true;
+			}
+
+			/**
+			 * onCreate()
+			 *
+			 * @param savedInstanceState
+			 */
+			@Override
+			protected void onCreate(Bundle savedInstanceState) {
+				super.onCreate(savedInstanceState);
+				flickEnable = true;
+			}
+
+			/**
 			 * onSelectIntentApp()
 			 *
 			 * @param app
@@ -1353,7 +1413,7 @@ public class EditorActivity extends Activity {
 			public void onSelectIntentApp (App app) {
 				if (app.getIntentAppInfo().getIntentAppType() == IntentAppInfo.INTENT_APP_TYPE_SHORTCUT) {
 					startActivityForResult(app.getIntentAppInfo().getIntent(), EditorActivity.REQUEST_CODE_ADD_SHORTCUT);
-					finish = false;
+					flickEnable = false;
 
 				} else {
 					addApp(app);
@@ -1367,6 +1427,8 @@ public class EditorActivity extends Activity {
 			 */
 			@Override
 			public void onSelectAppWidget(App app) {
+				flickEnable = false;
+
 				int appWidgetId = appWidgetHost.allocateAppWidgetId();
 				AppWidgetProviderInfo info = app.getAppWidgetInfo().getAppWidgetProviderInfo();
 				ComponentName componentName = info.provider;
@@ -1377,16 +1439,14 @@ public class EditorActivity extends Activity {
 					Intent intent = new Intent()
 							.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 					onActivityResult(REQUEST_CODE_ADD_APPWIDGET, RESULT_OK, intent);
-					finish = false;
 
 				} else {
 					Intent intent = new Intent(AppWidgetManager.ACTION_APPWIDGET_BIND)
 							.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
 							.putExtra(AppWidgetManager.EXTRA_APPWIDGET_PROVIDER, componentName);
 					startActivityForResult(intent, REQUEST_CODE_ADD_APPWIDGET);
-					finish = false;
 				}
-			
+
 			}
 
 			/**
@@ -1403,13 +1463,13 @@ public class EditorActivity extends Activity {
 			 * onDismissDialog()
 			 */
 			@Override
-			public void onDismissDialog() {
+			public void onDismissDialog(int appType, int intentAppType) {
 				if (pointerId != Pointer.DOCK_POINTER_ID) {
 					app_window.setAppPointed(false, appId);
 				} else {
 					dock_window.setDockPointed(false, appId);
 				}
-				setOnFlickListener();
+
 			}
 		
 		};
@@ -1455,10 +1515,24 @@ public class EditorActivity extends Activity {
 				} else {
 					dock_window.setDockPointed(false, appId);
 				}
-				setOnFlickListener();
 			}
 			
-		});
+		}) {
+
+			/**
+			 * onCreate()
+			 *
+			 * @param savedInstanceState
+			 */
+			@Override
+			protected void onCreate(Bundle savedInstanceState) {
+				super.onCreate(savedInstanceState);
+				flickEnable = true;
+
+			}
+
+		};
+
 		editDialog.show();
 		
 	}
@@ -1470,6 +1544,18 @@ public class EditorActivity extends Activity {
 		deleteDialog = new DeleteDialog(this,
 				DeleteDialog.DELETE_APP, appListList[pointerId][appId].getAppIcon(),
 				appListList[pointerId][appId].getAppLabel()) {
+
+			/**
+			 * onCreate()
+			 *
+			 * @param savedInstanceState
+			 */
+			@Override
+			protected void onCreate(Bundle savedInstanceState) {
+				super.onCreate(savedInstanceState);
+				flickEnable = true;
+
+			}
 
 			/**
 			 * onDelete()
@@ -1489,7 +1575,6 @@ public class EditorActivity extends Activity {
 				} else {
 					dock_window.setDockPointed(false, appId);
 				}
-				setOnFlickListener();
 			}
 
 			/**
@@ -1693,6 +1778,16 @@ public class EditorActivity extends Activity {
 		}
 
 		/**
+		 * isEnable()
+		 *
+		 * @return
+		 */
+		@Override
+		public boolean isEnable() {
+			return flickEnable;
+		}
+
+		/**
 		 * setId()
 		 *
 		 * @param id
@@ -1807,7 +1902,6 @@ public class EditorActivity extends Activity {
 			editDialog.setCanceledOnTouchOutside(false);
 			Intent intent = new Intent(Intent.ACTION_GET_CONTENT).setType("image/*");
 			startActivityForResult(intent, requestCode);
-			finish = false;
 
 		} else {
 			switch (iconTarget) {
@@ -1821,9 +1915,11 @@ public class EditorActivity extends Activity {
 			}
 
 			requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE }, requestCode);
-			finish = false;
 
 		}
+
+		flickEnable = false;
+
 	}
 
 	/**

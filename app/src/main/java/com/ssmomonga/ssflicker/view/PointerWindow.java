@@ -176,7 +176,7 @@ public class PointerWindow extends TableLayout {
 
 			} else {
 				Resources r = getContext().getResources();
-				setPointer(i, r.getDrawable(R.mipmap.icon_41_edit_add, null),
+				setPointer(i, r.getDrawable(R.mipmap.icon_40_edit_add, null),
 						r.getString(R.string.add));
 			}
 		}

@@ -149,6 +149,16 @@ public class OverlayService extends Service {
 		}
 
 		/**
+		 * isEnable()
+		 *
+		 * @return
+		 */
+		@Override
+		public boolean isEnable() {
+			return true;
+		}
+
+		/**
 		 * setId()
 		 *
 		 * @param id

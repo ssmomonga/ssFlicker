@@ -96,7 +96,7 @@ public class FunctionInfo {
 			case FunctionInfo.FUNCTION_TYPE_SEARCH:
 				return r.getDrawable(R.mipmap.icon_26_function_search, null);
 			case FunctionInfo.FUNCTION_TYPE_AIRPLANE_MODE:
-				return r.getDrawable(R.mipmap.icon_94_unused_airplane_mode, null);
+				return r.getDrawable(R.mipmap.icon_92_unused_airplane_mode, null);
 			default:
 				return null;
 		}

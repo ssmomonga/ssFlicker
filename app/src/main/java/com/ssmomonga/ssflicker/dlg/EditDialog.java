@@ -506,7 +506,7 @@ public class EditDialog extends AlertDialog {
 		}
 		
 	}
-	
+
 	/**
 	 * EditPointerIf
 	 */

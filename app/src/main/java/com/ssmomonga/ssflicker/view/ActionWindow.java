@@ -167,7 +167,7 @@ public class ActionWindow extends TableLayout {
 		Context context = getContext();
 		if (pointer == null) {
 			tv_center.setText(R.string.add);
-			iv_center.setImageResource(R.mipmap.icon_41_edit_add);
+			iv_center.setImageResource(R.mipmap.icon_40_edit_add);
 			setEdit(EditList.getAddPointerList(context));
 		} else {
 			tv_center.setText(pointer.getPointerLabel());
@@ -185,7 +185,7 @@ public class ActionWindow extends TableLayout {
 		Context context = getContext();
 		if (app == null) {
 			tv_center.setText(R.string.add);
-			iv_center.setImageResource(R.mipmap.icon_41_edit_add);
+			iv_center.setImageResource(R.mipmap.icon_40_edit_add);
 			setEdit(EditList.getAddAppList(context));
 		} else {
 			tv_center.setText(app.getAppLabel());
@@ -204,7 +204,7 @@ public class ActionWindow extends TableLayout {
 		Context context = getContext();
 		if (app == null) {
 			tv_center.setText(R.string.add);
-			iv_center.setImageResource(R.mipmap.icon_41_edit_add);
+			iv_center.setImageResource(R.mipmap.icon_40_edit_add);
 			setEdit(EditList.getAddDockList(context));
 		} else {
 			tv_center.setText(app.getAppLabel());

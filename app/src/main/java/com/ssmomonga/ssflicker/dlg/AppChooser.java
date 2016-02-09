@@ -70,8 +70,8 @@ public abstract class AppChooser extends AlertDialog {
 		setOnDismissListener(new DialogInterface.OnDismissListener() {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
-				onDismissDialog();
-			}			
+				onDismissDialog(appType, intentAppType);
+			}
 		});
 		
 	}
@@ -111,8 +111,10 @@ public abstract class AppChooser extends AlertDialog {
 			 */
 			@Override
 			public void asyncCancel() {
-				onDismissDialog();
+				onAsyncCanceled(appType, intentAppType);
+				onDismissDialog(appType, intentAppType);
 			}
+
 		}.execute(appType, intentAppType);
 
 	}
@@ -137,6 +139,14 @@ public abstract class AppChooser extends AlertDialog {
 			AppChooser.this.dismiss();
 		}
 	};
+
+	/**
+	 * onAsyncCanceled()
+	 *
+	 * @param appType
+	 * @param intentAppType
+	 */
+	public abstract void onAsyncCanceled(int appType, int intentAppType);
 
 	/**
 	 * onSelectIntentApp()
@@ -164,7 +174,9 @@ public abstract class AppChooser extends AlertDialog {
 
 	/**
 	 * onDismissDialog()
-	 * キャンセル
+	 *
+	 * @param appType
+	 * @param intentAppType
 	 */
-	public abstract void onDismissDialog();
+	public abstract void onDismissDialog(int appType, int intentAppType);
 }

@@ -116,7 +116,7 @@ public class DockWindow extends LinearLayout {
 			if (app != null) {
 				iv_dock[i].setImageDrawable(app.getAppIcon());
 			} else {
-				iv_dock[i].setImageResource(R.mipmap.icon_41_edit_add);
+				iv_dock[i].setImageResource(R.mipmap.icon_40_edit_add);
 			}
 		}
 	}

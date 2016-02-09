@@ -64,7 +64,7 @@ public class FlickerActivity extends Activity {
 	private static App[][] appListList;
 	private static int pointerId;
 	private static int appId;
-	public static boolean finish = true;
+	private static boolean flickEnable = true;
 
 	/**
 	 * onCreate()
@@ -125,7 +125,7 @@ public class FlickerActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		volumeDialog = l.getVolumeDialog();
-		if (finish) {
+		if (flickEnable) {
 			if (volumeDialog != null && volumeDialog.isShowing()) volumeDialog.dismiss();
 			if (drawer != null && drawer.isShowing()) drawer.dismiss();
 			finish();
@@ -177,7 +177,7 @@ public class FlickerActivity extends Activity {
 				break;
 		}
 
-		finish = true;
+		flickEnable = true;
 	}
 
 	/**
@@ -205,7 +205,7 @@ public class FlickerActivity extends Activity {
 
 		}
 
-		finish = true;
+		flickEnable = true;
 	}
 
 	/**
@@ -330,6 +330,16 @@ public class FlickerActivity extends Activity {
 		}
 
 		/**
+		 * isEnable()
+		 *
+		 * @return
+		 */
+		@Override
+		public boolean isEnable() {
+			return flickEnable;
+		}
+
+		/**
 		 * setId()
 		 *
 		 * @param id
@@ -358,7 +368,7 @@ public class FlickerActivity extends Activity {
 		 */
 		@Override
 		public void onDown(int position) {
-			dock_window.setDockPointed(true, appId);		
+			dock_window.setDockPointed(true, appId);
 		}
 
 		/**
@@ -417,6 +427,16 @@ public class FlickerActivity extends Activity {
 		 */
 		public OnPointerFlickListener(Context context) {
 			super(context);
+		}
+
+		/**
+		 * isEnable()
+		 *
+		 * @return
+		 */
+		@Override
+		public boolean isEnable() {
+			return flickEnable;
 		}
 
 		/**
@@ -542,7 +562,7 @@ public class FlickerActivity extends Activity {
 
 					requestPermissions(new String[] { Manifest.permission.CALL_PHONE },
 							FlickerActivity.REQUEST_PERMISSION_CODE_CALL_PHONE);
-					finish = false;
+					flickEnable = false;
 
 				} else {
 					l.launch(app, r);
@@ -560,7 +580,7 @@ public class FlickerActivity extends Activity {
 							Uri.parse("package:" + getPackageName()));
 					startActivityForResult(intent, FlickerActivity.REQUEST_CODE_WRITE_SETTINGS);
 					Toast.makeText(this, R.string.require_permission_write_settings, Toast.LENGTH_SHORT).show();
-					finish = false;
+					flickEnable = false;
 
 				} else {
 					l.launch(app, r);
@@ -586,6 +606,16 @@ public class FlickerActivity extends Activity {
 		 */
 		public OnMenuFlickListener(Context context) {
 			super(context);
+		}
+
+		/**
+		 * isEnable()
+		 *
+		 * @return
+		 */
+		@Override
+		public boolean isEnable() {
+			return flickEnable;
 		}
 
 		/**
