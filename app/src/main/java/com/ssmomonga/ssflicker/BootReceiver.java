@@ -38,26 +38,18 @@ public class BootReceiver extends BroadcastReceiver {
 		String action = intent.getAction();
 
 		/*
-		通常アプリ：インストール
+		新規インストール
 			★PACKAGE_ADDED(false,false)
-			アプリテーブル：なし、キャッシュテーブル：リビルド
-		通常アプリ：アンインストール
+		アンインストール
 			★PACKAGE_FULLY_REMOVED(false,true)
-			アプリテーブル：削除、キャッシュテーブル：リビルド
-		通常アプリ、プリインアプリ：バージョンアップ
-			PACKAGE_ADDED(true,false) → ★PACKAGE_REPLACED(true,false) → ★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
-			アプリテーブル：リビルド、キャッシュテーブル：削除
-		プリインアプリ：アンインストール（バージョンダウン）
-			PACKAGE_ADDED(true,false) → ★PACKAGE_REPLACED(true,false) → ★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
-			アプリテーブル：リビルド、キャッシュテーブル：リビルド
-		プリインアプリ：有効化
+		バージョンアップ（バージョンダウン）
+			PACKAGE_ADDED(true,false) → PACKAGE_REPLACED(true,false) → ★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
+		アプリの有効化
 			★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
-			アプリテーブル：なし、キャッシュテーブル：リビルド
-		プリインアプリ：無効化
+		アプリの無効化
 			★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DISABLED_USER)
-			アプリテーブル：削除、キャッシュテーブル：リビルド
 		ネット上ではバージョンアップ時は以下の動きになるという情報が散見される。
-			PACKAGE_REMOVED → PACKAGE_ADDED → ★PACKAGE_REPLACED
+			PACKAGE_REMOVED → PACKAGE_ADDED → PACKAGE_REPLACED
 		Log.v("ssFlicker", "action= " + action);
 		if (action.equals(Intent.ACTION_PACKAGE_CHANGED)) {
 			String targetPackageName = intent.getData().getSchemeSpecificPart();
@@ -101,25 +93,17 @@ public class BootReceiver extends BroadcastReceiver {
 			l.startStatusbar(settings.isStatusbar());
 			l.startOverlayService(settings.isOverlay());
 
-		//通常アプリ：インストール
+		//新規インストール
 		} else if (action.equals(Intent.ACTION_PACKAGE_ADDED) &&
-				!intent.getExtras().getBoolean(Intent.EXTRA_REPLACING)) {
+					!intent.getExtras().getBoolean(Intent.EXTRA_REPLACING)) {
 			rebuildAppCacheTable(context);
 
-		//通常アプリ：アンインストール
-		} else if (action.equals(Intent.ACTION_PACKAGE_FULLY_REMOVED)) {
+		//アンインストール
+		//バージョンアップ（バージョンダウン）、アプリの有効化、アプリの無効化
+		} else if (action.equals(Intent.ACTION_PACKAGE_FULLY_REMOVED) ||
+					action.equals(Intent.ACTION_PACKAGE_CHANGED)) {
 			rebuildAppTable(context, intent);
 			rebuildAppCacheTable(context);
-
-		//通常アプリ、プリインアプリ：バージョンアップ
-		//プリインアプリ：アンインストール（バージョンダウン）
-		//プリインアプリ：有効化
-		//プリインアプリ：無効化
-		//ACTION_PACKAGE_REPLACEDは不要だが、念のため残している。
-		} else if (action.equals(Intent.ACTION_PACKAGE_CHANGED) ||
-				action.equals(Intent.ACTION_PACKAGE_REPLACED)) {
-			rebuildAppTable(context, intent);
-			deleteAppCacheTable(context);
 
 		}
 	}
