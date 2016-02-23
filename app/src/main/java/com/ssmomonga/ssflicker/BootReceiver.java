@@ -44,17 +44,23 @@ public class BootReceiver extends BroadcastReceiver {
 			★PACKAGE_FULLY_REMOVED(false,true)
 		バージョンアップ（バージョンダウン）
 			PACKAGE_ADDED(true,false) → PACKAGE_REPLACED(true,false) → ★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
+			*最後にcom.google.android.gmsのPACKAGE_CHANGEDが走る。
 		アプリの有効化
 			★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
 		アプリの無効化
 			★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DISABLED_USER)
 		ネット上ではバージョンアップ時は以下の動きになるという情報が散見される。
 			PACKAGE_REMOVED → PACKAGE_ADDED → PACKAGE_REPLACED
-		Log.v("ssFlicker", "action= " + action);
+
+		String packageName = "";
+		if (intent.getData() != null) {
+			packageName = intent.getData().getSchemeSpecificPart();
+		}
+		Boolean replacing = intent.getExtras().getBoolean(Intent.EXTRA_REPLACING);
+		Boolean dataRemoved = intent.getExtras().getBoolean(Intent.EXTRA_DATA_REMOVED);
+		String strEnableSetting = "";
 		if (action.equals(Intent.ACTION_PACKAGE_CHANGED)) {
-			String targetPackageName = intent.getData().getSchemeSpecificPart();
-			int enabledSetting = context.getPackageManager().getApplicationEnabledSetting(targetPackageName);
-			String strEnableSetting = "";
+			int enabledSetting = context.getPackageManager().getApplicationEnabledSetting(packageName);
 			switch (enabledSetting) {
 				case PackageManager.COMPONENT_ENABLED_STATE_ENABLED:
 					strEnableSetting = "COMPONENT_ENABLED_STATE_ENABLED";
@@ -72,14 +78,20 @@ public class BootReceiver extends BroadcastReceiver {
 					strEnableSetting = "COMPONENT_ENABLED_STATE_DEFAULT";
 					break;
 			}
-			Log.v("ssFlicker", "enableSetting= " + strEnableSetting);
 		}
-		Boolean replacing = intent.getExtras().getBoolean(Intent.EXTRA_REPLACING);
-		Boolean dataRemoved = intent.getExtras().getBoolean(Intent.EXTRA_DATA_REMOVED);
-		Log.v("ssFlicker", "replacing= " + replacing);
-		Log.v("ssFlicker", "dataRemoved= " + dataRemoved);
-		Toast.makeText(context, action + "\n" + replacing + ", " + dataRemoved, Toast.LENGTH_LONG).show();
-		 */
+
+		Log.v("ssFlicker", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		Log.v("ssFlicker", "  action= " + action);
+		Log.v("ssFlicker", "  packageName= " + packageName);
+		Log.v("ssFlicker", "  replacing= " + replacing);
+		Log.v("ssFlicker", "  dataRemoved= " + dataRemoved);
+		Log.v("ssFlicker", "  enableSetting= " + strEnableSetting);
+		Log.v("ssFlicker", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		Toast.makeText(context, "action=" + action + "\npackageName=" + packageName
+				+ "\nreplacing=" + replacing + "\ndataRemoved=" + dataRemoved
+				+ "\nenableSetting=" + strEnableSetting, Toast.LENGTH_SHORT).show();
+		*/
+
 
 		//BOOT_COMPLETE
 		if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
@@ -123,6 +135,7 @@ public class BootReceiver extends BroadcastReceiver {
 	 * @param context
 	 */
 	private void rebuildAppCacheTable(Context context) {
+//		Log.v("ssFlicker", "=====rebuildAppCacheTable()=====");
 		deleteAppCacheTable(context);
 		AppList.getIntentAppList(context, IntentAppInfo.INTENT_APP_TYPE_LAUNCHER, 0);
 	}
