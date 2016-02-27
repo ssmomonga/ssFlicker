@@ -51,8 +51,9 @@ public class AppList {
 
 		switch (intentType) {
 			case IntentAppInfo.INTENT_APP_TYPE_LAUNCHER:
-				if (sdao.existsAppCacheTable()) {
-					return sdao.selectAppCacheTable();
+				App[] appCacheList = sdao.selectAppCacheTable();
+				if (appCacheList != null) {
+					return appCacheList;
 					
 				} else {
 					intent.setAction(Intent.ACTION_MAIN)

@@ -100,7 +100,7 @@ public class SQLiteDAO {
 		
 		SQLiteDatabase db = sdbh.getReadableDatabase();
 		Cursor c = db.query(SQLiteDBH.APP_TABLE_8, null, null, null, null, null, null);
-		
+
 		App[][] appListList = new App[Pointer.FLICK_POINTER_COUNT + Pointer.DOCK_POINTER_COUNT][App.FLICK_APP_COUNT];
 		while (c.moveToNext()) {
 			int pointerId = c.getInt(c.getColumnIndex(AppTableColumnName_8.POINTER_ID));
@@ -177,7 +177,7 @@ public class SQLiteDAO {
 	 *
 	 * @return
 	 */
-	public boolean existsAppCacheTable() {
+	public boolean _existsAppCacheTable() {
 
 		SQLiteDatabase db = sdbh.getReadableDatabase();
 		Cursor c = db.query(SQLiteDBH.APP_CACHE_TABLE_8, null, null, null, null, null, null);
@@ -198,10 +198,13 @@ public class SQLiteDAO {
 		
 		SQLiteDatabase db = sdbh.getReadableDatabase();
 		Cursor c = db.query(SQLiteDBH.APP_CACHE_TABLE_8, null, null, null, null, null, null);
+		App[] appCacheList = null;
 
-		App[] appCacheList = new App[c.getCount()];
-		while(c.moveToNext()) {
-			appCacheList[c.getPosition()] = createAppCache(c);
+		if (c.getCount() > 0) {
+			appCacheList = new App[c.getCount()];
+			while (c.moveToNext()) {
+				appCacheList[c.getPosition()] = createAppCache(c);
+			}
 		}
 
 		c.close();
