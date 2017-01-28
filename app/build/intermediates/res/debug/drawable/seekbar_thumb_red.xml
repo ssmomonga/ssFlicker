@@ -1,8 +1,0 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval" >
-
-    <solid android:color="@android:color/white" />
-    <stroke android:width="2dp" android:color="@color/red" />
-    <size android:width="15dp" android:height="15dp" />
-
-</shape><!-- From: file:/development/workspace/ssFlicker/app/src/main/res/drawable/seekbar_thumb_red.xml -->

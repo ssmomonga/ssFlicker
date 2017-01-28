@@ -1,7 +1,0 @@
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/iv_color"
-	style="@style/lp_32_32"
-	android:elevation="20dp"
-	android:focusable="false"
-	android:clickable="false" />
-<!-- From: file:/development/workspace/ssFlicker/app/src/main/res/layout/color_preference.xml -->

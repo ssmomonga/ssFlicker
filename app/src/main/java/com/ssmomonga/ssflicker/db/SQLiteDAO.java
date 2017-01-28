@@ -202,8 +202,12 @@ public class SQLiteDAO {
 
 		if (c.getCount() > 0) {
 			appCacheList = new App[c.getCount()];
-			while (c.moveToNext()) {
-				appCacheList[c.getPosition()] = createAppCache(c);
+			try {
+				while (c.moveToNext()) {
+					appCacheList[c.getPosition()] = createAppCache(c);
+				}
+			} catch (Exception e) {
+				appCacheList = null;
 			}
 		}
 

@@ -110,6 +110,7 @@ public class AppList {
 		}
 
 		if (intentType == IntentAppInfo.INTENT_APP_TYPE_LAUNCHER) {
+			sdao.deleteAppCacheTable();
 			sdao.insertAppCacheTable(appList.toArray(new App[count]));
 		}
 		

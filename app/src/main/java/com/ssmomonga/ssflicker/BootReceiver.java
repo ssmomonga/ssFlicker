@@ -43,14 +43,14 @@ public class BootReceiver extends BroadcastReceiver {
 		アンインストール
 			★PACKAGE_FULLY_REMOVED(false,true)
 		バージョンアップ（バージョンダウン）
-			PACKAGE_ADDED(true,false) → PACKAGE_REPLACED(true,false) → ★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
-			*最後にcom.google.android.gmsのPACKAGE_CHANGEDが走る。
+			* 2パターンある模様。
+			PACKAGE_ADDED(true,false) → ★PACKAGE_REPLACED(true,false)
+			PACKAGE_ADDED(true,false) → ★PACKAGE_REPLACED(true,false) → ★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
+			* 並行して、com.google.android.gmsのPACKAGE_CHANGEDが走る。
 		アプリの有効化
 			★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DEFAULT)
 		アプリの無効化
 			★PACKAGE_CHANGED(false,false)(COMPONENT_ENABLED_STATE_DISABLED_USER)
-		ネット上ではバージョンアップ時は以下の動きになるという情報が散見される。
-			PACKAGE_REMOVED → PACKAGE_ADDED → PACKAGE_REPLACED
 
 		String packageName = "";
 		if (intent.getData() != null) {
@@ -113,7 +113,8 @@ public class BootReceiver extends BroadcastReceiver {
 		//アンインストール
 		//バージョンアップ（バージョンダウン）、アプリの有効化、アプリの無効化
 		} else if (action.equals(Intent.ACTION_PACKAGE_FULLY_REMOVED) ||
-					action.equals(Intent.ACTION_PACKAGE_CHANGED)) {
+				action.equals(Intent.ACTION_PACKAGE_REPLACED) ||
+				action.equals(Intent.ACTION_PACKAGE_CHANGED)) {
 			rebuildAppTable(context, intent);
 			rebuildAppCacheTable(context);
 
@@ -125,9 +126,9 @@ public class BootReceiver extends BroadcastReceiver {
 	 *
 	 * @param context
 	 */
-	private void deleteAppCacheTable(Context context) {
-		new SQLiteDAO(context).deleteAppCacheTable();
-	}
+//	private void deleteAppCacheTable(Context context) {
+//		new SQLiteDAO(context).deleteAppCacheTable();
+//	}
 
 	/**
 	 * rebuildAppCacheTable()
@@ -135,8 +136,8 @@ public class BootReceiver extends BroadcastReceiver {
 	 * @param context
 	 */
 	private void rebuildAppCacheTable(Context context) {
-//		Log.v("ssFlicker", "=====rebuildAppCacheTable()=====");
-		deleteAppCacheTable(context);
+//		deleteAppCacheTable(context);
+		new SQLiteDAO(context).deleteAppCacheTable();
 		AppList.getIntentAppList(context, IntentAppInfo.INTENT_APP_TYPE_LAUNCHER, 0);
 	}
 
