@@ -838,7 +838,6 @@ public class SQLiteDAO {
 	 * @return
 	 */
 	private App createAppCache(Cursor c) {
-
 		return new App(
 				context,
 				App.APP_TYPE_INTENT_APP,

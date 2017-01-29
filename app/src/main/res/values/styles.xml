@@ -9,6 +9,7 @@
 		<item name="android:actionBarStyle">@style/ActionBarStyle</item>
 		<item name="android:alertDialogTheme">@style/AlertDialogTheme.Light</item>
 		<item name="android:windowEnableSplitTouch">false</item>
+		<item name="android:splitMotionEvents">false</item>
 	</style>
 	<style name="Theme.Base" parent="android:Theme.Material">
 		<item name="android:colorPrimaryDark">@color/color_primary_dark</item>
@@ -17,6 +18,7 @@
 		<item name="android:actionBarStyle">@style/ActionBarStyle</item>
 		<item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
 		<item name="android:windowEnableSplitTouch">false</item>
+		<item name="android:splitMotionEvents">false</item>
 	</style>
 
 	<style name="ActionBarStyle" parent="android:Widget.Material.ActionBar">

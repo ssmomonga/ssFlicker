@@ -83,6 +83,7 @@ public class ImageConverter {
 	public static byte[] createByte(Context context, Drawable drawable) {
 		if (drawable != null) {
 			Bitmap bitmap = createBitmap(drawable);
+			bitmap = resizeBitmap(context, bitmap);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
 			return baos.toByteArray();

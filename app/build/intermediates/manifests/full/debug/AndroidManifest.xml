@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ssmomonga.ssflicker"
     android:installLocation="internalOnly"
-    android:versionCode="81"
-    android:versionName="v1.5.12" >
+    android:versionCode="82"
+    android:versionName="v1.5.13" >
 
     <uses-sdk
         android:minSdkVersion="21"
