@@ -79,15 +79,29 @@
 					android:paddingBottom="8dp"
 					android:text="@string/blog_url"
 					android:autoLink="web" />
-				<!-- TextView
+			</LinearLayout>
+		</LinearLayout>
+
+		<LinearLayout
+			style="@style/lp_mp_wc"
+			android:orientation="vertical" >
+			<TextView
+				style="@style/lp_mp_wc"
+				android:text="@string/privacy_policy_info"
+				android:textColor="?android:colorAccent" />
+			<LinearLayout
+				style="@style/lp_mp_wc"
+				android:padding="8dp"
+				android:orientation="vertical" >
+				<TextView
 					style="@style/lp_mp_wc"
-					android:text="@string/qa" />
+					android:text="@string/privacy_policy" />
 				<TextView
 					style="@style/lp_mp_wc"
 					android:paddingLeft="8dp"
 					android:paddingBottom="8dp"
-					android:text="@string/qa_url"
-					android:autoLink="web" /-->
+					android:text="@string/privacy_policy_url"
+					android:autoLink="web" />
 			</LinearLayout>
 		</LinearLayout>
 

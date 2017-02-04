@@ -223,6 +223,9 @@
 	<string name="twitter_account">https://twitter.com/ssmomonga</string>
 	<string name="blog">・Blog：バージョンアップ情報やAndroid開発に関する情報などを投稿しています。</string>
 	<string name="blog_url">http://ssmomonga.blogspot.com/</string>
+	<string name="privacy_policy_info">プライバシーポリシー</string>
+	<string name="privacy_policy">・プライバシーポリシー</string>
+	<string name="privacy_policy_url">http://ssmomonga.blogspot.jp/2000/01/blog-post.html</string>
 	<string name="ver_info">バージョン</string>
 	<string name="ver_0">・開発の終了後も引き続き旧バージョンで利用できますが、バージョンアップは行われません。</string>
 	<string name="ver_1">・Android 4.0：v1.3.3をもって開発を終了しています。</string>

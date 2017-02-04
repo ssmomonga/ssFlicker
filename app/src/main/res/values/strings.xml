@@ -223,6 +223,9 @@
 	<string name="twitter_account">https://twitter.com/ssmomonga</string>
 	<string name="blog">- Blog</string>
 	<string name="blog_url">http://ssmomonga.blogspot.com/</string>
+	<string name="privacy_policy_info">Privacy Policy</string>
+	<string name="privacy_policy">- Privacy Policy</string>
+	<string name="privacy_policy_url">http://ssmomonga.blogspot.jp/2000/01/blog-post.html</string>
 	<string name="ver_info">Version</string>
 	<string name="ver_0">- After the end of development, you can continue to use ssFlicker in old version, but can not update.</string>
 	<string name="ver_1">- Android 4.0 : The end of development is in v1.3.3.</string>
