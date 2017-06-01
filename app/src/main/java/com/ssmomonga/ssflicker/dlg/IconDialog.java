@@ -15,6 +15,7 @@ import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.BaseData;
 import com.ssmomonga.ssflicker.data.CustomAdapters.IconAdapter;
 import com.ssmomonga.ssflicker.data.IconList;
+import com.ssmomonga.ssflicker.proc.ImageConverter;
 
 /**
  * IconDialog
@@ -144,7 +145,7 @@ public class IconDialog {
 				 */
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					BaseData icon = (BaseData) parent.getItemAtPosition(position);
+					BaseData icon = adapter.getItem(position);
 					onSelectIcon(icon.getIcon(), (Integer) icon.getTag());
 					cancel();
 				}
@@ -195,8 +196,16 @@ public class IconDialog {
 		 * setAdapter()
 		 */
 		private void setAdapter() {
-			IconAdapter adapter = new IconAdapter(context, R.layout.icon_grid_view, iconType, iconColor);
-			for (BaseData icon: iconList) if (icon != null) adapter.add(icon);
+			adapter = new IconAdapter(context, R.layout.icon_grid_view);
+			for (BaseData icon: iconList) {
+				if (icon != null) {
+					if (iconType == IconList.LABEL_ICON_TYPE_ORIGINAL) {
+						Drawable d = ImageConverter.changeIconColor(context, icon.getIcon(), iconColor);
+						icon.setIcon(d);
+					}
+					adapter.add(icon);
+				}
+			}
 			gv_icon.setAdapter(adapter);
 		}
 

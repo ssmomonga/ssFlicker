@@ -100,14 +100,15 @@ public final class R {
     public static final class drawable {
         public static final int icon_assist=0x7f020000;
         public static final int invisible=0x7f020001;
-        public static final int seekbar_progress_alpha=0x7f020002;
-        public static final int seekbar_progress_blue=0x7f020003;
-        public static final int seekbar_progress_green=0x7f020004;
-        public static final int seekbar_progress_red=0x7f020005;
-        public static final int seekbar_thumb_alpha=0x7f020006;
-        public static final int seekbar_thumb_blue=0x7f020007;
-        public static final int seekbar_thumb_green=0x7f020008;
-        public static final int seekbar_thumb_red=0x7f020009;
+        public static final int seekbar_progress_alpha_dark=0x7f020002;
+        public static final int seekbar_progress_alpha_light=0x7f020003;
+        public static final int seekbar_progress_blue=0x7f020004;
+        public static final int seekbar_progress_green=0x7f020005;
+        public static final int seekbar_progress_red=0x7f020006;
+        public static final int seekbar_thumb_alpha=0x7f020007;
+        public static final int seekbar_thumb_blue=0x7f020008;
+        public static final int seekbar_thumb_green=0x7f020009;
+        public static final int seekbar_thumb_red=0x7f02000a;
     }
     public static final class id {
         public static final int about=0x7f0e00c7;
@@ -328,18 +329,19 @@ public final class R {
         public static final int appwidget_chooser=0x7f040006;
         public static final int appwidget_grid_view=0x7f040007;
         public static final int backup_restore_dialog=0x7f040008;
-        public static final int color_picker=0x7f040009;
-        public static final int color_preference=0x7f04000a;
-        public static final int dock_window=0x7f04000b;
-        public static final int donate_activity=0x7f04000c;
-        public static final int edit_dialog=0x7f04000d;
-        public static final int editor_activity=0x7f04000e;
-        public static final int flicker_activity=0x7f04000f;
-        public static final int icon_chooser=0x7f040010;
-        public static final int icon_grid_view=0x7f040011;
-        public static final int invisible_app_widget=0x7f040012;
-        public static final int pointer_window=0x7f040013;
-        public static final int volume_dialog=0x7f040014;
+        public static final int color_picker_dark=0x7f040009;
+        public static final int color_picker_light=0x7f04000a;
+        public static final int color_preference=0x7f04000b;
+        public static final int dock_window=0x7f04000c;
+        public static final int donate_activity=0x7f04000d;
+        public static final int edit_dialog=0x7f04000e;
+        public static final int editor_activity=0x7f04000f;
+        public static final int flicker_activity=0x7f040010;
+        public static final int icon_chooser=0x7f040011;
+        public static final int icon_grid_view=0x7f040012;
+        public static final int invisible_app_widget=0x7f040013;
+        public static final int pointer_window=0x7f040014;
+        public static final int volume_dialog=0x7f040015;
     }
     public static final class menu {
         public static final int pref_activity=0x7f0d0000;
@@ -665,28 +667,29 @@ public final class R {
         public static final int AlertDialogTheme=0x7f0c0002;
         public static final int AlertDialogTheme_Light=0x7f0c0003;
         public static final int SeekBar_ARGB=0x7f0c0004;
-        public static final int SeekBar_Alpha=0x7f0c0005;
-        public static final int SeekBar_Blue=0x7f0c0006;
-        public static final int SeekBar_Green=0x7f0c0007;
-        public static final int SeekBar_Red=0x7f0c0008;
-        public static final int Theme_Base=0x7f0c0009;
-        public static final int Theme_Base_Light=0x7f0c000a;
-        public static final int Theme_Editor=0x7f0c000b;
-        public static final int Theme_Flicker=0x7f0c000c;
-        public static final int Theme_Pref=0x7f0c000d;
-        public static final int divider=0x7f0c000e;
-        public static final int lp_0_wc=0x7f0c000f;
-        public static final int lp_128_96=0x7f0c0010;
-        public static final int lp_16_mp=0x7f0c0011;
-        public static final int lp_32_32=0x7f0c0012;
-        public static final int lp_40_40=0x7f0c0013;
-        public static final int lp_48_wc=0x7f0c0014;
-        public static final int lp_mp_0=0x7f0c0015;
-        public static final int lp_mp_128=0x7f0c0016;
-        public static final int lp_mp_mp=0x7f0c0017;
-        public static final int lp_mp_wc=0x7f0c0018;
-        public static final int lp_wc_0=0x7f0c0019;
-        public static final int lp_wc_wc=0x7f0c001a;
+        public static final int SeekBar_Alpha_Dark=0x7f0c0005;
+        public static final int SeekBar_Alpha_Light=0x7f0c0006;
+        public static final int SeekBar_Blue=0x7f0c0007;
+        public static final int SeekBar_Green=0x7f0c0008;
+        public static final int SeekBar_Red=0x7f0c0009;
+        public static final int Theme_Base=0x7f0c000a;
+        public static final int Theme_Base_Light=0x7f0c000b;
+        public static final int Theme_Editor=0x7f0c000c;
+        public static final int Theme_Flicker=0x7f0c000d;
+        public static final int Theme_Pref=0x7f0c000e;
+        public static final int divider=0x7f0c000f;
+        public static final int lp_0_wc=0x7f0c0010;
+        public static final int lp_128_96=0x7f0c0011;
+        public static final int lp_16_mp=0x7f0c0012;
+        public static final int lp_32_32=0x7f0c0013;
+        public static final int lp_40_40=0x7f0c0014;
+        public static final int lp_48_wc=0x7f0c0015;
+        public static final int lp_mp_0=0x7f0c0016;
+        public static final int lp_mp_128=0x7f0c0017;
+        public static final int lp_mp_mp=0x7f0c0018;
+        public static final int lp_mp_wc=0x7f0c0019;
+        public static final int lp_wc_0=0x7f0c001a;
+        public static final int lp_wc_wc=0x7f0c001b;
     }
     public static final class xml {
         public static final int invisible_appwidget=0x7f060000;

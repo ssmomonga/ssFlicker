@@ -64,7 +64,7 @@ public abstract class ColorPicker extends AlertDialog {
 		this.context = context;
 		this.colorType = colorType;
 		settings = new ColorPickerSettings(context);
-		setInitialLayout();
+		setInitialLayout(R.layout.color_picker_light);
 	}
 	
 	/**
@@ -79,16 +79,16 @@ public abstract class ColorPicker extends AlertDialog {
 		this.context = context;
 		this.colorType = colorType;
 		settings = new ColorPickerSettings(context, iconColor);
-		setInitialLayout();
+		setInitialLayout(R.layout.color_picker_dark);
 	}
 	
 	/**
 	 * setInitialLayout()
 	 */
-	private void setInitialLayout() {
+	private void setInitialLayout(int res) {
 
 		LayoutInflater inflater = LayoutInflater.from(context);
-		View view = inflater.inflate(R.layout.color_picker, null);
+		View view = inflater.inflate(res, null);
 		setView(view);
 		
 		int color = 0;
@@ -232,8 +232,8 @@ public abstract class ColorPicker extends AlertDialog {
 		
 			case COLOR_TYPE_ICON:
 				settings.setIconColor(Color.argb(colorARGB[0], colorARGB[1], colorARGB[2], colorARGB[3]));
-				iv_pointer_preview[i].setImageDrawable(settings.getIcon());
 				iv_pointer_preview[i].setColorFilter(settings.getIconColor());
+				iv_pointer_preview[i].setImageDrawable(settings.getIcon());
 				break;
 		
 			case COLOR_TYPE_TEXT:

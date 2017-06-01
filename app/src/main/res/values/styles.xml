@@ -62,15 +62,19 @@
 		<item name="android:background">?android:colorForeground</item>
 		<item name="android:alpha">0.12</item>
 	</style>
-	
+
 	<style name="SeekBar.ARGB" parent="android:Widget.Material.Light.SeekBar">
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layout_weight">1</item>
 		<item name="android:max">255</item>
 	</style>
-	<style name="SeekBar.Alpha" parent="SeekBar.ARGB">
-		<item name="android:progressDrawable">@drawable/seekbar_progress_alpha</item>
+	<style name="SeekBar.Alpha.Light" parent="SeekBar.ARGB">
+		<item name="android:progressDrawable">@drawable/seekbar_progress_alpha_light</item>
+		<item name="android:thumb">@drawable/seekbar_thumb_alpha</item>
+	</style>
+	<style name="SeekBar.Alpha.Dark" parent="SeekBar.ARGB">
+		<item name="android:progressDrawable">@drawable/seekbar_progress_alpha_dark</item>
 		<item name="android:thumb">@drawable/seekbar_thumb_alpha</item>
 	</style>
 	<style name="SeekBar.Red" parent="SeekBar.ARGB">

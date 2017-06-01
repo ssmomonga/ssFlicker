@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.db.PrefDAO;
 
+import static com.ssmomonga.ssflicker.R.id.iv_icon;
+
 /**
  * CustomAdapters
  */
@@ -58,7 +60,7 @@ public class CustomAdapters {
 				convertView = inflater.inflate(resource, parent, false);
 				
 				holder = new ViewHolder();
-				holder.iv_icon = (ImageView) convertView.findViewById(R.id.iv_icon);
+				holder.iv_icon = (ImageView) convertView.findViewById(iv_icon);
 				holder.iv_icon.setLayoutParams(params);
 				holder.tv_label = (TextView) convertView.findViewById(R.id.tv_label);
 				convertView.setTag(holder);
@@ -159,8 +161,8 @@ public class CustomAdapters {
 		
 		private Context context;
 		private int resource;
-		private int iconType;
-		private int iconColor;
+//		private int iconType;
+//		private int iconColor;
 		private LinearLayout.LayoutParams params;
 
 		/**
@@ -168,14 +170,14 @@ public class CustomAdapters {
 		 *
 		 * @param context
 		 * @param resource
-		 * @param iconColor
 		 */
-		public IconAdapter(Context context, int resource, int iconType, int iconColor) {
+		public IconAdapter(Context context, int resource) {
+//		public IconAdapter(Context context, int resource, int iconType, int iconColor) {
 			super(context, resource);
 			this.context = context;
 			this.resource = resource;
-			this.iconType = iconType;
-			this.iconColor = iconColor;
+//			this.iconType = iconType;
+//			this.iconColor = iconColor;
 			int iconSize = new PrefDAO(context).getIconSize();
 			params = new LinearLayout.LayoutParams(iconSize, iconSize);
 		}
@@ -195,10 +197,7 @@ public class CustomAdapters {
 				LayoutInflater inflater = LayoutInflater.from(context);
 				convertView = inflater.inflate(resource, parent, false);
 				holder = new ViewHolder();
-				holder.iv_icon = (ImageView) convertView.findViewById(R.id.iv_icon);
-				if (iconType == IconList.LABEL_ICON_TYPE_ORIGINAL) {
-					holder.iv_icon.setColorFilter(iconColor);
-				}
+				holder.iv_icon = (ImageView) convertView.findViewById(iv_icon);
 				convertView.setTag(holder);
 
 			} else {
@@ -219,5 +218,4 @@ public class CustomAdapters {
 		}
 
 	}
-	
 }

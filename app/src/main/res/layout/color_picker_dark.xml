@@ -131,7 +131,7 @@
 				style="@style/lp_mp_wc"
 				android:gravity="center" >
 				<SeekBar android:id="@+id/sb_alpha"
-					style="@style/SeekBar.Alpha" />
+					style="@style/SeekBar.Alpha.Dark" />
 				<EditText android:id="@+id/et_alpha"
 					style="@style/lp_48_wc"
 					android:gravity="right"

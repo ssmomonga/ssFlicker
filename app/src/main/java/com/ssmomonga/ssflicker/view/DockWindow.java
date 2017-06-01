@@ -1,6 +1,8 @@
 package com.ssmomonga.ssflicker.view;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.animation.Animation;
@@ -10,7 +12,10 @@ import android.widget.LinearLayout;
 
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
+import com.ssmomonga.ssflicker.proc.ImageConverter;
 import com.ssmomonga.ssflicker.set.WindowParams;
+
+import static com.ssmomonga.ssflicker.R.color.material_gray;
 
 /**
  * DockWindow
@@ -111,12 +116,17 @@ public class DockWindow extends LinearLayout {
 	 * @param appList
 	 */
 	public void setAppForEdit(App[] appList) {
+		Context context = getContext();
+		Resources r = context.getResources();
+		Drawable d = r.getDrawable(R.mipmap.icon_40_edit_add, null);
+		d = ImageConverter.changeIconColor(context, d, r.getColor(material_gray));
+//		d = ImageConverter.changeIconColor(context, d, r.getColor(material_gray, null));		//API 23以上
 		for (int i = 0; i < App.DOCK_APP_COUNT; i ++) {
 			App app = appList[i];
 			if (app != null) {
 				iv_dock[i].setImageDrawable(app.getAppIcon());
 			} else {
-				iv_dock[i].setImageResource(R.mipmap.icon_40_edit_add);
+				iv_dock[i].setImageDrawable(d);
 			}
 		}
 	}

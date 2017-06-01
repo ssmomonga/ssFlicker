@@ -135,8 +135,7 @@ public class ColorPickerSettings {
 	 * @return
 	 */
 	public Drawable getIcon() {
-		return context.getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null);
-//		return ImageConverter.changeIconColor(context, context.getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null), iconColor);
+		return ImageConverter.changeIconColor(context, context.getResources().getDrawable(R.mipmap.icon_00_pointer_custom, null), iconColor);
 	}
 	
 	/**

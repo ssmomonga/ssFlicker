@@ -15,7 +15,10 @@ import android.widget.TextView;
 
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.Pointer;
+import com.ssmomonga.ssflicker.proc.ImageConverter;
 import com.ssmomonga.ssflicker.set.WindowParams;
+
+import static com.ssmomonga.ssflicker.R.color.material_gray;
 
 /**
  * PointerWindow
@@ -168,6 +171,13 @@ public class PointerWindow extends TableLayout {
 	 * @param pointerList
 	 */
 	public void setPointerForEdit(Pointer[] pointerList) {
+
+		Context context = getContext();
+		Resources r = context.getResources();
+		Drawable d = r.getDrawable(R.mipmap.icon_40_edit_add, null);
+		d = ImageConverter.changeIconColor(context, d, r.getColor(material_gray));
+//		d = ImageConverter.changeIconColor(context, d, r.getColor(material_gray, null));		//API 23以上
+
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
 			Pointer pointer = pointerList[i];
 
@@ -175,9 +185,7 @@ public class PointerWindow extends TableLayout {
 				setPointer(i, pointer.getPointerIcon(), pointer.getPointerLabel());
 
 			} else {
-				Resources r = getContext().getResources();
-				setPointer(i, r.getDrawable(R.mipmap.icon_40_edit_add, null),
-						r.getString(R.string.add));
+				setPointer(i, d, r.getString(R.string.add));
 			}
 		}
 	}
