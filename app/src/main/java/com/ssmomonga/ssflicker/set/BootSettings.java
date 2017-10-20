@@ -6,9 +6,8 @@ import com.ssmomonga.ssflicker.db.PrefDAO;
 
 public class BootSettings {
 
-	private static boolean homeKey;
-	private static boolean statusbar;
-	private static boolean overlay;
+	private boolean statusbar;
+	private boolean overlay;
 
 	/**
 	 * Constructor
@@ -17,18 +16,8 @@ public class BootSettings {
 	 */
 	public BootSettings(Context context) {
 		PrefDAO pdao = new PrefDAO(context);
-		homeKey = DeviceSettings.isHomeKey(context);
 		statusbar = pdao.isStatusbar();
 		overlay = pdao.isOverlay();
-	}
-	
-	/**
-	 * isHomeKey()
-	 *
-	 * @return
-	 */
-	public boolean isHomeKey() {
-		return homeKey;
 	}
 	
 	/**

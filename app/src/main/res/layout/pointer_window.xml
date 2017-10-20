@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<merge
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/lp_wc_wc" >
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
     
 	<TableRow
 		android:gravity="center" >
@@ -10,7 +8,6 @@
 			android:tag="0"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_0"
 				style="@style/lp_wc_wc" />
@@ -23,7 +20,6 @@
 			android:tag="1"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_1"
 				style="@style/lp_wc_wc" />
@@ -36,7 +32,6 @@
 			android:tag="2"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_2"
 				style="@style/lp_wc_wc" />
@@ -49,7 +44,6 @@
 			android:tag="3"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_3"
 				style="@style/lp_wc_wc" />
@@ -66,7 +60,6 @@
 			android:tag="4"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_4"
 				style="@style/lp_wc_wc" />
@@ -79,7 +72,6 @@
 			android:tag="5"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_5"
 				style="@style/lp_wc_wc" />
@@ -92,7 +84,6 @@
 			android:tag="6"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_6"
 				style="@style/lp_wc_wc" />
@@ -105,7 +96,6 @@
 			android:tag="7"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_7"
 				style="@style/lp_wc_wc" />
@@ -122,7 +112,6 @@
 			android:tag="8"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_8"
 				style="@style/lp_wc_wc" />
@@ -135,7 +124,6 @@
 			android:tag="9"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_9"
 				style="@style/lp_wc_wc" />
@@ -148,7 +136,6 @@
 			android:tag="10"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_10"
 				style="@style/lp_wc_wc" />
@@ -161,7 +148,6 @@
 			android:tag="11"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_11"
 				style="@style/lp_wc_wc" />
@@ -178,7 +164,6 @@
 			android:tag="12"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_12"
 				style="@style/lp_wc_wc" />
@@ -191,7 +176,6 @@
 			android:tag="13"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_13"
 				style="@style/lp_wc_wc" />
@@ -204,7 +188,6 @@
 			android:tag="14"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_14"
 				style="@style/lp_wc_wc" />
@@ -217,7 +200,6 @@
 			android:tag="15"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer_15"
 				style="@style/lp_wc_wc" />

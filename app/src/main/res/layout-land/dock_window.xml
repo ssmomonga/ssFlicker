@@ -8,9 +8,10 @@
 		style="@style/lp_wc_0"
 		android:layout_weight="0.5" />
 
-	<LinearLayout
+	<LinearLayout android:id="@+id/ll_parent"
 		style="@style/lp_wc_0"
 		android:layout_weight="6"
+		android:gravity="center"
 		android:orientation="vertical" >
 
    		<LinearLayout android:id="@+id/ll_menu"
@@ -21,7 +22,7 @@
 			android:gravity="center" >
 			<ImageView android:id="@+id/iv_menu"
 				style="@style/lp_wc_wc"
-				android:background="@mipmap/icon_30_menu_menu" />
+				android:src="@mipmap/icon_30_menu_menu" />
 		</LinearLayout>
    	
 		<LinearLayout android:id="@+id/ll_dock_4"

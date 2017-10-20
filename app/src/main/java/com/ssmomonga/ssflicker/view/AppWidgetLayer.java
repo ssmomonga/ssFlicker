@@ -5,20 +5,27 @@ import android.appwidget.AppWidgetHostView;
 import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.FrameLayout;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.ssmomonga.ssflicker.R;
+import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.AppWidgetInfo;
 import com.ssmomonga.ssflicker.set.AppWidgetHostSettings;
-import com.ssmomonga.ssflicker.set.AppWidgetParams;
+import com.ssmomonga.ssflicker.set.AppWidgetViewParams;
 
 /**
  * AppWidgetLayer
  */
-public class AppWidgetLayer extends FrameLayout {
-	
-	private Context context;
-	private static AppWidgetHost host;
+public class AppWidgetLayer extends RelativeLayout {
+
+	private AppWidgetHost host;
+	private Animation animAppWidgetShow;
+	private Animation animAppWidgetHide;
 	
 	/**
 	 * Constructor
@@ -28,48 +35,79 @@ public class AppWidgetLayer extends FrameLayout {
 	 */
 	public AppWidgetLayer(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		this.context = context;
-		host = new AppWidgetHost(context, AppWidgetHostSettings.APPWIDGET_HOST_ID);
+		host = new AppWidgetHost(context, AppWidgetHostSettings.APP_WIDGETH_HOST_ID);
+		animAppWidgetShow = AnimationUtils.loadAnimation(context, R.anim.app_widget_show);
+		animAppWidgetHide = AnimationUtils.loadAnimation(context, R.anim.app_widget_hide);
+	}
+
+	public void setAllAppWidgets(App[] appList) {
+
+		Context context = getContext();
+		removeAllViews();
+
+		for (App app: appList) {
+
+			AppWidgetInfo appWidgetInfo= app.getAppWidgetInfo();
+			AppWidgetProviderInfo info = appWidgetInfo.getAppWidgetProviderInfo();
+			int appWidgetId = appWidgetInfo.getAppWidgetId();
+
+			AppWidgetViewParams params = new AppWidgetViewParams(context, appWidgetInfo);
+
+			AppWidgetHostView appWidgetHostView = host.createView(context, appWidgetId, info);
+			appWidgetHostView.setLayoutParams(params.getAppWidgetViewLP());
+			appWidgetHostView.setAppWidget(appWidgetId, info);
+			
+			LinearLayout ll = new LinearLayout(context);
+			ll.setLayoutParams(params.getParentViewLP());
+			ll.setId(appWidgetId);
+			ll.addView(appWidgetHostView);
+			addView(ll);
+
+			if (appWidgetInfo.getUpdateTime() == 0) {
+				ll.setVisibility(View.INVISIBLE);
+			}
+		}
+	}
+
+	/**
+	 * viewAppWidget()
+	 *
+	 * @param app
+	 */
+	public boolean viewAppWidget(App app) {
+
+		AppWidgetInfo appWidgetInfo = app.getAppWidgetInfo();
+		if (appWidgetInfo.getAppWidgetProviderInfo() != null) {
+			LinearLayout ll = findViewById(app.getAppWidgetInfo().getAppWidgetId());
+			
+			if (appWidgetInfo.getUpdateTime() == 0) {
+				removeView(ll);
+				addView(ll);
+				ll.setVisibility(View.VISIBLE);
+				ll.startAnimation(animAppWidgetShow);
+				return true;
+
+			} else {
+				ll.startAnimation(animAppWidgetHide);
+				ll.setVisibility(View.INVISIBLE);
+				return false;
+			}
+
+		} else {
+			Toast.makeText(getContext(), R.string.view_appwidget_error, Toast.LENGTH_SHORT).show();
+			return false;
+		}
+	}
+	
+	/**
+	 * startListening()
+	 */
+	public void startListening() {
 		host.startListening();
 	}
 	
 	/**
-	 * addView()
-	 *
-	 * @param appWidgetInfo
-	 */
-	public void addView(AppWidgetInfo appWidgetInfo) {
-
-		AppWidgetProviderInfo info = appWidgetInfo.getAppWidgetProviderInfo();
-		int appWidgetId = appWidgetInfo.getAppWidgetId();
-		AppWidgetParams params = new AppWidgetParams(context, appWidgetInfo);
-		
-		AppWidgetHostView appWidgetHostView = host.createView(context, appWidgetId, info);
-		appWidgetHostView.setLayoutParams(params.getAppWidgetLP());
-		appWidgetHostView.setAppWidget(appWidgetId, info);
-
-		LinearLayout ll = new LinearLayout(context);
-		int[] padding = params.getAppWidgetPositionPadding();
-		ll.setPadding(padding[0], padding[1], padding[2], padding[3]);
-		ll.setId(appWidgetId);
-		
-		ll.addView(appWidgetHostView);
-		addView(ll);
-		
-	}
-	
-	/**
-	 * removeView()
-	 *
-	 * @param appWidgetInfo
-	 */
-	public void removeView(AppWidgetInfo appWidgetInfo) {
-		removeView((LinearLayout) findViewById(appWidgetInfo.getAppWidgetId()));
-	}
-
-	/**
 	 * stopListenening();
-	 *
 	 */
 	public void stopListening() {
 		host.stopListening();

@@ -143,11 +143,12 @@
 		<FrameLayout
 			style="@style/lp_mp_128" >
 			<LinearLayout android:id="@+id/ll_wallpaper"
+				android:baselineAligned="false"
 				style="@style/lp_mp_mp" />
 			<LinearLayout
 				style="@style/lp_mp_mp"
-				android:baselineAligned="false"
-				android:background="@color/activity_background" >
+				android:baselineAligned="false" >
+				<!--android:background="@color/activity_background" -->
 				<LinearLayout android:id="@+id/ll_overlay_point_preview_0"
 					style="@style/lp_16_mp"
 					android:visibility="gone" />

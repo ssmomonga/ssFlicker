@@ -9,7 +9,7 @@
 	<ImageView
 		style="@style/lp_40_40"
 		android:layout_gravity="center"
-		android:src="@mipmap/icon_launcher" />
+		android:src="@mipmap/icon_launcher_round" />
 	<TextView
 		style="@style/lp_wc_wc"
 		android:paddingLeft="4dp"

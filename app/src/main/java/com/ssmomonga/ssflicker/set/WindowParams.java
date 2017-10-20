@@ -4,8 +4,8 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.widget.LinearLayout;
 import android.widget.TableLayout.LayoutParams;
+import android.widget.TableRow;
 
-import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.db.PrefDAO;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
 
@@ -15,15 +15,18 @@ import com.ssmomonga.ssflicker.proc.ImageConverter;
 public class WindowParams {
 	
 	private Context context;
-	private static boolean statusbarVisibility;
-	private static LinearLayout.LayoutParams iconLP;
-	private static LinearLayout.LayoutParams textLP;
-	private static boolean textVisibility;
-	private static int textColor;
-	private static int textSize;
-	private static Drawable pointerWindowBackground;
-	private static Drawable appWindowBackground;
-	private static Drawable actionWindowBackground;
+	private static PrefDAO pdao;
+
+	private boolean statusbarVisibility;
+	private LinearLayout.LayoutParams appLP;
+	private LinearLayout.LayoutParams iconLP;
+	private LinearLayout.LayoutParams textLP;
+	private boolean textVisibility;
+	private int textColor;
+	private int textSize;
+	private Drawable pointerWindowBackground;
+	private Drawable appWindowBackground;
+	private Drawable actionWindowBackground;
 	
 	/**
 	 * Constructor
@@ -32,9 +35,9 @@ public class WindowParams {
 	 */
 	public WindowParams(Context context) {
 		this.context = context;
-		PrefDAO pdao = new PrefDAO(context);
+		pdao = new PrefDAO(context);
 		statusbarVisibility = pdao.isStatusbarVisibility();
-		fillLP(pdao);
+		fillLP();
 		textVisibility = pdao.isTextVisibility();
 		textColor = pdao.getTextColor();
 		textSize = pdao.getTextSize();
@@ -43,14 +46,20 @@ public class WindowParams {
 
 	/**
 	 * fillLP()
-	 *
-	 * @param pdao
 	 */
-	private void fillLP(PrefDAO pdao) {
+	private void fillLP() {
 		int iconSize = pdao.getIconSize();
-		int textSize = pdao.getTextSize();
+		float textSizePX = DeviceSettings.spToPixel(context, pdao.getTextSize());
+		int appSize;
+		if (pdao.isTextVisibility()) {
+			appSize = (int) ((iconSize + textSizePX) * 1.3);
+		} else {
+			appSize = (int) (iconSize * 1.3);
+		}
+
+		appLP = new TableRow.LayoutParams(appSize, appSize);
 		iconLP = new LinearLayout.LayoutParams(iconSize, iconSize);
-		textLP =  new LinearLayout.LayoutParams(iconSize + textSize, LayoutParams.WRAP_CONTENT);
+		textLP =  new LinearLayout.LayoutParams(iconSize, LayoutParams.WRAP_CONTENT);
 	}
 	
 	/**
@@ -59,22 +68,9 @@ public class WindowParams {
 	private void fillWindowBackground() {
 		PrefDAO pdao = new PrefDAO(context);
 		int backgroundColor = pdao.getWindowBackgroundColor();
-		int strokeThickness = 0;
-		int strokeRGB = 16777215;
-		int cornerRadius = context.getResources().getDimensionPixelSize(R.dimen.corner_radius);;
-		appWindowBackground = ImageConverter.createBackground(
-				backgroundColor,
-				strokeThickness, strokeRGB,
-				cornerRadius);
-		pointerWindowBackground = ImageConverter.createBackground(
-				backgroundColor,
-				strokeThickness, strokeRGB,
-				cornerRadius);
-		actionWindowBackground = ImageConverter.createBackground(
-				backgroundColor,
-				strokeThickness, strokeRGB,
-				cornerRadius);
-
+		appWindowBackground = ImageConverter.createBackground(context, backgroundColor);
+		pointerWindowBackground = ImageConverter.createBackground(context, backgroundColor);
+		actionWindowBackground = ImageConverter.createBackground(context, backgroundColor);
 	}
 	
 	/**
@@ -85,7 +81,16 @@ public class WindowParams {
 	public boolean isStatusbarVisibility() {
 		return statusbarVisibility;
 	}
-	
+
+	/**
+	 * getAppLP()
+	 *
+	 * @return
+	 */
+	public LinearLayout.LayoutParams getAppLP() {
+		return appLP;
+	}
+
 	/**
 	 * getIconLP()
 	 *

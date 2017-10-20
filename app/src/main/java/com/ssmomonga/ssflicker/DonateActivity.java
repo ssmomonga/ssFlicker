@@ -13,7 +13,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -56,13 +55,13 @@ public class DonateActivity extends Activity {
 	private static final int BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED = 7;
 	private static final int BILLING_RESPONSE_RESULT_ITEM_NOT_OWNED = 8;
 
-	private static TextView tv_please;
-	private static TextView tv_price;
-	private static Button b_donate;
-	private static TextView tv_thanks;
-	private static Button b_consume;
+	private TextView tv_please;
+	private TextView tv_price;
+	private Button b_donate;
+	private TextView tv_thanks;
+	private Button b_consume;
+
 	private static boolean isOwned;
-	private static boolean finish = true;
 
 	private static Launch l;
 	private static PrefDAO pdao;
@@ -80,10 +79,8 @@ public class DonateActivity extends Activity {
 				} else {
 					Toast.makeText(DonateActivity.this, R.string.dont_support_iab, Toast.LENGTH_SHORT).show();
 					finish();
-					l.launchPrefActivity();
 				}
 			} catch (RemoteException e) {
-				e.printStackTrace();
 			}
 		}
 
@@ -108,19 +105,10 @@ public class DonateActivity extends Activity {
 		
 		//1行で書くとエラーになるため、分解して記述する。
 //		bindService(new Intent("com.android.vending.billing.InAppBillingService.BIND"), mServiceConn, BIND_AUTO_CREATE);		
-		Intent intent = new Intent("com.android.vending.billing.InAppBillingService.BIND");
-		intent.setPackage("com.android.vending");
+		Intent intent = new Intent("com.android.vending.billing.InAppBillingService.BIND")
+				.setPackage("com.android.vending");
 		bindService(intent, mServiceConn, BIND_AUTO_CREATE);
 		
-	}
-
-	/**
-	 * onPause()
-	 */
-	@Override
-	protected void onPause() {
-		super.onPause();
-		if (finish) finish();
 	}
 
 	/**
@@ -192,10 +180,8 @@ public class DonateActivity extends Activity {
 				return getSkuDetails(PRODUCT_ID);
 		    	
 			} catch (RemoteException e) {
-				e.printStackTrace();
 				return null;
 			} catch (JSONException e) {
-				e.printStackTrace();
 				return null;
 			}
 
@@ -226,7 +212,6 @@ public class DonateActivity extends Activity {
 							setVisibility(isOwned);
 
 						} catch (JSONException e) {
-							e.printStackTrace();
 						}
 					}
 					
@@ -294,11 +279,11 @@ public class DonateActivity extends Activity {
 		
 		setContentView(R.layout.donate_activity);
 		
-		tv_please = (TextView) findViewById(R.id.tv_please);
-		tv_price = (TextView) findViewById(R.id.tv_price);
-		b_donate = (Button) findViewById(R.id.b_donate);
-		tv_thanks = (TextView) findViewById(R.id.tv_thanks);
-		b_consume = (Button) findViewById(R.id.b_consume);
+		tv_please = findViewById(R.id.tv_please);
+		tv_price = findViewById(R.id.tv_price);
+		b_donate = findViewById(R.id.b_donate);
+		tv_thanks = findViewById(R.id.tv_thanks);
+		b_consume = findViewById(R.id.b_consume);
 
 		tv_price.setText(price);
 
@@ -312,12 +297,9 @@ public class DonateActivity extends Activity {
 					PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
 					startIntentSenderForResult(pendingIntent.getIntentSender(),
 							REQUEST_CODE, new Intent(), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
-					finish = false;
 
 				} catch (RemoteException e) {
-					e.printStackTrace();
 				} catch (SendIntentException e) {
-					e.printStackTrace();
 				}
 			}
 		});
@@ -343,9 +325,7 @@ public class DonateActivity extends Activity {
 					}
 					
 				} catch (RemoteException e) {
-					e.printStackTrace();
 				} catch (JSONException e) {
-					e.printStackTrace();
 				}
 				
 //				isOwned = false;
@@ -409,8 +389,6 @@ public class DonateActivity extends Activity {
 			case RESULT_CANCELED:
 				break;
 		}
-
-		finish = true;
 	}
 
 	/**
@@ -421,7 +399,6 @@ public class DonateActivity extends Activity {
 	private void errorIab(int responseCode) {
 		Toast.makeText(DonateActivity.this, R.string.error_iab, Toast.LENGTH_SHORT).show();
 		finish();
-		l.launchPrefActivity();
 	}
 
 	/**
@@ -433,20 +410,5 @@ public class DonateActivity extends Activity {
 		if (mServiceConn != null) unbindService(mServiceConn);
 	}
 
-	/**
-	 * onKeyDown()
-	 *
-	 * @param keyCode
-	 * @param keyEvent
-	 * @return
-	 */
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			l.launchPrefActivity();
-			finish();
-		}
-		return false;
-	}
 
 }

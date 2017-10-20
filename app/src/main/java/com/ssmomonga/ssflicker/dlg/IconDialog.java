@@ -13,7 +13,7 @@ import android.widget.GridView;
 
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.BaseData;
-import com.ssmomonga.ssflicker.data.CustomAdapters.IconAdapter;
+import com.ssmomonga.ssflicker.data.ChooserAdapter.IconChooserAdapter;
 import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
 
@@ -27,8 +27,6 @@ public class IconDialog {
 	 */
 	public abstract static class SelectIconTypeDialog extends AlertDialog.Builder {
 
-		private static Context context;
-		
 		/**
 		 * Constructor
 		 *
@@ -38,7 +36,6 @@ public class IconDialog {
 		 */
 		public SelectIconTypeDialog(Context context, int iconTarget, int pointerType) {
 			super(context);
-			this.context = context;
 			setInitialLayout(iconTarget, pointerType);
 		}
 
@@ -50,6 +47,7 @@ public class IconDialog {
 		 */
 		private void setInitialLayout(int iconTarget, int pointerType) {
 			
+			Context context = getContext();
 			final Resources r = context.getResources();
 			final CharSequence[] iconTypeList =
 					IconList.getIconTypeList(context, iconTarget, pointerType);
@@ -101,12 +99,11 @@ public class IconDialog {
 	 */
 	abstract public static class IconChooser extends AlertDialog {
 		
-		private Context context;
-		private static BaseData[] iconList;
-		private static GridView gv_icon;
-		private static int iconType;
-		private static int iconColor;
-		private static IconAdapter adapter;
+		private BaseData[] iconList;
+		private GridView gv_app;
+		private int iconType;
+		private int iconColor;
+		private IconChooserAdapter adapter;
 
 		/**
 		 * Constructor
@@ -117,11 +114,9 @@ public class IconDialog {
 		 */
 		public IconChooser(Context context, BaseData[] iconList, int iconType) {
 			super(context);
-			this.context = context;
 			this.iconList = iconList;
 			this.iconType = iconType;
-			iconColor = context.getResources().getColor(android.R.color.white);
-//			iconColor = context.getResources().getColor(android.R.color.white, null);		//API 23以上
+			iconColor = context.getResources().getColor(android.R.color.white, null);
 			setInitialLayout();
 		}
 
@@ -129,12 +124,12 @@ public class IconDialog {
 		 * setInitialLayout()
 		 */
 		private void setInitialLayout() {
-			LayoutInflater inflater = LayoutInflater.from(context);
-			View view = inflater.inflate(R.layout.icon_chooser, null);
+			LayoutInflater inflater = LayoutInflater.from(getContext());
+			View view = inflater.inflate(R.layout.app_chooser, null);
 			setView(view);
 			
-			gv_icon = (GridView) view.findViewById(R.id.gv_icon);
-			gv_icon.setOnItemClickListener(new OnItemClickListener() {
+			gv_app = view.findViewById(R.id.gv_app);
+			gv_app.setOnItemClickListener(new OnItemClickListener() {
 				/**
 				 * onItemClick()
 				 *
@@ -156,7 +151,7 @@ public class IconDialog {
 			if (iconType == IconList.LABEL_ICON_TYPE_ORIGINAL) {
 
 				//アイコンカラー
-				setButton(BUTTON_NEUTRAL, context.getResources().getText(R.string.icon_color), new DialogInterface.OnClickListener(){
+				setButton(BUTTON_NEUTRAL, getContext().getResources().getText(R.string.icon_color), new DialogInterface.OnClickListener(){
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
 					}
@@ -169,7 +164,7 @@ public class IconDialog {
 						getButton(BUTTON_NEUTRAL).setOnClickListener(new View.OnClickListener() {
 							@Override
 							public void onClick(View v) {
-								new ColorPicker(context, ColorPicker.COLOR_TYPE_ICON, iconColor) {
+								new ColorPicker(getContext(), ColorPicker.COLOR_TYPE_ICON, iconColor) {
 									@Override
 									public void onSettings(int newColor) {
 										iconColor = newColor;
@@ -180,33 +175,31 @@ public class IconDialog {
 						});
 					}
 				});
-
 			}
 
 			//キャンセルボタン
-			setButton(BUTTON_NEGATIVE, context.getResources().getText(R.string.cancel),
+			setButton(BUTTON_NEGATIVE, getContext().getResources().getText(R.string.cancel),
 					new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int id) {}
 			});
-			
 		}
 
 		/**
 		 * setAdapter()
 		 */
 		private void setAdapter() {
-			adapter = new IconAdapter(context, R.layout.icon_grid_view);
+			adapter = new IconChooserAdapter(getContext(), R.layout.app_chooser_grid_view);
 			for (BaseData icon: iconList) {
 				if (icon != null) {
 					if (iconType == IconList.LABEL_ICON_TYPE_ORIGINAL) {
-						Drawable d = ImageConverter.changeIconColor(context, icon.getIcon(), iconColor);
+						Drawable d = ImageConverter.changeIconColor(getContext(), icon.getIcon(), iconColor);
 						icon.setIcon(d);
 					}
 					adapter.add(icon);
 				}
 			}
-			gv_icon.setAdapter(adapter);
+			gv_app.setAdapter(adapter);
 		}
 
 		/**
@@ -218,5 +211,4 @@ public class IconDialog {
 		abstract public void onSelectIcon(Drawable icon, int appId);
 		
 	}
-	
 }

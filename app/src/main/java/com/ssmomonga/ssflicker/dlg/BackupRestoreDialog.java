@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.proc.BackupRestore;
+import com.ssmomonga.ssflicker.proc.StorageBackupRestore;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
 
 import java.io.IOException;
@@ -24,13 +24,13 @@ import java.io.IOException;
  */
 public class BackupRestoreDialog extends AlertDialog{
 	
-	private Context context;
 	private static Resources r;
-	private static View view;
-	private static Spinner sp_select_restore_file;
-	private static BackupRestore backup;
+
+	private View view;
+	private Spinner sp_select_restore_file;
+	private StorageBackupRestore backup;
 	
-	private static Dialog confirmDialog;
+	private Dialog confirmDialog;
 
 	/**
 	 * Constructor
@@ -39,9 +39,8 @@ public class BackupRestoreDialog extends AlertDialog{
 	 */
 	public BackupRestoreDialog(Context context) {
 		super(context);
-		this.context = context;
 		r = context.getResources();
-		backup = new BackupRestore(context);
+		backup = new StorageBackupRestore(context);
 		setInitialLayout();
 	}
 
@@ -50,30 +49,34 @@ public class BackupRestoreDialog extends AlertDialog{
 	 */
 	private void setInitialLayout() {
 
-		setTitle(R.string.backup_restore);
+		final Context context = getContext();
+		
+//		setTitle(R.string.backup_restore);
 		
 		LayoutInflater inflater = LayoutInflater.from(context);
 		view = inflater.inflate(R.layout.backup_restore_dialog, null);
 		setView(view);
 			
-		TextView tv_backup_dir = (TextView) view.findViewById(R.id.tv_backup_dir);
+		TextView tv_backup_dir = view.findViewById(R.id.tv_backup_dir);
 		tv_backup_dir.setText(DeviceSettings.getExternalDir(context));
 			
 		setAdapter();
 
-		final RadioGroup rg_backup_restore = (RadioGroup) view.findViewById(R.id.rg_backup_restore);
+		final RadioGroup rg_backup_restore = view.findViewById(R.id.rg_backup_restore);
 		rg_backup_restore.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
+
 				if (checkedId == R.id.rb_backup) {
 					sp_select_restore_file.setEnabled(false);
+
 				} else if (checkedId == R.id.rb_restore) {
 					sp_select_restore_file.setEnabled(true);
 				}
 			}
 		});
 		
-		setButton(BUTTON_POSITIVE, r.getString(R.string.run), new DialogInterface.OnClickListener() {
+		setButton(BUTTON_POSITIVE, r.getString(R.string.execute), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id){}
 		});
@@ -82,6 +85,7 @@ public class BackupRestoreDialog extends AlertDialog{
 			@Override
 			public void onShow(DialogInterface dialog) {
 				getButton(BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+
 					/**
 					 * onClick()
 					 *
@@ -89,6 +93,7 @@ public class BackupRestoreDialog extends AlertDialog{
 					 */
 					@Override
 					public void onClick(View v) {
+						
 						int radioButtonId = rg_backup_restore.getCheckedRadioButtonId();
 						if (radioButtonId == -1) {
 							Toast.makeText(context, R.string.select_backup_restore, Toast.LENGTH_SHORT).show();
@@ -98,7 +103,7 @@ public class BackupRestoreDialog extends AlertDialog{
 							Toast.makeText(context, R.string.no_restore_file, Toast.LENGTH_SHORT).show();
 
 						} else {
-							confirmDialog = new ComfirmDialog(rg_backup_restore.getCheckedRadioButtonId());
+							confirmDialog = new ComfirmDialog(context, rg_backup_restore.getCheckedRadioButtonId());
 							confirmDialog.show();							
 						}
 					}
@@ -118,7 +123,7 @@ public class BackupRestoreDialog extends AlertDialog{
 	 */
 	private void setAdapter() {
 		ArrayAdapter<String> adapter = backup.getBackupFileList();
-		sp_select_restore_file = (Spinner) view.findViewById(R.id.sp_select_restore_file);
+		sp_select_restore_file = view.findViewById(R.id.sp_select_restore_file);
 		sp_select_restore_file.setEnabled(false);
 		sp_select_restore_file.setAdapter(adapter);
 	}
@@ -136,8 +141,7 @@ public class BackupRestoreDialog extends AlertDialog{
 	 * ConfirmDialog
 	 */
 	private class ComfirmDialog extends AlertDialog {
-		
-		private ComfirmDialog(int radioButtonId) {
+		private ComfirmDialog(Context context, int radioButtonId) {
 			super(context);
 			setInitialLayout(radioButtonId);
 		}
@@ -151,15 +155,15 @@ public class BackupRestoreDialog extends AlertDialog{
 		
 			switch (radioButtonId) {
 				case R.id.rb_backup:
-					setMessage(r.getString(R.string.run_backup));
+					setMessage(r.getString(R.string.execute_backup));
 					break;
+				
 				case R.id.rb_restore:
-					setMessage(r.getString(R.string.run_restore));
+					setMessage(r.getString(R.string.execute_restore));
 					break;
 				}
 			
-			setButton(BUTTON_POSITIVE, r.getString(R.string.run), new DialogInterface.OnClickListener() {
-//			setPositiveButton(r.getString(R.string.run), new DialogInterface.OnClickListener(){
+			setButton(BUTTON_POSITIVE, r.getString(R.string.execute), new DialogInterface.OnClickListener() {
 
 				@Override
 				public void onClick(DialogInterface dialog, int id){
@@ -179,6 +183,7 @@ public class BackupRestoreDialog extends AlertDialog{
 								result = backup.restore(fileName);
 								break;
 						}
+						
 					} catch (IOException e) {
 						e.printStackTrace();
 						result = false;
@@ -207,7 +212,7 @@ public class BackupRestoreDialog extends AlertDialog{
 								break;
 						}
 					}
-					Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+					Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
 					dismiss();
 					BackupRestoreDialog.this.dismiss();
 					
@@ -215,7 +220,6 @@ public class BackupRestoreDialog extends AlertDialog{
 			});
 	
 			setButton(BUTTON_NEGATIVE, r.getString(R.string.cancel), new DialogInterface.OnClickListener() {
-//			setNegativeButton(r.getString(R.string.cancel), new DialogInterface.OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialog, int id){}
 			});

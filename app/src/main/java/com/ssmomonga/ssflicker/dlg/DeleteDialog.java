@@ -15,7 +15,6 @@ public abstract class DeleteDialog extends AlertDialog {
 	
 	public static final int DELETE_POINTER = 0;
 	public static final int DELETE_APP = 1;
-	public static final int CLEAR_DEFAULT = 2;
 
 	/**
 	 * Constructor
@@ -53,11 +52,6 @@ public abstract class DeleteDialog extends AlertDialog {
 				setIcon(icon);
 				setMessage(r.getText(R.string.delete_app));
 				button = r.getText(R.string.delete).toString();
-				break;
-		
-			case CLEAR_DEFAULT:
-				setMessage(r.getText(R.string.clear_default));
-				button = r.getText(R.string.clear).toString();
 				break;
 		}
 	

@@ -19,15 +19,14 @@ public class IntentAppInfo {
 
 	public static final int INTENT_APP_TYPE_LAUNCHER = 0;
 	public static final int INTENT_APP_TYPE_HOME = 1;
+	public static final int INTENT_APP_TYPE_LEGACY_SHORTCUT = 4;
 	public static final int INTENT_APP_TYPE_SEND = 5;
-	public static final int INTENT_APP_TYPE_SHORTCUT = 4;
-	public static final int INTENT_APP_TYPE_RECENT = 2;
-	public static final int INTENT_APP_TYPE_TASK = 3;
-	
+
 	private int intentAppType;
+	private String label;
+	private Drawable icon;
 	private String intentUri;
 	private Intent intent;
-	private int taskId = -1;
 
 	/**
 	 * Constructor
@@ -58,50 +57,42 @@ public class IntentAppInfo {
 	}
 
 	/**
-	 * Constructor
-	 *
-	 * @param intentAppType
-	 * @param intent
-	 * @param taskId
-	 */
-	public IntentAppInfo(int intentAppType, Intent intent, int taskId) {
-		this.intentAppType = intentAppType;
-		this.intent = intent;
-		this.taskId = taskId;
-		intentUri = intent.toUri(0);
-	}
-
-	/**
-	 * getIntentAppRawLabel()
+	 * getRawLabel()
 	 *
 	 * @param context
 	 * @return
 	 */
-	public String getIntentAppRawLabel(Context context) {
-		PackageManager pm = context.getPackageManager();
-		List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(intent, 0);
+	public String getRawLabel(Context context) {
+		if (label == null) {
+			PackageManager pm = context.getPackageManager();
+			List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(intent, 0);
 
-		if (resolveInfoList.size() != 0) {
-			ActivityInfo actInfo = resolveInfoList.get(0).activityInfo;
-			return actInfo.loadLabel(pm).toString().replaceAll("\n", " ");
-		} else {
-			return context.getResources().getString(R.string.unknown);
+			if (resolveInfoList.size() != 0) {
+				ActivityInfo actInfo = resolveInfoList.get(0).activityInfo;
+				label = actInfo.loadLabel(pm).toString().replaceAll("\n", " ");
+			} else {
+				label = context.getResources().getString(R.string.unknown);
+			}
 		}
+		return label;
 	}
 
 	/**
-	 * getIntentAppRawIcon()
+	 * getRawIcon()
 	 *
 	 * @param context
 	 * @return
 	 */
-	public Drawable getIntentAppRawIcon(Context context) {
-		PackageManager pm = context.getPackageManager();
-		List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(intent, 0);
+	public Drawable getRawIcon(Context context) {
+		if (icon == null) {
+			PackageManager pm = context.getPackageManager();
+			List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(intent, 0);
 
-		return resolveInfoList.size() != 0 ?
-				resolveInfoList.get(0).activityInfo.loadIcon(pm) :
-				context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
+			icon = resolveInfoList.size() != 0 ?
+					resolveInfoList.get(0).activityInfo.loadIcon(pm) :
+					context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
+		}
+		return icon;
 	}
 
 	/**
@@ -138,15 +129,6 @@ public class IntentAppInfo {
 	 */
 	public String getSendTemplate() {
 		return intent.getStringExtra(Intent.EXTRA_TEXT);
-	}
-
-	/**
-	 * getTaskId()
-	 *
-	 * @return
-	 */
-	public int getTaskId() {
-		return taskId;
 	}
 
 	/**

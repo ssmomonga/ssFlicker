@@ -18,8 +18,7 @@ public class FunctionInfo {
 	public static final int FUNCTION_TYPE_VOLUME = 4;
 	public static final int FUNCTION_TYPE_ROTATE = 5;
 	public static final int FUNCTION_TYPE_SEARCH = 6;
-	public static final int FUNCTION_TYPE_AIRPLANE_MODE = 7;
-	
+
 	private int functionType;
 
 	/**
@@ -46,7 +45,7 @@ public class FunctionInfo {
 	 * @param context
 	 * @return
 	 */
-	public String getFunctionRawLabel(Context context) {
+	public String getRawLabel(Context context) {
 		Resources r = context.getResources();
 		
 		switch (functionType) {
@@ -64,20 +63,18 @@ public class FunctionInfo {
 				return r.getString(R.string.rotate);
 			case FunctionInfo.FUNCTION_TYPE_SEARCH:
 				return r.getString(R.string.search);
-			case FunctionInfo.FUNCTION_TYPE_AIRPLANE_MODE:
-				return r.getString(R.string.airplane_mode);
 			default:
 				return null;
 		}
 	}
 
 	/**
-	 * getFunctionRawIcon()
+	 * getRawIcon()
 	 *
 	 * @param context
 	 * @return
 	 */
-	public Drawable getFunctionRawIcon(Context context) {
+	public Drawable getRawIcon(Context context) {
 		Resources r = context.getResources();
 
 		switch (functionType) {
@@ -88,15 +85,13 @@ public class FunctionInfo {
 			case FunctionInfo.FUNCTION_TYPE_SYNC:
 				return r.getDrawable(R.mipmap.icon_22_function_sync, null);
 			case FunctionInfo.FUNCTION_TYPE_SILENT_MODE:
-				return r.getDrawable(R.mipmap.icon_23_function_silent_mode, null);
+				return r.getDrawable(R.mipmap.icon_93_unused_silent_mode, null);
 			case FunctionInfo.FUNCTION_TYPE_VOLUME:
-				return r.getDrawable(R.mipmap.icon_24_function_volume, null);
+				return r.getDrawable(R.mipmap.icon_94_unused_volume, null);
 			case FunctionInfo.FUNCTION_TYPE_ROTATE:
-				return r.getDrawable(R.mipmap.icon_25_function_rotate, null);
+				return r.getDrawable(R.mipmap.icon_23_function_rotate, null);
 			case FunctionInfo.FUNCTION_TYPE_SEARCH:
-				return r.getDrawable(R.mipmap.icon_26_function_search, null);
-			case FunctionInfo.FUNCTION_TYPE_AIRPLANE_MODE:
-				return r.getDrawable(R.mipmap.icon_92_unused_airplane_mode, null);
+				return r.getDrawable(R.mipmap.icon_24_function_search, null);
 			default:
 				return null;
 		}

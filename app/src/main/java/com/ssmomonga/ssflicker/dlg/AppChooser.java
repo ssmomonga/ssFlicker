@@ -10,8 +10,9 @@ import android.widget.GridView;
 
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
-import com.ssmomonga.ssflicker.data.CustomAdapters.AppAdapter;
-import com.ssmomonga.ssflicker.data.CustomAdapters.AppWidgetAdapter;
+import com.ssmomonga.ssflicker.data.ChooserAdapter.AppChooserAdapter;
+import com.ssmomonga.ssflicker.data.ChooserAdapter.PreviewAppChooserAdapter;
+import com.ssmomonga.ssflicker.data.IntentAppInfo;
 import com.ssmomonga.ssflicker.proc.GetAppListTask;
 
 /**
@@ -19,14 +20,12 @@ import com.ssmomonga.ssflicker.proc.GetAppListTask;
  */
 public abstract class AppChooser extends AlertDialog {
 	
-	private Context context;
 	private int appType;
 	private int intentAppType;
 	
-	private static AppAdapter adapter;
-	private static GridView gv_apps;
-	private static AppWidgetAdapter widgetAdapter;
-	private static GridView gv_app_widgets;
+	private AppChooserAdapter adapter;
+	private PreviewAppChooserAdapter previewAppChooserAdapter;
+	private GridView gv_app;
 
 	/**
 	 * Constructor
@@ -37,7 +36,6 @@ public abstract class AppChooser extends AlertDialog {
 	 */
 	public AppChooser(Context context, int appType, int intentAppType) {
 		super(context);
-		this.context = context;
 		this.appType = appType;
 		this.intentAppType = intentAppType;
 		setInitialLayout();
@@ -48,18 +46,23 @@ public abstract class AppChooser extends AlertDialog {
 	 */
 	private void setInitialLayout() {
 
-		View view = null;
+		Context context = getContext();
+		
+		View view;
 		LayoutInflater inflater = LayoutInflater.from(context);
-		if (appType == App.APP_TYPE_INTENT_APP || appType == App.APP_TYPE_FUNCTION) {
-			view = inflater.inflate(R.layout.app_chooser, null);
-			adapter = new AppAdapter(context, R.layout.app_grid_view);
-			gv_apps = (GridView) view.findViewById(R.id.gv_apps);
 
-		} else if (appType == App.APP_TYPE_APPWIDGET) {
-			view = inflater.inflate(R.layout.appwidget_chooser, null);
-			widgetAdapter = new AppWidgetAdapter(context, R.layout.appwidget_grid_view);
-			gv_app_widgets = (GridView) view.findViewById(R.id.gv_app_widgets);
+		if ((appType == App.APP_TYPE_INTENT_APP && intentAppType != IntentAppInfo.INTENT_APP_TYPE_LEGACY_SHORTCUT) ||
+				appType == App.APP_TYPE_FUNCTION) {
+			view = inflater.inflate(R.layout.app_chooser, null);
+			adapter = new AppChooserAdapter(context, R.layout.app_chooser_grid_view);
+			gv_app = view.findViewById(R.id.gv_app);
+
+		} else {
+			view = inflater.inflate(R.layout.preview_app_chooser, null);
+			previewAppChooserAdapter = new PreviewAppChooserAdapter(context, R.layout.preview_app_chooser_grid_view, appType);
+			gv_app = view.findViewById(R.id.gv_preview_app);
 		}
+		
 		setView(view);
 
 		setButton(BUTTON_NEGATIVE, context.getResources().getText(R.string.cancel), new DialogInterface.OnClickListener(){
@@ -80,8 +83,7 @@ public abstract class AppChooser extends AlertDialog {
 	 * execute()
 	 */
 	public void execute() {
-		
-		new GetAppListTask(context) {
+		new GetAppListTask(getContext()) {
 
 			/**
 			 * asyncComplete()
@@ -91,16 +93,17 @@ public abstract class AppChooser extends AlertDialog {
 			@Override
 			public void asyncComplete(App[] appList) {
 
-				if (appType == App.APP_TYPE_INTENT_APP || appType == App.APP_TYPE_FUNCTION) {
+				if ((appType == App.APP_TYPE_INTENT_APP && intentAppType != IntentAppInfo.INTENT_APP_TYPE_LEGACY_SHORTCUT) ||
+						appType == App.APP_TYPE_FUNCTION) {
 					for (App app: appList) adapter.add(app);
-					gv_apps.setAdapter(adapter);
-					gv_apps.setOnItemClickListener(onItemClickListener);
-
-				} else if (appType == App.APP_TYPE_APPWIDGET) {
-					for (App app: appList) widgetAdapter.add(app);
-					gv_app_widgets.setAdapter(widgetAdapter);
-					gv_app_widgets.setOnItemClickListener(onItemClickListener);
+					gv_app.setAdapter(adapter);
+					
+				} else {
+					for (App app: appList) previewAppChooserAdapter.add(app);
+					gv_app.setAdapter(previewAppChooserAdapter);
 				}
+				
+				gv_app.setOnItemClickListener(onItemClickListener);
 
 				show();
 				
@@ -122,7 +125,9 @@ public abstract class AppChooser extends AlertDialog {
 	private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
 			App app = (App) parent.getItemAtPosition(position);
+
 			switch (appType) {
 				case App.APP_TYPE_INTENT_APP:
 					onSelectIntentApp(app);
@@ -131,11 +136,16 @@ public abstract class AppChooser extends AlertDialog {
 				case App.APP_TYPE_APPWIDGET:
 					onSelectAppWidget(app);
 					break;
-			
+
+				case App.APP_TYPE_APPSHORTCUT:
+					onSelectAppShortcut(app);
+					break;
+
 				case App.APP_TYPE_FUNCTION:
 					onSelectFunction(app);
 					break;
 			}
+			
 			AppChooser.this.dismiss();
 		}
 	};
@@ -150,7 +160,6 @@ public abstract class AppChooser extends AlertDialog {
 
 	/**
 	 * onSelectIntentApp()
-	 * アプリを選択した時に動作
 	 *
 	 * @param app
 	 */
@@ -158,15 +167,20 @@ public abstract class AppChooser extends AlertDialog {
 
 	/**
 	 * onSelectAppWidget()
-	 * アプリを選択した時に動作
 	 *
 	 * @param app
 	 */
 	public abstract void onSelectAppWidget(App app);
 
 	/**
+	 * onSelectAppShortcut()
+	 *
+	 * @param app
+	 */
+	public abstract void onSelectAppShortcut(App app);
+
+	/**
 	 * onSelectFunction()
-	 * アプリを選択した時に動作
 	 *
 	 * @param app
 	 */

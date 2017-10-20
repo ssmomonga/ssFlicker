@@ -1,7 +1,6 @@
 package com.ssmomonga.ssflicker.dlg;
 
 import android.app.AlertDialog;
-import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -18,40 +17,39 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.set.ColorPickerSettings;
+import com.ssmomonga.ssflicker.set.ColorPickerParams;
+import com.ssmomonga.ssflicker.set.DeviceSettings;
 
 /**
  * ColorPicker
  */
 public abstract class ColorPicker extends AlertDialog {
 
-	private static final int ARGB_COUNT = 4;
-	
-	public static final int COLOR_TYPE_COUNT = 4;
 	public static final int COLOR_TYPE_WINDOW_BACKGROUND = 0;
 	public static final int COLOR_TYPE_ICON = 1;
 	public static final int COLOR_TYPE_TEXT = 2;
 	public static final int COLOR_TYPE_OVERLAY_POINT_BACKGROUND = 3;
-
-	private Context context;
-	private static ColorPickerSettings settings;
+	
+	private static final int ARGB_COUNT = 4;
+	private static final int COLOR_PALLET_COUNT = 21;
+	private static final int PREVIEW_COUNT = 2;
+	
+	private static ColorPickerParams settings;
 	
 	private int colorType;
-	private static final int colorARGB[] = new int[ARGB_COUNT];
+	private int colorARGB[] = new int[ARGB_COUNT];
 	
-	private static final int COLOR_PALLET_COUNT = 21;
-	private static final ImageView[] iv_color_pallet = new ImageView[COLOR_PALLET_COUNT];
-	private static final GradientDrawable[] gd_color_pallet = new GradientDrawable[COLOR_PALLET_COUNT];
+	private ImageView[] iv_color_pallet = new ImageView[COLOR_PALLET_COUNT];
+	private GradientDrawable[] gd_color_pallet = new GradientDrawable[COLOR_PALLET_COUNT];
 	
-	private static final SeekBar[] sb_ARGB = new SeekBar[ARGB_COUNT];
-	private static final EditText[] et_ARGB = new EditText[ARGB_COUNT];
+	private SeekBar[] sb_ARGB = new SeekBar[ARGB_COUNT];
+	private EditText[] et_ARGB = new EditText[ARGB_COUNT];
 	
-	private static final int PREVIEW_COUNT = 2;
-	private static LinearLayout ll_wallpaper;
-	private static final LinearLayout[] ll_window_preview = new LinearLayout[PREVIEW_COUNT];
-	private static final ImageView[] iv_pointer_preview = new ImageView[PREVIEW_COUNT];
-	private static final TextView[] tv_pointer_preview = new TextView[PREVIEW_COUNT];
-	private static final LinearLayout[] ll_overlay_point_preview = new LinearLayout[PREVIEW_COUNT];
+	private LinearLayout ll_wallpaper;
+	private LinearLayout[] ll_window_preview = new LinearLayout[PREVIEW_COUNT];
+	private ImageView[] iv_pointer_preview = new ImageView[PREVIEW_COUNT];
+	private TextView[] tv_pointer_preview = new TextView[PREVIEW_COUNT];
+	private LinearLayout[] ll_overlay_point_preview = new LinearLayout[PREVIEW_COUNT];
 
 	/**
 	 * Constructor
@@ -61,9 +59,8 @@ public abstract class ColorPicker extends AlertDialog {
 	 */
 	public ColorPicker(Context context, int colorType) {
 		super(context);
-		this.context = context;
 		this.colorType = colorType;
-		settings = new ColorPickerSettings(context);
+		settings = new ColorPickerParams(context);
 		setInitialLayout(R.layout.color_picker_light);
 	}
 	
@@ -76,9 +73,8 @@ public abstract class ColorPicker extends AlertDialog {
 	 */
 	public ColorPicker(Context context, int colorType, int iconColor) {
 		super(context);
-		this.context = context;
 		this.colorType = colorType;
-		settings = new ColorPickerSettings(context, iconColor);
+		settings = new ColorPickerParams(context, iconColor);
 		setInitialLayout(R.layout.color_picker_dark);
 	}
 	
@@ -86,6 +82,8 @@ public abstract class ColorPicker extends AlertDialog {
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout(int res) {
+		
+		Context context = getContext();
 
 		LayoutInflater inflater = LayoutInflater.from(context);
 		View view = inflater.inflate(res, null);
@@ -115,27 +113,27 @@ public abstract class ColorPicker extends AlertDialog {
 		colorARGB[2] = Color.green(color);
 		colorARGB[3] = Color.blue(color);
 		
-		iv_color_pallet[0] = (ImageView) view.findViewById(R.id.iv_color_pallet_0);
-		iv_color_pallet[1] = (ImageView) view.findViewById(R.id.iv_color_pallet_1);
-		iv_color_pallet[2] = (ImageView) view.findViewById(R.id.iv_color_pallet_2);
-		iv_color_pallet[3] = (ImageView) view.findViewById(R.id.iv_color_pallet_3);
-		iv_color_pallet[4] = (ImageView) view.findViewById(R.id.iv_color_pallet_4);
-		iv_color_pallet[5] = (ImageView) view.findViewById(R.id.iv_color_pallet_5);
-		iv_color_pallet[6] = (ImageView) view.findViewById(R.id.iv_color_pallet_6);
-		iv_color_pallet[7] = (ImageView) view.findViewById(R.id.iv_color_pallet_7);
-		iv_color_pallet[8] = (ImageView) view.findViewById(R.id.iv_color_pallet_8);
-		iv_color_pallet[9] = (ImageView) view.findViewById(R.id.iv_color_pallet_9);
-		iv_color_pallet[10] = (ImageView) view.findViewById(R.id.iv_color_pallet_10);
-		iv_color_pallet[11] = (ImageView) view.findViewById(R.id.iv_color_pallet_11);
-		iv_color_pallet[12] = (ImageView) view.findViewById(R.id.iv_color_pallet_12);
-		iv_color_pallet[13] = (ImageView) view.findViewById(R.id.iv_color_pallet_13);
-		iv_color_pallet[14] = (ImageView) view.findViewById(R.id.iv_color_pallet_14);
-		iv_color_pallet[15] = (ImageView) view.findViewById(R.id.iv_color_pallet_15);
-		iv_color_pallet[16] = (ImageView) view.findViewById(R.id.iv_color_pallet_16);
-		iv_color_pallet[17] = (ImageView) view.findViewById(R.id.iv_color_pallet_17);
-		iv_color_pallet[18] = (ImageView) view.findViewById(R.id.iv_color_pallet_18);
-		iv_color_pallet[19] = (ImageView) view.findViewById(R.id.iv_color_pallet_19);
-		iv_color_pallet[20] = (ImageView) view.findViewById(R.id.iv_color_pallet_20);		
+		iv_color_pallet[0] = view.findViewById(R.id.iv_color_pallet_0);
+		iv_color_pallet[1] = view.findViewById(R.id.iv_color_pallet_1);
+		iv_color_pallet[2] = view.findViewById(R.id.iv_color_pallet_2);
+		iv_color_pallet[3] = view.findViewById(R.id.iv_color_pallet_3);
+		iv_color_pallet[4] = view.findViewById(R.id.iv_color_pallet_4);
+		iv_color_pallet[5] = view.findViewById(R.id.iv_color_pallet_5);
+		iv_color_pallet[6] = view.findViewById(R.id.iv_color_pallet_6);
+		iv_color_pallet[7] = view.findViewById(R.id.iv_color_pallet_7);
+		iv_color_pallet[8] = view.findViewById(R.id.iv_color_pallet_8);
+		iv_color_pallet[9] = view.findViewById(R.id.iv_color_pallet_9);
+		iv_color_pallet[10] = view.findViewById(R.id.iv_color_pallet_10);
+		iv_color_pallet[11] = view.findViewById(R.id.iv_color_pallet_11);
+		iv_color_pallet[12] = view.findViewById(R.id.iv_color_pallet_12);
+		iv_color_pallet[13] = view.findViewById(R.id.iv_color_pallet_13);
+		iv_color_pallet[14] = view.findViewById(R.id.iv_color_pallet_14);
+		iv_color_pallet[15] = view.findViewById(R.id.iv_color_pallet_15);
+		iv_color_pallet[16] = view.findViewById(R.id.iv_color_pallet_16);
+		iv_color_pallet[17] = view.findViewById(R.id.iv_color_pallet_17);
+		iv_color_pallet[18] = view.findViewById(R.id.iv_color_pallet_18);
+		iv_color_pallet[19] = view.findViewById(R.id.iv_color_pallet_19);
+		iv_color_pallet[20] = view.findViewById(R.id.iv_color_pallet_20);		
 		int[] colorPallet = context.getResources().getIntArray(R.array.color_pallet);
 		for (int i = 0; i < COLOR_PALLET_COUNT; i ++) {
 			gd_color_pallet[i] = new GradientDrawable();
@@ -146,14 +144,14 @@ public abstract class ColorPicker extends AlertDialog {
 			iv_color_pallet[i].setOnClickListener(new ClickListener());
 		}
 		
-		sb_ARGB[0] = (SeekBar) view.findViewById(R.id.sb_alpha);
-		sb_ARGB[1] = (SeekBar) view.findViewById(R.id.sb_red);
-		sb_ARGB[2] = (SeekBar) view.findViewById(R.id.sb_green);
-		sb_ARGB[3] = (SeekBar) view.findViewById(R.id.sb_blue);
-		et_ARGB[0] = (EditText) view.findViewById(R.id.et_alpha);
-		et_ARGB[1] = (EditText) view.findViewById(R.id.et_red);
-		et_ARGB[2] = (EditText) view.findViewById(R.id.et_green);
-		et_ARGB[3] = (EditText) view.findViewById(R.id.et_blue);
+		sb_ARGB[0] = view.findViewById(R.id.sb_alpha);
+		sb_ARGB[1] = view.findViewById(R.id.sb_red);
+		sb_ARGB[2] = view.findViewById(R.id.sb_green);
+		sb_ARGB[3] = view.findViewById(R.id.sb_blue);
+		et_ARGB[0] = view.findViewById(R.id.et_alpha);
+		et_ARGB[1] = view.findViewById(R.id.et_red);
+		et_ARGB[2] = view.findViewById(R.id.et_green);
+		et_ARGB[3] = view.findViewById(R.id.et_blue);
 		for (int i = 0; i < ARGB_COUNT; i ++) {
 			sb_ARGB[i].setProgress(colorARGB[i]);
 			et_ARGB[i].setText(String.valueOf(colorARGB[i]));
@@ -162,18 +160,17 @@ public abstract class ColorPicker extends AlertDialog {
 			et_ARGB[i].setOnFocusChangeListener(new FocusChengeListener(i));
 		}
 		
-		ll_wallpaper = (LinearLayout) view.findViewById(R.id.ll_wallpaper);
-		ll_window_preview[0] = (LinearLayout) view.findViewById(R.id.ll_window_preview_0);
-		iv_pointer_preview[0] = (ImageView) view.findViewById(R.id.iv_pointer_preview_0);
-		tv_pointer_preview[0] = (TextView) view.findViewById(R.id.tv_pointer_preview_0);
-		ll_overlay_point_preview[0] = (LinearLayout) view.findViewById(R.id.ll_overlay_point_preview_0);
-		ll_window_preview[1] = (LinearLayout) view.findViewById(R.id.ll_window_preview_1);
-		iv_pointer_preview[1] = (ImageView) view.findViewById(R.id.iv_pointer_preview_1);
-		tv_pointer_preview[1] = (TextView) view.findViewById(R.id.tv_pointer_preview_1);
-		ll_overlay_point_preview[1] = (LinearLayout) view.findViewById(R.id.ll_overlay_point_preview_1);		
+		ll_wallpaper = view.findViewById(R.id.ll_wallpaper);
+		ll_window_preview[0] = view.findViewById(R.id.ll_window_preview_0);
+		iv_pointer_preview[0] = view.findViewById(R.id.iv_pointer_preview_0);
+		tv_pointer_preview[0] = view.findViewById(R.id.tv_pointer_preview_0);
+		ll_overlay_point_preview[0] = view.findViewById(R.id.ll_overlay_point_preview_0);
+		ll_window_preview[1] = view.findViewById(R.id.ll_window_preview_1);
+		iv_pointer_preview[1] = view.findViewById(R.id.iv_pointer_preview_1);
+		tv_pointer_preview[1] = view.findViewById(R.id.tv_pointer_preview_1);
+		ll_overlay_point_preview[1] = view.findViewById(R.id.ll_overlay_point_preview_1);		
 
-		WallpaperManager wm = WallpaperManager.getInstance(context);
-		Drawable wallpaper = wm.getDrawable();
+		Drawable wallpaper = DeviceSettings.getWallpaper(context);
 		ll_wallpaper.setBackground(wallpaper);
 		for (int i = 0; i < PREVIEW_COUNT; i ++) {
 			ll_window_preview[i].setBackground(settings.getWindowBackground());

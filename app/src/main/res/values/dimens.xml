@@ -5,12 +5,12 @@
 	<dimen name="cell_size_height_portrait">100dp</dimen>
 	<dimen name="cell_size_width_landscape">106dp</dimen>
 	<dimen name="cell_size_height_landscape">74dp</dimen>
-
-	<dimen name="cell_size_old">80dp</dimen>
-	<dimen name="cell_size_minus_old">0dp</dimen>
+	
 	<dimen name="cell_size">80dp</dimen>
 	<dimen name="cell_size_minus">16dp</dimen>
-
+	<dimen name="cell_size_old">80dp</dimen>
+	<dimen name="cell_size_minus_old">0dp</dimen>
+	
 	<dimen name="flick_distance">40dp</dimen>
 	<dimen name="icon_size">48dp</dimen>
 

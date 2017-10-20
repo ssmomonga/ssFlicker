@@ -1,6 +1,8 @@
 package com.ssmomonga.ssflicker.data;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
 /**
@@ -10,8 +12,9 @@ public class App {
 
 	public static final int APP_TYPE_INTENT_APP = 0;
 	public static final int APP_TYPE_APPWIDGET = 1;
+	public static final int APP_TYPE_APPSHORTCUT = 3;
 	public static final int APP_TYPE_FUNCTION = 2;
-	
+
 	public static final int FLICK_APP_COUNT = 8;
 	public static final int DOCK_APP_COUNT = 5;
 
@@ -19,13 +22,16 @@ public class App {
 		
 	private int appType;
 	private String packageName;
-	private String appLabel;
-	private int appLabelType;
-	private Drawable appIcon;
-	private int appIconType;
+	private String applicationLabel;
+	private Drawable applicationIcon;
+	private String label;
+	private int labelType;
+	private Drawable icon;
+	private int iconType;
 	
 	private IntentAppInfo intentApp;
 	private AppWidgetInfo appWidget;
+	private AppShortcutInfo appShortcut;
 	private FunctionInfo function;
 
 	/**
@@ -35,21 +41,27 @@ public class App {
 	 * @param context
 	 * @param appType
 	 * @param packageName
-	 * @param appLabel
-	 * @param appLabelType
-	 * @param appIcon
-	 * @param appIconType
+	 * @param label
+	 * @param labelType
+	 * @param icon
+	 * @param iconType
 	 * @param intentApp
 	 */
-	public App (Context context, int appType, String packageName, String appLabel, int appLabelType,
-			Drawable appIcon, int appIconType, IntentAppInfo intentApp) {
+	public App (Context context,
+				int appType,
+				String packageName,
+				String label,
+				int labelType,
+				Drawable icon,
+				int iconType,
+				IntentAppInfo intentApp) {
 		this.context = context;
 		this.appType = appType;
 		this.packageName = packageName;
-		this.appLabel = appLabel;
-		this.appLabelType = appLabelType;
-		this.appIcon = appIcon;
-		this.appIconType = appIconType;
+		this.label = label;
+		this.labelType = labelType;
+		this.icon = icon;
+		this.iconType = iconType;
 		this.intentApp = intentApp;
 	}
 
@@ -60,21 +72,27 @@ public class App {
 	 * @param context
 	 * @param appType
 	 * @param packageName
-	 * @param appLabel
-	 * @param appLabelType
-	 * @param appIcon
-	 * @param appIconType
+	 * @param label
+	 * @param labelType
+	 * @param icon
+	 * @param iconType
 	 * @param function
 	 */
-	public App(Context context, int appType, String packageName, String appLabel, int appLabelType,
-			Drawable appIcon, int appIconType, FunctionInfo function) {
+	public App(Context context,
+			   int appType,
+			   String packageName,
+			   String label,
+			   int labelType,
+			   Drawable icon,
+			   int iconType,
+			   FunctionInfo function) {
 		this.context = context;
 		this.appType = appType;
 		this.packageName = packageName;
-		this.appLabel = appLabel;
-		this.appLabelType = appLabelType;
-		this.appIcon = appIcon;
-		this.appIconType = appIconType;
+		this.label = label;
+		this.labelType = labelType;
+		this.icon = icon;
+		this.iconType = iconType;
 		this.function = function;
 	}
 
@@ -85,22 +103,50 @@ public class App {
 	 * @param context
 	 * @param appType
 	 * @param packageName
-	 * @param appLabel
-	 * @param appLabelType
-	 * @param appIcon
-	 * @param appIconType
+	 * @param label
+	 * @param labelType
+	 * @param icon
+	 * @param iconType
 	 * @param appWidget
 	 */
-	public App(Context context, int appType, String packageName, String appLabel, int appLabelType,
-			Drawable appIcon, int appIconType, AppWidgetInfo appWidget) {
+	public App(Context context,
+			   int appType,
+			   String packageName,
+			   String label,
+			   int labelType,
+			   Drawable icon,
+			   int iconType,
+			   AppWidgetInfo appWidget) {
 		this.context = context;
 		this.appType = appType;
 		this.packageName = packageName;
-		this.appLabel = appLabel;
-		this.appLabelType = appLabelType;
-		this.appIcon = appIcon;
-		this.appIconType = appIconType;
+		this.label = label;
+		this.labelType = labelType;
+		this.icon = icon;
+		this.iconType = iconType;
 		this.appWidget = appWidget;
+	}
+
+	/**
+	 * Constructor
+	 * AppShortcut用
+	 */
+	public App(Context context,
+			   int appType,
+			   String packageName,
+			   String label,
+			   int labelType,
+			   Drawable icon,
+			   int iconType,
+			   AppShortcutInfo appShortcut) {
+		this.context = context;
+		this.appType = appType;
+		this.packageName = packageName;
+		this.label = label;
+		this.labelType = labelType;
+		this.icon = icon;
+		this.iconType = iconType;
+		this.appShortcut = appShortcut;
 	}
 
 	/**
@@ -122,14 +168,42 @@ public class App {
 	}
 
 	/**
-	 * getAppLabel()
+	 * getApplicationIcon()
+	 */
+	public Drawable getApplicationIcon() {
+		if (applicationIcon == null && appType != App.APP_TYPE_FUNCTION) {
+			PackageManager pm = context.getPackageManager();
+			try {
+				applicationIcon = pm.getApplicationIcon(packageName);
+			} catch (PackageManager.NameNotFoundException e) {
+				applicationIcon = getApplicationIcon();
+			}
+		}
+		return applicationIcon;
+	}
+
+	/**
+	 * getApplicationLabel()
+	 */
+	public String getApplicationLabel() {
+		if (applicationLabel == null && appType != App.APP_TYPE_FUNCTION) {
+			PackageManager pm = context.getPackageManager();
+			try {
+				ApplicationInfo info = pm.getApplicationInfo(packageName, 0);
+				applicationLabel = pm.getApplicationLabel(info).toString();
+			} catch (PackageManager.NameNotFoundException e) {
+			}
+		}
+		return applicationLabel;
+	}
+
+	/**
+	 * getLabel()
 	 *
 	 * @return
 	 */
-	public String getAppLabel() {
-		return appLabel != null ? appLabel : getAppRawLabel();
-//		if (appLabel == null) appLabel = getAppRawLabel();
-//		return appLabel;
+	public String getLabel() {
+		return label != null ? label : getAppRawLabel();
 	}
 
 	/**
@@ -140,34 +214,34 @@ public class App {
 	public String getAppRawLabel() {
 		switch (appType) {
 			case APP_TYPE_INTENT_APP:
-				return intentApp.getIntentAppRawLabel(context);
+				return intentApp.getRawLabel(context);
 			case APP_TYPE_APPWIDGET:
-				return appWidget.getAppWidgetRawLabel();
+				return appWidget.getRawLabel();
+			case APP_TYPE_APPSHORTCUT:
+				return appShortcut.getRawLabel();
 			case APP_TYPE_FUNCTION:
-				return function.getFunctionRawLabel(context);
+				return function.getRawLabel(context);
 			default:
 				return null;
 		}
 	}
 
 	/**
-	 * getAppLabelType()
+	 * getLabelType()
 	 *
 	 * @return
 	 */
-	public int getAppLabelType() {
-		return appLabelType;
+	public int getLabelType() {
+		return labelType;
 	}
 
 	/**
-	 * geAppIcon()
+	 * geicon()
 	 *
 	 * @return
 	 */
-	public Drawable getAppIcon() {
-		return appIcon != null ? appIcon : getAppRawIcon();
-//		if (appIcon == null) appIcon = getAppRawIcon();
-//		return appIcon;
+	public Drawable getIcon() {
+		return icon != null ? icon : getAppRawIcon();
 	}
 
 	/**
@@ -178,59 +252,61 @@ public class App {
 	public Drawable getAppRawIcon() {
 		switch (appType) {
 			case APP_TYPE_INTENT_APP:
-				return intentApp.getIntentAppRawIcon(context);
+				return intentApp.getRawIcon(context);
 			case APP_TYPE_APPWIDGET:
-				return appWidget.getAppWidgetRawIcon();
+				return appWidget.getRawIcon();
+			case APP_TYPE_APPSHORTCUT:
+				return appShortcut.getRawIcon();
 			case APP_TYPE_FUNCTION:
-				return function.getFunctionRawIcon(context);
+				return function.getRawIcon(context);
 			default:
 				return null;
 		}
 	}
 
 	/**
-	 * getAppIconType()
+	 * getIconType()
 	 *
 	 * @return
 	 */
-	public int getAppIconType() {
-		return appIconType;
+	public int getIconType() {
+		return iconType;
 	}
 
 	/**
-	 * setAppLabel()
+	 * setLabel()
 	 *
-	 * @param appLabel
+	 * @param label
 	 */
-	public void setAppLabel(String appLabel) {
-		this.appLabel = appLabel;
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 	/**
-	 * setAppLabelType()
+	 * setLabelType()
 	 *
-	 * @param appLabelType
+	 * @param labelType
 	 */
-	public void setAppLabelType(int appLabelType) {
-		this.appLabelType = appLabelType;
+	public void setLabelType(int labelType) {
+		this.labelType = labelType;
 	}
 
 	/**
-	 * setAppIcon()
+	 * setIcon()
 	 *
-	 * @param appIcon
+	 * @param icon
 	 */
-	public void setAppIcon(Drawable appIcon) {
-		this.appIcon = appIcon;
+	public void setIcon(Drawable icon) {
+		this.icon = icon;
 	}
 
 	/**
-	 * setAppIconType()
+	 * setIconType()
 	 *
-	 * @param appIconType
+	 * @param iconType
 	 */
-	public void setAppIconType(int appIconType) {
-		this.appIconType = appIconType;
+	public void setIconType(int iconType) {
+		this.iconType = iconType;
 	}
 
 	/**
@@ -249,6 +325,15 @@ public class App {
 	 */
 	public AppWidgetInfo getAppWidgetInfo() {
 		return appWidget;
+	}
+
+	/**
+	 * getAppShortcutInfo()
+	 *
+	 * @return
+	 */
+	public AppShortcutInfo getAppShortcutInfo() {
+		return appShortcut;
 	}
 
 	/**

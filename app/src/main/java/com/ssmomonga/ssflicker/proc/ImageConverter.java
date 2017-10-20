@@ -106,12 +106,6 @@ public class ImageConverter {
 		
 		float size = context.getResources().getDimensionPixelSize(R.dimen.icon_size);
 		float scale = width >= height ? size / width : size / height;
-/**
-		if (width >= height) {
-			scale = size / width;
-		} else {
-			scale = size / height;
-		} */
 		
 		Matrix matrix = new Matrix();
 		matrix.postScale(scale, scale);
@@ -149,8 +143,6 @@ public class ImageConverter {
 					Math.min(height, finalHeight),
 					null, true);
 		}
-		
-
 	}
 
 	/**
@@ -232,7 +224,7 @@ public class ImageConverter {
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
 			App app = appList[i];
 			if (app != null) {
-		        Drawable drawable = app.getAppIcon();
+		        Drawable drawable = app.getIcon();
 		        resizeAppIcon[i] = resizeBitmap(context, createBitmap(drawable));
 			} else {
 				resizeAppIcon[i] = Bitmap.createBitmap(length, length, Bitmap.Config.ARGB_8888);
@@ -267,20 +259,15 @@ public class ImageConverter {
 	/**
 	 * createBackground()
 	 *
+	 * @param context
 	 * @param backgroundColor
-	 * @param strokeThickness
-	 * @param strokeRGB
-	 * @param cornerRadius
 	 * @return
 	 */
-	public static Drawable createBackground(int backgroundColor,
-											int strokeThickness,
-											int strokeRGB,
-											int cornerRadius) {
+	public static Drawable createBackground(Context context, int backgroundColor) {
+		int cornerRadius = context.getResources().getDimensionPixelSize(R.dimen.corner_radius);;
 
 		GradientDrawable d = new GradientDrawable();
 		d.setColor(backgroundColor);
-		d.setStroke(strokeThickness, createColor(255, strokeRGB));
 		d.setCornerRadius(cornerRadius);
 		return d;
 	}

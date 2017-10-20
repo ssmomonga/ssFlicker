@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<FrameLayout android:id="@+id/fl_overlay"
+		style="@style/lp_wc_wc" >
+		
+		<ImageView android:id="@+id/iv_overlay_icon_background"
+			style="@style/lp_wc_wc"
+			android:layout_gravity="center"
+			android:src="@mipmap/icon_overlay_background" />
+		
+		<ImageView
+			style="@style/lp_wc_wc"
+			android:layout_gravity="center"
+			android:src="@mipmap/icon_overlay"/>
+
+	</FrameLayout>
+	
+</merge>

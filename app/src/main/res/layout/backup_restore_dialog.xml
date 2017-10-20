@@ -59,7 +59,7 @@
 				android:orientation="vertical" >
 				<TextView
 					style="@style/lp_mp_wc"
-					android:text="@string/cloud_backup"
+					android:text="@string/auto_backup"
 					android:textColor="?android:colorAccent" />
 				<LinearLayout
 					style="@style/lp_mp_wc"
@@ -70,25 +70,25 @@
 					<TextView
 						style="@style/lp_mp_wc"
 						android:paddingBottom="8dp"
-						android:text="@string/cloud_backup_0" />
+						android:text="@string/auto_backup_0" />
 					<TextView
 						style="@style/lp_mp_wc"
 						android:paddingBottom="8dp"
-						android:text="@string/cloud_backup_1" />
+						android:text="@string/auto_backup_1" />
 					<TextView
 						style="@style/lp_mp_wc"
 						android:paddingBottom="8dp"
-						android:text="@string/cloud_backup_2" />
+						android:text="@string/auto_backup_2" />
 					<TextView
 						style="@style/lp_mp_wc"
-						android:text="@string/cloud_backup_3" />
+						android:text="@string/auto_backup_3" />
 				</LinearLayout>
 			</LinearLayout>
 
 		</LinearLayout>
 	</ScrollView>
 	
-	<LinearLayout style="@style/divider" />
+	<!--LinearLayout style="@style/divider" /-->
 
 	<LinearLayout android:id="@+id/ll_select_restore_file"
 		style="@style/lp_mp_wc"

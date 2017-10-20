@@ -3,15 +3,16 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<PreferenceCategory android:title="@string/launch">
-		<PreferenceScreen android:key="launch_by_default" android:title="@string/launch_by_default" />
-		<PreferenceScreen android:key="launch_from_overlay" android:title="@string/launch_from_overlay" />
+		<PreferenceScreen android:key="default_settings" android:title="@string/launch_by_default" />
+		<PreferenceScreen android:key="overlay" android:title="@string/launch_from_overlay" />
 		<SwitchPreference android:key="statusbar" android:title="@string/launch_from_statusbar" android:defaultValue="false" />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/view_action" >
 		<PreferenceScreen android:title="@string/window" >
 			<PreferenceCategory android:title="@string/window" >
-				<com.ssmomonga.ssflicker.preference.ColorPreference android:key="window_background_color" android:title="@string/background_color" android:defaultValue="@color/window_background_color_default_value"/>
+				<com.ssmomonga.ssflicker.pref.ColorPreference
+                    android:key="window_background_color" android:title="@string/background_color" android:defaultValue="@color/window_background_color_default_value"/>
 	    	</PreferenceCategory>
 			<PreferenceCategory android:title="@string/display_position_portrait">
 				<ListPreference
@@ -58,7 +59,8 @@
 			</PreferenceCategory>
 			<PreferenceCategory android:title="@string/text" >
 				<SwitchPreference android:key="text_visibility" android:title="@string/text_visibility" android:defaultValue="true" />
-				<com.ssmomonga.ssflicker.preference.ColorPreference android:key="text_color" android:title="@string/text_color" android:defaultValue="@android:color/white" android:dependency="text_visibility" />
+				<com.ssmomonga.ssflicker.pref.ColorPreference
+                    android:key="text_color" android:title="@string/text_color" android:defaultValue="@android:color/white" android:dependency="text_visibility" />
 				<ListPreference android:key="text_size"
 					android:title="@string/text_size"
 					android:dialogTitle="@string/text_size"

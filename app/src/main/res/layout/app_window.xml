@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<merge
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/lp_wc_wc" >
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
 
 	<TableRow
 		android:gravity="center" >
@@ -10,7 +8,6 @@
 			android:tag="0"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_app_0"
 				style="@style/lp_wc_wc" />
@@ -23,7 +20,6 @@
 			android:tag="1"
 			style="@style/lp_wc_wc"
 			android:gravity="center"	
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_app_1"
 				style="@style/lp_wc_wc" />
@@ -36,7 +32,6 @@
 			android:tag="2"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_app_2"
 				style="@style/lp_wc_wc" />
@@ -53,7 +48,6 @@
 			android:tag="3"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_app_3"
 				style="@style/lp_wc_wc" />
@@ -65,7 +59,6 @@
 		<LinearLayout android:id="@+id/ll_pointer"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_pointer"
 				style="@style/lp_wc_wc" />
@@ -78,7 +71,6 @@
 			android:tag="4"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_app_4"
 				style="@style/lp_wc_wc" />
@@ -95,7 +87,6 @@
 			android:tag="5"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_app_5"
 				style="@style/lp_wc_wc" />
@@ -108,7 +99,6 @@
 			android:tag="6"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_app_6"
 				style="@style/lp_wc_wc" />
@@ -121,7 +111,6 @@
 			android:tag="7"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
-			android:padding="4dp"
 			android:orientation="vertical" >
 			<ImageView android:id="@+id/iv_app_7"
 				style="@style/lp_wc_wc" />

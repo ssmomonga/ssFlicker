@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<merge
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/lp_wc_wc" >
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
 
 	<LinearLayout
 		style="@style/lp_0_wc"
 		android:layout_weight="0.5" />
 
-	<LinearLayout
+	<LinearLayout android:id="@+id/ll_parent"
 		style="@style/lp_0_wc"
 		android:layout_weight="6"
-		android:orientation="horizontal">
+		android:gravity="center"
+		android:orientation="horizontal" >
 
 		<LinearLayout android:id="@+id/ll_dock_0"
 			style="@style/lp_wc_wc"
@@ -71,7 +70,7 @@
 			android:gravity="center" >
 			<ImageView android:id="@+id/iv_menu"
 				style="@style/lp_wc_wc"
-				android:background="@mipmap/icon_30_menu_menu" />
+				android:src="@mipmap/icon_30_menu_menu" />
 		</LinearLayout>
 	
 	</LinearLayout>

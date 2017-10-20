@@ -5,11 +5,12 @@
 	style="@style/lp_mp_mp"
 	android:orientation="vertical" >
 	
-	<GridView android:id="@+id/gv_apps"
+	<GridView android:id="@+id/gv_app"
 		style="@style/lp_wc_wc"
 		android:numColumns="4"
 		android:horizontalSpacing="8dp"
 		android:verticalSpacing="8dp"
 		android:stretchMode="columnWidth"
 		android:gravity="center" />
+
 </LinearLayout>

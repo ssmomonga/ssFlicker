@@ -1,6 +1,7 @@
 package com.ssmomonga.ssflicker.set;
 
 import android.Manifest;
+import android.app.WallpaperManager;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -9,7 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Point;
-import android.os.Build;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.os.Vibrator;
 import android.provider.Settings;
@@ -28,22 +29,12 @@ import java.io.File;
 public class DeviceSettings {
 
 	/**
-	 * isDefault()
+	 * isDefaultHome()
 	 *
 	 * @param context
 	 * @return
 	 */
-	public static boolean isDefault(Context context) {
-		return isHomeKey(context) || isNow(context) || isSearchKey(context);
-	}
-
-	/**
-	 * isHomeKey()
-	 *
-	 * @param context
-	 * @return
-	 */
-	public static boolean isHomeKey(Context context) {
+	public static boolean isDefaultHome(Context context) {
 		Intent intent = new Intent(Intent.ACTION_MAIN)
 				.addCategory(Intent.CATEGORY_HOME)
 				.addCategory(Intent.CATEGORY_DEFAULT);
@@ -53,28 +44,12 @@ public class DeviceSettings {
 	}
 
 	/**
-	 * isNow()
+	 * isDefaultSearch()
 	 *
 	 * @param context
 	 * @return
 	 */
-	public static boolean isNow(Context context) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) return false;
-
-		Intent intent = new Intent(Intent.ACTION_ASSIST)
-				.addCategory(Intent.CATEGORY_DEFAULT);
-		String packageName = context.getPackageManager()
-				.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY).activityInfo.packageName;
-		return packageName.equals(context.getPackageName());
-	}
-
-	/**
-	 * isSearchKey()
-	 *
-	 * @param context
-	 * @return
-	 */
-	public static boolean isSearchKey(Context context) {
+	public static boolean isDefaultSearch(Context context) {
 		Intent intent = new Intent(Intent.ACTION_SEARCH_LONG_PRESS)
 				.addCategory(Intent.CATEGORY_DEFAULT);
 		String packageName = context.getPackageManager()
@@ -98,7 +73,7 @@ public class DeviceSettings {
 	 * @param context
 	 * @return
 	 */
-	public static boolean isInvisibleAppWidget(Context context) {
+	public static boolean hasInvisibleAppWidget(Context context) {
 		ComponentName componentName = new ComponentName(context, InvisibleAppWidget.class);
 		int[] appWidgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(componentName);
 		return appWidgetIds.length > 0;
@@ -180,25 +155,25 @@ public class DeviceSettings {
 	}
 
 	/**
-	 * dimenToPixel()
+	 * dpToPixel()
 	 *
 	 * @param context
-	 * @param size
+	 * @param dp
 	 * @return
 	 */
-	public static int dimenToPixel(Context context, int size) {
-		return (int) (size * DeviceSettings.getDensity(context));
+	public static int dpToPixel(Context context, int dp) {
+		return (int) (dp * DeviceSettings.getDensity(context));
 	}
 
 	/**
 	 * pixelToDimen()
 	 *
 	 * @param context
-	 * @param size
+	 * @param pixel
 	 * @return
 	 */
-	public static int pixelToDimen(Context context, int size) {
-		return (int) (size / DeviceSettings.getDensity(context));
+	public static int pixelToDp(Context context, int pixel) {
+		return (int) (pixel / DeviceSettings.getDensity(context));
 	}
 
 	/**
@@ -207,8 +182,29 @@ public class DeviceSettings {
 	 * @param context
 	 * @return
 	 */
-	private static float getDensity(Context context) {
+	public static float getDensity(Context context) {
 		return context.getResources().getDisplayMetrics().density;
+	}
+
+	/**
+	 * spToPixel()
+	 *
+	 * @param context
+	 * @param sp
+	 * @return
+	 */
+	public static int spToPixel(Context context, int sp) {
+		return (int) (sp * DeviceSettings.getScaledDensity(context));
+	}
+
+	/**
+	 * getScaledDensity()
+	 *
+	 * @param context
+	 * @return
+	 */
+	public static float getScaledDensity(Context context) {
+		return context.getResources().getDisplayMetrics().scaledDensity;
 	}
 
 	/**
@@ -219,13 +215,6 @@ public class DeviceSettings {
 	 */
 	public static boolean hasExternalStorage(Context context) {
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
-/*
-		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-			File externalDir = new File(getExternalDir(context));
-			return (externalDir.exists() || externalDir.mkdir());
-		} else { 
-			return false;
-		}*/
 	}
 
 	/**
@@ -259,10 +248,7 @@ public class DeviceSettings {
 	 * @return
 	 */
 	public static boolean checkPermission(Context context, String permission) {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-			return true;
-
-		} else if (permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
+		if (permission.equals(Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
 				permission.equals(Manifest.permission.CALL_PHONE)) {
 			return (context.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
 
@@ -275,5 +261,15 @@ public class DeviceSettings {
 		} else {
 			return true;
 		}
+	}
+
+	/**
+	 * getWallpaper()
+	 *
+	 * @param context
+	 * @return
+	 */
+	public static Drawable getWallpaper(Context context) {
+		return WallpaperManager.getInstance(context).getDrawable();
 	}
 }

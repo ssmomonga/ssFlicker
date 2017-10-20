@@ -40,10 +40,13 @@
 					android:autoLink="web" />
 			</LinearLayout>
 		</LinearLayout>
+		
+		<LinearLayout style="@style/divider" />
 
 		<LinearLayout
 			style="@style/lp_mp_wc"
-			android:orientation="vertical" >
+			android:orientation="vertical"
+			android:paddingTop="16dp" >
 			<TextView
 				style="@style/lp_mp_wc"
 				android:text="@string/dev_info"
@@ -81,10 +84,13 @@
 					android:autoLink="web" />
 			</LinearLayout>
 		</LinearLayout>
+		
+		<LinearLayout style="@style/divider" />
 
 		<LinearLayout
 			style="@style/lp_mp_wc"
-			android:orientation="vertical" >
+			android:orientation="vertical"
+			android:paddingTop="16dp" >
 			<TextView
 				style="@style/lp_mp_wc"
 				android:text="@string/privacy_policy_info"
@@ -104,6 +110,8 @@
 					android:autoLink="web" />
 			</LinearLayout>
 		</LinearLayout>
+		
+		<LinearLayout style="@style/divider" />
 
 		<LinearLayout
 		   	style="@style/lp_mp_wc"
@@ -128,12 +136,19 @@
 					style="@style/lp_mp_wc"
 					android:paddingBottom="8dp"
 					android:text="@string/ver_2" />
+				<TextView
+					style="@style/lp_mp_wc"
+					android:paddingBottom="8dp"
+					android:text="@string/ver_3" />
 			</LinearLayout>
 		</LinearLayout>
+		
+		<LinearLayout style="@style/divider" />
 
-		<LinearLayout 
+		<LinearLayout
 			style="@style/lp_mp_wc"
-			android:orientation="vertical" >
+			android:orientation="vertical"
+			android:paddingTop="16dp" >
 			<TextView
 				style="@style/lp_mp_wc"
 				android:text="@string/permission"
@@ -170,13 +185,20 @@
 					style="@style/lp_mp_wc"
 					android:paddingBottom="8dp"
 					android:text="@string/prm_6" />
+				<TextView
+					style="@style/lp_mp_wc"
+					android:paddingBottom="8dp"
+					android:text="@string/prm_7" />
 			</LinearLayout>
 		</LinearLayout>
+		
+		<LinearLayout style="@style/divider" />
 
-		<LinearLayout 
+		<LinearLayout
 			style="@style/lp_mp_wc"
-			android:orientation="vertical" >
-			<TextView 
+			android:orientation="vertical"
+			android:paddingTop="16dp" >
+			<TextView
 				style="@style/lp_mp_wc"
 				android:text="@string/hint"
 				android:textColor="?android:colorAccent" />
@@ -198,10 +220,13 @@
 					android:text="@string/hint_2" />
 			</LinearLayout>
 		</LinearLayout>
-
+		
+		<LinearLayout style="@style/divider" />
+		
 		<LinearLayout
 		   	style="@style/lp_mp_wc"
-			   android:orientation="vertical" >
+			android:orientation="vertical"
+			android:paddingTop="16dp" >
 			<TextView
 				style="@style/lp_mp_wc"
 				android:text="@string/thanks"

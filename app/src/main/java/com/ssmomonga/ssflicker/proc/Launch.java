@@ -2,49 +2,54 @@ package com.ssmomonga.ssflicker.proc;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ActivityManager;
+import android.app.Dialog;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.SearchManager;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Rect;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.widget.Toast;
 
-import com.ssmomonga.ssflicker.DonateActivity;
-import com.ssmomonga.ssflicker.EditorActivity;
 import com.ssmomonga.ssflicker.FlickerActivity;
-import com.ssmomonga.ssflicker.OverlayService;
-import com.ssmomonga.ssflicker.PrefActivity;
-import com.ssmomonga.ssflicker.PrefSubActivity;
+import com.ssmomonga.ssflicker.PackageObserveJob;
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.FunctionInfo;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
-import com.ssmomonga.ssflicker.db.PrefDAO;
 import com.ssmomonga.ssflicker.dlg.VolumeDialog;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
-import com.ssmomonga.ssflicker.set.HomeKeySettings;
 
-import java.util.List;
 
 /**
  * Launch
  */
 public class Launch {
 	
+	private static final int JOB_ID = 1;
+	private static final int VIBRATE_TIME = 30;
+	
+	public static final String NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE = "notification_channel_id_package_observe";
+	public static final String NOTIFICATION_CHANNEL_ID_OVERLAY = "notification_channel_id_overlay";
+	public static final String NOTIFICATION_CHANNEL_ID_STATUSBAR = "notification_channel_id_statusbar";
+	
+	public static final int NOTIFICATION_ID_PACKAGE_OBSERVE = 1;
+	public static final int NOTIFICATION_ID_OVERLAY = 2;
+	
 	private Context context;
-	private static VolumeDialog volumeDialog;
 
 	/**
 	 * Constructor
@@ -60,29 +65,19 @@ public class Launch {
 	 *
 	 * @param app
 	 * @param r
+	 * @return
 	 */
 	public void launch(App app, Rect r) {
 		switch (app.getAppType()) {
 			case App.APP_TYPE_INTENT_APP:
 				IntentAppInfo intentApp = app.getIntentAppInfo();
-
-				switch (intentApp.getIntentAppType()) {
-					case IntentAppInfo.INTENT_APP_TYPE_RECENT:
-					case IntentAppInfo.INTENT_APP_TYPE_TASK:
-						launchTaskApp(intentApp, r);
-						break;
-
-					default:
-						launchIntentApp(intentApp, r);
-						break;
-				}
-
+				launchIntentApp(intentApp, r);
 				break;
 
 			case App.APP_TYPE_FUNCTION:
 				launchFunction(app.getFunctionInfo());
 				break;
-			}
+		}
 
 	}
 
@@ -96,11 +91,14 @@ public class Launch {
 		try {
 			Intent intent = intentApp.getIntent();
 			intent.setSourceBounds(r);
+//			((Activity) context).startActivityForResult(intent, 99);
 			context.startActivity(intent);
+			((Activity) context).overridePendingTransition(R.anim.activity_start, R.anim.activity_finish);
+			((Activity) context).finish();
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			try {
+/*			try {
 				
 				Intent intent = new Intent(Intent.ACTION_MAIN)
 						.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
@@ -112,30 +110,16 @@ public class Launch {
 				intent.setClassName(resolveInfoList.get(0).activityInfo.packageName,
 						resolveInfoList.get(0).activityInfo.name);
 				
-				context.startActivity(intent);
-
-			} catch (Exception e2) {
-				e2.printStackTrace();
+//				((Activity) context).startActivityForResult(intent, 99);
+				(context).startActivity(intent);
+				((Activity) context).overridePendingTransition(R.anim.enter_activity, R.anim.exit_activity);
+				((Activity) context).finish();
+*/
+//			} catch (Exception e2) {
+//				e2.printStackTrace();
 				Toast.makeText(context, R.string.launch_app_error, Toast.LENGTH_SHORT).show();
 
-			}
-		}
-	}
-
-	/**
-	 * launchTaskApp()
-	 *
-	 * @param intentApp
-	 * @param r
-	 */
-	private void launchTaskApp(IntentAppInfo intentApp, Rect r) {
-		int taskId = intentApp.getTaskId();
-		if (taskId == -1) {
-			launchIntentApp(intentApp, r);
-			
-		} else {
-			ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-			am.moveTaskToFront(taskId, ActivityManager.MOVE_TASK_WITH_HOME);
+//			}
 		}
 	}
 
@@ -143,6 +127,7 @@ public class Launch {
 	 * launchFunction()
 	 *
 	 * @param functionInfo
+	 * @return
 	 */
 	private void launchFunction(FunctionInfo functionInfo) {
 		switch (functionInfo.getFunctionType()) {
@@ -172,10 +157,6 @@ public class Launch {
 
 			case (FunctionInfo.FUNCTION_TYPE_ROTATE):
 				rotate();
-				break;
-
-			case (FunctionInfo.FUNCTION_TYPE_AIRPLANE_MODE):
-				airplaneMode();
 				break;
 		}
 	}
@@ -268,18 +249,10 @@ public class Launch {
 	/**
 	 * volume()
 	 */
-	private void volume() {
-		volumeDialog = new VolumeDialog(context);
-		volumeDialog.show();
-	}
-	
-	/**
-	 * getVolumeDialot()
-	 *
-	 * @return
-	 */
-	public VolumeDialog getVolumeDialog() {
-		return volumeDialog;
+	private Dialog volume() {
+		VolumeDialog dialog = new VolumeDialog(context);
+		dialog.show();
+		return dialog;
 	}
 	
 	/**
@@ -310,13 +283,6 @@ public class Launch {
 	}
 
 	/**
-	 * airplaneMode()
-	 */
-	private void airplaneMode() {
-		Toast.makeText(context, R.string.airplane_mode_error, Toast.LENGTH_SHORT).show();
-	}
-	
-	/**
 	 * launchFlickActivityFromService()
 	 *
 	 * @param b
@@ -332,73 +298,54 @@ public class Launch {
 	}
 
 	/**
-	 * launchFlickerActivity()
-	 */
-	public void launchFlickerActivity() {
-		Intent intent = new Intent().setClass(context, FlickerActivity.class);
-		context.startActivity(intent);
-	}
-
-	/**
-	 * launchEditorActivity()
-	 */
-	public void launchEditorActivity() {
-		Intent intent = new Intent().setClass(context, EditorActivity.class);
-		context.startActivity(intent);
-	}
-	
-	/**
-	 * launchPrefActivity()
-	 */
-	public void launchPrefActivity() {
-		Intent intent = new Intent().setClass(context, PrefActivity.class);
-		context.startActivity(intent);
-	}
-
-	/**
-	 * launchPrefSubActivity()
-	 *
-	 * @param key
-	 */
-	public void launchPrefSubActivity(int key) {
-		Intent intent = new Intent().setClass(context, PrefSubActivity.class);
-		intent.putExtra(PrefSubActivity.KEY, key);
-		context.startActivity(intent);
-	}
-	
-	/**
-	 * launchDonateActivity()
-	 */
-	public void launchDonateActivity() {
-		Intent intent = new Intent().setClass(context, DonateActivity.class);
-		context.startActivity(intent);
-	}
-
-	/**
-	 * launchAppinfo()
-	 */
-	public void launchAppInfo() {
-		Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-				.setData(Uri.parse("package:" + context.getPackageName()));
-		((Activity) context).startActivityForResult(intent, PrefActivity.REQUEST_CODE_APP_INFO);
-	}
-
-	/**
 	 * launchAndroidSettings()
 	 */
 	public void launchAndroidSettings() {
 		Intent intent =  new Intent(android.provider.Settings.ACTION_SETTINGS)
 				.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 		context.startActivity(intent);
+		((Activity) context).overridePendingTransition(R.anim.activity_start, R.anim.activity_finish);
+		((Activity) context).finish();
 	}
-	
+
 	/**
-	 * launchAnotherHome()
-	 *
-	 * @param b
+	 * launchAppInfo()
 	 */
-	public void launchAnotherHome(boolean b) {
-		if (b) launchIntentApp(new HomeKeySettings(context).getAnotherHome().getIntentAppInfo(), null);
+	public void launchAppInfo() {
+		Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+				Uri.parse("package:" + context.getPackageName()));
+//				.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+		context.startActivity(intent);
+		((Activity) context).overridePendingTransition(R.anim.activity_start, R.anim.activity_finish);
+	}
+
+	/**
+	 * launchDefaultSettings()
+	 */
+	public void launchDefaultSettings() {
+		Intent intent = new Intent(Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS);
+		context.startActivity(intent);
+		((Activity) context).overridePendingTransition(R.anim.activity_start, R.anim.activity_finish);
+	}
+
+	/**
+	 * launchWriteSettingsPermission()
+	 */
+	public void launchWriteSettingsPermission(int requestCode) {
+		Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS,
+				Uri.parse("package:" + context.getPackageName()));
+		((Activity) context).startActivityForResult(intent, requestCode);
+		((Activity) context).overridePendingTransition(R.anim.activity_start, R.anim.activity_finish);
+	}
+
+	/**
+	 * launchOverlayPermission()
+	 */
+	public void launchOverlayPermission(int requestCode) {
+		Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+				Uri.parse("package:" + context.getPackageName()));
+		((Activity) context).startActivityForResult(intent, requestCode);
+		((Activity) context).overridePendingTransition(R.anim.activity_start, R.anim.activity_finish);
 	}
 
 	/**
@@ -408,33 +355,59 @@ public class Launch {
 	 */
 	public void startStatusbar(boolean b) {
 		if (b) {
-			NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-			nm.notify(0, getNotification(context.getResources().getString(R.string.launch_from_statusbar)));
+			NotificationManager manager =
+					createNotificationManager(NOTIFICATION_CHANNEL_ID_STATUSBAR, context.getString(R.string.launch_from_statusbar));
+			manager.notify(0, getNotification(NOTIFICATION_CHANNEL_ID_STATUSBAR, context.getString(R.string.launch_from_statusbar)));
 		}
 	}
-	
+
+	/**
+	 * createNotificationManager()
+	 *
+	 * @param channelId
+	 * @param name
+	 * @return
+	 */
+	public NotificationManager createNotificationManager(String channelId, CharSequence name) {
+		
+		NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		
+		int importance = 0;
+		if (channelId == NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE) {
+			importance = NotificationManager.IMPORTANCE_NONE;
+		} else if (channelId == NOTIFICATION_CHANNEL_ID_OVERLAY) {
+			importance = NotificationManager.IMPORTANCE_NONE;
+		} else if (channelId == NOTIFICATION_CHANNEL_ID_STATUSBAR) {
+			importance = NotificationManager.IMPORTANCE_MIN;
+		}
+		
+		NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+		manager.createNotificationChannel(channel);
+
+		return manager;
+	}
+
 	/**
 	 * getNotification()
 	 *
-	 * @param contentText
+	 * @param channelId
 	 * @return
 	 */
-	public Notification getNotification(String contentText) {
+	public Notification getNotification(String channelId, String contentTexrt) {
 		Intent intent = new Intent(Intent.ACTION_MAIN)
 				.addCategory(Intent.CATEGORY_LAUNCHER)
 				.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
 				.setClass(context, FlickerActivity.class);
 		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
-		Notification.Builder notification = new Notification.Builder(context)
+		Notification.Builder notification = new Notification.Builder(context, channelId)
 				.setOngoing(true)
-				.setShowWhen(false)
 				.setLocalOnly(true)
 				.setSmallIcon(R.mipmap.icon_notification)
-				.setContentTitle(context.getResources().getText(R.string.activity_name_flick))
-				.setContentText(contentText)
-				.setContentIntent(pendingIntent)
-				.setPriority(Notification.PRIORITY_MIN);
+				.setContentTitle(context.getString(R.string.activity_name_flick))
+				.setContentText(contentTexrt)
+				.setContentIntent(pendingIntent);
+		
 		return notification.build();
 		
 	}
@@ -447,46 +420,32 @@ public class Launch {
 	}
 	
 	/**
-	 * startOverlayService()
-	 *
-	 * @param b
+	 * startInstallObserveJob()
 	 */
-	public void startOverlayService(boolean b) {
-		if (b) {
-			if (DeviceSettings.checkPermission(context, Manifest.permission.SYSTEM_ALERT_WINDOW)) {
-				context.startService(new Intent(context, OverlayService.class));
-
-			} else {
-				PrefDAO pdao = new PrefDAO(context);
-				pdao.setOverlay(false);
-				stopOverlayService();
-
-			}
-		}
-	}
-
-	/**
-	 * stopOverlayService()
-	 */
-	public void stopOverlayService() {
-		context.stopService(new Intent(context, OverlayService.class));
-	}
-
-	/**
-	 * clearDefault()
-	 *
-	 * @param context
-	 */
-	public void clearDefault(Context context) {
-		context.getPackageManager().clearPackagePreferredActivities(context.getPackageName());
+	public void startInstallObserveJob() {
+		context.startService(new Intent(context, PackageObserveJob.class));
+		scheduleInstallObserveJob();
 	}
 	
 	/**
-	 * vibrate()
 	 *
-	 * @param time
 	 */
-	public void vibrate(int time) {
-		if (time != 0) ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(time);
+	public void scheduleInstallObserveJob() {
+		ComponentName jobName = new ComponentName(context, PackageObserveJob.class);
+		JobScheduler scheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+		JobInfo jobInfo = new JobInfo.Builder(JOB_ID, jobName)
+				.setPeriodic(900000)
+				.setPersisted(true)
+				.build();
+		scheduler.schedule(jobInfo);
 	}
+
+	/**
+	 * vibrate()
+	 */
+	public void vibrate(boolean b) {
+		if (b) ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE))
+				.vibrate(VibrationEffect.createOneShot(VIBRATE_TIME, VibrationEffect.DEFAULT_AMPLITUDE));
+	}
+
 }

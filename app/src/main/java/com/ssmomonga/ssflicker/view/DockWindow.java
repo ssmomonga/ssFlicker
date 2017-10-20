@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
+import com.ssmomonga.ssflicker.set.WindowOrientationParams;
 import com.ssmomonga.ssflicker.set.WindowParams;
 
 import static com.ssmomonga.ssflicker.R.color.material_gray;
@@ -21,11 +22,12 @@ import static com.ssmomonga.ssflicker.R.color.material_gray;
  * DockWindow
  */
 public class DockWindow extends LinearLayout {
-	
-	private static final LinearLayout[] ll_dock = new LinearLayout[App.DOCK_APP_COUNT];
-	private static final ImageView[] iv_dock = new ImageView[App.DOCK_APP_COUNT];
-	private static LinearLayout ll_menu;
-	private static ImageView iv_menu;
+
+	private LinearLayout ll_parent;
+	private LinearLayout[] ll_dock = new LinearLayout[App.DOCK_APP_COUNT];
+	private ImageView[] iv_dock = new ImageView[App.DOCK_APP_COUNT];
+	private LinearLayout ll_menu;
+	private ImageView iv_menu;
 
 	private static final Animation[] anim_dock_pointed = new Animation[App.DOCK_APP_COUNT];
 	private static final Animation[] anim_dock_unfocused = new Animation[App.DOCK_APP_COUNT];
@@ -52,19 +54,21 @@ public class DockWindow extends LinearLayout {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.dock_window, this, true);
 
-		ll_dock[0] = (LinearLayout) findViewById(R.id.ll_dock_0);
-		ll_dock[1] = (LinearLayout) findViewById(R.id.ll_dock_1);
-		ll_dock[2] = (LinearLayout) findViewById(R.id.ll_dock_2);
-		ll_dock[3] = (LinearLayout) findViewById(R.id.ll_dock_3);
-		ll_dock[4] = (LinearLayout) findViewById(R.id.ll_dock_4);
-		ll_menu = (LinearLayout) findViewById(R.id.ll_menu);
+		ll_parent = findViewById(R.id.ll_parent);
+
+		ll_dock[0] = findViewById(R.id.ll_dock_0);
+		ll_dock[1] = findViewById(R.id.ll_dock_1);
+		ll_dock[2] = findViewById(R.id.ll_dock_2);
+		ll_dock[3] = findViewById(R.id.ll_dock_3);
+		ll_dock[4] = findViewById(R.id.ll_dock_4);
+		ll_menu = findViewById(R.id.ll_menu);
 			
-		iv_dock[0] = (ImageView) findViewById(R.id.iv_dock_0);
-		iv_dock[1] = (ImageView) findViewById(R.id.iv_dock_1);
-		iv_dock[2] = (ImageView) findViewById(R.id.iv_dock_2);
-		iv_dock[3] = (ImageView) findViewById(R.id.iv_dock_3);
-		iv_dock[4] = (ImageView) findViewById(R.id.iv_dock_4);
-		iv_menu = (ImageView) findViewById(R.id.iv_menu);
+		iv_dock[0] = findViewById(R.id.iv_dock_0);
+		iv_dock[1] =  findViewById(R.id.iv_dock_1);
+		iv_dock[2] = findViewById(R.id.iv_dock_2);
+		iv_dock[3] = findViewById(R.id.iv_dock_3);
+		iv_dock[4] = findViewById(R.id.iv_dock_4);
+		iv_menu = findViewById(R.id.iv_menu);
 
 		for (int i = 0; i < App.DOCK_APP_COUNT; i ++) {
 			anim_dock_pointed[i] = AnimationUtils.loadAnimation(context, R.anim.icon_pointed);
@@ -89,13 +93,25 @@ public class DockWindow extends LinearLayout {
 	/**
 	 * setLayout()
 	 *
+	 * @param param
+	 */
+	public void setLayout(WindowOrientationParams param) {
+		ll_parent.setLayoutParams(param.getDockParentLP());
+		LinearLayout.LayoutParams dockAppLP = param.getDockAppLP();
+		for (LinearLayout ll: ll_dock) ll.setLayoutParams(dockAppLP);
+		ll_menu.setLayoutParams(dockAppLP);
+	}
+
+	/**
+	 * setLayout()
+	 *
 	 * @param params
 	 */
 	public void setLayout(WindowParams params) {
 		for (ImageView iv: iv_dock) iv.setLayoutParams(params.getIconLP());
 		iv_menu.setLayoutParams(params.getIconLP());
 	}
-	
+
 	/**
 	 * setApp()
 	 *
@@ -105,7 +121,9 @@ public class DockWindow extends LinearLayout {
 		for (int i = 0; i < App.DOCK_APP_COUNT; i ++) {
 			App app = appList[i];
 			if (app != null) {
-				iv_dock[i].setImageDrawable(app.getAppIcon());
+				iv_dock[i].setImageDrawable(app.getIcon());
+			} else {
+				iv_dock[i].setImageDrawable(null);
 			}
 		}		
 	}
@@ -119,12 +137,11 @@ public class DockWindow extends LinearLayout {
 		Context context = getContext();
 		Resources r = context.getResources();
 		Drawable d = r.getDrawable(R.mipmap.icon_40_edit_add, null);
-		d = ImageConverter.changeIconColor(context, d, r.getColor(material_gray));
-//		d = ImageConverter.changeIconColor(context, d, r.getColor(material_gray, null));		//API 23以上
+		d = ImageConverter.changeIconColor(context, d, r.getColor(material_gray, null));
 		for (int i = 0; i < App.DOCK_APP_COUNT; i ++) {
 			App app = appList[i];
 			if (app != null) {
-				iv_dock[i].setImageDrawable(app.getAppIcon());
+				iv_dock[i].setImageDrawable(app.getIcon());
 			} else {
 				iv_dock[i].setImageDrawable(d);
 			}

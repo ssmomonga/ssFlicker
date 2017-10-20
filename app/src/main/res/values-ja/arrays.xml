@@ -1,37 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-	<!-- string-array name="home_key_click_mode_entries">
-		<item>@string/home_key_click_mode_single</item>
-		<item>@string/home_key_click_mode_double</item>
-	</string-array>
-	<string-array name="home_key_click_mode_entryvalues">
-		<item>1</item>
-		<item>2</item>
-	</string-array>
-
-	<string-array name="home_key_click_interval_entries">
-		<item>@string/int_200_ms</item>
-		<item>@string/int_300_ms</item>
-		<item>@string/int_400_ms</item>
-		<item>@string/int_500_ms</item>
-		<item>@string/int_600_ms</item>
-		<item>@string/int_700_ms</item>
-		<item>@string/int_800_ms</item>
-		<item>@string/int_900_ms</item>
-		<item>@string/int_1000_ms</item>
-		</string-array>
-	<string-array name="home_key_click_interval_entryvalues">
-		<item>200</item>
-		<item>300</item>
-		<item>400</item>
-		<item>500</item>
-		<item>600</item>
-		<item>700</item>
-		<item>800</item>
-		<item>900</item>
-		<item>1000</item>
-	</string-array -->
 	
 	<string-array name="overlay_point_action_entries">
 		<item>@string/swipe</item>
@@ -97,21 +65,6 @@
 		<item>32</item>
 	</string-array>
 	
-	<string-array name="shake_sensitivity_entries">
-		<item>@string/shake_most_sensitive</item>
-		<item>@string/shake_sensitive</item>
-		<item>@string/shake_middle</item>
-		<item>@string/shake_insensitive</item>
-		<item>@string/shake_most_insensitive</item>
-	</string-array>
-	<string-array name="shake_sensitivity_entryvalues">
-		<item>12</item>
-		<item>18</item>
-		<item>24</item>
-		<item>30</item>
-		<item>36</item>
-	</string-array>
-
 	<string-array name="pointer_window_position_entries">
 		<item>@string/upper_left</item>
 		<item>@string/upper</item>
@@ -178,7 +131,7 @@
 		<item>12</item>
 		<item>14</item>
 	</string-array>
-
+	
 	<integer-array name="color_pallet">
 	    <item>@color/material_red</item>
 	    <item>@color/material_pink</item>

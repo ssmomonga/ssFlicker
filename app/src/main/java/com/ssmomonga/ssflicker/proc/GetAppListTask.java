@@ -40,7 +40,7 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 		progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		ProgressBar progress = new ProgressBar(context);
 		progress.setLayoutParams(new ViewGroup.LayoutParams(
-				ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 		int padding = context.getResources().getDimensionPixelSize(R.dimen.int_16_dp);
 		progress.setPadding(padding, padding, padding, padding);
 		progressDialog.setContentView(progress);
@@ -76,7 +76,11 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 			case App.APP_TYPE_APPWIDGET:
 				appList = AppList.getAppWidgetList(context);
 				break;
-		
+
+			case App.APP_TYPE_APPSHORTCUT:
+				appList = AppList.getAppShortcutList(context);
+				break;
+
 			case App.APP_TYPE_FUNCTION:
 				appList = AppList.getFunctionList(context);
 				break;

@@ -15,13 +15,12 @@ import com.ssmomonga.ssflicker.proc.Launch;
  */
 abstract public class OnFlickListener implements View.OnTouchListener {
 
-	private static Launch l;
-	private static Position position;
-
-	private static int flickDistance;
-
+	private Launch l;
+	private Position position;
+	
 	private boolean editorMode;
-	private int vibrateTime;
+	private int flickDistance;
+	private boolean isVibrate;
 
 	/**
 	 * Constructor
@@ -29,23 +28,24 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	 * @param context
 	 */
 	public OnFlickListener(Context context) {
-		FlickListenerParams params = new FlickListenerParams(context);
+		PrefDAO pdao = new PrefDAO(context);
 		l = new Launch(context);
-		flickDistance = context.getResources().getDimensionPixelSize(R.dimen.flick_distance);
 		editorMode = context.getClass() == EditorActivity.class;
-		vibrateTime = params.getVibrateTime();
+		flickDistance = context.getResources().getDimensionPixelSize(R.dimen.flick_distance);
+		isVibrate = pdao.isVibrate();
 	}
 
 	/**
 	 * Constructor
 	 *
 	 * @param context
-	 * @param vibrateTime
+	 * @param isVibrate
 	 */
-	public OnFlickListener(Context context, int vibrateTime) {
+	public OnFlickListener(Context context, boolean isVibrate) {
 		l = new Launch(context);
+		editorMode = context.getClass() == EditorActivity.class;
 		flickDistance = context.getResources().getDimensionPixelSize(R.dimen.flick_distance);
-		this.vibrateTime = vibrateTime;
+		this.isVibrate = isVibrate;
 	}
 
 	/**
@@ -67,21 +67,22 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		}
 
 		if (hasData() || editorMode) {
+			Rect rect = new Rect((int) event.getRawX(), (int) event.getRawY(), (int) event.getRawX(), (int) event.getRawY());
 			switch (event.getAction()) {
 				case MotionEvent.ACTION_DOWN:						//ACTION_DOWN
-					l.vibrate(vibrateTime);
+					l.vibrate(isVibrate);
 					position = new Position(event.getX(), event.getY());
 					onDown(position.getPosition());
 					break;
 
 				case MotionEvent.ACTION_MOVE:						//ACTION_MOVE
 					if (position.setPosition(event.getX(), event.getY())) {
-						onMove(position.getOldPosition(), position.getPosition());
+						onMove(position.getPrePosition(), position.getPosition());
 					}
 					break;
 
 				case MotionEvent.ACTION_UP:							//ACTION_UP
-					onUp(position.getPosition(), new Rect((int) event.getRawX(), (int) event.getRawY(), (int) event.getRawX(), (int) event.getRawY()));
+					onUp(position.getPosition(), rect);
 					break;
 
 				case MotionEvent.ACTION_CANCEL:						//ACTION_CANCEL
@@ -151,7 +152,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		
 		private float iniX;
 		private float iniY;
-		private int oldPosition = -1;
+		private int prePosition = -1;
 		private int position = -1;
 
 		/**
@@ -174,7 +175,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		 */
 		public boolean setPosition(float X, float Y) {
 			
-			oldPosition = position;
+			prePosition = position;
 			
 			X = X - iniX;
 			Y = Y - iniY;
@@ -213,7 +214,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 				position = -1;
 			}
 			
-			return position != oldPosition;
+			return position != prePosition;
 		}
 		
 		/**
@@ -230,36 +231,8 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		 *
 		 * @return
 		 */
-		public int getOldPosition() {
-			return oldPosition;
+		public int getPrePosition() {
+			return prePosition;
 		}
 	}
-	
-	/**
-	 * FlickListenerParams
-	 */
-	private class FlickListenerParams {
-		
-		private int vibrateTime;
-
-		/**
-		 * Constructor
-		 *
-		 * @param context
-		 */
-		public FlickListenerParams(Context context) {
-			PrefDAO pdao = new PrefDAO(context);
-			vibrateTime = pdao.getVibrateTime();
-		}
-
-		/**
-		 * getVibrateTime()
-		 *
-		 * @return
-		 */
-		public int getVibrateTime() {
-			return vibrateTime;
-		}
-	}
-	
 }

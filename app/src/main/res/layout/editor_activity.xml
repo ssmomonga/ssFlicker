@@ -6,7 +6,6 @@
 
 	<com.ssmomonga.ssflicker.view.DockWindow android:id="@+id/dock_window"
 	    style="@style/lp_wc_wc"
-	   	android:gravity="center"
 		android:baselineAligned="false" />
 	
 	<com.ssmomonga.ssflicker.view.PointerWindow android:id="@+id/pointer_window"

@@ -32,22 +32,21 @@ import com.ssmomonga.ssflicker.set.DeviceSettings;
  */
 public class EditDialog extends AlertDialog {
 	
-	private Context context;
 	private static Resources r;
 	
-	private static LinearLayout.LayoutParams params;
+	private LinearLayout.LayoutParams params;
 	private Pointer pointer;
 	private App app;
 	
 	private EditPointerIf editPointerIf;
 	private EditAppIf editAppIf;
 	
-	private static View view;
-	private static ImageButton ib_icon;
-	private static EditText et_label;
-	private static EditText et_send_template;
-	private static Spinner sp_appwidget_position_x, sp_appwidget_position_y;
-	private static Spinner sp_appwidget_cell_width, sp_appwidget_cell_height;
+	private View view;
+	private ImageButton ib_icon;
+	private EditText et_label;
+	private EditText et_send_template;
+	private Spinner sp_appwidget_position_x, sp_appwidget_position_y;
+	private Spinner sp_appwidget_cell_width, sp_appwidget_cell_height;
 
 	/**
 	 * Constructor
@@ -58,7 +57,6 @@ public class EditDialog extends AlertDialog {
 	 */
 	public EditDialog(Context context, Pointer pointer, EditPointerIf editPointerIf) {
 		super(context);
-		this.context = context;
 		this.pointer = pointer;
 		this.editPointerIf = editPointerIf;
 		setInitialLayout();
@@ -74,7 +72,6 @@ public class EditDialog extends AlertDialog {
 	 */
 	public EditDialog(Context context, App app, EditAppIf editAppIf) {
 		super(context);
-		this.context = context;
 		this.app = app;
 		this.editAppIf = editAppIf;
 		setInitialLayout();
@@ -85,7 +82,8 @@ public class EditDialog extends AlertDialog {
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout() {
-
+		
+		Context context = getContext();
 		r = context.getResources();
 		LayoutInflater inflater = LayoutInflater.from(context);
 		view = inflater.inflate(R.layout.edit_dialog, null);
@@ -94,10 +92,9 @@ public class EditDialog extends AlertDialog {
 		int iconSize = new PrefDAO(context).getIconPlusSize();
 		params = new LinearLayout.LayoutParams(iconSize, iconSize);
 
-		ib_icon = (ImageButton) view.findViewById(R.id.ib_icon);
+		ib_icon = view.findViewById(R.id.ib_icon);
 		ib_icon.setLayoutParams(params);
-
-		et_label = (EditText) view.findViewById(R.id.et_label);
+		et_label = view.findViewById(R.id.et_label);
 		
 		setButton(BUTTON_NEGATIVE, r.getText(R.string.cancel), new DialogInterface.OnClickListener() {
 			@Override
@@ -121,7 +118,7 @@ public class EditDialog extends AlertDialog {
 			 */
 			@Override
 			public void onClick(View v) {
-				viewSelectIconTypeDialog(IconList.TARGET_ICON_POINTER, pointer.getPointerType());
+				viewSelectIconTypeDialog(getContext(), IconList.TARGET_ICON_POINTER, pointer.getPointerType());
 			}
 		});
 			
@@ -157,7 +154,10 @@ public class EditDialog extends AlertDialog {
 	 * setAppLayout()
 	 */
 	private void setAppLayout() {
-		ib_icon.setImageDrawable(app.getAppIcon());
+		
+		Context context = getContext();
+		
+		ib_icon.setImageDrawable(app.getIcon());
 		ib_icon.setOnClickListener(new View.OnClickListener() {
 			/**
 			 * onClick()
@@ -166,11 +166,11 @@ public class EditDialog extends AlertDialog {
 			 */
 			@Override
 			public void onClick(View v) {
-				viewSelectIconTypeDialog(IconList.TARGET_ICON_APP, Pointer.POINTER_TYPE_CUSTOM);
+				viewSelectIconTypeDialog(getContext(), IconList.TARGET_ICON_APP, Pointer.POINTER_TYPE_CUSTOM);
 			}
 		});
 			
-		et_label.setText(app.getAppLabel());
+		et_label.setText(app.getLabel());
 		et_label.setSelection(et_label.getText().length());
 				
 		//共有アプリ
@@ -203,7 +203,7 @@ public class EditDialog extends AlertDialog {
 				adapterPositionY.add(i + 1);
 				}
 				
-			int[] appWidgetCellPositionSelection = appWidgetInfo.getAppWidgetCellPosition();
+			int[] appWidgetCellPositionSelection = appWidgetInfo.getCellPosition();
 			sp_appwidget_position_x.setEnabled(true);
 			sp_appwidget_position_y.setEnabled(true);
 			
@@ -228,10 +228,10 @@ public class EditDialog extends AlertDialog {
 			adapterHeight.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
 			int resizeMode = appWidgetInfo.getAppWidgetResizeMode();
-			int[] minCellSize = appWidgetInfo.getAppWidgetMinCellSize();
-			int[] minResizeCellSize = appWidgetInfo.getAppWidgetMinResizeCellSize();
+			int[] minCellSize = appWidgetInfo.getMinCellSize();
+			int[] minResizeCellSize = appWidgetInfo.getMinResizeCellSize();
 
-			int[] cellSize = appWidgetInfo.getAppWidgetCellSize();
+			int[] cellSize = appWidgetInfo.getCellSize();
 			int[] appWidgetCellSizeSelection = {0, 0};
 			if (resizeMode == AppWidgetProviderInfo.RESIZE_BOTH ||
 					resizeMode == AppWidgetProviderInfo.RESIZE_HORIZONTAL) {
@@ -270,7 +270,7 @@ public class EditDialog extends AlertDialog {
 
 		//ショートカット以外
 		if (app.getAppType() != App.APP_TYPE_INTENT_APP ||
-				app.getIntentAppInfo().getIntentAppType() != IntentAppInfo.INTENT_APP_TYPE_SHORTCUT) {
+				app.getIntentAppInfo().getIntentAppType() != IntentAppInfo.INTENT_APP_TYPE_LEGACY_SHORTCUT) {
 			
 			setButton(BUTTON_NEUTRAL, r.getText(R.string.initial), new DialogInterface.OnClickListener() {
 				@Override
@@ -298,18 +298,23 @@ public class EditDialog extends AlertDialog {
 							ib_icon.setImageDrawable(app.getAppRawIcon());
 							switch (app.getAppType()) {
 								case App.APP_TYPE_INTENT_APP:
-									app.setAppLabelType(IconList.LABEL_ICON_TYPE_ACTIVITY);
-									app.setAppIconType(IconList.LABEL_ICON_TYPE_ACTIVITY);
+									app.setLabelType(IconList.LABEL_ICON_TYPE_ACTIVITY);
+									app.setIconType(IconList.LABEL_ICON_TYPE_ACTIVITY);
 									break;
 							
 								case App.APP_TYPE_APPWIDGET:
-									app.setAppLabelType(IconList.LABEL_ICON_TYPE_APPWIDGET);
-									app.setAppIconType(IconList.LABEL_ICON_TYPE_APPWIDGET);
+									app.setLabelType(IconList.LABEL_ICON_TYPE_APPWIDGET);
+									app.setIconType(IconList.LABEL_ICON_TYPE_APPWIDGET);
 									break;
-							
-								case App.APP_TYPE_FUNCTION:
-									app.setAppLabelType(IconList.LABEL_ICON_TYPE_ORIGINAL);
-									app.setAppIconType(IconList.LABEL_ICON_TYPE_ORIGINAL);
+
+                                case App.APP_TYPE_APPSHORTCUT:
+                                    app.setLabelType(IconList.LABEL_ICON_TYPE_APPSHORTCUT);
+                                    app.setIconType(IconList.LABEL_ICON_TYPE_APPSHORTCUT);
+                                    break;
+
+                                case App.APP_TYPE_FUNCTION:
+									app.setLabelType(IconList.LABEL_ICON_TYPE_ORIGINAL);
+									app.setIconType(IconList.LABEL_ICON_TYPE_ORIGINAL);
 									break;
 							}
 						}
@@ -328,15 +333,15 @@ public class EditDialog extends AlertDialog {
 			 */
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
-				app.setAppIcon(ib_icon.getDrawable());
+				app.setIcon(ib_icon.getDrawable());
 
 				String label = et_label.getText().toString();
-				app.setAppLabel(label);
+				app.setLabel(label);
 
 				int appLabelType = IconList.LABEL_ICON_TYPE_CUSTOM;
 				switch (app.getAppType()) {
 					case App.APP_TYPE_INTENT_APP:
-						if (app.getIntentAppInfo().getIntentAppType() != IntentAppInfo.INTENT_APP_TYPE_SHORTCUT) {
+						if (app.getIntentAppInfo().getIntentAppType() != IntentAppInfo.INTENT_APP_TYPE_LEGACY_SHORTCUT) {
 							if (label.equals(app.getAppRawLabel())) {
 								appLabelType = IconList.LABEL_ICON_TYPE_ACTIVITY;
 							}
@@ -358,7 +363,7 @@ public class EditDialog extends AlertDialog {
 						;
 						break;
 				}
-				app.setAppLabelType(appLabelType);
+				app.setLabelType(appLabelType);
 
 				if (app.getAppType() == App.APP_TYPE_INTENT_APP &&
 						app.getIntentAppInfo().getIntentAppType() == IntentAppInfo.INTENT_APP_TYPE_SEND) {
@@ -367,10 +372,10 @@ public class EditDialog extends AlertDialog {
 
 				if (app.getAppType() == App.APP_TYPE_APPWIDGET &&
 						app.getAppWidgetInfo().getAppWidgetProviderInfo() != null) {
-					app.getAppWidgetInfo().setAppWidgetCellPosition(
+					app.getAppWidgetInfo().setCellPosition(
 							sp_appwidget_position_x.getSelectedItemPosition(),
 							sp_appwidget_position_y.getSelectedItemPosition());
-					app.getAppWidgetInfo().setAppWidgetCellSize(
+					app.getAppWidgetInfo().setCellSize(
 							((Integer) sp_appwidget_cell_width.getSelectedItem()).intValue(),
 							((Integer) sp_appwidget_cell_height.getSelectedItem()).intValue());
 				}
@@ -398,7 +403,7 @@ public class EditDialog extends AlertDialog {
 	 * @param iconTarget
 	 * @param pointerType
 	 */
-	private void viewSelectIconTypeDialog(final int iconTarget, int pointerType) {
+	private void viewSelectIconTypeDialog(final Context context, final int iconTarget, int pointerType) {
 		new IconDialog.SelectIconTypeDialog(context, iconTarget, pointerType) {
 
 			/**
@@ -477,7 +482,7 @@ public class EditDialog extends AlertDialog {
 	 * @param appId
 	 */
 	public void setIconBitmap(Bitmap icon, int iconTarget, int iconType, int appId) {
-		setIconDrawable(ImageConverter.createDrawable(context, icon), iconTarget, iconType, appId);
+		setIconDrawable(ImageConverter.createDrawable(getContext(), icon), iconTarget, iconType, appId);
 	}
 
 	/**
@@ -501,7 +506,7 @@ public class EditDialog extends AlertDialog {
 			
 			case IconList.TARGET_ICON_APP:
 				ib_icon.setImageDrawable(icon);
-				app.setAppIconType(iconType);
+				app.setIconType(iconType);
 				break;
 		}
 		
@@ -511,19 +516,19 @@ public class EditDialog extends AlertDialog {
 	 * EditPointerIf
 	 */
 	public interface EditPointerIf {
-		public abstract App[] getAppList();
-		public abstract void onTrimmingImage(int iconTarget, int iconType);
-		public abstract void onSettings(Pointer pointer);		
-		public abstract void onDismissDialog();
+		App[] getAppList();
+		void onTrimmingImage(int iconTarget, int iconType);
+		void onSettings(Pointer pointer);
+		void onDismissDialog();
 	}
 
 	/**
 	 * EditAppIf
 	 */
 	public interface EditAppIf {
-		public abstract void onTrimmingImage(int iconTarget, int iconType);
-		public abstract void onSettings(App app);
-		public abstract void onDismissDialog();
+		void onTrimmingImage(int iconTarget, int iconType);
+		void onSettings(App app);
+		void onDismissDialog();
 	}	
 
 }

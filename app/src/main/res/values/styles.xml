@@ -38,17 +38,27 @@
 
 	<style name="Theme.Flicker" parent="Theme.Base.Light">
 		<item name="android:colorPrimaryDark">@android:color/transparent</item>
-	   	<item name="android:windowBackground">@color/activity_background</item>
 		<item name="android:navigationBarColor">@android:color/transparent</item>
+		<item name="android:windowBackground">@color/flicker_activity_background</item>
 		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowShowWallpaper">false</item>
+		<item name="android:windowActionBar">false</item>
+		<item name="android:windowNoTitle">true</item>
+	</style>
+	<style name="Theme.Flicker.Wallpaper" parent="Theme.Base.Light">
+		<item name="android:colorPrimaryDark">@android:color/transparent</item>
+		<item name="android:navigationBarColor">@android:color/transparent</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowShowWallpaper">true</item>
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
 	</style>
 	<style name="Theme.Editor" parent="Theme.Base" >
 		<item name="android:colorPrimaryDark">@android:color/transparent</item>
-		<item name="android:windowBackground">@color/activity_background</item>
 		<item name="android:navigationBarColor">@android:color/transparent</item>
-		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowBackground">@android:color/transparent</item>
+		<item name="android:windowShowWallpaper">true</item>
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
 	</style>
@@ -137,6 +147,10 @@
 	<style name="lp_mp_128">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">128dp</item>
+	</style>
+	<style name="lp_162_162">
+		<item name="android:layout_width">162dp</item>
+		<item name="android:layout_height">162dp</item>
 	</style>
 	
 </resources>

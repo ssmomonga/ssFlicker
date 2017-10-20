@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<PreferenceCategory android:title="@string/overlay_point_0">
-		<SwitchPreference android:key="overlay_point_0" android:title="@string/enable" android:defaultValue="true" />
+		<SwitchPreference android:key="overlay_point_0" android:title="@string/enable" android:defaultValue="false" />
 		<ListPreference android:key="overlay_point_side_0"
 			android:dependency="overlay_point_0"
 			android:title="@string/overlay_point_side"
@@ -16,7 +16,7 @@
 			android:dialogTitle="@string/overlay_point_position"
 			android:entries="@array/overlay_point_position_entries"
 			android:entryValues="@array/overlay_point_position_entryvalues"
-			android:defaultValue="9" />
+			android:defaultValue="4" />
 		<ListPreference android:key="overlay_point_width_0"
 			android:dependency="overlay_point_0"
 			android:title="@string/overlay_point_width"
@@ -27,7 +27,7 @@
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/overlay_point_1">
-		<SwitchPreference android:key="overlay_point_1" android:title="@string/enable" android:defaultValue="true" />
+		<SwitchPreference android:key="overlay_point_1" android:title="@string/enable" android:defaultValue="false" />
 		<ListPreference android:key="overlay_point_side_1"
 			android:dependency="overlay_point_1"
 			android:title="@string/overlay_point_side"
@@ -41,7 +41,7 @@
 			android:dialogTitle="@string/overlay_point_position"
 			android:entries="@array/overlay_point_position_entries"
 			android:entryValues="@array/overlay_point_position_entryvalues"
-			android:defaultValue="9" />
+			android:defaultValue="4" />
 		<ListPreference android:key="overlay_point_width_1"
 			android:dependency="overlay_point_1"
 			android:title="@string/overlay_point_width"
@@ -52,14 +52,16 @@
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/view_action">
-		<com.ssmomonga.ssflicker.preference.ColorPreference android:key="overlay_point_background_color" android:title="@string/background_color" android:defaultValue="@color/overlay_point_background_color_default_value"/>
-		<ListPreference android:key="overlay_point_action"
+		<com.ssmomonga.ssflicker.pref.ColorPreference
+            android:key="overlay_point_background_color" android:title="@string/background_color" android:defaultValue="@color/overlay_point_background_color_default_value"/>
+		<!--ListPreference android:key="overlay_point_action"
 			android:title="@string/overlay_point_action"
 			android:dialogTitle="@string/overlay_point_action"
 			android:entries="@array/overlay_point_action_entries"
 			android:entryValues="@array/overlay_point_action_entryvalues"
-			android:defaultValue="0" />
-		<SwitchPreference android:key="overlay_foreground" android:title="@string/running_foreground" android:defaultValue="true" android:summary="@string/running_foreground_summary"/>
+			android:defaultValue="0" /-->
+		<!-- SwitchPreference android:key="overlay_animation" android:title="@string/animation" android:defaultValue="true"/-->
+		<!--SwitchPreference android:key="overlay_foreground" android:title="@string/running_foreground" android:defaultValue="true" android:summary="@string/running_foreground_summary"/-->
 	</PreferenceCategory>
 	
 </PreferenceScreen>

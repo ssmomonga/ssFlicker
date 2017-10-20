@@ -5,10 +5,10 @@
 	<dimen name="cell_size_height_portrait">96dp</dimen>
 	<dimen name="cell_size_width_landscape">88dp</dimen>
 	<dimen name="cell_size_height_landscape">88dp</dimen>
-
-	<dimen name="cell_size_old">96dp</dimen>
-	<dimen name="cell_size_minus_old">0dp</dimen>
+	
 	<dimen name="cell_size">96dp</dimen>
 	<dimen name="cell_size_minus">16dp</dimen>
-
+	<dimen name="cell_size_old">96dp</dimen>
+	<dimen name="cell_size_minus_old">0dp</dimen>
+	
 </resources>

@@ -16,36 +16,44 @@ import com.ssmomonga.ssflicker.db.PrefDAO;
  * WindowOrientationParams
  */
 public class WindowOrientationParams {
-	
+
 	private static Resources r;
+	private static PrefDAO pdao;
+
+	private int orientation;
 	
-	private static int orientation;
-	private static int pointerWindowPosition;
-	private static final int[] pointerWindowGravity = new int[2];
-	private static int dockWindowPosition;
-	private static FrameLayout.LayoutParams appWidgetLayerLP;
-	private static int dockWindowOrientation;
-	private static RelativeLayout.LayoutParams dockWindowLP;
-	private static RelativeLayout.LayoutParams pointerWindowLP;
-	private static RelativeLayout.LayoutParams actionWindowLP;
-	private static RelativeLayout.LayoutParams appWindowForEditLP;
-	
+	private int pointerWindowPosition;
+	private final int[] pointerWindowGravity = new int[2];
+	private int dockWindowPosition;
+	private int dockWindowOrientation;
+
+	private FrameLayout.LayoutParams appWidgetLayerLP;
+	private RelativeLayout.LayoutParams pointerWindowLP;
+	private RelativeLayout.LayoutParams appWindowLP;
+	private RelativeLayout.LayoutParams actionWindowLP;
+	private RelativeLayout.LayoutParams dockWindowLP;
+	private LinearLayout.LayoutParams dockParentLP;
+	private LinearLayout.LayoutParams dockAppLP;
+
 	/**
 	 * Constructor
 	 *
 	 * @param context
 	 */
 	public WindowOrientationParams(Context context) {
+		pdao = new PrefDAO(context);
 		r = context.getResources();
 		orientation = DeviceSettings.getOrientation(context);
 		fillWindowPosition(context);
-		fillAppWidgetLayerLP(context);
 		fillDockWindowOrientation();
+		fillAppWidgetLayerLP(context);
 		fillDockWindowLP();
+		fillDockParentLP();
+		fillDockAppLP();
 		fillPointerWindowLP();
-		fillActionWindowLP();
 		fillAppWindowForEditLP();
-	}	
+		fillActionWindowLP();
+	}
 
 	/**
 	 * fillWindowPosition()
@@ -59,7 +67,7 @@ public class WindowOrientationParams {
 				pointerWindowPosition = pdao.getPointerWindowPositionPortrait();
 				dockWindowPosition = pdao.getDockWindowPositionPortrait();
 				break;
-		
+
 			case Configuration.ORIENTATION_LANDSCAPE:
 				pointerWindowPosition = pdao.getPointerWindowPositionLandscape();
 				dockWindowPosition = pdao.getDockWindowPositionLandscape();
@@ -78,11 +86,11 @@ public class WindowOrientationParams {
 		int cellCount = DeviceSettings.getDeviceCellSize(context);
 		int[] pixelPerCell = DeviceSettings.getPixelPerCell(context);
 		int pixelWidth = cellCount * pixelPerCell[0];
-		int pixelHeight = ViewGroup.LayoutParams.MATCH_PARENT;		
+		int pixelHeight = ViewGroup.LayoutParams.MATCH_PARENT;
 		int gravity = Gravity.CENTER;
 		appWidgetLayerLP = new FrameLayout.LayoutParams(pixelWidth, pixelHeight, gravity);
 	}
-	
+
 	/**
 	 * fillDockWindowOrientation()
 	 */
@@ -91,11 +99,11 @@ public class WindowOrientationParams {
 			case Configuration.ORIENTATION_PORTRAIT:
 				dockWindowOrientation = LinearLayout.HORIZONTAL;
 				break;
-		
+
 			case Configuration.ORIENTATION_LANDSCAPE:
 				dockWindowOrientation = LinearLayout.VERTICAL;
 				break;
-		
+
 			default:
 				dockWindowOrientation = LinearLayout.HORIZONTAL;
 				break;
@@ -106,113 +114,157 @@ public class WindowOrientationParams {
 	 * fillDockWindowLP()
 	 */
 	private void fillDockWindowLP() {
-		
+
 		int margin = r.getDimensionPixelSize(R.dimen.int_16_dp);
 		int margin2 = r.getDimensionPixelSize(R.dimen.int_32_dp);
-		
+
 		switch (orientation) {
 			case Configuration.ORIENTATION_PORTRAIT:
 				dockWindowLP = new RelativeLayout.LayoutParams(
 						ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-				
+
 				switch (dockWindowPosition) {
 					case Gravity.TOP:
 						dockWindowLP.setMargins(0, margin2, 0, margin);
 						break;
-			
+
 					case Gravity.BOTTOM:
 						dockWindowLP.setMargins(0, margin, 0, margin2);
 						break;
 				}
 				break;
-			
+
 			case Configuration.ORIENTATION_LANDSCAPE:
 				dockWindowLP = new RelativeLayout.LayoutParams(
 						ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-				
+
 				switch (dockWindowPosition) {
 					case Gravity.LEFT:
 						dockWindowLP.setMargins(margin2, 0, margin, 0);
 						break;
-			
+
 					case Gravity.RIGHT:
 						dockWindowLP.setMargins(margin, 0, margin2, 0);
 						break;
 				}
 				break;
 		}
-		
+
 		if (dockWindowPosition == pointerWindowGravity[0] || dockWindowPosition == pointerWindowGravity[1]) {
-			
+
 			switch (dockWindowPosition) {
-			
+
 				case Gravity.LEFT:
 					dockWindowLP.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 					dockWindowLP.addRule(RelativeLayout.CENTER_VERTICAL);
 					break;
-			
+
 				case Gravity.TOP:
 					dockWindowLP.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 					dockWindowLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
 					break;
-			
+
 				case Gravity.RIGHT:
 					dockWindowLP.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 					dockWindowLP.addRule(RelativeLayout.CENTER_VERTICAL);
 					break;
-			
+
 				case Gravity.BOTTOM:
 					dockWindowLP.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 					dockWindowLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
 					break;
-			
+
 			}
-			
+
 		} else {
-			
+
 			switch (dockWindowPosition) {
-			
+
 				case Gravity.LEFT:
 					dockWindowLP.addRule(RelativeLayout.LEFT_OF, R.id.pointer_window);
 					dockWindowLP.addRule(RelativeLayout.CENTER_VERTICAL);
 					break;
-				
+
 				case Gravity.TOP:
 					dockWindowLP.addRule(RelativeLayout.ABOVE, R.id.pointer_window);
 					dockWindowLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
 					break;
-			
+
 				case Gravity.RIGHT:
 					dockWindowLP.addRule(RelativeLayout.RIGHT_OF, R.id.pointer_window);
 					dockWindowLP.addRule(RelativeLayout.CENTER_VERTICAL);
 					break;
-			
+
 				case Gravity.BOTTOM:
 					dockWindowLP.addRule(RelativeLayout.BELOW, R.id.pointer_window);
 					dockWindowLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
 					break;
-			
+
 			}
 		}
+	}
+
+	/**
+	 * fillDockParentLP()
+	 */
+	private void fillDockParentLP() {
+
+		int iconSize = (int) (pdao.getIconSize() * 1.25);
+
+		LinearLayout.LayoutParams lp = null;
+		switch (orientation) {
+			case Configuration.ORIENTATION_PORTRAIT:
+				lp = new LinearLayout.LayoutParams(0, iconSize);
+				break;
+
+			case Configuration.ORIENTATION_LANDSCAPE:
+				lp = new LinearLayout.LayoutParams(iconSize, 0);
+				break;
+		}
+		lp.weight = 6;
+		
+		dockParentLP = lp;
+	}
+	
+	/**
+	 * fillDockAppLP()
+	 */
+	private void fillDockAppLP() {
+
+		int iconSize = (int) (pdao.getIconSize() * 1.25);
+
+		LinearLayout.LayoutParams lp = null;
+		switch (orientation) {
+			case Configuration.ORIENTATION_PORTRAIT:
+				lp = new LinearLayout.LayoutParams(0, iconSize);
+				break;
+
+			case Configuration.ORIENTATION_LANDSCAPE:
+				lp = new LinearLayout.LayoutParams(iconSize, 0);
+				break;
+		}
+		lp.weight = 1;
+
+		dockAppLP = lp;
 	}
 
 	/**
 	 * fillPointerWindowLP()
 	 */
 	private void fillPointerWindowLP() {
-		
+
 		pointerWindowLP = new RelativeLayout.LayoutParams(
 				ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
 		int margin = r.getDimensionPixelSize(R.dimen.int_48_dp);
 		switch (orientation) {
-			case Configuration.ORIENTATION_PORTRAIT:			
-			
+			case Configuration.ORIENTATION_PORTRAIT:
+
 				switch (dockWindowPosition) {
 					case Gravity.TOP:
 						pointerWindowLP.setMargins(margin, 0, margin, margin);
 						break;
-			
+
 					case Gravity.BOTTOM:
 						pointerWindowLP.setMargins(margin, margin, margin, 0);
 						break;
@@ -220,7 +272,7 @@ public class WindowOrientationParams {
 				break;
 
 			case Configuration.ORIENTATION_LANDSCAPE:
-			
+
 				switch (dockWindowPosition) {
 					case Gravity.LEFT:
 						pointerWindowLP.setMargins(0, margin, margin, margin);
@@ -233,87 +285,87 @@ public class WindowOrientationParams {
 		}
 
 		if (dockWindowPosition == pointerWindowGravity[1]) {
-			
+
 			switch (pointerWindowGravity[1]) {
 				case Gravity.TOP:
 					pointerWindowLP.addRule(RelativeLayout.BELOW, R.id.dock_window);
 					break;
-			
+
 				case Gravity.BOTTOM:
 					pointerWindowLP.addRule(RelativeLayout.ABOVE, R.id.dock_window);
 					break;
 			}
-			
+
 			switch (pointerWindowGravity[0]) {
 				case Gravity.LEFT:
 					pointerWindowLP.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 					break;
-			
+
 				case Gravity.RIGHT:
 					pointerWindowLP.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 					break;
-			
+
 				case Gravity.CENTER_HORIZONTAL:
 					pointerWindowLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
 					break;
 			}
-			
+
 		} else if (dockWindowPosition == pointerWindowGravity[0]) {
-			
+
 			switch (pointerWindowGravity[0]) {
 				case Gravity.LEFT:
 					pointerWindowLP.addRule(RelativeLayout.RIGHT_OF, R.id.dock_window);
 					break;
-			
+
 				case Gravity.RIGHT:
 					pointerWindowLP.addRule(RelativeLayout.LEFT_OF, R.id.dock_window);
 					break;
 			}
-			
+
 			switch (pointerWindowGravity[1]) {
 				case Gravity.TOP:
 					pointerWindowLP.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 					break;
-				
+
 				case Gravity.BOTTOM:
 					pointerWindowLP.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 					break;
-				
+
 				case Gravity.CENTER_VERTICAL:
 					pointerWindowLP.addRule(RelativeLayout.CENTER_VERTICAL);
 					break;
 			}
-			
+
 		} else {
-			
+
 			switch (pointerWindowGravity[0]) {
 				case Gravity.LEFT:
 					pointerWindowLP.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 					break;
-			
+
 				case Gravity.RIGHT:
 					pointerWindowLP.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 					break;
-				
+
 				case Gravity.CENTER_HORIZONTAL:
 					pointerWindowLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
 					break;
 			}
-			
+
 			switch (pointerWindowGravity[1]) {
 				case Gravity.TOP:
 					pointerWindowLP.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 					break;
-			
+
 				case Gravity.BOTTOM:
 					pointerWindowLP.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 					break;
-			
+
 				case Gravity.CENTER_VERTICAL:
 					pointerWindowLP.addRule(RelativeLayout.CENTER_VERTICAL);
 					break;
 			}
-					
+
 		}
 	}
 
@@ -321,20 +373,20 @@ public class WindowOrientationParams {
 	 * fillAppWindowForEditLP()
 	 */
 	public void fillAppWindowForEditLP() {
-
-		appWindowForEditLP = new RelativeLayout.LayoutParams(
+		
+		appWindowLP = new RelativeLayout.LayoutParams(
 				ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		int margin = r.getDimensionPixelSize(R.dimen.int_48_dp);
 		switch (orientation) {
 			case Configuration.ORIENTATION_PORTRAIT:
-			
+
 				switch (dockWindowPosition) {
 					case Gravity.TOP:
-						appWindowForEditLP.setMargins(margin, 0, margin, margin);
+						appWindowLP.setMargins(margin, 0, margin, margin);
 						break;
-				
+
 					case Gravity.BOTTOM:
-						appWindowForEditLP.setMargins(margin, margin, margin, 0);
+						appWindowLP.setMargins(margin, margin, margin, 0);
 						break;
 				}
 			break;
@@ -342,93 +394,93 @@ public class WindowOrientationParams {
 			case Configuration.ORIENTATION_LANDSCAPE:
 				switch (dockWindowPosition) {
 					case Gravity.LEFT:
-						appWindowForEditLP.setMargins(0, margin, margin, margin);
+						appWindowLP.setMargins(0, margin, margin, margin);
 						break;
-			
+
 					case Gravity.RIGHT:
-						appWindowForEditLP.setMargins(margin, margin, 0, margin);
+						appWindowLP.setMargins(margin, margin, 0, margin);
 						break;
 				}
 				break;
 		}
-		
+
 		if (dockWindowPosition == pointerWindowGravity[1]) {
-			
+
 			switch (pointerWindowGravity[1]) {
 				case Gravity.TOP:
-					appWindowForEditLP.addRule(RelativeLayout.BELOW, R.id.dock_window);
+					appWindowLP.addRule(RelativeLayout.BELOW, R.id.dock_window);
 					break;
-				
+
 				case Gravity.BOTTOM:
-					appWindowForEditLP.addRule(RelativeLayout.ABOVE, R.id.dock_window);
+					appWindowLP.addRule(RelativeLayout.ABOVE, R.id.dock_window);
 					break;
 			}
-			
+
 			switch (pointerWindowGravity[0]) {
 				case Gravity.LEFT:
-					appWindowForEditLP.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+					appWindowLP.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 					break;
-			
+
 				case Gravity.RIGHT:
-					appWindowForEditLP.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+					appWindowLP.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 					break;
-			
+
 				case Gravity.CENTER_HORIZONTAL:
-					appWindowForEditLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
+					appWindowLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
 					break;
 			}
-			
+
 		} else if (dockWindowPosition == pointerWindowGravity[0]) {
-			
+
 			switch (pointerWindowGravity[0]) {
 				case Gravity.LEFT:
-					appWindowForEditLP.addRule(RelativeLayout.RIGHT_OF, R.id.dock_window);
+					appWindowLP.addRule(RelativeLayout.RIGHT_OF, R.id.dock_window);
 					break;
-			
+
 				case Gravity.RIGHT:
-					appWindowForEditLP.addRule(RelativeLayout.LEFT_OF, R.id.dock_window);
+					appWindowLP.addRule(RelativeLayout.LEFT_OF, R.id.dock_window);
 					break;
 			}
-			
+
 			switch (pointerWindowGravity[1]) {
 				case Gravity.TOP:
-					appWindowForEditLP.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+					appWindowLP.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 					break;
-			
+
 				case Gravity.BOTTOM:
-					appWindowForEditLP.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+					appWindowLP.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 					break;
-			
+
 				case Gravity.CENTER_VERTICAL:
-					appWindowForEditLP.addRule(RelativeLayout.CENTER_VERTICAL);
+					appWindowLP.addRule(RelativeLayout.CENTER_VERTICAL);
 					break;
 			}
 
 		} else {
-			
+
 			switch (pointerWindowGravity[0]) {
 				case Gravity.LEFT:
-					appWindowForEditLP.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+					appWindowLP.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 					break;
 				case Gravity.RIGHT:
-					appWindowForEditLP.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+					appWindowLP.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 					break;
 				case Gravity.CENTER_HORIZONTAL:
-					appWindowForEditLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
+					appWindowLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
 					break;
 			}
-			
+
 			switch (pointerWindowGravity[1]) {
 				case Gravity.TOP:
-					appWindowForEditLP.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+					appWindowLP.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 					break;
 				case Gravity.BOTTOM:
-					appWindowForEditLP.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+					appWindowLP.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 					break;
 				case Gravity.CENTER_VERTICAL:
-					appWindowForEditLP.addRule(RelativeLayout.CENTER_VERTICAL);
+					appWindowLP.addRule(RelativeLayout.CENTER_VERTICAL);
 					break;
-			}		
+			}
 		}
 	}
 
@@ -436,7 +488,7 @@ public class WindowOrientationParams {
 	 * fillActionWindowLP()
 	 */
 	private void fillActionWindowLP() {
-		
+
 		actionWindowLP = new RelativeLayout.LayoutParams(
 				ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -447,21 +499,21 @@ public class WindowOrientationParams {
 				case Gravity.TOP:
 					actionWindowLP.setMargins(0, 0, 0, margin);
 					break;
-				
+
 				case Gravity.BOTTOM:
 					actionWindowLP.setMargins(0, margin, 0, 0);
 					break;
-			
+
 				case Gravity.CENTER_VERTICAL:
 					switch (pointerWindowGravity[0]) {
 						case Gravity.LEFT:
 							actionWindowLP.setMargins(0, 0, margin, 0);
 							break;
-				
+
 						case Gravity.RIGHT:
 							actionWindowLP.setMargins(margin, 0, 0, 0);
 							break;
-				
+
 						case Gravity.CENTER_HORIZONTAL:
 							actionWindowLP.setMargins(0, margin, 0, margin);
 							break;
@@ -475,21 +527,21 @@ public class WindowOrientationParams {
 				case Gravity.LEFT:
 					actionWindowLP.setMargins(0, 0, margin, 0);
 					break;
-			
+
 				case Gravity.RIGHT:
 					actionWindowLP.setMargins(margin, 0, 0, 0);
 					break;
-			
+
 				case Gravity.CENTER_HORIZONTAL:
 					switch (pointerWindowGravity[1]) {
 						case Gravity.TOP:
 							actionWindowLP.setMargins(0, 0, 0, margin);
 							break;
-				
+
 						case Gravity.BOTTOM:
 							actionWindowLP.setMargins(0, margin, 0, 0);
 							break;
-						
+
 						case Gravity.CENTER_VERTICAL:
 							actionWindowLP.setMargins(margin, 0, margin, 0);
 							break;
@@ -500,37 +552,37 @@ public class WindowOrientationParams {
 		}
 
 		if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-		
+
 			switch (pointerWindowGravity[1]) {
-			
+
 				case Gravity.TOP:
 					actionWindowLP.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 					actionWindowLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
 					break;
-			
+
 				case Gravity.BOTTOM:
 					actionWindowLP.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 					actionWindowLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
 					break;
-			
+
 				case Gravity.CENTER_VERTICAL:
 					switch (pointerWindowGravity[0]) {
 						case Gravity.LEFT:
 							actionWindowLP.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 							actionWindowLP.addRule(RelativeLayout.CENTER_VERTICAL);
 							break;
-			
+
 						case Gravity.RIGHT:
 							actionWindowLP.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 							actionWindowLP.addRule(RelativeLayout.CENTER_VERTICAL);
 							break;
-				
+
 						case Gravity.CENTER_HORIZONTAL:
 							switch (dockWindowPosition) {
 								case Gravity.TOP:
 									actionWindowLP.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 									break;
-					
+
 								case Gravity.BOTTOM:
 									actionWindowLP.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 									break;
@@ -540,39 +592,39 @@ public class WindowOrientationParams {
 					}
 					break;
 			}
-			
+
 		} else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-			
+
 			switch (pointerWindowGravity[0]) {
 				case Gravity.LEFT:
 					actionWindowLP.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 					actionWindowLP.addRule(RelativeLayout.CENTER_VERTICAL);
 					break;
-			
+
 				case Gravity.RIGHT:
 					actionWindowLP.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 					actionWindowLP.addRule(RelativeLayout.CENTER_VERTICAL);
 					break;
-			
+
 				case Gravity.CENTER_HORIZONTAL:
 					switch (pointerWindowGravity[1]) {
 						case Gravity.TOP:
 							actionWindowLP.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 							actionWindowLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
 							break;
-				
+
 						case Gravity.BOTTOM:
 							actionWindowLP.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 							actionWindowLP.addRule(RelativeLayout.CENTER_HORIZONTAL);
 							break;
-				
+
 						case Gravity.CENTER_VERTICAL:
 							switch (dockWindowPosition) {
-						
+
 								case Gravity.LEFT:
 									actionWindowLP.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 									break;
-					
+
 								case Gravity.RIGHT:
 									actionWindowLP.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 									break;
@@ -582,9 +634,9 @@ public class WindowOrientationParams {
 					break;
 			}
 		}
-		
+
 	}
-	
+
 	/**
 	 getOrientation()
 	 *
@@ -593,7 +645,7 @@ public class WindowOrientationParams {
 	public int getOrientation() {
 		return orientation;
 	}
-	
+
 	/**
 	 * getAppWidgetLayerLP()
 	 *
@@ -602,7 +654,7 @@ public class WindowOrientationParams {
 	public FrameLayout.LayoutParams getAppWidgetLayerLP() {
 		return appWidgetLayerLP;
 	}
-	
+
 	/**
 	 * getDockWindowOrientation()
 	 *
@@ -611,7 +663,7 @@ public class WindowOrientationParams {
 	public int getDockWindowOrientation() {
 		return dockWindowOrientation;
 	}
-	
+
 	/**
 	 getDockWindowLP()
 	 *
@@ -620,7 +672,25 @@ public class WindowOrientationParams {
 	public RelativeLayout.LayoutParams getDockWindowLP() {
 		return dockWindowLP;
 	}
-	
+
+	/**
+	 * getDockParentLP()
+	 *
+	 * @return
+	 */
+	public LinearLayout.LayoutParams getDockParentLP() {
+		return dockParentLP;
+	}
+
+	/**
+	 * getDockAppLP()
+	 *
+	 * @return
+	 */
+	public LinearLayout.LayoutParams getDockAppLP() {
+		return dockAppLP;
+	}
+
 	/**
 	 * getPointerWindowLP()
 	 *
@@ -629,16 +699,16 @@ public class WindowOrientationParams {
 	public RelativeLayout.LayoutParams getPointerWindowLP() {
 		return pointerWindowLP;
 	}
-	
+
 	/**
 	 * getAppWindowLPForEdit()
 	 *
 	 * @return
 	 */
-	public RelativeLayout.LayoutParams getAppWindowForEditLP() {
-		return appWindowForEditLP;
+	public RelativeLayout.LayoutParams getAppWindowLP() {
+		return appWindowLP;
 	}
-	
+
 	/**
 	 * getActionWindowLPForEdit()
 	 *
@@ -647,5 +717,5 @@ public class WindowOrientationParams {
 	public RelativeLayout.LayoutParams getActionWindowLP() {
 		return actionWindowLP;
 	}
-	
+
 }

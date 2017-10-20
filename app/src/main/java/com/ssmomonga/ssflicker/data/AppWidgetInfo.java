@@ -23,12 +23,12 @@ public class AppWidgetInfo {
 	private Context context;
 	private AppWidgetProviderInfo appWidgetProviderInfo;
 	private int appWidgetId;
-	private int appWidgetCellPositionX;
-	private int appWidgetCellPositionY;
-	private int appWidgetCellWidth;
-	private int appWidgetCellHeight;
-	private long appWidgetUpdateTime;
-	private Drawable appWidgetIcon;
+	private int cellPositionX;
+	private int cellPositionY;
+	private int cellWidth;
+	private int cellHeight;
+	private long updateTime;
+	private Drawable icon;
 	private Bitmap previewImage;
 
 	/**
@@ -36,27 +36,27 @@ public class AppWidgetInfo {
 	 *
 	 * @param context
 	 * @param appWidgetId
-	 * @param appWidgetCellPositionX
-	 * @param appWidgetCellPositionY
-	 * @param appWidgetCellWidth
-	 * @param appWidgetCellHeight
-	 * @param appWidgetUpdateTime
+	 * @param cellPositionX
+	 * @param cellPositionY
+	 * @param cellWidth
+	 * @param cellHeight
+	 * @param updateTime
 	 */
 	public AppWidgetInfo(Context context,
 						 int appWidgetId,
-						 int appWidgetCellPositionX,
-						 int appWidgetCellPositionY,
-						 int appWidgetCellWidth,
-						 int appWidgetCellHeight,
-						 long appWidgetUpdateTime) {
+						 int cellPositionX,
+						 int cellPositionY,
+						 int cellWidth,
+						 int cellHeight,
+						 long updateTime) {
 
 		this.context = context;
 		this.appWidgetId = appWidgetId;
-		this.appWidgetCellPositionX = appWidgetCellPositionX;
-		this.appWidgetCellPositionY = appWidgetCellPositionY;
-		this.appWidgetCellWidth = appWidgetCellWidth;
-		this.appWidgetCellHeight = appWidgetCellHeight;
-		this.appWidgetUpdateTime = appWidgetUpdateTime;
+		this.cellPositionX = cellPositionX;
+		this.cellPositionY = cellPositionY;
+		this.cellWidth = cellWidth;
+		this.cellHeight = cellHeight;
+		this.updateTime = updateTime;
 		appWidgetProviderInfo = AppWidgetManager.getInstance(context).getAppWidgetInfo(appWidgetId);
 	}
 
@@ -71,8 +71,8 @@ public class AppWidgetInfo {
 		this.context = context;
 		this.appWidgetProviderInfo = info;
 		if (createPreviewImage) {
-			createAppWidgetIcon();
-			createAppWidgetPreviewImage();
+			createIcon();
+			createPreviewImage();
 		}
 	}
 
@@ -95,80 +95,80 @@ public class AppWidgetInfo {
 	}
 
 	/**
-	 * getAppWidgetCellPosition()
+	 * getCellPosition()
 	 *
 	 * @return
 	 */
-	public int[] getAppWidgetCellPosition() {
-		return new int[] { appWidgetCellPositionX, appWidgetCellPositionY };
+	public int[] getCellPosition() {
+		return new int[] { cellPositionX, cellPositionY };
 	}
 
 	/**
-	 * getAppWidgetCellSize()
+	 * getCellSize()
 	 *
 	 * @return
 	 */
-	public int[] getAppWidgetCellSize() {
-		return new int[] { appWidgetCellWidth, appWidgetCellHeight };
+	public int[] getCellSize() {
+		return new int[] { cellWidth, cellHeight };
 	}
 
 	/**
-	 * getAppWidgetUpdateTime()
+	 * getUpdateTime()
 	 *
 	 * @return
 	 */
-	public long getAppWidgetUpdateTime() {
-		return appWidgetUpdateTime;
+	public long getUpdateTime() {
+		return updateTime;
 	}
 
 	/**
-	 * setAppWidgetCellPosition()
+	 * setCellPosition()
 	 *
-	 * @param appWidgetCellPositionX
-	 * @param appWidgetCellPositionY
+	 * @param cellPositionX
+	 * @param cellPositionY
 	 */
-	public void setAppWidgetCellPosition(int appWidgetCellPositionX, int appWidgetCellPositionY) {
-		this.appWidgetCellPositionX = appWidgetCellPositionX;
-		this.appWidgetCellPositionY = appWidgetCellPositionY;
+	public void setCellPosition(int cellPositionX, int cellPositionY) {
+		this.cellPositionX = cellPositionX;
+		this.cellPositionY = cellPositionY;
 	}
 
 	/**
-	 * setAppWidgetCellSize()
+	 * setCellSize()
 	 *
-	 * @param appWidgetCellWidth
-	 * @param appWidgetCellHeight
+	 * @param cellWidth
+	 * @param cellHeight
 	 */
-	public void setAppWidgetCellSize(int appWidgetCellWidth, int appWidgetCellHeight) {
-		this.appWidgetCellWidth = appWidgetCellWidth;
-		this.appWidgetCellHeight = appWidgetCellHeight;
+	public void setCellSize(int cellWidth, int cellHeight) {
+		this.cellWidth = cellWidth;
+		this.cellHeight = cellHeight;
 	}
 
 	/**
-	 * setAppWidgetUpdateTime()
+	 * setUpdateTime()
 	 *
-	 * @param appWidgetUpdateTime
+	 * @param updateTime
 	 */
-	public void setAppWidgetUpdateTime(long appWidgetUpdateTime) {
-		this.appWidgetUpdateTime = appWidgetUpdateTime;
+	public void setUpdateTime(long updateTime) {
+		this.updateTime = updateTime;
 	}
 
 	/**
-	 * getAppWidgetIcon()
-	 *
-	 * @return
-	 */
-	public Drawable getAppWidgetIcon() {
-		if (appWidgetIcon == null) createAppWidgetIcon();
-		return appWidgetIcon;
-	}
-
-	/**
-	 * getAppWidgetPreviewImage()
+	 * getIcon()
 	 *
 	 * @return
 	 */
-	public Bitmap getAppWidgetPreviewImage() {
-		if (previewImage == null) createAppWidgetPreviewImage();
+	public Drawable getIcon() {
+		if (icon == null) createIcon();
+		return icon;
+	}
+
+	/**
+	 * getPreviewImage()
+	 *
+	 * @return
+	 */
+	public Bitmap getPreviewImage() {
+		if (previewImage == null) createPreviewImage();
 		return previewImage;
 	}
 
@@ -177,21 +177,20 @@ public class AppWidgetInfo {
 	 *
 	 * @return
 	 */
-	public String getAppWidgetRawLabel() {
+	public String getRawLabel() {
 		return appWidgetProviderInfo != null ?
 				appWidgetProviderInfo.loadLabel(context.getPackageManager()).replaceAll("\n", " ") :
 				context.getResources().getString(R.string.unknown);
 	}
 
 	/**
-	 * getAppWidgetRawIcon()
+	 * getRawIcon()
 	 *
 	 * @return
 	 */
-	public Drawable getAppWidgetRawIcon() {
-		if (appWidgetIcon == null) createAppWidgetIcon();
-		return appWidgetIcon != null ? appWidgetIcon :
-			context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
+	public Drawable getRawIcon() {
+		if (icon == null) createIcon();
+		return icon;
 	}
 
 	/**
@@ -205,11 +204,11 @@ public class AppWidgetInfo {
 	}
 
 	/**
-	 * getAppWidgetMinResizeCellSize()
+	 * getMinResizeCellSize()
 	 *
 	 * @return
 	 */
-	public int[] getAppWidgetMinResizeCellSize() {
+	public int[] getMinResizeCellSize() {
 		if (appWidgetProviderInfo != null) {
 			try {
 				return toCellSize(appWidgetProviderInfo.minResizeWidth, appWidgetProviderInfo.minResizeHeight);
@@ -223,11 +222,11 @@ public class AppWidgetInfo {
 	}
 
 	/**
-	 * getAppWidgetMinCellSize()
+	 * getMinCellSize()
 	 *
 	 * @return
 	 */
-	public int[] getAppWidgetMinCellSize() {
+	public int[] getMinCellSize() {
 		if (appWidgetProviderInfo != null) {
 			try {
 				return toCellSize(appWidgetProviderInfo.minWidth, appWidgetProviderInfo.minHeight);
@@ -241,29 +240,32 @@ public class AppWidgetInfo {
 	}
 	
 	/**
-	 * getAppWidgetMinCellSizeString()
+	 * getMinCellSizeString()
 	 *
 	 * @return
 	 */
-	public String getAppWidgetMinCellSizeString() {
-		int[] minCellSize = getAppWidgetMinCellSize();
+	public String getMinCellSizeString() {
+		int[] minCellSize = getMinCellSize();
 		return minCellSize[0] + " × " + minCellSize[1];
 	}
 
 	/**
-	 * createAppWidgetIcon()
+	 * createIcon()
 	 */
-	private void createAppWidgetIcon() {
+	private void createIcon() {
 		if (appWidgetProviderInfo != null) {
-			appWidgetIcon = context.getPackageManager().getDrawable(
+			icon = context.getPackageManager().getDrawable(
 					appWidgetProviderInfo.provider.getPackageName(), appWidgetProviderInfo.icon, null);
+		}
+		if (icon == null) {
+			context.getResources().getDrawable(android.R.drawable.ic_menu_help, null);
 		}
 	}
 
 	/**
-	 * createAppWidgetPreviewImage()
+	 * createPreviewImage()
 	 */
-	private void createAppWidgetPreviewImage() {
+	private void createPreviewImage() {
 		if (appWidgetProviderInfo != null) {
 			if (appWidgetProviderInfo.previewImage != 0) {
 				Drawable previewImageDrawable = context.getPackageManager().getDrawable(
@@ -272,8 +274,8 @@ public class AppWidgetInfo {
 				previewImage = ImageConverter.resizeAppWidgetPreviewImage(
 						context, ImageConverter.createBitmap(previewImageDrawable));
 			} else {
-				if (appWidgetIcon == null) createAppWidgetIcon();
-				previewImage = ImageConverter.createBitmap(appWidgetIcon);
+				if (icon == null) createIcon();
+				previewImage = ImageConverter.createBitmap(icon);
 			}
 		}
 		
@@ -288,17 +290,16 @@ public class AppWidgetInfo {
 	 * @throws NameNotFoundException
 	 */
 	private int[] toCellSize(double width, double height) throws NameNotFoundException {
-
 		PackageManager manager = context.getPackageManager();
 		ApplicationInfo ai = manager.getApplicationInfo(
 				appWidgetProviderInfo.provider.getPackageName(), PackageManager.GET_META_DATA);
 		int targetVersion = ai.targetSdkVersion;
-
+		
 		int [] cellSize = new int[2];
 		int sizePerCell;
 		int sizePerCellMinus;
 		Resources r = context.getResources();
-		
+
 		//targetVersionにより計算式の変数値が異なる。
 		if (targetVersion >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 			sizePerCell = r.getDimensionPixelSize(R.dimen.cell_size);		//80dp
@@ -307,7 +308,6 @@ public class AppWidgetInfo {
 			sizePerCell = r.getDimensionPixelSize(R.dimen.cell_size_old);		//80dp
 			sizePerCellMinus = r.getDimensionPixelSize(R.dimen.cell_size_minus_old);	//0dp
 		}
-
 		//minSizeが0の場合はcellSizeも0にする。
 		cellSize[0] = width != 0 ? (int) Math.ceil((width + sizePerCellMinus) / sizePerCell) : 0;
 		cellSize[1] = height != 0 ? (int) Math.ceil((height + sizePerCellMinus) / sizePerCell) : 0;

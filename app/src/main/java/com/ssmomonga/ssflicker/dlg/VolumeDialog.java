@@ -14,12 +14,10 @@ import com.ssmomonga.ssflicker.R;
  */
 public class VolumeDialog extends AlertDialog {
 	
-	private Context context;
-
 	private static AudioManager am;
-	private static SeekBar sb_media;
-	private static SeekBar sb_ringtone;
-	private static SeekBar sb_alarm;
+	private SeekBar sb_media;
+	private SeekBar sb_ringtone;
+	private SeekBar sb_alarm;
 
 	/**
 	 * Constructor
@@ -28,7 +26,6 @@ public class VolumeDialog extends AlertDialog {
 	 */
 	public VolumeDialog (Context context) {
 		super(context);
-		this.context = context;
 		setInitialLayout();
 	}
 	
@@ -36,6 +33,9 @@ public class VolumeDialog extends AlertDialog {
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout() {
+		
+		Context context = getContext();
+		
 		LayoutInflater inflater = LayoutInflater.from(context);
 		View view = inflater.inflate(R.layout.volume_dialog, null);
 		setView(view);
@@ -100,25 +100,6 @@ public class VolumeDialog extends AlertDialog {
 				am.setStreamVolume(AudioManager.STREAM_ALARM, setAlarm, 0);
 			}
 		});
-
-/*
-		setButton(BUTTON_POSITIVE, context.getResources().getText(R.string.settings), new DialogInterface.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int id) {
-				int setMedia = sb_media.getProgress();
-				int setRing = sb_ringtone.getProgress();
-				int setAlarm = sb_alarm.getProgress();
-				if (initMedia != setMedia) am.setStreamVolume(AudioManager.STREAM_MUSIC, setMedia, 0);
-				if (initRing != setRing) am.setStreamVolume(AudioManager.STREAM_RING, setRing, 0);
-				if (initAlarm != setAlarm) am.setStreamVolume(AudioManager.STREAM_ALARM, setAlarm, 0);
-			}
-		});
-
-		setButton(BUTTON_NEGATIVE, context.getResources().getText(R.string.cancel), new DialogInterface.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int id) {}
-		});
-*/
 
 	}
 

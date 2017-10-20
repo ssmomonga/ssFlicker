@@ -12,36 +12,35 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
-import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.ssmomonga.ssflicker.db.PrefDAO;
 import com.ssmomonga.ssflicker.proc.Launch;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
-import com.ssmomonga.ssflicker.set.OverlaySettings;
-import com.ssmomonga.ssflicker.set.OverlaySettings.OverlayFlickListenerParams;
-import com.ssmomonga.ssflicker.set.OverlaySettings.OverlayPointParams;
-import com.ssmomonga.ssflicker.set.OverlaySettings.OverlayWindowParams;
+import com.ssmomonga.ssflicker.set.OverlayParams;
 import com.ssmomonga.ssflicker.view.OnFlickListener;
 import com.ssmomonga.ssflicker.view.OverlayPoint;
 import com.ssmomonga.ssflicker.view.OverlayWindow;
+
+import static com.ssmomonga.ssflicker.set.OverlayParams.OVERLAY_POINT_COUNT;
 
 /**
  * OverlayService
  */
 public class OverlayService extends Service {
-	
+
 	private static WindowManager overlay_layer;
-	private static final OverlayPoint[] overlay_point = new OverlayPoint[OverlaySettings.OVERLAY_POINT_COUNT];
-	private static OverlayWindow overlay_window;
+	private static OverlayPoint[] overlay_point = new OverlayPoint[OVERLAY_POINT_COUNT];
+	private OverlayWindow overlay_window;
 
-	private static OverlaySettings overlaySettings;
-	private static OverlayPointParams[] overlayPointParams;
-	private static OverlayWindowParams overlayWindowParams;
-	private static OverlayFlickListenerParams overlayFlickListenerParams;
+	private OverlayParams overlayParams;
+	private OverlayParams.OverlayPointParams[] overlayPointParams = new OverlayParams.OverlayPointParams[OVERLAY_POINT_COUNT];
+	private OverlayParams.OverlayWindowParams overlayWindowParams;
 
-	private static Launch l;
-	private static RotateReceiver rotateReceiver;
+	private Launch l;
+	private RotateReceiver rotateReceiver;
+	
 	private Messenger mBindOverlayService = new Messenger(new IncomingHandler());
 	
 	/**
@@ -50,44 +49,66 @@ public class OverlayService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+
 		// オーバーレイポイントの色変更⇒オーバーレイ起動OFF⇒オーバーレイ起動ONの操作で、色が元に戻ってしまう、
 		// の不具合対応のためifで囲ってる。
 		// 詳細原因は不明。
-		if (overlaySettings == null) {
-			overlaySettings = new OverlaySettings(this);
-			overlayPointParams = overlaySettings.getOverlayPointParams();
-			overlayWindowParams = overlaySettings.getOverlayWindowParams();
-			overlayFlickListenerParams = overlaySettings.getOverlayFlickListenerParams();
-		}
+//		if (overlayParams == null) {
+			overlayParams = new OverlayParams(this);
+			overlayPointParams[0] = new OverlayParams.OverlayPointParams(this, 0);
+			overlayPointParams[1] = new OverlayParams.OverlayPointParams(this, 1);
+			overlayWindowParams = new OverlayParams.OverlayWindowParams(this);
+//		}
 
 		l = new Launch(this);
 		rotateReceiver = new RotateReceiver();
+		
+		l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.service_name_overlay));
+		startForeground(1, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE, getString(R.string.launch_from_overlay)));
 
 		overlay_layer = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-
+		
 		IntentFilter rotateFilter = new IntentFilter(Intent.ACTION_CONFIGURATION_CHANGED);
 		registerReceiver(rotateReceiver, rotateFilter);
 
+//		overlayForeground(overlayParams.isForeground());
 		viewOverlay();
-		
-		overlayForeground(overlaySettings.isForeground());
+	}
 
+	/**
+	 * onBind()
+	 *
+	 * @param intent
+	 * @return
+	 */
+	@Override
+	public IBinder onBind(Intent intent) {
+		return mBindOverlayService.getBinder();
+	}
+
+	/**
+	 * onDestroy()
+	 */
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		unregisterReceiver(rotateReceiver);
+		goneOverlay();
 	}
 
 	/**
 	 * viewOverlay()
 	 */
 	private void viewOverlay() {
-
 		if (!DeviceSettings.checkPermission(this, Manifest.permission.SYSTEM_ALERT_WINDOW)) return;
 
-		for (int i = 0; i < OverlaySettings.OVERLAY_POINT_COUNT; i++) {
+		for (int i = 0; i < OVERLAY_POINT_COUNT; i++) {
 			if (overlayPointParams[i].isOverlayPoint()) {
 				overlay_point[i] = new OverlayPoint(this);
 				overlay_point[i].setTag(String.valueOf(i));
-				overlay_point[i].setBackgroundColor(overlaySettings.getOverlayPointBackgroundColor());
+				overlay_point[i].setBackgroundColor(overlayPointParams[i].getOverlayPointBackgroundColor());
 				overlay_point[i].setOnFlickListener(new OnOverlayPointFlickListener(
-						this, overlayFlickListenerParams.getVibrateTime()));
+						this, overlayPointParams[i].isVibrate()));
 				overlay_layer.addView(overlay_point[i], overlayPointParams[i].getOverlayPointLP());
 
 			} else {
@@ -95,7 +116,14 @@ public class OverlayService extends Service {
 			}
 		}
 
-		overlay_window = new OverlayWindow(this);
+		overlay_window = new OverlayWindow(this) {
+			@Override
+			public void onLaunch(boolean b) {
+				l.launchFlickerActivityFromService(b);
+			}
+		};
+		overlay_window.setLayoutParams(
+				new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 		overlay_layer.addView(overlay_window, overlayWindowParams.getOverlayWindowLP());
 
 	}
@@ -104,7 +132,7 @@ public class OverlayService extends Service {
 	 * goneOverlay()
 	 */
 	private void goneOverlay() {
-		for (int i = 0; i < OverlaySettings.OVERLAY_POINT_COUNT; i ++) {
+		for (int i = 0; i < OverlayParams.OVERLAY_POINT_COUNT; i ++) {
 			if (overlay_point[i] != null) {
 				overlay_layer.removeView(overlay_point[i]);
 				overlay_point[i] = null;
@@ -123,9 +151,9 @@ public class OverlayService extends Service {
 	 */
 	private void overlayForeground(boolean b) {
 		if (b) {
-			startForeground(1, l.getNotification(getString(R.string.launch_from_overlay)
-					+ getString(R.string.colon) + getString(R.string.running_foreground)));
-
+			l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.service_name_overlay));
+			startForeground(Launch.NOTIFICATION_ID_OVERLAY, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.launch_from_overlay)));
+			
 		} else {
 			stopForeground(true);
 		}
@@ -136,16 +164,14 @@ public class OverlayService extends Service {
 	 */
 	private class OnOverlayPointFlickListener extends OnFlickListener {
 
-		private int overlayPointAction;
-
 		/**
 		 * Constructor
 		 *
 		 * @param context
-		 * @param vibrateTime
+		 * @param isVibrate
 		 */
-		public OnOverlayPointFlickListener (Context context, int vibrateTime) {
-			super(context, vibrateTime);
+		public OnOverlayPointFlickListener (Context context, boolean isVibrate) {
+			super(context, isVibrate);
 		}
 
 		/**
@@ -164,9 +190,7 @@ public class OverlayService extends Service {
 		 * @param id
 		 */
 		@Override
-		public void setId(int id) {
-			overlayPointAction = overlayFlickListenerParams.getOverlayPointAction();
-		}
+		public void setId(int id) {}
 
 		/**
 		 * hasData()
@@ -185,8 +209,7 @@ public class OverlayService extends Service {
 		 */
 		@Override
 		public void onDown(int position) {
-			overlay_window.setVisibility(View.VISIBLE);
-			overlay_window.changeSelected(isPointed(position));
+			overlay_window.startOverlay();
 		}
 
 		/**
@@ -197,7 +220,7 @@ public class OverlayService extends Service {
 		 */
 		@Override
 		public void onMove (int oldPosition, int position) {
-			overlay_window.changeSelected(isPointed(position));
+			overlay_window.moveOverlay(isPointed(position));
 		}
 
 		/**
@@ -208,8 +231,7 @@ public class OverlayService extends Service {
 		 */
 		@Override
 		public void onUp (int position, Rect r) {
-			l.launchFlickerActivityFromService(isPointed(position));
-			overlay_window.setVisibility(View.INVISIBLE);
+			overlay_window.finishOverlay();
 		}
 
 		/**
@@ -219,7 +241,7 @@ public class OverlayService extends Service {
 		 */
 		@Override
 		public void onCancel (int position) {
-			overlay_window.setVisibility(View.INVISIBLE);
+			overlay_window.finishOverlay();
 		}
 
 		/**
@@ -229,23 +251,14 @@ public class OverlayService extends Service {
 		 * @return
 		 */
 		private boolean isPointed (int position) {
-			return ((overlayPointAction == 0 && position != -1) ||
-					(overlayPointAction == 1 && position == -1));
+			return position != -1;
+			
+//			return ((overlayPointAction == 0 && position != -1) ||
+//					(overlayPointAction == 1 && position == -1));
 		}
 		
 	}
 	
-	/**
-	 * onBind()
-	 *
-	 * @param intent
-	 * @return
-	 */
-	@Override
-	public IBinder onBind(Intent intent) {
-		return mBindOverlayService.getBinder();
-	}
-
 	/**
 	 * Incominghandler
 	 */
@@ -278,24 +291,27 @@ public class OverlayService extends Service {
 				overlayPointParams[1].setPattern(b.getInt(PrefDAO.OVERLAY_POINT_POSITION_1));
 				
 			} else if (b.containsKey(PrefDAO.OVERLAY_POINT_WIDTH_0)) {
-				overlayPointParams[0].setWidth(DeviceSettings.dimenToPixel(
+				overlayPointParams[0].setWidth(DeviceSettings.dpToPixel(
 						OverlayService.this, b.getInt(PrefDAO.OVERLAY_POINT_WIDTH_0)));
 			
 			} else if (b.containsKey(PrefDAO.OVERLAY_POINT_WIDTH_1)) {
-				overlayPointParams[1].setWidth(DeviceSettings.dimenToPixel(
+				overlayPointParams[1].setWidth(DeviceSettings.dpToPixel(
 						OverlayService.this, b.getInt(PrefDAO.OVERLAY_POINT_WIDTH_1)));
 			
 			} else if (b.containsKey(PrefDAO.OVERLAY_POINT_BACKGROUND_COLOR)) {
-				overlaySettings.setOverlayPointBackgroundColor(b.getInt(PrefDAO.OVERLAY_POINT_BACKGROUND_COLOR));
+				overlayPointParams[0].setOverlayPointBackgroundColor(b.getInt(PrefDAO.OVERLAY_POINT_BACKGROUND_COLOR));
+				overlayPointParams[1].setOverlayPointBackgroundColor(b.getInt(PrefDAO.OVERLAY_POINT_BACKGROUND_COLOR));
 			
-			} else if (b.containsKey(PrefDAO.OVERLAY_POINT_ACTION)) {
-				overlayFlickListenerParams.setOverlayPointAction(b.getInt(PrefDAO.OVERLAY_POINT_ACTION));
-			
+			} else if (b.containsKey(PrefDAO.OVERLAY_ANIMATION)) {
+				overlayWindowParams.setOverlayAnimation(b.getBoolean(PrefDAO.OVERLAY_ANIMATION));
+				
 			} else if (b.containsKey(PrefDAO.OVERLAY_FOREGROUND)) {
-				overlaySettings.setForeground(b.getBoolean(PrefDAO.OVERLAY_FOREGROUND));
-			
+				overlayParams.setForeground(b.getBoolean(PrefDAO.OVERLAY_FOREGROUND));
+				
 			} else if (b.containsKey(PrefDAO.VIBRATE)) {
-				overlayFlickListenerParams.setVibrateTime(b.getInt(PrefDAO.VIBRATE));
+				overlayPointParams[0].setVibrate(b.getBoolean(PrefDAO.VIBRATE));
+				overlayPointParams[1].setVibrate(b.getBoolean(PrefDAO.VIBRATE));
+			
 			}
 			reviewOverlayService();
 			
@@ -309,13 +325,12 @@ public class OverlayService extends Service {
 						public void run() {
 							goneOverlay();
 							viewOverlay();
-							overlayForeground(overlaySettings.isForeground());
+//							overlayForeground(overlayParams.isForeground());
 						}
 					});
 				}
 			}).start();
 		}
-	
 	}
 	
 	/**
@@ -324,20 +339,10 @@ public class OverlayService extends Service {
 	private class RotateReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			for (int i = 0; i < OverlaySettings.OVERLAY_POINT_COUNT; i ++) overlayPointParams[i].rotate();
+			for (int i = 0; i < OverlayParams.OVERLAY_POINT_COUNT; i ++) overlayPointParams[i].rotate();
 			goneOverlay();
 			viewOverlay();
 		}
 	}
 	
-	/**
-	 * onDestroy()
-	 */
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		unregisterReceiver(rotateReceiver);
-		goneOverlay();
-	}
-
 }

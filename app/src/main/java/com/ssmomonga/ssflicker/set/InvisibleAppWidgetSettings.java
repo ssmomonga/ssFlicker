@@ -10,7 +10,7 @@ import com.ssmomonga.ssflicker.db.PrefDAO;
  */
 public class InvisibleAppWidgetSettings {
 
-	private static int resourceId;
+	private int resourceId;
 	
 	/**
 	 * Constructor
@@ -24,25 +24,19 @@ public class InvisibleAppWidgetSettings {
 	/**
 	 * Constructor
 	 *
-	 * @param invisibleAppWidgetBackground
+	 * @param backgroundVisibility
 	 */
-	public InvisibleAppWidgetSettings(boolean invisibleAppWidgetBackground) {
-		fillResourceId(invisibleAppWidgetBackground);
+	public InvisibleAppWidgetSettings(boolean backgroundVisibility) {
+		fillResourceId(backgroundVisibility);
 	}
 	
 	/**
 	 * fillResourceId()
 	 *
-	 * @param invisibleAppWidgetBackground
+	 * @param backgroundVisibility
 	 */
-	private void fillResourceId(boolean invisibleAppWidgetBackground) {
-		resourceId = invisibleAppWidgetBackground ? R.mipmap.icon_appwidget_preview : R.drawable.invisible;
-
-/**		if (invisibleAppWidgetBackground) {
-			resourceId = R.mipmap.icon_appwidget_preview;
-		} else { 
-			resourceId = R.mipmap.invisible;
-		} */
+	private void fillResourceId(boolean backgroundVisibility) {
+		resourceId = backgroundVisibility ? R.mipmap.icon_appwidget_preview : R.drawable.invisible;
 	}
 	
 	/**

@@ -70,7 +70,7 @@ public class MenuList {
 							r.getDrawable(R.mipmap.icon_33_menu_settings, null));
 					break;
 				case MENU_FLICK_MODE:
-					menu[i] = new BaseData(r.getString(R.string.menu_item_flick_mode),
+					menu[i] = new BaseData(r.getString(R.string.menu_item_launcher_mode),
 							r.getDrawable(R.mipmap.icon_31_menu_flicker, null));
 					break;
 			}

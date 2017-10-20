@@ -7,14 +7,13 @@
 	<com.ssmomonga.ssflicker.view.AppWidgetLayer android:id="@+id/app_widget_layer"
 		style="@style/lp_mp_mp"
 		android:paddingTop="16dp" />
-  
+
 	<RelativeLayout
 		style="@style/lp_mp_mp">
 		
 		<com.ssmomonga.ssflicker.view.DockWindow android:id="@+id/dock_window"
 			style="@style/lp_wc_wc"
-			android:gravity="center"
-			android:baselineAligned="false" />
+			android:baselineAligned="false"/>
 
 		<com.ssmomonga.ssflicker.view.PointerWindow android:id="@+id/pointer_window"
 			style="@style/lp_wc_wc"

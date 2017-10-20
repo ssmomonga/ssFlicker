@@ -3,36 +3,34 @@
     
 <!-- AndroidManifest.xml -->
     <string name="app_name">ssFlicker</string>
-    <string name="activity_name_home_key">ssFlicker</string>
 	<string name="activity_name_flick">ssFlicker</string>
     <string name="activity_name_edit">ssFlicker - Edit mode</string>
     <string name="activity_name_pref">ssFlicker - Settings</string>
     <string name="activity_name_donate">ssFlicker - Donate</string>
-    <string name="service_name_overlay">ssFlicker - Overlay service</string>
-    <string name="receiver_name_boot">ssFlicker</string>
+    <string name="service_name_overlay">Overlay service</string>
+	<string name="service_name_package_observe">Package observe service</string>
+	<string name="service_name_package_observe_job">Package observe job</string>
+    <string name="receiver_name_boot">Boot receiver</string>
 	<string name="receiver_name_invisible_appwidget">ssFlicker - Invisible widget</string>
 
 <!-- FlickerActivity -->
-	<string name="enter_flick_mode">Enter flick mode</string>
 	<string name="view_appwidget_error">Cannot show this widget</string>
-	<string name="recent_pointer_error">Can\'t use recent pointer at Android 5.0 or later</string>
-	<string name="task_pointer_error">Can\'t use task pointer at Android 5.0 or later</string>
-	<string name="require_permission_call_phone">Require directly call phone numbers permission</string>
+	<string name="require_permission_call_phone">Require \&quot;Directly call phone numbers\&quot; permission</string>
 
 <!-- EditorActivity -->
 	<string name="enter_edit_mode">Enter edit mode</string>
 
 	<string name="pointer_custom">Pointer</string>
 	<string name="pointer_home">Home pointer</string>
-	<string name="pointer_recent">Recent pointer</string>
-	<string name="pointer_task">Tasks pointer</string>
 	<string name="app_launcher">App</string>
 	<string name="app_home">Home app</string>
-	<string name="app_send">Share app</string>
-	<string name="app_shortcut">Shortcut</string>
 	<string name="app_appwidget">Widget</string>
+	<string name="app_legacy_shortcut">Shortcut</string>
+	<string name="app_app_shortcut">Shortcut</string>
+	<string name="app_send">Share app</string>
 	<string name="app_function">Function</string>
-	
+
+	<string name="ok">OK</string>
 	<string name="add">Add</string>
 	<string name="open">Open</string>
 	<string name="edit">Edit</string>
@@ -45,9 +43,9 @@
 	<string name="cancel">Cancel</string>
 
 	<string name="fail_set_image">Failed to set a image</string>
-
+	
 <!-- EditDialog -->
-	<string name="edit_send_text_template">Text template</string>
+	<string name="edit_send_text_template">Template</string>
 	<string name="edit_appwidget_position">Position</string>
 	<string name="horizontal">Horizontal</string>
 	<string name="vertical">Vertical</string>
@@ -66,7 +64,13 @@
 	<string name="delete_pointer">Delete this pointer?</string>
 	<string name="delete_app">Delete this app?</string>
 
+<!-- OneTimeDialog -->
+	<string name="dont_ask_again">Don\&apos;t ask again</string>
+
 <!-- PrefActivity -->
+	<string name="menu_about">About ssFlicker</string>
+	<string name="menu_android_app_info">App info</string>
+
 	<string name="launch">Launch</string>
 	<string name="launch_from_statusbar">Launch from status bar</string>
 	
@@ -96,24 +100,20 @@
 	<string name="etc">Etc</string>
 	<string name="backup_restore">Backup / Restore</string>
 	<string name="no_storage">No storage</string>
-	<string name="require_permission_write_external_storage">Require write storage permission</string>
+	<string name="require_permission_write_external_storage">Require \&quot;Write to the storage\&quot; permission</string>
 	<string name="donation">Donation</string>
 
-<!-- PrefSubActivity -->
+<!-- PrefDefaultActivity -->
 	<string name="launch_by_default">Launch by default</string>
-	<string name="clear_default">Clear to launch ssFlicker by default for some actions?</string>
-	<string name="can_not_set_default">Can\'t set nor clear each launch by default on this screen.\nOnly can clear all launch by default from switch on top of screen.\nLaunch by default please set according to the procedure of Android.</string>
-	<string name="launch_by_home_key">Launch by home key</string>
-	<string name="home_key_another_home">Another home</string>
-	<string name="home_key_click_mode">Click mode</string>
-	<string name="home_key_click_interval">Click interval</string>
-	<string name="launch_by_now">Launch by now</string>
-	<string name="launch_by_search_key">Launch by search key</string>
+	<string name="menu_android_default_settings">Android default settings</string>
+	<string name="home_key">Home key</string>
+	<string name="assist">Assist</string>
+	<string name="search_key">Search key</string>
+	<string name="one_time_message_default_settings">To change the default settings, tap the setting icon in the upper right corner of the screen and go from the Android settings.</string>
 
+<!-- PrefOverlayActivity -->
 	<string name="launch_from_overlay">Launch from overlay</string>
-	<string name="require_permission_system_alert_window">Require draw over other apps permission</string>
-	<string name="start_overlay_service">Turn on launch from overlay</string>
-	<string name="stop_overlay_service">Turn off launch from overlay</string>
+	<string name="menu_android_overlay_settings">Android overlay settings</string>
 	<string name="overlay_point_0">Overlay point 1</string>
 	<string name="overlay_point_1">Overlay point 2</string>
 	<string name="enable">Enable</string>
@@ -122,38 +122,12 @@
 	<string name="overlay_point_width">Width</string>
 	<string name="background_color">Background color</string>
 	<string name="overlay_point_action">Swipe / Tap</string>
+	<string name="animation">Animation</string>
 	<string name="running_foreground">Run in foreground</string>
 	<string name="running_foreground_summary">Run service as high priority, will be hard to kill</string>
-
-	<string name="launch_by_sensor">Launch by sensor</string>
-	<string name="launch_by_sensor_summary">Launch using accelerometer or proximity sensor.</string>
-	<string name="no_sensor">No sensor</string>
-	<string name="start_sensor_service">Turn on launch by sensor</string>
-	<string name="stop_sensor_service">Turn off launch by sensor</string>
-	<string name="launch_by_waving">Launch by waving</string>
-	<string name="launch_by_waving_summary">Launch by waving your hands near the proximity sensor by the earpiece</string>
-	<string name="no_prox_sensor">No proximity sensor</string>
-	<string name="launch_by_shaking">Launch by shaking</string>
-	<string name="launch_by_shaking_summary">Launch by shaking phone</string>
-	<string name="no_accel_sensor">No accelerometer</string>
-	<string name="shake_sensitivity">Shake sensitivity</string>
-	<string name="sensor_toast">Message view</string>
-	<string name="sensor_toast_summary">Show message when launched by sensor</string>
+	<string name="one_time_message_overlay_settings">Require \&quot;Display over other apps\&quot; permission</string>
 
 <!-- arrays.xml -->
-	<string name="home_key_click_mode_single">Single click</string>
-	<string name="home_key_click_mode_double">Double click</string>
-
-	<string name="int_200_ms">200 msec</string>
-	<string name="int_300_ms">300 msec</string>
-	<string name="int_400_ms">400 msec</string>
-	<string name="int_500_ms">500 msec</string>
-	<string name="int_600_ms">600 msec</string>
-	<string name="int_700_ms">700 msec</string>
-	<string name="int_800_ms">800 msec</string>
-	<string name="int_900_ms">900 msec</string>
-	<string name="int_1000_ms">1000 msec</string>
-
 	<string name="tap">Tap</string>
 	<string name="swipe">Swipe</string>
 
@@ -174,12 +148,6 @@
 	<string name="overlay_point_width_midium">Midium</string>
 	<string name="overlay_point_width_thick">Thick</string>
 	<string name="overlay_point_width_thickest">Thickness</string>
-			
-	<string name="shake_most_sensitive">Most sensitive (12)</string>
-	<string name="shake_sensitive">Sensitive (18)</string>
-	<string name="shake_middle">Middle (24)</string>
-	<string name="shake_insensitive">Insensitive (30)</string>
-	<string name="shake_most_insensitive">Most insensitive (36)</string>
 
 	<string name="left">Left</string>
 	<string name="upper_left">Upper left</string>
@@ -207,16 +175,13 @@
 	<string name="text_size_large">Large</string>
 	
 <!-- AboutDialog -->
-	<string name="about">About ssFlicker</string>	
 	<string name="dev_name">&#169;2011 ss.momonga</string>
-	<string name="app_info">App information</string>
+	<string name="app_info">App info</string>
 	<string name="play_store">- Google Play Store</string>
 	<string name="play_store_url">https://play.google.com/store/apps/details?id=com.ssmomonga.ssflicker</string>
 	<string name="versionup_history">- Version update history</string>
 	<string name="versionup_history_url">http://ssmomonga.blogspot.jp/2012/05/versionup-history-of-ssflicker.html</string>
-	<string name="dev_info">Developer information</string>
-	<string name="qa">- Q&amp;A site</string>
-	<string name="qa_url">http://ssmomonga.blogspot.jp/2012/06/ssflicker-qa.html</string>
+	<string name="dev_info">Developer info</string>
 	<string name="email">- Email</string>
 	<string name="email_address">ss.momonga@gmail.com</string>
 	<string name="twitter">- Twitter</string>
@@ -230,41 +195,43 @@
 	<string name="ver_0">- After the end of development, you can continue to use ssFlicker in old version, but can not update.</string>
 	<string name="ver_1">- Android 4.0 : The end of development is in v1.3.3.</string>
 	<string name="ver_2">- Android 4.x : The end of development is in v1.4.4.</string>
+	<string name="ver_3">- Android 5.0 - 7.x : The end of development is in v1.5.15.</string>
 	<string name="permission">Permissions</string>
-	<string name="prm_0">- directly call phone numbers: For direct dial of shortcut.</string>
-	<string name="prm_1">- modify or delete the contents of your USB storage / read the contents of your USB storage: For storage backup, trimming image.</string>
-	<string name="prm_2">- Google Play billing service: For donation.</string>
-	<string name="prm_3">- connect and disconnect from Wi-Fi / view Wi-Fi connections / access Bluetooth settings / pair with Bluetooth devices / read sync settings / toggle sync on and off / modify system settings: For various functions.</string>
-	<string name="prm_4">- run at startup: For running launch from overlay or launch from status bar when start the device.</string>
-	<string name="prm_5">- draw over other apps: For launch from overlay.</string>
-	<string name="prm_6">- control vibration: For vibration.</string>
+	<string name="prm_0">- Directly call phone numbers: For direct dial of shortcut.</string>
+	<string name="prm_1">- Modify or delete the contents of your USB storage / Read the contents of your USB storage: For storage backup, trimming image.</string>
+	<string name="prm_2">- Display over other apps: For overlay.</string>
+	<string name="prm_3">- Modify system settings: For lotate function.</string>
+	<string name="prm_4">- Run at startup: For running launch from overlay or status bar when start the device.</string>
+	<string name="prm_5">- Control vibration: For vibration.</string>
+	<string name="prm_6">- View Wi-Fi connections / Connect and disconnect from Wi-Fi / Pair with Bluetooth devices / Access Bluetooth settings / Read sync settings / Toggle sync on and off: For various functions.</string>
+	<string name="prm_7">- Google Play billing service: For donation.</string>
 	<string name="hint">- Hint</string>
 	<string name="hint_0">- You can set the template of share apps in edit mode. Some share apps will not start unless you set the template.</string>
-	<string name="hint_1">- When you flick a widget, it is toggeled between show/hide.</string>
-	<string name="hint_2">- You can set display position and size of the widget in edit mode. Widget that supported resizing can only resized.</string>
+	<string name="hint_1">- Flick the widget to switch between display and hide.</string>
+	<string name="hint_2">- You can set display position and size of the widget in edit mode. Only widgets that support resizing can be resized</string>
 	<string name="thanks">Special thanks</string>
-	<string name="thanks_0">- English translation: Ian Long</string>
+	<string name="thanks_0">- Ian Long</string>
 	
 <!-- BackupRestore -->
 	<string name="storage_backup">Storage backup</string>
-	<string name="storage_backup_0">- You can backup/restore your settings as set in edit mode (pointer settings, etc) to and from storage.</string>
-	<string name="storage_backup_1">- To perform storage backup/restore, please select &#8220;Backup&#8220; or &#8220;Restore&#8220; (In the case of restore, also select a restore file), and tap the &#8220;Run&#8220; button at the bottom of the screen.</string>
-	<string name="storage_backup_2">- Storage backup/restore is performed in following directory.</string>
-	<string name="storage_backup_3">- You can backup/restore widgets, but they will not be shown after you restore. Please reconfigure the widgets manually.</string>
+	<string name="storage_backup_0">- Backup the contents (pointers, apps, etc) set in edit mode to storage or restore from storage.</string>
+	<string name="storage_backup_1">- To perform a storage backup / restore, select &#8220;Backup&#8220; or &#8220;Restore&#8220; at the bottom of the screen (select the restore file in the case of restore), and tap &#8220;Execute&#8220; button.</string>
+	<string name="storage_backup_2">- Storage backup / restore is done in the following directory.</string>
+	<string name="storage_backup_3">- Widgets can also be backed up / restore, but you can not display them after restoring. Please reset the widget.</string>
 	<string name="storage_backup_4">- You must not rename backup files.</string>
-	<string name="storage_backup_5">- To perform storage backup/restore you need to install the latest version.</string>
-	<string name="cloud_backup">Cloud backup</string>
-	<string name="cloud_backup_0">- You can backup/restore your settings as set in ssFlicker settings to and from cloud. (Android 6.0 or later, as well as backup/restore your settings as set in edit mode.)</string>
-	<string name="cloud_backup_1">- Cloud backup is performed automatically. Restore is performed automatically when you re-install ssFlicker. No action is required.</string>
-	<string name="cloud_backup_2">- To perform cloud backup, you need to enable &#8220;Back up my data&#8221; and &#8220;Automatic restore&#8221; in android settings.</string>
-	<string name="cloud_backup_3">- Depending on the device, cloud backup is not available.</string>
+	<string name="storage_backup_5">- Please perform storage backup / restore in latest version.</string>
+	<string name="auto_backup">Auto backup</string>
+	<string name="auto_backup_0">- The contents set in the setting screen and editing mode are backed up / restored to Google Drive by Android standard function.</string>
+	<string name="auto_backup_1">- Auto backup is done automatically. Restore is done automatically when reinstalling ssFlicker. No operation is required.</string>
+	<string name="auto_backup_2">- In order to use auto backup, you need to enable &#8220;Backup to Google Drive&#8220; in Android setting.</string>
+	<string name="auto_backup_3">- Auto backup can not be used depending on the device.</string>
 	<string name="backup">Backup</string>
 	<string name="restore">Restore</string>
 	<string name="select_file">Select file</string>
-	<string name="run">Run</string>
+	<string name="execute">Execute</string>
 	<string name="select_backup_restore">Select backup or restore</string>
-	<string name="run_backup">Run backup?</string>
-	<string name="run_restore">Run restore?</string>
+	<string name="execute_backup">Execute backup?</string>
+	<string name="execute_restore">Execute restore?</string>
 	<string name="no_restore_file">No restore file</string>
 	<string name="backup_complete">Backup completed</string>
 	<string name="restore_complete">Restore completed</string>
@@ -276,11 +243,8 @@
 	<string name="please_donation">I\&apos;ll be glad if you make a donation !</string>
 	<string name="thanks_donation">Thank you for your donation !</string>
 	<string name="dont_support_iab">This device doesn\&apos;t support in-app purchases</string>
-	<string name="error_iab">An error occurred at in-app purchases</string>
+	<string name="error_iab">Error in in-app purchases</string>
 	
-<!-- OverlayService -->
-	<string name="colon">: </string>
-
 <!-- Launch.java -->
 	<string name="launch_app_error">Cannot launch this app</string>
 	<string name="wifi_off">Turn off Wi-Fi</string>
@@ -295,10 +259,9 @@
 	<string name="silent_mode_off">Turn off silent mode</string>
 	<string name="vibrate_mode_on">Turn on vibrate mode</string>
 	<string name="silent_mode_on">Turn on silent mode</string>
-	<string name="require_permission_write_settings">Require modify system settings permission</string>
+	<string name="require_permission_write_settings">Require \&quot;Modify system settings\&quot; permission</string>
 	<string name="rotate_off">Turn off auto rotate</string>
 	<string name="rotate_on">Turn on auto rotate</string>
-	<string name="airplane_mode_error">Can\'t change airplane mode at Android 4.2 or later</string>
 
 <!-- VolumeDialog -->
 	<string name="volume_ringtone_notification">Ring volume</string>
@@ -314,17 +277,26 @@
 	<string name="volume">Volume</string>
 	<string name="rotate">Rotate</string>
 	<string name="search">Search</string>
-	<string name="airplane_mode">Airplane mode</string>
 
 <!-- SQLiteDAO.java -->
-	<string name="insert_pointer_error">Failed to register pointer</string>
-	<string name="insert_app_error">Failed to register app</string>
+	<string name="fail_insert_pointer">Failed to register pointer</string>
+	<string name="fail_insert_app">Failed to register app</string>
+	<string name="fail_update_pointer">Failed to edit pointer</string>
+	<string name="fail_update_app">Failed to edit app</string>
+	<string name="fail_delete_pointer">Failed to delete pointer</string>
+	<string name="fail_delete_app">Failed to delete app</string>
 
-<!-- menu.xml -->
+<!-- MenuList.java -->
 	<string name="menu">Menu</string>
-	<string name="menu_item_flick_mode">Flick mode</string>
-	<string name="menu_item_edit_mode">Edit mode</string>
+	<string name="menu_item_launcher_mode">Launcher</string>
+	<string name="menu_item_edit_mode">Edit</string>
 	<string name="menu_item_ssflicker_settings">Settings</string>
 	<string name="menu_item_android_settings">Settings</string>
+
+<!-- shortcuts.xml -->
+	<string name="shortcut_edit_mode_short_label">Edit</string>
+	<string name="shortcut_edit_mode_long_label">Edit pointers and apps</string>
+	<string name="shortcut_ssflicker_settings_short_label">Settings</string>
+	<string name="shortcut_ssflicker_settings_long_label">ssFlicker settings</string>
 
 </resources>

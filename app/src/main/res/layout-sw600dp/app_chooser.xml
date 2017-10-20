@@ -5,7 +5,7 @@
 	style="@style/lp_mp_mp"
 	android:orientation="vertical" >
 	
-   	<GridView android:id="@+id/gv_apps"
+   	<GridView android:id="@+id/gv_app"
 		style="@style/lp_wc_wc"
 		android:numColumns="6"
 		android:horizontalSpacing="8dp"

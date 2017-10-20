@@ -6,9 +6,6 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
 import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.data.App;
-import com.ssmomonga.ssflicker.data.AppList;
-import com.ssmomonga.ssflicker.data.IntentAppInfo;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
 
 /**
@@ -18,15 +15,14 @@ public class PrefDAO {
 	
 	private static final int PREF_VERSION_NUM = 2;
 
-	public static final String LAUNCH_BY_DEFAULT = "launch_by_default";
+	public static final String DEFAULT_SETTINGS = "default_settings";
 	public static final String HOME_KEY = "home_key";
 	public static final String HOME_KEY_ANOTHER_HOME = "home_key_another_home";
 	public static final String HOME_KEY_CLICK_MODE = "home_key_click_mode";
 	public static final String HOME_KEY_CLICK_INTERVAL = "home_key_click_interval";
-	public static final String NOW = "now";
 	public static final String SEARCH_KEY = "search_key";
-	
-	public static final String LAUNCH_FROM_OVERLAY ="launch_from_overlay";
+
+	public static final String OVERLAY ="overlay";
 	public static final String OVERLAY_POINT_0 = "overlay_point_0";
 	public static final String OVERLAY_POINT_SIDE_0 = "overlay_point_side_0";
 	public static final String OVERLAY_POINT_POSITION_0 = "overlay_point_position_0";
@@ -37,6 +33,7 @@ public class PrefDAO {
 	public static final String OVERLAY_POINT_WIDTH_1 = "overlay_point_width_1";
 	public static final String OVERLAY_POINT_BACKGROUND_COLOR = "overlay_point_background_color";
 	public static final String OVERLAY_POINT_ACTION = "overlay_point_action";
+	public static final String OVERLAY_ANIMATION = "overlay_animation";
 	public static final String OVERLAY_FOREGROUND = "overlay_foreground";
 
 	public static final String STATUSBAR = "statusbar";
@@ -56,12 +53,16 @@ public class PrefDAO {
 	public static final String STATUSBAR_VISIBILITY = "statusbar_visibility";
 	public static final String INVISIBLE_APPWIDGET_BACKGROUND_VISIBILITY = "invisible_appwidget_background_visibility";
 
-	public static final String ABOUT = "about";
 	public static final String BACKUP_RESTORE = "backup_restore";
 	public static final String DONATION = "donation";
 	
-	public static final String PREF_VERSION = "pref_version";
+	public static final String ONE_TIME_DIALOG_DEFAULT_SETTINGS = "one_time_default_settings";
+	public static final String ONE_TIME_DIALOG_OVERLAY_SETTINGS = "one_time_overlay_settings";
 	
+	public static final String CHANGED_PACKAGE_SEQUENCE = "changed_package_sequence";
+	
+	public static final String PREF_VERSION = "pref_version";
+
 	private Context context;
 	private static SharedPreferences prefs;
 
@@ -87,7 +88,9 @@ public class PrefDAO {
 		if (oldVersion < newVersion) {
 			switch(oldVersion) {
 				case 1:
-					clearPref_2();
+					Editor editor = prefs.edit();
+					editor.clear();
+					editor.commit();
 					break;
 			}
 
@@ -96,72 +99,6 @@ public class PrefDAO {
 		    editor.commit();
 
 		}
-		
-	}
-	
-	/**
-	 * clearPref_2()
-	 */
-	private void clearPref_2() {
-		Editor editor = prefs.edit();
-		editor.clear();
-		editor.commit();
-	}
-	
-	/**
-	 * getHomeKeyAnotherHome()
-	 *
-	 * @return
-	 */
-	public String getHomeKeyAnotherHome() {
-		String anotherHome = prefs.getString(HOME_KEY_ANOTHER_HOME, null);
-		if (anotherHome != null) {
-			return anotherHome;
-
-		} else {
-			App app = AppList.getIntentAppList(context, IntentAppInfo.INTENT_APP_TYPE_HOME, 1)[0];
-			if (app != null) {
-				return app.getIntentAppInfo().getIntentUri();
-			} else {
-				return null;
-			}
-		}
-	}
-	
-	/**
-	 * getHomeKeyClickMode()
-	 *
-	 * @return
-	 */
-	public int getHomeKeyClickMode() {
-		return Integer.parseInt(getRawHomeKeyClickMode());
-	}
-	
-	/**
-	 * getRawHomeKeyClickMode()
-	 *
-	 * @return
-	 */
-	public String getRawHomeKeyClickMode() {
-		return prefs.getString(HOME_KEY_CLICK_MODE, "1");
-	}
-	
-	/**
-	 * getHomeKeyClickInterval()
-	 *
-	 * @return
-	 */
-	public int getHomeKeyClickInterval() {
-		return Integer.parseInt(getRawHomeKeyClickInterval());
-	}
-	
-	/**
-	 * getRawHomeKeyClickInterval()
-	 *
-	 * @return
-	 */
-	public String getRawHomeKeyClickInterval() {
-		return prefs.getString(HOME_KEY_CLICK_INTERVAL, "500");
 	}
 	
 	/**
@@ -174,18 +111,6 @@ public class PrefDAO {
 	}
 	
 	/**
-	 * setOverlay()
-	 *
-	 * @param b
-	 */
-	public void setOverlay(boolean b) {
-		Editor editor = prefs.edit();
-		editor.putBoolean(OVERLAY_POINT_0, b);
-		editor.putBoolean(OVERLAY_POINT_1, b);
-		editor.commit();
-	}
-	
-	/**
 	 * isOverlayPoint()
 	 *
 	 * @param overlayPointNumber
@@ -194,11 +119,11 @@ public class PrefDAO {
 	public boolean isOverlayPoint(int overlayPointNumber) {
 		switch (overlayPointNumber) {
 			case 0:
-				return prefs.getBoolean(OVERLAY_POINT_0, true);
+				return prefs.getBoolean(OVERLAY_POINT_0, false);
 			case 1:
-				return prefs.getBoolean(OVERLAY_POINT_1, true);
+				return prefs.getBoolean(OVERLAY_POINT_1, false);
 			default:
-				return prefs.getBoolean(OVERLAY_POINT_0, true);
+				return false;
 		}
 	}
 
@@ -263,7 +188,7 @@ public class PrefDAO {
 	 * @return
 	 */
 	public int getOverlayPointWidth(int overlayPointNumber) {
-		return DeviceSettings.dimenToPixel(context, Integer.parseInt(getRawOverlayPointWidth(overlayPointNumber)));
+		return DeviceSettings.dpToPixel(context, Integer.parseInt(getRawOverlayPointWidth(overlayPointNumber)));
 	}
 
 	/**
@@ -299,9 +224,7 @@ public class PrefDAO {
 	 */
 	public int getOverlayPointBackgroundColor() {
 		return prefs.getInt(OVERLAY_POINT_BACKGROUND_COLOR, context.getResources().
-				getColor(R.color.overlay_point_background_color_default_value));
-//		return prefs.getInt(OVERLAY_POINT_BACKGROUND_COLOR, context.getResources().
-//				getColor(R.color.overlay_point_background_color_default_value, null));		API23以上
+				getColor(R.color.overlay_point_background_color_default_value, null));
 	}
 	
 	/**
@@ -311,6 +234,15 @@ public class PrefDAO {
 	 */
 	public int getOverlayPointAction() {
 		return Integer.parseInt(getRawOverlayPointAction());
+	}
+	
+	/**
+	 * isOverlayAnimiation()
+	 *
+	 * @return
+	 */
+	public boolean isOverlayAnimation() {
+		return prefs.getBoolean(OVERLAY_ANIMATION, true);
 	}
 	
 	/**
@@ -338,9 +270,7 @@ public class PrefDAO {
 	 */
 	public int getWindowBackgroundColor() {
 		return prefs.getInt(WINDOW_BACKGROUND_COLOR, context.getResources().
-				getColor(R.color.window_background_color_default_value));
-//		return prefs.getInt(WINDOW_BACKGROUND_COLOR, context.getResources().
-//				getColor(R.color.window_background_color_default_value, null));		API23以上
+				getColor(R.color.window_background_color_default_value, null));
 	}
 	
 	/**
@@ -428,7 +358,7 @@ public class PrefDAO {
 			editor.commit();
 			iconSize = 40;
 		}
-		return DeviceSettings.dimenToPixel(context, iconSize);
+		return DeviceSettings.dpToPixel(context, iconSize);
 	}
 	
 	/**
@@ -444,7 +374,7 @@ public class PrefDAO {
 			editor.commit();
 			iconSize = 40;
 		}
-		return DeviceSettings.dimenToPixel(context, iconSize + 16);
+		return DeviceSettings.dpToPixel(context, iconSize + 16);
 	}
 	
 	/**
@@ -493,15 +423,6 @@ public class PrefDAO {
 	}
 	
 	/**
-	 * getVibrateTime()
-	 *
-	 * @return
-	 */
-	public int getVibrateTime() {
-		return isVibrate() ? context.getResources().getInteger(R.integer.vibrate_time) : 0;
-	}
-
-	/**
 	 * isVibrate()
 	 *
 	 * @return
@@ -539,15 +460,6 @@ public class PrefDAO {
 	}
 	
 	/**
-	 * getDonation()
-	 *
-	 * @return
-	 */
-	public boolean getDonation() {
-		return prefs.getBoolean(DONATION, false);
-	}
-	
-	/**
 	 * setDonation()
 	 *
 	 * @param b
@@ -555,6 +467,43 @@ public class PrefDAO {
 	public void setDonation(boolean b) {
 		Editor editor = prefs.edit();
 		editor.putBoolean(DONATION, b);
+		editor.commit();
+	}
+
+	/**
+	 * isOneTime()
+	 *
+	 * @param prefKey
+	 * @return
+	 */
+	public boolean isOneTimeDialog(String prefKey) {
+		return prefs.getBoolean(prefKey, false);
+	}
+
+	/**
+	 * setOneTime()
+	 *
+	 * @param prefKey
+	 * @param b
+	 */
+	public void setOneTimeDialog(String prefKey, boolean b) {
+		Editor editor = prefs.edit();
+		editor.putBoolean(prefKey, b);
+		editor.commit();
+	}
+	
+	/**
+	 * changedPackageSequence()
+	 *
+	 * @return
+	 */
+	public int getChangedPackageSequence() {
+		return prefs.getInt(CHANGED_PACKAGE_SEQUENCE, 0);
+	}
+	
+	public void setChangedPackageSequence(int seq) {
+		Editor editor = prefs.edit();
+		editor.putInt(CHANGED_PACKAGE_SEQUENCE, seq);
 		editor.commit();
 	}
 

@@ -3,7 +3,6 @@ package com.ssmomonga.ssflicker.data;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.view.View;
 
 import com.ssmomonga.ssflicker.R;
@@ -13,10 +12,8 @@ import com.ssmomonga.ssflicker.R;
  */
 public class EditList {
 	
-	public static final int ADD_POINTER_CUSTOM = 1;
-	public static final int ADD_POINTER_HOME = 3;
-	public static final int ADD_POINTER_RECENT = 4;
-	public static final int ADD_POINTER_TASK = 6;
+	public static final int ADD_POINTER_CUSTOM = 0;
+	public static final int ADD_POINTER_HOME = 4;
 
 	public static final int EDIT_POINTER_OPEN_CLOSE = 0;
 	public static final int EDIT_POINTER_UP = 1;
@@ -28,9 +25,10 @@ public class EditList {
 	
 	public static final int ADD_APP_LAUNCHER = 0;
 	public static final int ADD_APP_HOME = 2;
-	public static final int ADD_APP_SEND = 3;
-	public static final int ADD_APP_SHORTCUT = 4;
-	public static final int ADD_APP_APPWIDGET = 5;
+	public static final int ADD_APP_APPWIDGET = 3;
+	public static final int ADD_APP_LEGACY_SHORTCUT = 4;
+//	public static final int ADD_APP_APPSHORTCUT = 5;
+	public static final int ADD_APP_SEND = 5;
 	public static final int ADD_APP_FUNCTION = 7;
 	
 	public static final int EDIT_APP_UP = 1;
@@ -56,24 +54,10 @@ public class EditList {
 							r.getDrawable(R.mipmap.icon_00_pointer_custom, null));
 					break;
 					
-				case ADD_POINTER_HOME:
-					edit[i] = new BaseData(r.getString(R.string.pointer_home),
-							r.getDrawable(R.mipmap.icon_01_pointer_home, null));
-					break;
-				
-				case ADD_POINTER_RECENT:
-					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-						edit[i] = new BaseData(r.getString(R.string.pointer_recent),
-								r.getDrawable(R.mipmap.icon_90_unused_recent, null));
-					}
-					break;
-				
-				case ADD_POINTER_TASK:
-					if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-						edit[i] = new BaseData(r.getString(R.string.pointer_task),
-								r.getDrawable(R.mipmap.icon_91_unused_task, null));
-					}
-					break;
+//				case ADD_POINTER_HOME:
+//					edit[i] = new BaseData(r.getString(R.string.pointer_home),
+//							r.getDrawable(R.mipmap.icon_01_pointer_home, null));
+//					break;
 			}
 		}
 		return edit;
@@ -155,19 +139,23 @@ public class EditList {
 					break;
 				case ADD_APP_HOME:
 					edit[i] = new BaseData(r.getString(R.string.app_home),
-							r.getDrawable(R.mipmap.icon_01_pointer_home, null));
-					break;
-				case ADD_APP_SEND:
-					edit[i] = new BaseData(r.getString(R.string.app_send),
-							r.getDrawable(R.mipmap.icon_11_app_send, null));
-					break;
-				case ADD_APP_SHORTCUT:
-					edit[i] = new BaseData(r.getString(R.string.app_shortcut),
-							r.getDrawable(R.mipmap.icon_12_app_shortcut, null));
+							r.getDrawable(R.mipmap.icon_90_unused_home, null));
 					break;
 				case ADD_APP_APPWIDGET:
 					edit[i] = new BaseData(r.getString(R.string.app_appwidget),
 							r.getDrawable(R.mipmap.icon_13_app_appwidget, null));
+					break;
+				case ADD_APP_LEGACY_SHORTCUT:
+					edit[i] = new BaseData(r.getString(R.string.app_legacy_shortcut),
+							r.getDrawable(R.mipmap.icon_12_app_legacy_shortcut, null));
+					break;
+//				case ADD_APP_APPSHORTCUT:
+//					edit[i] = new BaseData(r.getString(R.string.app_app_shortcut),
+//							r.getDrawable(R.mipmap.icon_12_app_legacy_shortcut, null));
+//					break;
+				case ADD_APP_SEND:
+					edit[i] = new BaseData(r.getString(R.string.app_send),
+							r.getDrawable(R.mipmap.icon_11_app_send, null));
 					break;
 				case ADD_APP_FUNCTION:
 					edit[i] = new BaseData(r.getString(R.string.app_function),

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/lp_mp_0">
+
+    <LinearLayout
+        style="@style/lp_mp_wc"
+        android:padding="16dp"
+        android:orientation="vertical">
+        <TextView android:id="@+id/tv_message"
+            style="@style/lp_mp_wc"
+			android:padding="8dp"/>
+        <CheckBox android:id="@+id/cb_dont_ask_again"
+            style="@style/lp_mp_wc"
+            android:text="@string/dont_ask_again"/>
+    </LinearLayout>
+
+</ScrollView>
