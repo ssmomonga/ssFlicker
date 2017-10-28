@@ -136,13 +136,14 @@ public class PackageObserveService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		sdao = new SQLiteDAO(this);
-		pdao = new PrefDAO(this);
-		seq = pdao.getChangedPackageSequence();
 		
 		Launch l = new Launch(this);
 		l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE, getString(R.string.service_name_package_observe));
 		startForeground(Launch.NOTIFICATION_ID_PACKAGE_OBSERVE, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE, getString(R.string.service_name_package_observe)));
+
+		sdao = new SQLiteDAO(this);
+		pdao = new PrefDAO(this);
+		seq = pdao.getChangedPackageSequence();
 		
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(Intent.ACTION_PACKAGE_ADDED);                          //インストール

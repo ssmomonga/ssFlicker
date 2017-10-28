@@ -2,12 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ssmomonga.ssflicker"
     android:installLocation="internalOnly"
-    android:versionCode="84"
-    android:versionName="v1.5.15" >
+    android:versionCode="86"
+    android:versionName="v1.6.1" >
 
     <uses-sdk
         android:minSdkVersion="26"
-        android:targetSdkVersion="26" />
+        android:targetSdkVersion="27" />
 
     <supports-screens
         android:largeScreens="true"
@@ -49,6 +49,7 @@
 		android:value="AEdPqrEAAAAIZynaJuLP8DjsyR571_gZvE-VyZTuPt29h5Ok9Q" /
     -->
     <application
+        android:debuggable="true"
         android:icon="@mipmap/icon_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon_launcher_round" >

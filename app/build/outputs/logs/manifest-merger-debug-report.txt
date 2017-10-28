@@ -1,18 +1,26 @@
 -- Merging decision tree log ---
 manifest
 ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
 	package
 		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:3:2-35
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
+		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:11-69
-	android:versionCode
-		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
-		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
 	android:installLocation
 		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:4:2-40
 supports-screens
@@ -91,10 +99,10 @@ activity#com.ssmomonga.ssflicker.FlickerActivity
 ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:42:3-75:14
 	android:clearTaskOnLaunch
 		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:45:4-36
-	android:label
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:50:4-47
 	android:stateNotNeeded
 		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:46:4-33
+	android:label
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:50:4-47
 	android:excludeFromRecents
 		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:48:4-37
 	android:launchMode
@@ -285,9 +293,15 @@ ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/Andro
 		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:159:5-46
 uses-sdk
 INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
 	android:targetSdkVersion
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
 	android:minSdkVersion
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml

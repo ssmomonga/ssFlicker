@@ -49,23 +49,18 @@ public class OverlayService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-
-		// オーバーレイポイントの色変更⇒オーバーレイ起動OFF⇒オーバーレイ起動ONの操作で、色が元に戻ってしまう、
-		// の不具合対応のためifで囲ってる。
-		// 詳細原因は不明。
-//		if (overlayParams == null) {
-			overlayParams = new OverlayParams(this);
-			overlayPointParams[0] = new OverlayParams.OverlayPointParams(this, 0);
-			overlayPointParams[1] = new OverlayParams.OverlayPointParams(this, 1);
-			overlayWindowParams = new OverlayParams.OverlayWindowParams(this);
-//		}
-
+		
 		l = new Launch(this);
+		l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.service_name_overlay));
+		startForeground(1, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.launch_from_overlay)));
+		
+		overlayParams = new OverlayParams(this);
+		overlayPointParams[0] = new OverlayParams.OverlayPointParams(this, 0);
+		overlayPointParams[1] = new OverlayParams.OverlayPointParams(this, 1);
+		overlayWindowParams = new OverlayParams.OverlayWindowParams(this);
+
 		rotateReceiver = new RotateReceiver();
 		
-		l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.service_name_overlay));
-		startForeground(1, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE, getString(R.string.launch_from_overlay)));
-
 		overlay_layer = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 		
 		IntentFilter rotateFilter = new IntentFilter(Intent.ACTION_CONFIGURATION_CHANGED);
