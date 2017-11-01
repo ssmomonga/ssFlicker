@@ -10,8 +10,8 @@ android {
 
     defaultConfig {
         applicationId "com.ssmomonga.ssflicker"
-        versionCode 87
-        versionName "v1.6.1"
+        versionCode 88
+        versionName "v1.6.2"
         minSdkVersion 26
         targetSdkVersion 27
     }

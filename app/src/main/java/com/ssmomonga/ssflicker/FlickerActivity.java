@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.AppList;
-import com.ssmomonga.ssflicker.data.AppWidgetInfo;
 import com.ssmomonga.ssflicker.data.FunctionInfo;
 import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
@@ -84,7 +83,6 @@ public class FlickerActivity extends Activity {
 		setContentView(R.layout.flicker_activity);
 		setInitialLayout();
 		
-		app_widget_layer.startListening();
 	}
 
 	/**
@@ -103,6 +101,8 @@ public class FlickerActivity extends Activity {
 
 		setLayout();
 		setOrientationLayout();
+
+		app_widget_layer.startListening();
 		app_widget_layer.setAllAppWidgets(sdao.selectAppWidgets());
 	}
 
@@ -131,18 +131,10 @@ public class FlickerActivity extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		app_widget_layer.stopListening();
 		if (drawer != null && drawer.isShowing()) drawer.dismiss();
 	}
 	
-	/**
-	 * onDestroy()
-	 */
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		app_widget_layer.stopListening();
-	}
-
 	/**
 	 * finish()
 	 */
