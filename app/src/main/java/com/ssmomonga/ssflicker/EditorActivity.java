@@ -194,13 +194,13 @@ public class EditorActivity extends Activity {
 //		Log.v("ssFlicker", "EditorActivity#onActivityResult()");
 //		Log.v("ssFlicker", "requestCode= " + requestCode);
 //		Log.v("ssFlicker", "Intent= " + data);
-		if (data != null) {
+		if (data != null && data.getExtras() != null) {
 //			Log.v("ssFlicker", "bundle= " + data.getExtras());
 			Set keys = data.getExtras().keySet();
-			for (Object key : keys) {
+//			for (Object key : keys) {
 //				Log.v("ssFlicker", "key= " + key);
 //				Log.v("ssFlicker", "valu= " + data.getExtras().get(key.toString()));
-			}
+//			}
 			if (keys.contains(LauncherApps.EXTRA_PIN_ITEM_REQUEST)) {
 				LauncherApps.PinItemRequest apps = (LauncherApps.PinItemRequest) data.getExtras().get(LauncherApps.EXTRA_PIN_ITEM_REQUEST);
 //				Log.v("ssFlicker", "shortcutinfo= " + apps.getShortcutInfo());

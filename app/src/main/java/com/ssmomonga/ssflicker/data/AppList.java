@@ -14,7 +14,6 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Process;
 import android.os.UserHandle;
-import android.util.Log;
 
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.db.SQLiteDAO;
@@ -31,12 +30,9 @@ import java.util.List;
  * AppList
  */
 public class AppList {
-
+	
 	private static final String TEXT_PLAIN = "text/plain";
 
-	private static final int COMPARE_OBJECT_TYPE_RESOLVE_INFO = 0;
-	private static final int COMPARE_OBJECT_TYPE_APP_WIDGET_PROVIDER_INFO = 1;
-	
 	/**
 	 * getCachedLauncherAppList()
 	 *
@@ -47,8 +43,6 @@ public class AppList {
 		SQLiteDAO sdao = new SQLiteDAO(context);
 		App[] appCacheList = sdao.selectAppCacheTable();
 		return appCacheList;
-		
-		
 	}
 	
 	
@@ -56,11 +50,11 @@ public class AppList {
 	 * getIntentAppList()
 	 *
 	 * @param context
-	 * @param intentType
+	 * @param intentAppType
 	 * @param count
 	 * @return
 	 */
-	public static App[] getIntentAppList(Context context, int intentType, int count) {
+	public static App[] getIntentAppList(Context context, int intentAppType, int count) {
 
 		ArrayList<App> appList = new ArrayList<App>();
 		SQLiteDAO sdao = new SQLiteDAO(context);
@@ -69,7 +63,7 @@ public class AppList {
 		Intent intent = new Intent();
 		List<ResolveInfo> resolveInfoList = null;
 
-		switch (intentType) {
+		switch (intentAppType) {
 			case IntentAppInfo.INTENT_APP_TYPE_LAUNCHER:
 				App[] appCacheList = sdao.selectAppCacheTable();
 				if (appCacheList.length != 0) {
@@ -80,14 +74,12 @@ public class AppList {
 							.addCategory(Intent.CATEGORY_LAUNCHER)
 							.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 					resolveInfoList = pm.queryIntentActivities(intent, 0);
-					Collections.sort(resolveInfoList, new ResolveInfo.DisplayNameComparator(pm));
 				}
 				break;
 
 			case IntentAppInfo.INTENT_APP_TYPE_HOME:
 				intent.setAction(Intent.ACTION_MAIN)
 						.addCategory(Intent.CATEGORY_HOME)
-//						.addCategory(Intent.CATEGORY_DEFAULT)
 						.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 				resolveInfoList = pm.queryIntentActivities(intent, 0);
 				break;
@@ -95,15 +87,12 @@ public class AppList {
 			case IntentAppInfo.INTENT_APP_TYPE_LEGACY_SHORTCUT:
 				intent.setAction(Intent.ACTION_CREATE_SHORTCUT);
 				resolveInfoList = pm.queryIntentActivities(intent, 0);
-				Collections.sort(resolveInfoList, new ResolveInfo.DisplayNameComparator(pm));
-				Collections.sort(resolveInfoList, new PackageNameComparator(COMPARE_OBJECT_TYPE_RESOLVE_INFO));
 				break;
 
 			case IntentAppInfo.INTENT_APP_TYPE_SEND:
 				intent.setAction(Intent.ACTION_SEND)
 						.setType(TEXT_PLAIN);
 				resolveInfoList = pm.queryIntentActivities(intent, 0);
-				Collections.sort(resolveInfoList, new ResolveInfo.DisplayNameComparator(pm));
 				break;
 
 		}
@@ -116,8 +105,6 @@ public class AppList {
 			
 			if (resolveInfo.priority < 0 || packageName == null || packageName.equals("") || packageName.equals(thisPackageName)) continue;
 
-			Log.v("ssFlicker", packageName);
-			
 			App intentApp = new App(
 					context,
 					App.APP_TYPE_INTENT_APP,
@@ -127,17 +114,19 @@ public class AppList {
 					activityInfo.loadIcon(pm),
 //					getBadgedIcon(pm, activityInfo.loadIcon(pm)),
 					IconList.LABEL_ICON_TYPE_ACTIVITY,
-					new IntentAppInfo(intentType, ((Intent) intent.clone()).setClassName(packageName, activityInfo.name)));
+					new IntentAppInfo(intentAppType, ((Intent) intent.clone()).setClassName(packageName, activityInfo.name)));
 
 			appList.add(intentApp);
 
 		}
-
-		if (intentType == IntentAppInfo.INTENT_APP_TYPE_LAUNCHER) {
+		
+		appList = sort(App.APP_TYPE_INTENT_APP, intentAppType, appList);
+		
+		if (intentAppType == IntentAppInfo.INTENT_APP_TYPE_LAUNCHER) {
 			sdao.deleteAppCacheTable();
 			sdao.insertAppCacheTable(appList.toArray(new App[count]));
 		}
-
+		
 		return appList.toArray(new App[count]);
 	}
 	
@@ -162,8 +151,6 @@ public class AppList {
 
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 		List<AppWidgetProviderInfo> appWidgetProviderInfoList = appWidgetManager.getInstalledProviders();
-//		Collections.sort(appWidgetProviderInfoList, new WidgetNameComparator(context));
-		Collections.sort(appWidgetProviderInfoList, new PackageNameComparator(COMPARE_OBJECT_TYPE_APP_WIDGET_PROVIDER_INFO));
 
 		PackageManager pm = context.getPackageManager();
 		String thisPackageName = context.getPackageName();
@@ -194,65 +181,107 @@ public class AppList {
 					appwidgetInfo);
 			appWidgetList.add(appWidget);
 		}
+		
+		appWidgetList = sort(App.APP_TYPE_APPWIDGET, 0, appWidgetList);
 
 		return appWidgetList.toArray(new App[0]);
 	}
-
+	
 	/**
-	 * PackageNameComparator
+	 * sort()
+	 *
+	 * @param appType
+	 * @param intentAppType
+	 * @param appList
+	 * @return
 	 */
-	public static class PackageNameComparator implements Comparator<Object> {
-
-		private int objectType;
+	public static ArrayList<App> sort(int appType, int intentAppType, ArrayList<App> appList) {
+		if ((appType == App.APP_TYPE_INTENT_APP && intentAppType != IntentAppInfo.INTENT_APP_TYPE_LEGACY_SHORTCUT) ||
+				appType == App.APP_TYPE_FUNCTION) {
+			Collections.sort(appList, new AppComparator(AppComparator.LABEL_TYPE_LABEL));
+			
+		} else {
+			Collections.sort(appList, new AppComparator(AppComparator.LABEL_TYPE_LABEL));
+			Collections.sort(appList, new AppComparator(AppComparator.LABEL_TYPE_APPLICATION_LABEL));
+		}
+		
+		return appList;
+	}
+	
+	/**
+	 * AppComparator
+	 */
+	public static class AppComparator implements Comparator<App> {
+		
+		private static final int LABEL_TYPE_APPLICATION_LABEL = 0;
+		private static final int LABEL_TYPE_LABEL = 1;
+		
+		private int labelType;
 		private Collator mCollator;
-		private HashMap<Object, String> mLabelCache;
-
-		PackageNameComparator(int objectType) {
-			this.objectType = objectType;
-			mLabelCache = new HashMap<Object, String>();
+		private HashMap<App, String> mLabelCache;
+		
+		/**
+		 * Constructor
+		 *
+		 * @param labelType
+		 */
+		AppComparator(int labelType) {
+			this.labelType = labelType;
+			mLabelCache = new HashMap();
 			mCollator = Collator.getInstance();
 		}
-
-		public final int compare(Object a, Object b) {
+		
+		/**
+		 * compare()
+		 *
+		 * @param appA
+		 * @param appB
+		 * @return
+		 */
+		@Override
+		public int compare(App appA, App appB) {
 			String labelA, labelB;
 
-			if (mLabelCache.containsKey(a)) {
-				labelA = mLabelCache.get(a);
+			if (mLabelCache.containsKey(appA)) {
+				labelA = mLabelCache.get(appA);
 			} else {
-				labelA = getPackageName(objectType, a);
-				mLabelCache.put(a, labelA);
+				labelA = getLabel(labelType, appA);
+				mLabelCache.put(appA, labelA);
 			}
 
-			if (mLabelCache.containsKey(b)) {
-				labelB = mLabelCache.get(b);
+			if (mLabelCache.containsKey(appB)) {
+				labelB = mLabelCache.get(appB);
 			} else {
-				labelB = getPackageName(objectType, a);
-				mLabelCache.put(b, labelB);
+				labelB = getLabel(labelType, appB);
+				mLabelCache.put(appB, labelB);
 			}
 
 			return mCollator.compare(labelA, labelB);
+			
 		}
-	}
-
-	/**
-	 * getPackageName()
-	 *
-	 * @param objectType
-	 * @param o
-	 * @return
-	 */
-	private static String getPackageName(int objectType, Object o) {
-		switch (objectType) {
-			case COMPARE_OBJECT_TYPE_RESOLVE_INFO:
-				return ((ResolveInfo) o).activityInfo.packageName;
-
-			case COMPARE_OBJECT_TYPE_APP_WIDGET_PROVIDER_INFO:
-				return ((AppWidgetProviderInfo) o).provider.getPackageName();
-
-			default:
-				return null;
+		
+		/**
+		 * getLabel()
+		 *
+		 * @param labelType
+		 * @param app
+		 * @return
+		 */
+		private String getLabel(int labelType, App app) {
+			switch (labelType) {
+				case LABEL_TYPE_APPLICATION_LABEL:
+					return app.getApplicationLabel();
+				
+				case LABEL_TYPE_LABEL:
+					return app.getLabel();
+				
+				default:
+					return null;
+			}
 		}
+		
 	}
+	
 
 	/**
 	 * getFunctionList()

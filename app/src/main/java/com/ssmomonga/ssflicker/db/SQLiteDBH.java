@@ -11,8 +11,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.ssmomonga.ssflicker.PackageObserveService;
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
+import com.ssmomonga.ssflicker.data.AppList;
 import com.ssmomonga.ssflicker.data.FunctionInfo;
 import com.ssmomonga.ssflicker.data.IconList;
+import com.ssmomonga.ssflicker.data.IntentAppInfo;
 import com.ssmomonga.ssflicker.data.Pointer;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
 import com.ssmomonga.ssflicker.set.AppWidgetHostSettings;
@@ -196,12 +198,12 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	 * @param db
 	 */
 	public void insertPointerTable(SQLiteDatabase db) {
-		ContentValues[] cv = new ContentValues[Pointer.FLICK_POINTER_COUNT];
+		ContentValues cv = new ContentValues();
 		Resources r = context.getResources();
 
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i++) {
-
-			cv[i] = new ContentValues();
+			
+			cv.clear();
 			
 			switch (i) {
 				case 4:
@@ -211,32 +213,37 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 				case 9:
 				case 10:
 				case 12:
-				case 13:
-					cv[i].put(PointerTableColumnName.POINTER_ID, i);
-					cv[i].put(PointerTableColumnName.POINTER_TYPE, Pointer.POINTER_TYPE_CUSTOM);
-					cv[i].put(PointerTableColumnName.POINTER_LABEL, r.getString(R.string.pointer_custom));
-					cv[i].put(PointerTableColumnName.POINTER_ICON,
+					cv.put(PointerTableColumnName.POINTER_ID, i);
+					cv.put(PointerTableColumnName.POINTER_TYPE, Pointer.POINTER_TYPE_CUSTOM);
+					cv.put(PointerTableColumnName.POINTER_LABEL, r.getString(R.string.pointer_custom));
+					cv.put(PointerTableColumnName.POINTER_ICON,
 							ImageConverter.createByte(context,
 									r.getDrawable(R.mipmap.icon_00_pointer_custom, null)));
-					cv[i].put(PointerTableColumnName.POINTER_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
+					cv.put(PointerTableColumnName.POINTER_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
 					break;
-					
+				
+				case 13:
+					cv.put(PointerTableColumnName.POINTER_ID, i);
+					cv.put(PointerTableColumnName.POINTER_TYPE, Pointer.POINTER_TYPE_CUSTOM);
+					cv.put(PointerTableColumnName.POINTER_LABEL, r.getString(R.string.app_home));
+					cv.put(PointerTableColumnName.POINTER_ICON,
+							ImageConverter.createByte(context,
+									r.getDrawable(R.mipmap.icon_90_unused_home, null)));
+					cv.put(PointerTableColumnName.POINTER_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
+					break;
+
 				case 14:
-					cv[i].put(PointerTableColumnName.POINTER_ID, i);
-					cv[i].put(PointerTableColumnName.POINTER_TYPE, Pointer.POINTER_TYPE_CUSTOM);
-					cv[i].put(PointerTableColumnName.POINTER_LABEL, r.getString(R.string.app_function));
-					cv[i].put(PointerTableColumnName.POINTER_ICON,
+					cv.put(PointerTableColumnName.POINTER_ID, i);
+					cv.put(PointerTableColumnName.POINTER_TYPE, Pointer.POINTER_TYPE_CUSTOM);
+					cv.put(PointerTableColumnName.POINTER_LABEL, r.getString(R.string.app_function));
+					cv.put(PointerTableColumnName.POINTER_ICON,
 							ImageConverter.createByte(context,
 									r.getDrawable(R.mipmap.icon_14_app_function, null)));
-					cv[i].put(PointerTableColumnName.POINTER_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
+					cv.put(PointerTableColumnName.POINTER_ICON_TYPE, IconList.LABEL_ICON_TYPE_ORIGINAL);
 					break;
+			}
 			
-				default:
-					cv[i] = null;
-					break;
-			}				
-			
-			if (cv[i] != null) db.insert(POINTER_TABLE, null, cv[i]);
+			if (cv.size() != 0) db.insert(POINTER_TABLE, null, cv);
 		}
 	}
 
@@ -248,6 +255,30 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	private void insertAppTable(SQLiteDatabase db) {
 		ContentValues cv = new ContentValues();
 		Resources r = context.getResources();
+		
+		int HomePointerId = 13;
+		App[] homeAppList = AppList.getIntentAppList(context, IntentAppInfo.INTENT_APP_TYPE_HOME, App.FLICK_APP_COUNT);
+		
+		for (int i = 0; i < App.FLICK_APP_COUNT; i++) {
+			App homeApp = homeAppList[i];
+			if (homeApp == null) continue;
+			
+			cv.clear();
+			cv.put(AppTableColumnName.POINTER_ID, HomePointerId);
+			cv.put(AppTableColumnName.APP_ID, i);
+			cv.put(AppTableColumnName.APP_TYPE, homeApp.getAppType());
+			cv.put(AppTableColumnName.APP_LABEL, homeApp.getLabel());
+			cv.put(AppTableColumnName.APP_LABEL_TYPE, homeApp.getLabelType());
+			cv.put(AppTableColumnName.APP_ICON, ImageConverter.createByte(context, homeApp.getIcon()));
+			cv.put(AppTableColumnName.APP_ICON_TYPE, homeApp.getIconType());
+			cv.put(AppTableColumnName.INTENT_APP_TYPE, homeApp.getIntentAppInfo().getIntentAppType());
+			cv.put(AppTableColumnName.INTENT_URI, homeApp.getIntentAppInfo().getIntentUri());
+
+			db.insert(APP_TABLE, null, cv);
+		}
+		
+		
+		
 		int FunctionPointerId = 14;
 		
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
