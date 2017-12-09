@@ -17,9 +17,9 @@ import com.ssmomonga.ssflicker.data.FunctionInfo;
 import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
 import com.ssmomonga.ssflicker.data.Pointer;
-import com.ssmomonga.ssflicker.db.SQLiteDBH.AppCacheTableColumnName;
 import com.ssmomonga.ssflicker.db.SQLiteDBH.AppTableColumnName;
 import com.ssmomonga.ssflicker.db.SQLiteDBH.PointerTableColumnName;
+import com.ssmomonga.ssflicker.db.SQLiteCacheDBH.AppCacheTableColumnName;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
 import com.ssmomonga.ssflicker.set.AppWidgetHostSettings;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
@@ -202,7 +202,7 @@ public class SQLiteDAO {
 	 *
 	 * @return
 	 */
-	public App[] selectAppCacheTable() {
+	public App[] _selectAppCacheTable() {
 		
 		SQLiteDatabase db = sdbh.getReadableDatabase();
 		Cursor c = db.query(SQLiteDBH.APP_CACHE_TABLE, null, null, null, null, null, null);
@@ -370,7 +370,7 @@ public class SQLiteDAO {
 	 *
 	 * @param appCacheList
 	 */
-	public void insertAppCacheTable(App[] appCacheList) {
+	public void _insertAppCacheTable(App[] appCacheList) {
 		long result = 0;
 		SQLiteDatabase db = sdbh.getWritableDatabase();
 		db.beginTransaction();
@@ -489,7 +489,7 @@ public class SQLiteDAO {
 	/**
 	 * deleteAppCacheTable()
 	 */
-	public void deleteAppCacheTable () {
+	public void _deleteAppCacheTable () {
 		SQLiteDatabase db = sdbh.getWritableDatabase();
 		db.delete(SQLiteDBH.APP_CACHE_TABLE, null, null);
 		db.close();
@@ -500,7 +500,7 @@ public class SQLiteDAO {
 	 *
 	 * @param packageName
 	 */
-	public void deleteAppCacheTable(String packageName) {
+	public void _deleteAppCacheTable(String packageName) {
 		String whereClause = AppCacheTableColumnName.PACKAGE_NAME + "=?";
 		String[] whereArgs = { packageName };
 		
@@ -591,7 +591,7 @@ public class SQLiteDAO {
 	 * @param appWidgetUpdateTime
 	 */
 	public void updateAppWidgetUpdateTime(int appWidgetId, long appWidgetUpdateTime) {
-		String whereClause = AppTableColumnName.APPWIDGET_ID + "=?";
+		String whereClause = AppTableColumnName.APPWIDGET_ID + " = ?";
 		String[] whereArgs = { String.valueOf(appWidgetId) };
 		
 		ContentValues cv = new ContentValues();
@@ -600,6 +600,22 @@ public class SQLiteDAO {
 		SQLiteDatabase db = sdbh.getWritableDatabase();
 		db.update(SQLiteDBH.APP_TABLE, cv, whereClause, whereArgs);
 		db.close();
+	}
+	
+	/**
+	 * updateAppWidgetUpdateTimeZero
+	 */
+	public void updateAppWidgetUpdateTimeZero() {
+		String whereClause = AppTableColumnName.APP_TYPE + " = ?";
+		String[] whereArgs = { String.valueOf(App.APP_TYPE_APPWIDGET) };
+		
+		ContentValues cv = new ContentValues();
+		cv.put(AppTableColumnName.APPWIDGET_UPDATE_TIME, 0);
+		
+		SQLiteDatabase db = sdbh.getWritableDatabase();
+		db.update(SQLiteDBH.APP_TABLE, cv, whereClause, whereArgs);
+		db.close();
+		
 	}
 
 	/**

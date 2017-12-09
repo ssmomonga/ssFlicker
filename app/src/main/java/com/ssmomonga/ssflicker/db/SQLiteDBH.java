@@ -95,7 +95,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-
+		
 		new AppWidgetHost(context, AppWidgetHostSettings.APP_WIDGETH_HOST_ID).deleteHost();
 		
 		context.startForegroundService(new Intent(context, PackageObserveService.class));

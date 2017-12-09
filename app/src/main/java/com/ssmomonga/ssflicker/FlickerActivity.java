@@ -36,8 +36,6 @@ import com.ssmomonga.ssflicker.view.DockWindow;
 import com.ssmomonga.ssflicker.view.OnFlickListener;
 import com.ssmomonga.ssflicker.view.PointerWindow;
 
-import java.util.Set;
-
 /**
  * FlickerActivity
  */
@@ -62,7 +60,6 @@ public class FlickerActivity extends Activity {
 	private int pointerId;
 	private int appId;
 	private boolean flickable = true;
-	private boolean fromHomeKey = false;
 
 	/**
 	 * onCreate()
@@ -72,11 +69,7 @@ public class FlickerActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		Set<String> categories = getIntent().getCategories();
-		fromHomeKey = categories != null && categories.contains(Intent.CATEGORY_HOME);
-		if (fromHomeKey) setTheme(R.style.Theme_Flicker_Wallpaper);
-
+		
 		l = new Launch(this);
 		sdao = new SQLiteDAO(this);
 
@@ -140,7 +133,7 @@ public class FlickerActivity extends Activity {
 	 */
 	@Override
 	public void finish() {
-		if (flickable && !fromHomeKey) super.finish();
+		if (flickable) super.finish();
 	}
 
 	/**

@@ -14,9 +14,11 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Process;
 import android.os.UserHandle;
+import android.util.Log;
 
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.db.SQLiteDAO;
+import com.ssmomonga.ssflicker.db.SQLiteCacheDAO;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
 
 import java.text.Collator;
@@ -33,19 +35,6 @@ public class AppList {
 	
 	private static final String TEXT_PLAIN = "text/plain";
 
-	/**
-	 * getCachedLauncherAppList()
-	 *
-	 * @param context
-	 * @return
-	 */
-	public static App[] getCachedLauncherAppList(Context context) {
-		SQLiteDAO sdao = new SQLiteDAO(context);
-		App[] appCacheList = sdao.selectAppCacheTable();
-		return appCacheList;
-	}
-	
-	
 	/**
 	 * getIntentAppList()
 	 *
@@ -65,11 +54,14 @@ public class AppList {
 
 		switch (intentAppType) {
 			case IntentAppInfo.INTENT_APP_TYPE_LAUNCHER:
-				App[] appCacheList = sdao.selectAppCacheTable();
+				App[] appCacheList = SQLiteCacheDAO.selectAppCacheTable(context);
 				if (appCacheList.length != 0) {
+					
+					Log.v("ssFlicker", "oooooooooooooooooooooooooooooooooo");
 					return appCacheList;
 
 				} else {
+					Log.v("ssFlicker", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 					intent.setAction(Intent.ACTION_MAIN)
 							.addCategory(Intent.CATEGORY_LAUNCHER)
 							.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
@@ -123,8 +115,7 @@ public class AppList {
 		appList = sort(App.APP_TYPE_INTENT_APP, intentAppType, appList);
 		
 		if (intentAppType == IntentAppInfo.INTENT_APP_TYPE_LAUNCHER) {
-			sdao.deleteAppCacheTable();
-			sdao.insertAppCacheTable(appList.toArray(new App[count]));
+			SQLiteCacheDAO.insertAppCacheTable(context, appList.toArray(new App[count]));
 		}
 		
 		return appList.toArray(new App[count]);

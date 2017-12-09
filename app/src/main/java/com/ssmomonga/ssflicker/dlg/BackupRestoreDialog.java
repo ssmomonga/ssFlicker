@@ -5,9 +5,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,8 +20,6 @@ import android.widget.Toast;
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.proc.StorageBackupRestore;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
-
-import java.io.IOException;
 
 /**
  * BackupRestoreDialog
@@ -50,8 +52,6 @@ public class BackupRestoreDialog extends AlertDialog{
 	private void setInitialLayout() {
 
 		final Context context = getContext();
-		
-//		setTitle(R.string.backup_restore);
 		
 		LayoutInflater inflater = LayoutInflater.from(context);
 		view = inflater.inflate(R.layout.backup_restore_dialog, null);
@@ -168,50 +168,34 @@ public class BackupRestoreDialog extends AlertDialog{
 				@Override
 				public void onClick(DialogInterface dialog, int id){
 				
-					String fileName = null;
-					boolean result = false;
-
-					try {
-						switch (radioButtonId) {
-							case R.id.rb_backup:
-								result = backup.backup();
-								break;
-						
-							case R.id.rb_restore:
-								fileName = (String) ((Spinner) view.findViewById(R.id.sp_select_restore_file))
-										.getSelectedItem();
-								result = backup.restore(fileName);
-								break;
-						}
-						
-					} catch (IOException e) {
-						e.printStackTrace();
-						result = false;
-					}
-					
+					boolean result;
 					String message = "";
-					if (result) {
-						switch (radioButtonId) {
-							case R.id.rb_backup:
+
+					switch (radioButtonId) {
+						case R.id.rb_backup:
+							result = backup.backup();
+							
+							if (result) {
 								BackupRestoreDialog.this.setAdapter();
 								message = r.getString(R.string.backup_complete);
-								break;
-						
-							case R.id.rb_restore:
-								message = r.getString(R.string.restore_complete);
-								break;
-						}
-					} else {
-						switch (radioButtonId) {
-							case R.id.rb_backup:
+							} else {
 								message = r.getString(R.string.fail_backup);
-								break;
+							}
+							break;
 						
-							case R.id.rb_restore:
+						case R.id.rb_restore:
+							String fileName = (String) ((Spinner) view.findViewById(R.id.sp_select_restore_file))
+									.getSelectedItem();
+							result =  backup.restore(fileName);
+
+							if (result) {
+								message = r.getString(R.string.restore_complete);
+							} else {
 								message = r.getString(R.string.fail_restore);
-								break;
-						}
+							}
+							break;
 					}
+					
 					Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
 					dismiss();
 					BackupRestoreDialog.this.dismiss();
@@ -224,6 +208,70 @@ public class BackupRestoreDialog extends AlertDialog{
 				public void onClick(DialogInterface dialog, int id){}
 			});
 			
+		}
+	}
+	
+	/**
+	 * RestoreTask
+	 */
+	public class RestoreTask extends AsyncTask<Void, Void, Boolean> {
+		
+		private Context context;
+		private Dialog progressDialog;
+		
+		/**
+		 * Constructor
+		 *
+		 * @param context
+		 */
+		public RestoreTask(Context context) {
+			this.context = context;
+		}
+		
+		/**
+		 * onPreExecute()
+		 */
+		@Override
+		protected void onPreExecute() {
+			//プログレスダイアログを表示。
+			progressDialog = new Dialog(context);
+			progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+			ProgressBar progress = new ProgressBar(context);
+			progress.setLayoutParams(new ViewGroup.LayoutParams(
+					ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+			int padding = context.getResources().getDimensionPixelSize(R.dimen.int_16_dp);
+			progress.setPadding(padding, padding, padding, padding);
+			progressDialog.setContentView(progress);
+			progressDialog.setCancelable(false);
+			progressDialog.show();
+			
+		}
+		
+		/**
+		 * doInBackground()
+		 */
+		@Override
+		protected Boolean doInBackground(Void... v) {
+			String fileName = (String) ((Spinner) view.findViewById(R.id.sp_select_restore_file))
+					.getSelectedItem();
+			return backup.restore(fileName);
+		}
+		
+		/**
+		 * onPostExecute()
+		 *
+		 * @param result
+		 */
+		@Override
+		protected void onPostExecute(Boolean result) {
+			progressDialog.dismiss();
+			String message = "";
+			if (result) {
+				message = r.getString(R.string.restore_complete);
+			} else {
+				message = r.getString(R.string.fail_restore);
+			}
+			Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
 		}
 	}
 	

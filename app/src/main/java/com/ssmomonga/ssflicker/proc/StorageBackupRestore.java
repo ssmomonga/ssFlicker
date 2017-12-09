@@ -46,14 +46,20 @@ public class StorageBackupRestore {
 	 * backup()
 	 *
 	 * @return
-	 * @throws IOException
 	 */
-	public boolean backup() throws IOException {
+	public boolean backup() {
 		String date = (String) DateFormat.format("_yyyyMMdd_kkmmss_", new Date());
 		String backupFileName = SQLiteDBH.DATABASE_VERSION + date + SQLiteDBH.DATABASE_FILE_NAME;
 		String fullBackupFileName = backupDirPath + "/" + backupFileName;
-
-		return fileCopy(dbFileName, fullBackupFileName);
+		
+		boolean b = false;
+		try {
+			b = fileCopy(dbFileName, fullBackupFileName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return b;
 	}
 
 	/**
@@ -62,25 +68,31 @@ public class StorageBackupRestore {
 	 * @param fileName
 	 * @return
 	 */
-	public boolean restore(String fileName) throws IOException {
+	public boolean restore(String fileName) {
 
-		boolean b = false;
 		String restoreFileName = backupDirPath + "/" + fileName;
 		String restoreFileName2 = backupDirPath2 + "/" + fileName;
-
-		if ((new File(restoreFileName)).exists()) {
-			b = fileCopy(restoreFileName, dbFileName);
-
-		} else if ((new File(restoreFileName2)).exists()) {
-			b = fileCopy(restoreFileName2, dbFileName);
+		
+		boolean b = false;
+		try {
+			if ((new File(restoreFileName)).exists()) {
+				b = fileCopy(restoreFileName, dbFileName);
+			} else if ((new File(restoreFileName2)).exists()) {
+				b = fileCopy(restoreFileName2, dbFileName);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			
 		}
-
+		
 		if (b) {
 			new AppWidgetHost(context, AppWidgetHostSettings.APP_WIDGETH_HOST_ID).deleteHost();
-			new SQLiteDAO(context).deleteAppCacheTable();
+			SQLiteDAO sdao = new SQLiteDAO(context);
+//			sdao.deleteAppCacheTable();
 //			AppList.getIntentAppList(context, IntentAppInfo.INTENT_APP_TYPE_LAUNCHER, 0);
+			sdao.updateAppWidgetUpdateTimeZero();
 		}
-
+		
 		return b;
 	}
 

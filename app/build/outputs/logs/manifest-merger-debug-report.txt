@@ -1,23 +1,23 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
-INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
-INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
-INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
-INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
-INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
-INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-180:12
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-180:12
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-180:12
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-180:12
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-180:12
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-180:12
+INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-180:12
 	package
 		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:3:2-35
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-180:12
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-165:12
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:1-180:12
 		INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:2:11-69
@@ -88,209 +88,235 @@ ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/Andro
 	android:name
 		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:25:19-61
 application
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:37:2-163:16
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:37:2-178:16
 	android:label
 		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:40:3-35
+	android:fullBackupContent
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:43:3-48
 	android:roundIcon
 		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:39:3-50
 	android:icon
 		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:38:3-39
+	android:allowBackup
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:41:3-29
+	android:fullBackupOnly
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:42:3-32
 activity#com.ssmomonga.ssflicker.FlickerActivity
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:42:3-75:14
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:45:3-73:14
 	android:clearTaskOnLaunch
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:45:4-36
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:48:4-36
 	android:stateNotNeeded
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:46:4-33
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:49:4-33
 	android:label
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:50:4-47
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:53:4-47
 	android:excludeFromRecents
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:48:4-37
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:51:4-37
 	android:launchMode
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:44:4-35
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:47:4-35
 	android:exported
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:49:4-27
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:52:4-27
 	android:configChanges
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:47:4-50
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:50:4-50
 	android:theme
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:51:4-40
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:54:4-40
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:43:4-58
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:46:4-58
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:52:4-55:20
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:55:4-58:20
 action#android.intent.action.MAIN
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:53:5-57
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:56:5-57
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:53:13-54
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:56:13-54
 category#android.intent.category.LAUNCHER
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:54:5-65
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:57:5-65
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:54:15-62
-intent-filter#android.intent.action.MAIN+android.intent.category.DEFAULT+android.intent.category.HOME
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:56:4-60:20
-category#android.intent.category.DEFAULT
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:58:5-64
-	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:58:15-61
-category#android.intent.category.HOME
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:59:5-61
-	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:59:15-58
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:57:15-62
 intent-filter#android.intent.action.SEARCH_LONG_PRESS+android.intent.category.DEFAULT
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:61:4-64:20
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:59:4-62:20
 action#android.intent.action.SEARCH_LONG_PRESS
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:62:5-70
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:60:5-70
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:62:13-67
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:60:13-67
+category#android.intent.category.DEFAULT
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:61:5-64
+	android:name
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:61:15-61
 intent-filter#android.intent.action.ASSIST+android.intent.category.DEFAULT
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:65:4-68:20
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:63:4-66:20
 action#android.intent.action.ASSIST
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:66:5-59
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:64:5-59
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:66:13-56
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:64:13-56
 meta-data#com.android.systemui.action_assist_icon
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:69:4-71:46
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:67:4-69:46
 	android:resource
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:71:5-43
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:69:5-43
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:70:5-59
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:68:5-59
 meta-data#android.app.shortcuts
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:72:4-74:41
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:70:4-72:41
 	android:resource
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:74:5-38
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:72:5-38
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:73:5-41
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:71:5-41
+activity#com.ssmomonga.ssflicker.FlickerActivityHK
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:75:3-90:14
+	android:clearTaskOnLaunch
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:78:4-36
+	android:stateNotNeeded
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:79:4-33
+	android:label
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:83:4-47
+	android:excludeFromRecents
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:81:4-37
+	android:launchMode
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:77:4-35
+	android:exported
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:82:4-27
+	android:configChanges
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:80:4-50
+	android:theme
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:84:4-50
+	android:name
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:76:4-60
+intent-filter#android.intent.action.MAIN+android.intent.category.DEFAULT+android.intent.category.HOME
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:85:4-89:20
+category#android.intent.category.HOME
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:88:5-61
+	android:name
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:88:15-58
 activity#com.ssmomonga.ssflicker.EditorActivity
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:77:3-83:42
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:92:3-98:42
 	android:label
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:82:4-46
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:97:4-46
 	android:excludeFromRecents
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:80:4-37
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:95:4-37
 	android:exported
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:81:4-28
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:96:4-28
 	android:configChanges
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:79:4-50
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:94:4-50
 	android:theme
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:83:4-39
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:98:4-39
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:78:4-57
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:93:4-57
 activity#com.ssmomonga.ssflicker.PrefActivity
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:85:3-96:14
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:100:3-111:14
 	android:label
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:90:4-46
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:105:4-46
 	android:excludeFromRecents
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:88:4-37
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:103:4-37
 	android:exported
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:89:4-28
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:104:4-28
 	android:configChanges
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:87:4-50
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:102:4-50
 	android:theme
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:91:4-37
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:106:4-37
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:86:4-55
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:101:4-55
 intent-filter#android.intent.action.MAIN+android.intent.category.NOTIFICATION_PREFERENCES
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:92:4-95:20
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:107:4-110:20
 category#android.intent.category.NOTIFICATION_PREFERENCES
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:94:5-80
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:109:5-80
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:94:15-78
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:109:15-78
 activity#com.ssmomonga.ssflicker.PrefDefaultActivity
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:98:3-104:40
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:113:3-119:40
 	android:label
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:103:4-46
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:118:4-46
 	android:excludeFromRecents
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:101:4-37
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:116:4-37
 	android:exported
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:102:4-28
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:117:4-28
 	android:configChanges
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:100:4-50
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:115:4-50
 	android:theme
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:104:4-37
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:119:4-37
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:99:4-62
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:114:4-62
 activity#com.ssmomonga.ssflicker.PrefOverlayActivity
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:106:3-112:40
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:121:3-127:40
 	android:label
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:111:4-46
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:126:4-46
 	android:excludeFromRecents
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:109:4-37
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:124:4-37
 	android:exported
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:110:4-28
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:125:4-28
 	android:configChanges
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:108:4-50
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:123:4-50
 	android:theme
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:112:4-37
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:127:4-37
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:107:4-62
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:122:4-62
 activity#com.ssmomonga.ssflicker.DonateActivity
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:114:3-120:40
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:129:3-135:40
 	android:label
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:119:4-48
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:134:4-48
 	android:excludeFromRecents
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:117:4-37
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:132:4-37
 	android:exported
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:118:4-28
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:133:4-28
 	android:configChanges
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:116:4-50
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:131:4-50
 	android:theme
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:120:4-37
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:135:4-37
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:115:4-57
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:130:4-57
 service#com.ssmomonga.ssflicker.OverlayService
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:122:3-125:51
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:137:3-140:51
 	android:label
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:125:4-48
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:140:4-48
 	android:exported
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:124:4-28
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:139:4-28
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:123:4-57
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:138:4-57
 service#com.ssmomonga.ssflicker.PackageObserveService
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:128:3-131:59
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:143:3-146:59
 	android:label
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:131:4-56
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:146:4-56
 	android:exported
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:130:4-28
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:145:4-28
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:129:4-64
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:144:4-64
 receiver#com.ssmomonga.ssflicker.BootReceiver
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:139:3-149:14
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:154:3-164:14
 	android:label
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:142:4-46
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:157:4-46
 	android:exported
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:141:4-28
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:156:4-28
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:140:4-55
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:155:4-55
 intent-filter#android.intent.action.BOOT_COMPLETED
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:143:4-145:20
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:158:4-160:20
 action#android.intent.action.BOOT_COMPLETED
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:144:5-67
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:159:5-67
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:144:13-64
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:159:13-64
 intent-filter#android.intent.action.MY_PACKAGE_REPLACED
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:146:4-148:20
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:161:4-163:20
 action#android.intent.action.MY_PACKAGE_REPLACED
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:147:5-72
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:162:5-72
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:147:13-69
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:162:13-69
 receiver#com.ssmomonga.ssflicker.InvisibleAppWidget
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:151:3-161:14
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:166:3-176:14
 	android:label
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:154:4-61
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:169:4-61
 	android:exported
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:153:4-27
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:168:4-27
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:152:4-61
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:167:4-61
 intent-filter#android.appwidget.action.APPWIDGET_UPDATE
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:155:4-157:20
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:170:4-172:20
 action#android.appwidget.action.APPWIDGET_UPDATE
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:156:5-72
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:171:5-72
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:156:13-69
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:171:13-69
 meta-data#android.appwidget.provider
-ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:158:4-160:51
+ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:173:4-175:51
 	android:resource
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:160:5-48
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:175:5-48
 	android:name
-		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:159:5-46
+		ADDED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml:174:5-46
 uses-sdk
 INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/hiroki.uchinuma/Develop/workspace/ssFlicker/app/src/main/AndroidManifest.xml

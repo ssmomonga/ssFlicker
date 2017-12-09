@@ -670,10 +670,11 @@ public final class R {
     public static final int lp_wc_wc=0x7f0b001d;
   }
   public static final class xml {
-    public static final int invisible_appwidget=0x7f0c0000;
-    public static final int pref_activity=0x7f0c0001;
-    public static final int pref_default_activity=0x7f0c0002;
-    public static final int pref_overlay_activity=0x7f0c0003;
-    public static final int shortcuts=0x7f0c0004;
+    public static final int backup_rules=0x7f0c0000;
+    public static final int invisible_appwidget=0x7f0c0001;
+    public static final int pref_activity=0x7f0c0002;
+    public static final int pref_default_activity=0x7f0c0003;
+    public static final int pref_overlay_activity=0x7f0c0004;
+    public static final int shortcuts=0x7f0c0005;
   }
 }

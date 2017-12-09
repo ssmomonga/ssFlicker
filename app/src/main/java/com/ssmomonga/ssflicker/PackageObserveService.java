@@ -21,6 +21,7 @@ import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
 import com.ssmomonga.ssflicker.data.Pointer;
 import com.ssmomonga.ssflicker.db.PrefDAO;
+import com.ssmomonga.ssflicker.db.SQLiteCacheDAO;
 import com.ssmomonga.ssflicker.db.SQLiteDAO;
 import com.ssmomonga.ssflicker.proc.Launch;
 
@@ -270,14 +271,14 @@ public class PackageObserveService extends Service {
 	private void uninstallApp(Intent intent) {
 		String packageName = intent.getData().getSchemeSpecificPart();
 		sdao.deleteAppTable(packageName);
-		sdao.deleteAppCacheTable(packageName);
+		SQLiteCacheDAO.deleteAppCacheTable(this, packageName);
 	}
 	
 	/**
 	 * rebuildAppCacheTable()
 	 */
 	private void rebuildAppCacheTable() {
-		sdao.deleteAppCacheTable();
+		SQLiteCacheDAO.deleteAppCacheTable(this);
 		AppList.getIntentAppList(this, IntentAppInfo.INTENT_APP_TYPE_LAUNCHER, 0);
 	}
 	

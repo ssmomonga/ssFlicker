@@ -45,14 +45,10 @@
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
 	</style>
-	<style name="Theme.Flicker.Wallpaper" parent="Theme.Base.Light">
-		<item name="android:colorPrimaryDark">@android:color/transparent</item>
-		<item name="android:navigationBarColor">@android:color/transparent</item>
+	<style name="Theme.Flicker.Wallpaper" parent="Theme.Flicker">
 		<item name="android:windowBackground">@android:color/transparent</item>
-		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowIsTranslucent">false</item>
 		<item name="android:windowShowWallpaper">true</item>
-		<item name="android:windowActionBar">false</item>
-		<item name="android:windowNoTitle">true</item>
 	</style>
 	<style name="Theme.Editor" parent="Theme.Base" >
 		<item name="android:colorPrimaryDark">@android:color/transparent</item>
