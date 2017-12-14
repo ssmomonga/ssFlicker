@@ -17,9 +17,9 @@ import com.ssmomonga.ssflicker.data.FunctionInfo;
 import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
 import com.ssmomonga.ssflicker.data.Pointer;
-import com.ssmomonga.ssflicker.db.SQLiteDBH.AppTableColumnName;
-import com.ssmomonga.ssflicker.db.SQLiteDBH.PointerTableColumnName;
-import com.ssmomonga.ssflicker.db.SQLiteCacheDBH.AppCacheTableColumnName;
+import com.ssmomonga.ssflicker.db.SQLiteDBH1.AppTableColumnName;
+import com.ssmomonga.ssflicker.db.SQLiteDBH1.PointerTableColumnName;
+import com.ssmomonga.ssflicker.db.SQLiteDBH2.AllAppTableColumnName;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
 import com.ssmomonga.ssflicker.set.AppWidgetHostSettings;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class SQLiteDAO {
 	
 	private Context context;
-	private SQLiteDBH sdbh;
+	private SQLiteDBH1 sdbh;
 
 	/**
 	 * Constructor
@@ -41,7 +41,7 @@ public class SQLiteDAO {
 	 */
 	public SQLiteDAO(Context context) {
 		this.context = context;
-		sdbh = new SQLiteDBH(context);
+		sdbh = new SQLiteDBH1(context);
 	}
 	
 /**
@@ -55,7 +55,7 @@ public class SQLiteDAO {
 	 */
 	public Pointer[] selectPointerTable() {
 		SQLiteDatabase db = sdbh.getReadableDatabase();
-		Cursor c = db.query(SQLiteDBH.POINTER_TABLE, null, null, null, null, null, null);
+		Cursor c = db.query(SQLiteDBH1.POINTER_TABLE, null, null, null, null, null, null);
 
 		Pointer[] pointerList = new Pointer[Pointer.FLICK_POINTER_COUNT];
 		while (c.moveToNext()) {
@@ -78,7 +78,7 @@ public class SQLiteDAO {
 	 */
 	private Pointer selectPointerTable(SQLiteDatabase db, int pointerId) {
 		String selection =  PointerTableColumnName.POINTER_ID + "=" + pointerId;
-		Cursor c = db.query(SQLiteDBH.POINTER_TABLE, null, selection, null, null, null, null);
+		Cursor c = db.query(SQLiteDBH1.POINTER_TABLE, null, selection, null, null, null, null);
 
 		Pointer pointer = null;
 		while (c.moveToNext()) {
@@ -97,7 +97,7 @@ public class SQLiteDAO {
 	 */
 	public App[][] selectAppTable() {
 		SQLiteDatabase db = sdbh.getReadableDatabase();
-		Cursor c = db.query(SQLiteDBH.APP_TABLE, null, null, null, null, null, null);
+		Cursor c = db.query(SQLiteDBH1.APP_TABLE, null, null, null, null, null, null);
 
 		App[][] appListList = new App[Pointer.POINTER_COUNT][App.FLICK_APP_COUNT];
 		while (c.moveToNext()) {
@@ -134,7 +134,7 @@ public class SQLiteDAO {
 	 */
 	private App[] selectAppTable(SQLiteDatabase db, int pointerId) {
 		String selection =  PointerTableColumnName.POINTER_ID + "=" + pointerId;
-		Cursor c = db.query(SQLiteDBH.APP_TABLE, null, selection, null, null, null, null);
+		Cursor c = db.query(SQLiteDBH1.APP_TABLE, null, selection, null, null, null, null);
 		
 		App[] appList = new App[App.FLICK_APP_COUNT];
 		while (c.moveToNext()) {
@@ -157,20 +157,14 @@ public class SQLiteDAO {
 	private App[][] selectAppTable(SQLiteDatabase db, String packageName) {
 		String selection = AppTableColumnName.PACKAGE_NAME + " = ? ";
 		String[] selectionArgs = { packageName };
-		Cursor c = db.query(SQLiteDBH.APP_TABLE, null, selection, selectionArgs, null, null, null);
+		Cursor c = db.query(SQLiteDBH1.APP_TABLE, null, selection, selectionArgs, null, null, null);
 		
 		App[][] appListList = new App[Pointer.POINTER_COUNT][App.FLICK_APP_COUNT];
-//		if (c.getCount() == 0) {
-//			appListList = null;
-			
-//		} else {
-//		if (c.getCount() != 0) {
-			while (c.moveToNext()) {
-				int pointerId = c.getInt(c.getColumnIndex(AppTableColumnName.POINTER_ID));
-				int appId = c.getInt(c.getColumnIndex(AppTableColumnName.APP_ID));
-				appListList[pointerId][appId] = createApp(c);
-			}
-//		}
+		while (c.moveToNext()) {
+			int pointerId = c.getInt(c.getColumnIndex(AppTableColumnName.POINTER_ID));
+			int appId = c.getInt(c.getColumnIndex(AppTableColumnName.APP_ID));
+			appListList[pointerId][appId] = createApp(c);
+		}
 		
 		c.close();
 		
@@ -185,7 +179,7 @@ public class SQLiteDAO {
 	public App[] selectAppWidgets() {
 		String selection = AppTableColumnName.APP_TYPE + " =  " + App.APP_TYPE_APPWIDGET;
 		SQLiteDatabase db = sdbh.getReadableDatabase();
-		Cursor c = db.query(SQLiteDBH.APP_TABLE, null, selection, null, null, null, AppTableColumnName.APPWIDGET_UPDATE_TIME);
+		Cursor c = db.query(SQLiteDBH1.APP_TABLE, null, selection, null, null, null, AppTableColumnName.APPWIDGET_UPDATE_TIME);
 		
 		ArrayList<App> appList = new ArrayList<App>();
 		while (c.moveToNext()) {
@@ -198,31 +192,26 @@ public class SQLiteDAO {
 	}
 	
 	/**
-	 * selectAppCacheTable()
+	 * selectAllAppTable()
 	 *
+	 * @param context
 	 * @return
 	 */
-	public App[] _selectAppCacheTable() {
+	public static App[] selectAllAppTable(Context context) {
 		
-		SQLiteDatabase db = sdbh.getReadableDatabase();
-		Cursor c = db.query(SQLiteDBH.APP_CACHE_TABLE, null, null, null, null, null, null);
-		App[] appCacheList = null;
-
-//		if (c.getCount() > 0) {
-			appCacheList = new App[c.getCount()];
-//			try {
-				while (c.moveToNext()) {
-					appCacheList[c.getPosition()] = createAppCache(c);
-				}
-//			} catch (Exception e) {
-//				appCacheList = null;
-//			}
-//		}
-
+		SQLiteDatabase db = new SQLiteDBH2(context).getReadableDatabase();
+		Cursor c = db.query(SQLiteDBH2.ALL_APP_TABLE, null, null, null, null, null, null);
+		App[] appList = null;
+		
+		appList = new App[c.getCount()];
+		while (c.moveToNext()) {
+			appList[c.getPosition()] = createAllApp(context, c);
+		}
+		
 		c.close();
 		db.close();
-
-		return appCacheList;
+		
+		return appList;
 	}
 	
 	/**
@@ -257,7 +246,7 @@ public class SQLiteDAO {
 		}
 		String[] selectionArgs = { AppTableColumnName.APPWIDGET_ID };
 		
-		Cursor c = db.query(SQLiteDBH.APP_TABLE, selectionArgs, selection, null, null, null, null);
+		Cursor c = db.query(SQLiteDBH1.APP_TABLE, selectionArgs, selection, null, null, null, null);
 		
 		int[] appWidgetIds = new int[c.getCount()];
 		int i = 0;
@@ -284,7 +273,7 @@ public class SQLiteDAO {
 				AppTableColumnName.PACKAGE_NAME + " = ?";
 		String[] selectionArgs = { packageName };
 		
-		Cursor c = db.query(SQLiteDBH.APP_TABLE, null, selection, selectionArgs, null, null, null);
+		Cursor c = db.query(SQLiteDBH1.APP_TABLE, null, selection, selectionArgs, null, null, null);
 		
 		int[] appWidgetIds = new int[c.getCount()];
 		int i = 0;
@@ -316,7 +305,7 @@ public class SQLiteDAO {
 		
 		if (result != -1) {
 			SQLiteDatabase db = sdbh.getWritableDatabase();
-			result = db.insert(SQLiteDBH.POINTER_TABLE, null, createPointerCV(pointerId, pointer));
+			result = db.insert(SQLiteDBH1.POINTER_TABLE, null, createPointerCV(pointerId, pointer));
 			db.close();
 		}
 		
@@ -337,7 +326,7 @@ public class SQLiteDAO {
 		
 		if (result != -1) {
 			db.beginTransaction();
-			result = db.insert(SQLiteDBH.APP_TABLE, null, createAppCV(pointerId, appId, app));
+			result = db.insert(SQLiteDBH1.APP_TABLE, null, createAppCV(pointerId, appId, app));
 		
 			if (result != -1) {
 				Pointer pointer = remakePointer(db, pointerId, appId, app);
@@ -366,17 +355,18 @@ public class SQLiteDAO {
 	}
 	
 	/**
-	 * insertAppCacheTable()
+	 * insertAllAppTable()
 	 *
-	 * @param appCacheList
+	 * @param context
+	 * @param appList
 	 */
-	public void _insertAppCacheTable(App[] appCacheList) {
+	public static void insertAllAppTable(Context context, App[] appList) {
 		long result = 0;
-		SQLiteDatabase db = sdbh.getWritableDatabase();
+		SQLiteDatabase db = new SQLiteDBH2(context).getWritableDatabase();
 		db.beginTransaction();
 		
-		for (App app: appCacheList) {
-			result = db.insert(SQLiteDBH.APP_CACHE_TABLE, null, createAppCacheCV(app));
+		for (App app: appList) {
+			result = db.insert(SQLiteDBH2.ALL_APP_TABLE, null, createAllAppCV(context, app));
 			if (result == -1) continue;
 		}
 		
@@ -404,8 +394,8 @@ public class SQLiteDAO {
 		SQLiteDatabase db = sdbh.getWritableDatabase();
 		db.beginTransaction();
 		
-		int result = db.delete(SQLiteDBH.APP_TABLE, appTableWhereClause, appTableWhereArgs);
-		if (result != -1) result = db.delete(SQLiteDBH.POINTER_TABLE, pointerTableWhereClause, pointerTableWhereArgs);
+		int result = db.delete(SQLiteDBH1.APP_TABLE, appTableWhereClause, appTableWhereArgs);
+		if (result != -1) result = db.delete(SQLiteDBH1.POINTER_TABLE, pointerTableWhereClause, pointerTableWhereArgs);
 
 		if (result != -1) db.setTransactionSuccessful();
 		db.endTransaction();
@@ -434,7 +424,7 @@ public class SQLiteDAO {
 		int[] appWidgetIds = selectAppWidgetIds(db, packageName);
 		
 		db.beginTransaction();
-		int result = db.delete(SQLiteDBH.APP_TABLE, appTableWhereClause, appTableWhereArgs);
+		int result = db.delete(SQLiteDBH1.APP_TABLE, appTableWhereClause, appTableWhereArgs);
 		
 		if (result != -1) {
 			for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
@@ -468,7 +458,7 @@ public class SQLiteDAO {
 		String[] appTableWhereArgs = { String.valueOf(pointerId), String.valueOf(appId) };
 		
 		int[] appWidgetIds = selectAppWidgetIds(db, pointerId, appId);
-		int result = db.delete(SQLiteDBH.APP_TABLE, appTableWhereClause, appTableWhereArgs);
+		int result = db.delete(SQLiteDBH1.APP_TABLE, appTableWhereClause, appTableWhereArgs);
 		
 		if (result != -1) {
 			Pointer pointer = remakePointer(db, pointerId, appId, null);
@@ -487,25 +477,27 @@ public class SQLiteDAO {
 	}
 	
 	/**
-	 * deleteAppCacheTable()
+	 * deleteAllAppTable()
+	 *
+	 * @param context
 	 */
-	public void _deleteAppCacheTable () {
-		SQLiteDatabase db = sdbh.getWritableDatabase();
-		db.delete(SQLiteDBH.APP_CACHE_TABLE, null, null);
+	public static void deleteAllAppTable (Context context) {
+		SQLiteDatabase db = new SQLiteDBH2(context).getWritableDatabase();
+		db.delete(SQLiteDBH2.ALL_APP_TABLE, null, null);
 		db.close();
 	}
 	
 	/**
-	 * deleteAppCacheTable()
+	 * deleteAllAppTable()
 	 *
 	 * @param packageName
 	 */
-	public void _deleteAppCacheTable(String packageName) {
-		String whereClause = AppCacheTableColumnName.PACKAGE_NAME + "=?";
+	public static void deleteAllAppTable(Context context, String packageName) {
+		String whereClause = AllAppTableColumnName.PACKAGE_NAME + "=?";
 		String[] whereArgs = { packageName };
 		
-		SQLiteDatabase db = sdbh.getWritableDatabase();
-		db.delete(SQLiteDBH.APP_CACHE_TABLE, whereClause, whereArgs);
+		SQLiteDatabase db = new SQLiteDBH2(context).getWritableDatabase();
+		db.delete(SQLiteDBH2.ALL_APP_TABLE, whereClause, whereArgs);
 		db.close();
 	}
 	
@@ -543,7 +535,7 @@ public class SQLiteDAO {
 	private int updatePointerTable(SQLiteDatabase db, int pointerId, Pointer pointer) {
 		String whereClause = PointerTableColumnName.POINTER_ID + "=?";
 		String[] whereArgs = { String.valueOf(pointerId) };
-		return db.update(SQLiteDBH.POINTER_TABLE, createPointerCV(pointerId, pointer), whereClause, whereArgs);
+		return db.update(SQLiteDBH1.POINTER_TABLE, createPointerCV(pointerId, pointer), whereClause, whereArgs);
 	}
 	
 	/**
@@ -563,7 +555,7 @@ public class SQLiteDAO {
 		if (result != -1) {
 			db.beginTransaction();
 			
-			result = db.update(SQLiteDBH.APP_TABLE, createAppCV(pointerId, appId, app), whereClause, whereArgs);
+			result = db.update(SQLiteDBH1.APP_TABLE, createAppCV(pointerId, appId, app), whereClause, whereArgs);
 			if (result != -1) {
 				Pointer pointer = remakePointer(db, pointerId, appId, app);
 				if (pointer != null) result = updatePointerTable(db, pointerId, pointer);
@@ -598,7 +590,7 @@ public class SQLiteDAO {
 		cv.put(AppTableColumnName.APPWIDGET_UPDATE_TIME, appWidgetUpdateTime);
 
 		SQLiteDatabase db = sdbh.getWritableDatabase();
-		db.update(SQLiteDBH.APP_TABLE, cv, whereClause, whereArgs);
+		db.update(SQLiteDBH1.APP_TABLE, cv, whereClause, whereArgs);
 		db.close();
 	}
 	
@@ -613,7 +605,7 @@ public class SQLiteDAO {
 		cv.put(AppTableColumnName.APPWIDGET_UPDATE_TIME, 0);
 		
 		SQLiteDatabase db = sdbh.getWritableDatabase();
-		db.update(SQLiteDBH.APP_TABLE, cv, whereClause, whereArgs);
+		db.update(SQLiteDBH1.APP_TABLE, cv, whereClause, whereArgs);
 		db.close();
 		
 	}
@@ -653,12 +645,12 @@ public class SQLiteDAO {
 		if (result != -1) {
 			SQLiteDatabase db = sdbh.getWritableDatabase();
 			db.beginTransaction();
-			if (result != -1) result = db.update(SQLiteDBH.POINTER_TABLE, cv[0], whereClause[0], whereArgs[0]);
-			if (result != -1) result = db.update(SQLiteDBH.APP_TABLE, cv[1], whereClause[1], whereArgs[1]);
-			if (result != -1) result = db.update(SQLiteDBH.POINTER_TABLE, cv[2], whereClause[2], whereArgs[2]);
-			if (result != -1) result = db.update(SQLiteDBH.APP_TABLE, cv[3], whereClause[3], whereArgs[3]);
-			if (result != -1) result = db.update(SQLiteDBH.POINTER_TABLE, cv[4], whereClause[4], whereArgs[4]);
-			if (result != -1) result = db.update(SQLiteDBH.APP_TABLE, cv[5], whereClause[5], whereArgs[5]);
+			if (result != -1) result = db.update(SQLiteDBH1.POINTER_TABLE, cv[0], whereClause[0], whereArgs[0]);
+			if (result != -1) result = db.update(SQLiteDBH1.APP_TABLE, cv[1], whereClause[1], whereArgs[1]);
+			if (result != -1) result = db.update(SQLiteDBH1.POINTER_TABLE, cv[2], whereClause[2], whereArgs[2]);
+			if (result != -1) result = db.update(SQLiteDBH1.APP_TABLE, cv[3], whereClause[3], whereArgs[3]);
+			if (result != -1) result = db.update(SQLiteDBH1.POINTER_TABLE, cv[4], whereClause[4], whereArgs[4]);
+			if (result != -1) result = db.update(SQLiteDBH1.APP_TABLE, cv[5], whereClause[5], whereArgs[5]);
 			if (result != -1 ) db.setTransactionSuccessful();
 			db.endTransaction();
 			db.close();
@@ -694,9 +686,9 @@ public class SQLiteDAO {
 		int result = checkAppId(db, pointerId, fromAppId) && checkAppId(db, pointerId, toAppId) ? 0 : -1;
 		if (result != -1) {
 			db.beginTransaction();
-			if (result != -1) result = db.update(SQLiteDBH.APP_TABLE, cv[0], whereClause[0], whereArgs[0]);
-			if (result != -1) result = db.update(SQLiteDBH.APP_TABLE, cv[1], whereClause[1], whereArgs[1]);
-			if (result != -1) result = db.update(SQLiteDBH.APP_TABLE, cv[2], whereClause[2], whereArgs[2]);
+			if (result != -1) result = db.update(SQLiteDBH1.APP_TABLE, cv[0], whereClause[0], whereArgs[0]);
+			if (result != -1) result = db.update(SQLiteDBH1.APP_TABLE, cv[1], whereClause[1], whereArgs[1]);
+			if (result != -1) result = db.update(SQLiteDBH1.APP_TABLE, cv[2], whereClause[2], whereArgs[2]);
 			if (result != -1) {
 				Pointer pointer = remakePointer(db, pointerId, fromAppId, toAppId);
 				if (pointer != null) result = updatePointerTable(db, pointerId, pointer);
@@ -792,23 +784,24 @@ public class SQLiteDAO {
 	}
 	
 	/**
-	 * createAppCache
+	 * createAllApp()
 	 *
+	 * @param context
 	 * @param c
 	 * @return
 	 */
-	private App createAppCache(Cursor c) {
+	private static App createAllApp(Context context, Cursor c) {
 		return new App(
 				context,
 				App.APP_TYPE_INTENT_APP,
-				c.getString(c.getColumnIndex(AppCacheTableColumnName.PACKAGE_NAME)),
-				c.getString(c.getColumnIndex(AppCacheTableColumnName.APP_LABEL)),
+				c.getString(c.getColumnIndex(SQLiteDBH2.AllAppTableColumnName.PACKAGE_NAME)),
+				c.getString(c.getColumnIndex(SQLiteDBH2.AllAppTableColumnName.APP_LABEL)),
 				IconList.LABEL_ICON_TYPE_ACTIVITY,
 				ImageConverter.createDrawable(context,
-						c.getBlob(c.getColumnIndex(AppCacheTableColumnName.APP_ICON))),
+						c.getBlob(c.getColumnIndex(SQLiteDBH2.AllAppTableColumnName.APP_ICON))),
 				IconList.LABEL_ICON_TYPE_ACTIVITY,
 				new IntentAppInfo(IntentAppInfo.INTENT_APP_TYPE_LAUNCHER,
-						c.getString(c.getColumnIndex(AppCacheTableColumnName.INTENT_URI))));
+						c.getString(c.getColumnIndex(SQLiteDBH2.AllAppTableColumnName.INTENT_URI))));
 	}
 
 	/**
@@ -833,7 +826,7 @@ public class SQLiteDAO {
 	}
 	
 	/**
-	 * createAppCV
+	 * createAppCV()
 	 *
 	 * @param pointerId
 	 * @param appId
@@ -879,19 +872,20 @@ public class SQLiteDAO {
 	}
 	
 	/**
-	 * createAppCacheCV
+	 * createAllAppCV()
 	 *
+	 * @param context
 	 * @param app
 	 * @return
 	 */
-	private ContentValues createAppCacheCV (App app) {
+	private static ContentValues createAllAppCV (Context context, App app) {
 		ContentValues cv = new ContentValues();
-
-		cv.put(AppCacheTableColumnName.PACKAGE_NAME, app.getPackageName());
-		cv.put(AppCacheTableColumnName.APP_LABEL, app.getLabel());
-		cv.put(AppCacheTableColumnName.APP_ICON, ImageConverter.createByte(context, app.getIcon()));
-		cv.put(AppCacheTableColumnName.INTENT_URI, app.getIntentAppInfo().getIntentUri());
-
+		
+		cv.put(SQLiteDBH2.AllAppTableColumnName.PACKAGE_NAME, app.getPackageName());
+		cv.put(SQLiteDBH2.AllAppTableColumnName.APP_LABEL, app.getLabel());
+		cv.put(SQLiteDBH2.AllAppTableColumnName.APP_ICON, ImageConverter.createByte(context, app.getIcon()));
+		cv.put(SQLiteDBH2.AllAppTableColumnName.INTENT_URI, app.getIntentAppInfo().getIntentUri());
+		
 		return cv;
 	}
 

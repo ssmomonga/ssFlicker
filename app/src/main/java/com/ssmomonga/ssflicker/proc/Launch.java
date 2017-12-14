@@ -8,10 +8,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.SearchManager;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
 import android.bluetooth.BluetoothAdapter;
-import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +22,6 @@ import android.provider.Settings;
 import android.widget.Toast;
 
 import com.ssmomonga.ssflicker.FlickerActivity;
-import com.ssmomonga.ssflicker.PackageObserveJob;
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.FunctionInfo;
@@ -42,10 +38,12 @@ public class Launch {
 	private static final int JOB_ID = 1;
 	private static final int VIBRATE_TIME = 30;
 	
-	public static final String NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE = "notification_channel_id_package_observe";
-	public static final String NOTIFICATION_CHANNEL_ID_OVERLAY = "notification_channel_id_overlay";
+//	public static final String NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE = "notification_channel_id_package_observe";
+//	public static final String NOTIFICATION_CHANNEL_ID_OVERLAY = "notification_channel_id_overlay";
+	public static final String NOTIFICATION_CHANNEL_ID_FOREGROUND_SERVICE = "notification_channel_id_foreground_service";
 	public static final String NOTIFICATION_CHANNEL_ID_STATUSBAR = "notification_channel_id_statusbar";
 	
+	private static final int NOTIFICATION_ID_STATUSBAR = 0;
 	public static final int NOTIFICATION_ID_PACKAGE_OBSERVE = 1;
 	public static final int NOTIFICATION_ID_OVERLAY = 2;
 	
@@ -357,7 +355,7 @@ public class Launch {
 		if (b) {
 			NotificationManager manager =
 					createNotificationManager(NOTIFICATION_CHANNEL_ID_STATUSBAR, context.getString(R.string.launch_from_statusbar));
-			manager.notify(0, getNotification(NOTIFICATION_CHANNEL_ID_STATUSBAR, context.getString(R.string.launch_from_statusbar)));
+			manager.notify(NOTIFICATION_ID_STATUSBAR, getNotification(NOTIFICATION_CHANNEL_ID_STATUSBAR, context.getString(R.string.launch_from_statusbar)));
 		}
 	}
 
@@ -372,16 +370,19 @@ public class Launch {
 		
 		NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		
-		int importance = 0;
-		if (channelId == NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE) {
-			importance = NotificationManager.IMPORTANCE_NONE;
-		} else if (channelId == NOTIFICATION_CHANNEL_ID_OVERLAY) {
-			importance = NotificationManager.IMPORTANCE_NONE;
+		int importance = NotificationManager.IMPORTANCE_LOW;
+		if (channelId == NOTIFICATION_CHANNEL_ID_FOREGROUND_SERVICE) {
+			importance = NotificationManager.IMPORTANCE_LOW;
+//		if (channelId == NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE) {
+//			importance = NotificationManager.IMPORTANCE_NONE;
+//		} else if (channelId == NOTIFICATION_CHANNEL_ID_OVERLAY) {
+//			importance = NotificationManager.IMPORTANCE_NONE;
 		} else if (channelId == NOTIFICATION_CHANNEL_ID_STATUSBAR) {
 			importance = NotificationManager.IMPORTANCE_MIN;
 		}
 		
 		NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+		channel.setShowBadge(false);
 		manager.createNotificationChannel(channel);
 
 		return manager;
@@ -419,27 +420,6 @@ public class Launch {
 		((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).cancel(0);
 	}
 	
-	/**
-	 * startInstallObserveJob()
-	 */
-	public void startInstallObserveJob() {
-		context.startService(new Intent(context, PackageObserveJob.class));
-		scheduleInstallObserveJob();
-	}
-	
-	/**
-	 *
-	 */
-	public void scheduleInstallObserveJob() {
-		ComponentName jobName = new ComponentName(context, PackageObserveJob.class);
-		JobScheduler scheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
-		JobInfo jobInfo = new JobInfo.Builder(JOB_ID, jobName)
-				.setPeriodic(900000)
-				.setPersisted(true)
-				.build();
-		scheduler.schedule(jobInfo);
-	}
-
 	/**
 	 * vibrate()
 	 */

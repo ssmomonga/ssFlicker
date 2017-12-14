@@ -21,7 +21,6 @@ import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
 import com.ssmomonga.ssflicker.data.Pointer;
 import com.ssmomonga.ssflicker.db.PrefDAO;
-import com.ssmomonga.ssflicker.db.SQLiteCacheDAO;
 import com.ssmomonga.ssflicker.db.SQLiteDAO;
 import com.ssmomonga.ssflicker.proc.Launch;
 
@@ -139,8 +138,10 @@ public class PackageObserveService extends Service {
 		super.onCreate();
 		
 		Launch l = new Launch(this);
-		l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE, getString(R.string.service_name_package_observe));
-		startForeground(Launch.NOTIFICATION_ID_PACKAGE_OBSERVE, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE, getString(R.string.service_name_package_observe)));
+//		l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE, getString(R.string.service_name_package_observe));
+//		startForeground(Launch.NOTIFICATION_ID_PACKAGE_OBSERVE, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE, getString(R.string.service_name_package_observe)));
+		l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_FOREGROUND_SERVICE, getString(R.string.notification_channel_name));
+		startForeground(Launch.NOTIFICATION_ID_PACKAGE_OBSERVE, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_FOREGROUND_SERVICE, getString(R.string.service_name_package_observe)));
 
 		sdao = new SQLiteDAO(this);
 		pdao = new PrefDAO(this);
@@ -271,14 +272,14 @@ public class PackageObserveService extends Service {
 	private void uninstallApp(Intent intent) {
 		String packageName = intent.getData().getSchemeSpecificPart();
 		sdao.deleteAppTable(packageName);
-		SQLiteCacheDAO.deleteAppCacheTable(this, packageName);
+		SQLiteDAO.deleteAllAppTable(this, packageName);
 	}
 	
 	/**
 	 * rebuildAppCacheTable()
 	 */
 	private void rebuildAppCacheTable() {
-		SQLiteCacheDAO.deleteAppCacheTable(this);
+		SQLiteDAO.deleteAllAppTable(this);
 		AppList.getIntentAppList(this, IntentAppInfo.INTENT_APP_TYPE_LAUNCHER, 0);
 	}
 	

@@ -51,8 +51,10 @@ public class OverlayService extends Service {
 		super.onCreate();
 		
 		l = new Launch(this);
-		l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.service_name_overlay));
-		startForeground(Launch.NOTIFICATION_ID_OVERLAY, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.launch_from_overlay)));
+//		l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.service_name_overlay));
+//		startForeground(Launch.NOTIFICATION_ID_OVERLAY, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.launch_from_overlay)));
+		l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_FOREGROUND_SERVICE, getString(R.string.notification_channel_name));
+		startForeground(Launch.NOTIFICATION_ID_OVERLAY, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_FOREGROUND_SERVICE, getString(R.string.service_name_overlay)));
 		
 		overlayParams = new OverlayParams(this);
 		overlayPointParams[0] = new OverlayParams.OverlayPointParams(this, 0);
@@ -146,8 +148,10 @@ public class OverlayService extends Service {
 	 */
 	private void overlayForeground(boolean b) {
 		if (b) {
-			l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.service_name_overlay));
-			startForeground(Launch.NOTIFICATION_ID_OVERLAY, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.launch_from_overlay)));
+//			l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.service_name_overlay));
+//			startForeground(Launch.NOTIFICATION_ID_OVERLAY, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_OVERLAY, getString(R.string.launch_from_overlay)));
+			l.createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_FOREGROUND_SERVICE, getString(R.string.notification_channel_name));
+			startForeground(Launch.NOTIFICATION_ID_OVERLAY, l.getNotification(Launch.NOTIFICATION_CHANNEL_ID_FOREGROUND_SERVICE, getString(R.string.service_name_overlay)));
 			
 		} else {
 			stopForeground(true);

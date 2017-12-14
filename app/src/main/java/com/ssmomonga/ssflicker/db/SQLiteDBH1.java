@@ -1,5 +1,6 @@
 package com.ssmomonga.ssflicker.db;
 
+import android.app.NotificationManager;
 import android.appwidget.AppWidgetHost;
 import android.content.ContentValues;
 import android.content.Context;
@@ -17,21 +18,21 @@ import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
 import com.ssmomonga.ssflicker.data.Pointer;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
+import com.ssmomonga.ssflicker.proc.Launch;
 import com.ssmomonga.ssflicker.set.AppWidgetHostSettings;
 
 /**
  * SQLiteDBH
  */
-public class SQLiteDBH extends SQLiteOpenHelper {
+public class SQLiteDBH1 extends SQLiteOpenHelper {
 
 	private Context context;
 
 	public static final String DATABASE_FILE_NAME = "ssflicker.db";
-	public static final int DATABASE_VERSION = 9;
+	public static final int DATABASE_VERSION = 10;
 	
 	public static final String POINTER_TABLE = "pointer_table_8";
 	public static final String APP_TABLE = "app_table_8";
-	public static final String APP_CACHE_TABLE = "app_cache_table_8";
 
 	/**
 	 * PointerTableColumnName
@@ -71,19 +72,19 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	/**
 	 * AppCacheTableColumnName
 	 */
-	public class AppCacheTableColumnName {
-		public static final String PACKAGE_NAME = "column_0";					//text	not null
-		public static final String APP_LABEL = "column_1";						//text	not null
-		public static final String APP_ICON = "column_2";						//blob	not null
-		public static final String INTENT_URI = "column_3";						//text	not null
-	}
+//	public class AppCacheTableColumnName {
+//		public static final String PACKAGE_NAME = "column_0";					//text	not null
+//		public static final String APP_LABEL = "column_1";						//text	not null
+//		public static final String APP_ICON = "column_2";						//blob	not null
+//		public static final String INTENT_URI = "column_3";						//text	not null
+//	}
 
 	/**
 	 * Constructor
 	 *
 	 * @param context
 	 */
-	public SQLiteDBH(Context context) {
+	public SQLiteDBH1(Context context) {
 		super(context, DATABASE_FILE_NAME, null, DATABASE_VERSION);
 		this.context = context;
 	}
@@ -98,6 +99,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		
 		new AppWidgetHost(context, AppWidgetHostSettings.APP_WIDGETH_HOST_ID).deleteHost();
 		
+		new Launch(context).createNotificationManager(Launch.NOTIFICATION_CHANNEL_ID_FOREGROUND_SERVICE, context.getResources().getString(R.string.notification_channel_name));
 		context.startForegroundService(new Intent(context, PackageObserveService.class));
 
 		createTable(db);
@@ -116,7 +118,12 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		
 		switch (oldVersion) {
+			case 9:
+				deleteNotificationChannel_10();
+				break;
+
 			case 8:
+				deleteNotificationChannel_10();
 				deleteHomePointer_9(db);
 				deleteFunction_9(db);
 				break;
@@ -136,7 +143,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 
 	private static final String DROP_APP_TABLE_TEMPLATE = "drop table if exists " + APP_TABLE;
 		
-	private static final String DROP_APP_CACHE_TABLE_TEMPLATE = "drop table if exists " + APP_CACHE_TABLE;
+	private static final String DROP_APP_CACHE_TABLE_TEMPLATE = "drop table if exists " + SQLiteDBH2.ALL_APP_TABLE;
 	
 	private static final String CREATE_POINTER_TABLE_TEMPLATE =
 			"create table " + POINTER_TABLE + " (" +
@@ -170,13 +177,13 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 			"primary key (" + AppTableColumnName.POINTER_ID + "," + AppTableColumnName.APP_ID + ")" +
 			")";
 
-	private static final String CREATE_APP_CACHE_TABLE_TEMPLATE =
-			"create table " + APP_CACHE_TABLE + " (" +
-			AppCacheTableColumnName.PACKAGE_NAME + " text not null," +
-			AppCacheTableColumnName.APP_LABEL + " text not null," +
-			AppCacheTableColumnName.APP_ICON + " blob not null," +
-			AppCacheTableColumnName.INTENT_URI + " text not null" +
-			")";
+//	private static final String CREATE_APP_CACHE_TABLE_TEMPLATE =
+//			"create table " + APP_CACHE_TABLE + " (" +
+//			AppCacheTableColumnName.PACKAGE_NAME + " text not null," +
+//			AppCacheTableColumnName.APP_LABEL + " text not null," +
+//			AppCacheTableColumnName.APP_ICON + " blob not null," +
+//			AppCacheTableColumnName.INTENT_URI + " text not null" +
+//			")";
 
 	/**
 	 * createTable()
@@ -189,7 +196,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 		db.execSQL(DROP_APP_CACHE_TABLE_TEMPLATE);
 		db.execSQL(CREATE_POINTER_TABLE_TEMPLATE);
 		db.execSQL(CREATE_APP_TABLE_TEMPLATE);
-		db.execSQL(CREATE_APP_CACHE_TABLE_TEMPLATE);
+//		db.execSQL(CREATE_APP_CACHE_TABLE_TEMPLATE);
 	}
 
 	/**
@@ -394,7 +401,7 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	 */
 	private void deleteHomePointer_9(SQLiteDatabase db) {
 		String pointerTableWhereClause = PointerTableColumnName.POINTER_TYPE + "=" + Pointer.POINTER_TYPE_HOME;
-		db.delete(SQLiteDBH.POINTER_TABLE, pointerTableWhereClause, null);
+		db.delete(SQLiteDBH1.POINTER_TABLE, pointerTableWhereClause, null);
 	}
 
 	/**
@@ -404,8 +411,19 @@ public class SQLiteDBH extends SQLiteOpenHelper {
 	 */
 	private void deleteFunction_9(SQLiteDatabase db) {
 		String appTableWhereClause = AppTableColumnName.FUNCTION_TYPE + "=" + FunctionInfo.FUNCTION_TYPE_SILENT_MODE + " or " + AppTableColumnName.FUNCTION_TYPE + "=" + FunctionInfo.FUNCTION_TYPE_VOLUME;
-		db.delete(SQLiteDBH.APP_TABLE, appTableWhereClause, null);
+		db.delete(SQLiteDBH1.APP_TABLE, appTableWhereClause, null);
 	}
 
+/**
+ * Version_10
+ */
+
+	private void deleteNotificationChannel_10() {
+		NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		manager.deleteNotificationChannel("notification_channel_id_package_observe");
+		manager.deleteNotificationChannel("notification_channel_id_overlay");
+
+	}
+	
 	
 }

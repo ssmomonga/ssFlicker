@@ -8,19 +8,17 @@ import android.database.sqlite.SQLiteOpenHelper;
  * SQLiteDBHIM
  */
 
-public class SQLiteCacheDBH extends SQLiteOpenHelper {
-	
-	private Context context;
+public class SQLiteDBH2 extends SQLiteOpenHelper {
 	
 	public static final int DATABASE_VERSION = 1;
 	
-	public static final String DATABASE_FILE_NAME = "ssflicker.cache.db";
-	public static final String APP_CACHE_TABLE = "app_cache_table";
+	public static final String DATABASE_FILE_NAME = "ssflicker.second.db";
+	public static final String ALL_APP_TABLE = "all_app_table";
 	
 	/**
-	 * AppCacheTableColumnName
+	 * AllAppTableColumnName
 	 */
-	public class AppCacheTableColumnName {
+	public class AllAppTableColumnName {
 		public static final String PACKAGE_NAME = "package_name";		//text	not null
 		public static final String APP_LABEL = "app_label";				//text	not null
 		public static final String APP_ICON = "app_icon";				//blob	not null
@@ -32,9 +30,8 @@ public class SQLiteCacheDBH extends SQLiteOpenHelper {
 	 *
 	 * @param context
 	 */
-	public SQLiteCacheDBH(Context context) {
+	public SQLiteDBH2(Context context) {
 		super(context, DATABASE_FILE_NAME, null, DATABASE_VERSION);
-		this.context = context;
 	}
 	
 	/**
@@ -57,13 +54,13 @@ public class SQLiteCacheDBH extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 	
-	private static final String DROP_APP_CACHE_TABLE_TEMPLATE = "drop table if exists " + APP_CACHE_TABLE;
+	private static final String DROP_APP_CACHE_TABLE_TEMPLATE = "drop table if exists " + ALL_APP_TABLE;
 	private static final String CREATE_APP_CACHE_TABLE_TEMPLATE =
-			"create table " + APP_CACHE_TABLE + " (" +
-					AppCacheTableColumnName.PACKAGE_NAME + " text not null," +
-					AppCacheTableColumnName.APP_LABEL + " text not null," +
-					AppCacheTableColumnName.APP_ICON + " blob not null," +
-					AppCacheTableColumnName.INTENT_URI + " text not null" +
+			"create table " + ALL_APP_TABLE + " (" +
+					AllAppTableColumnName.PACKAGE_NAME + " text not null," +
+					AllAppTableColumnName.APP_LABEL + " text not null," +
+					AllAppTableColumnName.APP_ICON + " blob not null," +
+					AllAppTableColumnName.INTENT_URI + " text not null" +
 					")";
 	
 	/**

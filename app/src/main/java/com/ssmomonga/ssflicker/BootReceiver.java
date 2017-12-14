@@ -6,7 +6,7 @@ import android.content.Intent;
 
 import com.ssmomonga.ssflicker.data.AppList;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
-import com.ssmomonga.ssflicker.db.SQLiteCacheDAO;
+import com.ssmomonga.ssflicker.db.SQLiteDAO;
 import com.ssmomonga.ssflicker.proc.Launch;
 import com.ssmomonga.ssflicker.set.BootSettings;
 
@@ -45,7 +45,7 @@ public class BootReceiver extends BroadcastReceiver {
 	 * @param context
 	 */
 	private void rebuildAppCacheTable(Context context) {
-		SQLiteCacheDAO.deleteAppCacheTable(context);
+		SQLiteDAO.deleteAllAppTable(context);
 		AppList.getIntentAppList(context, IntentAppInfo.INTENT_APP_TYPE_LAUNCHER, 0);
 	}
 

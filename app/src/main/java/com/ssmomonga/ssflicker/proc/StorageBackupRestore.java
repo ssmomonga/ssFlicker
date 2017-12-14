@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.db.SQLiteDAO;
-import com.ssmomonga.ssflicker.db.SQLiteDBH;
+import com.ssmomonga.ssflicker.db.SQLiteDBH1;
 import com.ssmomonga.ssflicker.set.AppWidgetHostSettings;
 import com.ssmomonga.ssflicker.set.DeviceSettings;
 
@@ -39,7 +39,7 @@ public class StorageBackupRestore {
 		this.context = context;
 		backupDirPath = DeviceSettings.getExternalDir(context);
 		backupDirPath2 = DeviceSettings.getExternalDir2(context);
-		dbFileName = context.getDatabasePath(SQLiteDBH.DATABASE_FILE_NAME).getPath();
+		dbFileName = context.getDatabasePath(SQLiteDBH1.DATABASE_FILE_NAME).getPath();
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class StorageBackupRestore {
 	 */
 	public boolean backup() {
 		String date = (String) DateFormat.format("_yyyyMMdd_kkmmss_", new Date());
-		String backupFileName = SQLiteDBH.DATABASE_VERSION + date + SQLiteDBH.DATABASE_FILE_NAME;
+		String backupFileName = SQLiteDBH1.DATABASE_VERSION + date + SQLiteDBH1.DATABASE_FILE_NAME;
 		String fullBackupFileName = backupDirPath + "/" + backupFileName;
 		
 		boolean b = false;
@@ -137,7 +137,7 @@ public class StorageBackupRestore {
 			FilenameFilter filter = new FilenameFilter() {
 				@Override
 				public boolean accept(File dir, String filename) {
-					return filename.endsWith(SQLiteDBH.DATABASE_FILE_NAME);
+					return filename.endsWith(SQLiteDBH1.DATABASE_FILE_NAME);
 				}
 			};
 			File backupDir = new File(backupDirPath);

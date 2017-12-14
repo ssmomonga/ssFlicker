@@ -262,6 +262,7 @@
 	<string name="require_permission_write_settings">Require \&quot;Modify system settings\&quot; permission</string>
 	<string name="rotate_off">Turn off auto rotate</string>
 	<string name="rotate_on">Turn on auto rotate</string>
+	<string name="notification_channel_name">Foreground service</string>
 
 <!-- VolumeDialog -->
 	<string name="volume_ringtone_notification">Ring volume</string>

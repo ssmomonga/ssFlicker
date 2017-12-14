@@ -7,7 +7,7 @@
 	<string name="activity_name_edit">ssFlicker - 編集モード</string>
 	<string name="activity_name_pref">ssFlicker - 設定</string>
 	<string name="activity_name_donate">ssFlicker - 寄付</string>
-	<string name="service_name_overlay">オーバーレイサービス</string>
+	<string name="service_name_overlay">オーバーレイ起動サービス</string>
 	<string name="service_name_package_observe">パッケージ監視サービス</string>
 	<string name="service_name_package_observe_job">パッケージ監視ジョブ</string>
 	<string name="receiver_name_boot">ブートレシーバー</string>
@@ -262,6 +262,7 @@
 	<string name="require_permission_write_settings">「システム設定の変更」のパーミッションが必要です</string>
 	<string name="rotate_off">画面の自動回転をOFFにしました</string>
 	<string name="rotate_on">画面の自動回転をONにしました</string>
+	<string name="notification_channel_name">フォアグラウンドサービス</string>
 
 <!-- VolumeDialog -->
 	<string name="volume_ringtone_notification">着信音の音量</string>
