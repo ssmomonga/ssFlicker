@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-	xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/lp_mp_0" >
 
 	<LinearLayout
@@ -9,17 +9,20 @@
 		android:orientation="vertical" >
 		<LinearLayout
 			style="@style/lp_mp_wc" >
-			<ImageButton android:id="@+id/ib_icon"
+			<ImageButton
+				android:id="@+id/ib_icon"
 				style="@style/lp_wc_wc"
 				android:scaleType="centerCrop"
 				android:layout_marginRight="8dp" />
-			<EditText android:id="@+id/et_label"
+			<EditText
+				android:id="@+id/et_label"
 				style="@style/lp_mp_wc"
 				android:inputType="text"
 				android:layout_gravity="bottom" />
 		</LinearLayout>
 		
-		<LinearLayout android:id="@+id/ll_send_template"
+		<LinearLayout
+			android:id="@+id/ll_send_template"
 			style="@style/lp_mp_mp"
 			android:paddingTop="16dp"
 			android:orientation="vertical"
@@ -28,7 +31,8 @@
 				style="@style/lp_mp_wc"
 				android:text="@string/edit_send_text_template"
 				android:textColor="?android:colorAccent" />
-			<EditText android:id="@+id/et_send_template"
+			<EditText
+				android:id="@+id/et_send_template"
 				style="@style/lp_mp_wc"
 				android:paddingLeft="8dp"
 				android:paddingTop="8dp"
@@ -36,7 +40,8 @@
 				android:inputType="textMultiLine" />
 		</LinearLayout>
 		
-		<LinearLayout android:id="@+id/ll_appwidget_position"
+		<LinearLayout
+			android:id="@+id/ll_appwidget_position"
 			style="@style/lp_mp_wc"
 			android:paddingTop="16dp"
 			android:orientation="vertical"
@@ -85,7 +90,8 @@
 			</LinearLayout>
 		</LinearLayout>
 
-		<LinearLayout android:id="@+id/ll_appwidget_size"
+		<LinearLayout
+			android:id="@+id/ll_appwidget_size"
 			style="@style/lp_mp_mp"
 			android:paddingTop="16dp"
 			android:orientation="vertical"

@@ -86,7 +86,7 @@ public class DeviceSettings {
 	 * @return
 	 */
 	public static int getOrientation(Context context) {
-		return context.getResources().getConfiguration().orientation;    //return��1�Ȃ�c�A2�Ȃ牡
+		return context.getResources().getConfiguration().orientation;
 	}
 
 	/**
@@ -236,7 +236,7 @@ public class DeviceSettings {
 	 * @param context
 	 * @return
 	 */
-	public static String getExternalDir2(Context context) {
+	public static String _getExternalDir2(Context context) {
 		return Environment.getExternalStorageDirectory() + "/" + context.getPackageName() + "/";
 	}
 
@@ -270,6 +270,11 @@ public class DeviceSettings {
 	 * @return
 	 */
 	public static Drawable getWallpaper(Context context) {
-		return WallpaperManager.getInstance(context).getDrawable();
+		WallpaperManager wm = WallpaperManager.getInstance(context);
+		if (wm.getWallpaperInfo() == null) {
+			return wm.getDrawable();
+		} else {
+			return wm.getBuiltInDrawable();
+		}
 	}
 }

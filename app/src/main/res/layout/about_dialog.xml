@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/lp_mp_0" >
 		
 	<LinearLayout
@@ -58,7 +57,8 @@
 				<TextView
 					style="@style/lp_mp_wc"
 					android:text="@string/email" />
-				<TextView android:id="@+id/tv_email_address"
+				<TextView
+					android:id="@+id/tv_email_address"
 					style="@style/lp_mp_wc"
 					android:paddingLeft="8dp"
 					android:paddingBottom="8dp"

@@ -72,7 +72,6 @@ import java.util.Set;
  */
 public class EditorActivity extends Activity {
 
-	//REQUEST_CODE
 	private static final int REQUEST_CODE_ADD_LEGACY_SHORTCUT = 0;
 	private static final int REQUEST_CODE_ADD_APPWIDGET = 1;
 	private static final int REQUEST_CODE_ADD_APPWIDGET_2 = 2;
@@ -81,19 +80,19 @@ public class EditorActivity extends Activity {
 	private static final int REQUEST_CODE_EDIT_APP_ICON_TRIMMING = 21;
 	private static final int REQUEST_CODE_EDIT_APP_ICON_TRIMMING_2 = 22;
 
-	private static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_POINTER_ICON = 0;
-	private static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_APP_ICON = 1;
+	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_POINTER_ICON = 0;
+	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_APP_ICON = 1;
+	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_ICON_COLOR = 2;
 
 	private static final String TRIMMING_CACHE_FILE_NAME = "_trimming_cache_file";
 	private static final String IS_FROM_APP_SHORTCUT = "is_from_app_shortcut";
 	
-	//DIRECTION
 	private static final int DIRECTION_LEFT = 0;
 	private static final int DIRECTION_UP = 1;
 	private static final int DIRECTION_RIGHT = 2;
 	private static final int DIRECTION_DOWN = 3;
 
-	//view
+	//View
 	private RelativeLayout rl_all;
 	private DockWindow dock_window;
 	private PointerWindow pointer_window;
@@ -309,8 +308,7 @@ public class EditorActivity extends Activity {
 					case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING:
 					case REQUEST_CODE_EDIT_APP_ICON_TRIMMING:
 
-						if (!DeviceSettings.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
-								editDialog == null || !editDialog.isShowing()) {
+						if (editDialog == null || !editDialog.isShowing()) {
 
 							Toast.makeText(this, R.string.fail_set_image, Toast.LENGTH_SHORT).show();
 							onActivityResult(requestCode, Activity.RESULT_CANCELED, intent);
@@ -414,8 +412,7 @@ public class EditorActivity extends Activity {
 
 					case REQUEST_CODE_EDIT_POINTER_ICON_TRIMMING_2:
 					case REQUEST_CODE_EDIT_APP_ICON_TRIMMING_2:
-						if (!DeviceSettings.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
-								editDialog == null || !editDialog.isShowing()) {
+						if (editDialog == null || !editDialog.isShowing()) {
 
 							Toast.makeText(this, R.string.fail_set_image, Toast.LENGTH_SHORT).show();
 							onActivityResult(requestCode, Activity.RESULT_CANCELED, intent);
@@ -508,7 +505,7 @@ public class EditorActivity extends Activity {
 	 * deleteTrimmingCacheFile()
 	 */
 	private void deleteTrimmingCacheFile() {
-		if (!DeviceSettings.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) return;
+//		if (!DeviceSettings.checkPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) return;
 
 		(new Thread(new Runnable() {
 			@Override
@@ -573,6 +570,8 @@ public class EditorActivity extends Activity {
 						case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_APP_ICON:
 							iconTarget = IconList.TARGET_ICON_APP;
 							break;
+							
+							
 					}
 					trimmingImage(iconTarget);
 
@@ -583,6 +582,18 @@ public class EditorActivity extends Activity {
 
 				}
 				break;
+			
+			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_ICON_COLOR:
+				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					editDialog.showIconColorPicker();
+					
+				} else {
+					Toast.makeText(this, getResources().getString(R.string.require_permission_write_external_storage),
+							Toast.LENGTH_SHORT).show();
+					flickable = true;
+				}
+				break;
+
 		}
 	}
 
@@ -897,7 +908,7 @@ public class EditorActivity extends Activity {
 			}
 
 		}) {
-
+			
 			/**
 			 * onCreate()
 			 *
@@ -908,7 +919,7 @@ public class EditorActivity extends Activity {
 				super.onCreate(savedInstanceState);
 				flickable = true;
 			}
-
+			
 		};
 		
 		editDialog.show();
@@ -1570,7 +1581,6 @@ public class EditorActivity extends Activity {
 				flickable = true;
 
 			}
-
 		};
 
 		editDialog.show();

@@ -16,11 +16,6 @@
     <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="true" />
-    <!--
-    uses-feature android:name="android.hardware.wifi" android:required="false" />
-	<uses-feature android:name="android.hardware.bluetooth" android:required="false" />
-	<uses-feature android:name="android.hardware.telephony" android:required="false" /
-    -->
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -56,6 +51,7 @@
         android:icon="@mipmap/icon_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon_launcher_round"
+        android:supportsRtl="true"
         android:testOnly="true" >
         <activity
             android:name="com.ssmomonga.ssflicker.FlickerActivity"
@@ -91,7 +87,7 @@
                 android:resource="@xml/shortcuts" />
         </activity>
         <activity
-            android:name="com.ssmomonga.ssflicker.FlickerActivityHK"
+            android:name="com.ssmomonga.ssflicker.FlickerActivityForHome"
             android:clearTaskOnLaunch="true"
             android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
@@ -99,7 +95,7 @@
             android:label="@string/activity_name_flick"
             android:launchMode="singleTask"
             android:stateNotNeeded="true"
-            android:theme="@style/Theme.Flicker.Wallpaper" >
+            android:theme="@style/Theme.Flicker.Home" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

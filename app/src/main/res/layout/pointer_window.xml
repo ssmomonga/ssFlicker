@@ -2,208 +2,252 @@
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android" >
     
-	<TableRow
-		android:gravity="center" >
-		<LinearLayout android:id="@+id/ll_pointer_0"
+	<TableRow android:gravity="center" >
+		<LinearLayout
+			android:id="@+id/ll_pointer_0"
 			android:tag="0"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_0"
+			<ImageView
+				android:id="@+id/iv_pointer_0"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_0"
+			<TextView
+				android:id="@+id/tv_pointer_0"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
-		<LinearLayout android:id="@+id/ll_pointer_1"
+		<LinearLayout
+			android:id="@+id/ll_pointer_1"
 			android:tag="1"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_1"
+			<ImageView
+				android:id="@+id/iv_pointer_1"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_1"
+			<TextView
+				android:id="@+id/tv_pointer_1"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
-		<LinearLayout android:id="@+id/ll_pointer_2"
+		<LinearLayout
+			android:id="@+id/ll_pointer_2"
 			android:tag="2"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_2"
+			<ImageView
+				android:id="@+id/iv_pointer_2"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_2"
+			<TextView
+				android:id="@+id/tv_pointer_2"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
-		<LinearLayout android:id="@+id/ll_pointer_3"
+		<LinearLayout
+			android:id="@+id/ll_pointer_3"
 			android:tag="3"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_3"
+			<ImageView
+				android:id="@+id/iv_pointer_3"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_3"
+			<TextView
+				android:id="@+id/tv_pointer_3"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>	
 	</TableRow>
 
-	<TableRow
-		android:gravity="center" >
-		<LinearLayout android:id="@+id/ll_pointer_4"
+	<TableRow android:gravity="center" >
+		<LinearLayout
+			android:id="@+id/ll_pointer_4"
 			android:tag="4"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_4"
+			<ImageView
+				android:id="@+id/iv_pointer_4"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_4"
+			<TextView
+				android:id="@+id/tv_pointer_4"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
-		<LinearLayout android:id="@+id/ll_pointer_5"
+		<LinearLayout
+			android:id="@+id/ll_pointer_5"
 			android:tag="5"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_5"
+			<ImageView
+				android:id="@+id/iv_pointer_5"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_5"
+			<TextView
+				android:id="@+id/tv_pointer_5"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
-		<LinearLayout android:id="@+id/ll_pointer_6"
+		<LinearLayout
+			android:id="@+id/ll_pointer_6"
 			android:tag="6"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_6"
+			<ImageView
+				android:id="@+id/iv_pointer_6"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_6"
+			<TextView
+				android:id="@+id/tv_pointer_6"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
-		<LinearLayout android:id="@+id/ll_pointer_7"
+		<LinearLayout
+			android:id="@+id/ll_pointer_7"
 			android:tag="7"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_7"
+			<ImageView
+				android:id="@+id/iv_pointer_7"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_7"
+			<TextView
+				android:id="@+id/tv_pointer_7"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
 	</TableRow>
 	
-	<TableRow
-		android:gravity="center" >
-		<LinearLayout android:id="@+id/ll_pointer_8"
+	<TableRow android:gravity="center" >
+		<LinearLayout
+			android:id="@+id/ll_pointer_8"
 			android:tag="8"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_8"
+			<ImageView
+				android:id="@+id/iv_pointer_8"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_8"
+			<TextView
+				android:id="@+id/tv_pointer_8"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
-		<LinearLayout android:id="@+id/ll_pointer_9"
+		<LinearLayout
+			android:id="@+id/ll_pointer_9"
 			android:tag="9"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_9"
+			<ImageView
+				android:id="@+id/iv_pointer_9"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_9"
+			<TextView
+				android:id="@+id/tv_pointer_9"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
-		<LinearLayout android:id="@+id/ll_pointer_10"
+		<LinearLayout
+			android:id="@+id/ll_pointer_10"
 			android:tag="10"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_10"
+			<ImageView
+				android:id="@+id/iv_pointer_10"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_10"
+			<TextView
+				android:id="@+id/tv_pointer_10"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
-		<LinearLayout android:id="@+id/ll_pointer_11"
+		<LinearLayout
+			android:id="@+id/ll_pointer_11"
 			android:tag="11"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_11"
+			<ImageView
+				android:id="@+id/iv_pointer_11"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_11"
+			<TextView
+				android:id="@+id/tv_pointer_11"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
 	</TableRow>
 	
-	<TableRow
-		android:gravity="center" >
-		<LinearLayout android:id="@+id/ll_pointer_12"
+	<TableRow android:gravity="center" >
+		<LinearLayout
+			android:id="@+id/ll_pointer_12"
 			android:tag="12"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_12"
+			<ImageView
+				android:id="@+id/iv_pointer_12"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_12"
+			<TextView
+				android:id="@+id/tv_pointer_12"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
-		<LinearLayout android:id="@+id/ll_pointer_13"
+		<LinearLayout
+			android:id="@+id/ll_pointer_13"
 			android:tag="13"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_13"
+			<ImageView
+				android:id="@+id/iv_pointer_13"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_13"
+			<TextView
+				android:id="@+id/tv_pointer_13"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
-		<LinearLayout android:id="@+id/ll_pointer_14"
+		<LinearLayout
+			android:id="@+id/ll_pointer_14"
 			android:tag="14"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_14"
+			<ImageView
+				android:id="@+id/iv_pointer_14"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_14"
+			<TextView
+				android:id="@+id/tv_pointer_14"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />
 		</LinearLayout>
-		<LinearLayout android:id="@+id/ll_pointer_15"
+		<LinearLayout
+			android:id="@+id/ll_pointer_15"
 			android:tag="15"
 			style="@style/lp_wc_wc"
 			android:gravity="center"
 			android:orientation="vertical" >
-			<ImageView android:id="@+id/iv_pointer_15"
+			<ImageView
+				android:id="@+id/iv_pointer_15"
 				style="@style/lp_wc_wc" />
-			<TextView android:id="@+id/tv_pointer_15"
+			<TextView
+				android:id="@+id/tv_pointer_15"
 				style="@style/lp_wc_wc"
 				android:gravity="center"
 				android:maxLines="1" />

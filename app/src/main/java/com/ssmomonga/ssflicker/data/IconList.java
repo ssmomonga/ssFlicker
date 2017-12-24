@@ -11,7 +11,7 @@ import com.ssmomonga.ssflicker.R;
 public class IconList {
 	
 	public static final int TARGET_ICON_POINTER = 0;
-	public static final int TARGET_ICON_APP = 2;
+	public static final int TARGET_ICON_APP = 1;
 	
 	public static final int LABEL_ICON_TYPE_ORIGINAL = 0;		//ポインタ、アプリのオリジナルアイコンやファンクション名
 	public static final int LABEL_ICON_TYPE_MULTI_APPS = 1;		//ポインタのマルチアプリアイコン

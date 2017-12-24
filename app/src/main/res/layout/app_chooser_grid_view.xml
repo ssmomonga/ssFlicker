@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/lp_wc_wc"
 	android:gravity="center"
 	android:padding="8dp"
 	android:orientation="vertical" >
 
-	<ImageView android:id="@+id/iv_icon"
+	<ImageView
+		android:id="@+id/iv_icon"
 		style="@style/lp_wc_wc" />
 
-	<TextView android:id="@+id/tv_label"
+	<TextView
+		android:id="@+id/tv_label"
 		style="@style/lp_48_wc"
 		android:gravity="center|top"
 		android:paddingTop="4dp"
-		android:maxLines="1"
-		android:ellipsize="end"
 		android:textSize="12sp"
-		android:textColor="?android:textColorPrimary" />
+		android:textColor="?android:textColorPrimary"
+		android:maxLines="1"
+		android:ellipsize="end" />
 
 </LinearLayout>

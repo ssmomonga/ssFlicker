@@ -1,7 +1,6 @@
 package com.ssmomonga.ssflicker;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -38,13 +37,51 @@ import com.ssmomonga.ssflicker.set.InvisibleAppWidgetSettings;
  */
 public class PrefActivity extends PreferenceActivity {
 
-	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE = 0;
+	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_BACKUP_RESTORE = 0;
+//	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_WINDOW_BACKGROUND_COLOR = 1;
+//	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_TEXT_COLOR = 2;
 
 	private static PrefDAO pdao;
 	private static Launch l;
-
-	private Dialog dialog;
-
+	
+	private static PreferenceScreen launch_by_default;
+	private static PreferenceScreen launch_from_overlay;
+	private static SwitchPreference launch_from_statusbar;
+	
+	private static ColorPreference window_background_color;
+	private static ListPreference pointer_window_position_portrait;
+	private static ListPreference dock_window_position_portrait;
+	private static ListPreference pointer_window_position_landscape;
+	private static ListPreference dock_window_position_landscape;
+	
+	private static ListPreference icon_size;
+	private static SwitchPreference text_visibility;
+	private static ColorPreference text_color;
+	private static ListPreference text_size;
+	
+	private static SwitchPreference vibrate;
+	private static SwitchPreference statusbar_visibility;
+	private static SwitchPreference invisible_appwidget_background_visibility;
+	
+	private static PreferenceScreen backup_restore;
+	private static PreferenceScreen donation;
+	
+	private static Dialog dialog;
+	
+	private static Intent bindOverlayServiceIntent;
+	private static Messenger overlayServiceMessenger;
+	
+	private static ServiceConnection overlayServiceConn = new ServiceConnection() {
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			overlayServiceMessenger = new Messenger(service);
+		}
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			overlayServiceMessenger = null;
+		}
+	};
+	
 	/**
 	 * onCreate()
 	 *
@@ -56,18 +93,22 @@ public class PrefActivity extends PreferenceActivity {
 
 		pdao = new PrefDAO(this);
 		l = new Launch(this);
+		bindOverlayServiceIntent = new Intent().setClass(this, OverlayService.class);
 		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefFragment()).commit();
 	}
-
+	
 	/**
-	 * onDestry()
+	 * onResume()
 	 */
 	@Override
-	public void onDestroy() {
-		super.onDestroy();
-
-		if (dialog != null && dialog.isShowing()) dialog.dismiss();
-//			new BackupManager(activity).dataChanged();	BackupAgentを停止
+	public void onResume() {
+		super.onResume();
+		startForegroundService(new Intent(this, PackageObserveService.class));
+		l.startStatusbar(pdao.isStatusbar());
+		if (pdao.isOverlay()) {
+			startForegroundService(new Intent(this, OverlayService.class));
+			bindService(bindOverlayServiceIntent, overlayServiceConn, BIND_AUTO_CREATE);
+		}
 	}
 
 	/**
@@ -79,16 +120,38 @@ public class PrefActivity extends PreferenceActivity {
 	 */
 	@Override
 	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-
+		
 		switch(requestCode) {
-			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE:
+			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_BACKUP_RESTORE:
 				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					dialog = new BackupRestoreDialog(this);
 					dialog.show();
+					
 				} else {
 					Toast.makeText(this, getResources().getString(R.string.require_permission_write_external_storage), Toast.LENGTH_SHORT).show();
 				}
 				break;
+			
+/*			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_WINDOW_BACKGROUND_COLOR:
+				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					window_background_color.showColorPicker(window_background_color);
+					
+				} else {
+					Toast.makeText(this, getResources().getString(R.string.require_permission_write_external_storage),
+							Toast.LENGTH_SHORT).show();
+				}
+				break;
+			
+			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_TEXT_COLOR:
+				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					text_color.showColorPicker(text_color);
+					
+				} else {
+					Toast.makeText(this, getResources().getString(R.string.require_permission_write_external_storage),
+							Toast.LENGTH_SHORT).show();
+				}
+				break;
+*/
 		}
 	}
 
@@ -127,45 +190,7 @@ public class PrefActivity extends PreferenceActivity {
 	 * PrefFragment
 	 */
 	public static class PrefFragment extends PreferenceFragment {
-
-		private PreferenceScreen launch_by_default;
-		private PreferenceScreen launch_from_overlay;
-		private SwitchPreference launch_from_statusbar;
-
-		private ColorPreference window_background_color;
-		private ListPreference pointer_window_position_portrait;
-		private ListPreference dock_window_position_portrait;
-		private ListPreference pointer_window_position_landscape;
-		private ListPreference dock_window_position_landscape;
-
-		private ListPreference icon_size;
-		private SwitchPreference text_visibility;
-		private ColorPreference text_color;
-		private ListPreference text_size;
-
-		private SwitchPreference vibrate;
-		private SwitchPreference statusbar_visibility;
-		private SwitchPreference invisible_appwidget_background_visibility;
-
-		private PreferenceScreen backup_restore;
-		private PreferenceScreen donation;
-
-		private Activity activity;
-		private Dialog dialog;
-
-		private Intent bindOverlayServiceIntent;
-		private Messenger overlayServiceMessenger;
-		private ServiceConnection overlayServiceConn = new ServiceConnection() {
-			@Override
-			public void onServiceConnected(ComponentName name, IBinder service) {
-				overlayServiceMessenger = new Messenger(service);
-			}
-			@Override
-			public void onServiceDisconnected(ComponentName name) {
-				overlayServiceMessenger = null;
-			}
-		};
-
+		
 		/**
 		 * onCreate()
 		 *
@@ -174,9 +199,6 @@ public class PrefActivity extends PreferenceActivity {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-
-			activity = getActivity();
-			bindOverlayServiceIntent = new Intent().setClass(activity, OverlayService.class);
 			setInitialLayout();
 		}
 
@@ -186,13 +208,6 @@ public class PrefActivity extends PreferenceActivity {
 		@Override
 		public void onResume() {
 			super.onResume();
-			
-			getContext().startForegroundService(new Intent(getContext(), PackageObserveService.class));
-			l.startStatusbar(pdao.isStatusbar());
-			if (pdao.isOverlay()) {
-				getContext().startForegroundService(new Intent(getContext(), OverlayService.class));
-				activity.bindService(bindOverlayServiceIntent, overlayServiceConn, BIND_AUTO_CREATE);
-			}
 			setLayout();
 		}
 		
@@ -202,9 +217,9 @@ public class PrefActivity extends PreferenceActivity {
 		@Override
 		public void onPause() {
 			super.onPause();
-			if (pdao.isOverlay()) activity.unbindService(overlayServiceConn);
+			if (pdao.isOverlay()) getActivity().unbindService(overlayServiceConn);
 		}
-
+		
 		/**
 		 * onDestry()
 		 */
@@ -216,9 +231,7 @@ public class PrefActivity extends PreferenceActivity {
 			text_color.dismissColorPicker();
 //			new BackupManager(activity).dataChanged();	BackupAgentを停止
 		}
-
-
-
+		
 		/**
 		 * PreferenceClickListener
 		 */
@@ -287,13 +300,13 @@ public class PrefActivity extends PreferenceActivity {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
 
-					if (DeviceSettings.checkPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-						dialog = new BackupRestoreDialog(activity);
+					if (DeviceSettings.checkPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+						dialog = new BackupRestoreDialog(getActivity());
 						dialog.show();
 
 					} else {
-						activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-								PrefActivity.REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE);
+						getActivity().requestPermissions(new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE},
+								PrefActivity.REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_BACKUP_RESTORE);
 					}
 
 					return false;
@@ -321,7 +334,7 @@ public class PrefActivity extends PreferenceActivity {
 			setSummary(icon_size, pdao.getRawIconSize());
 			setSummary(text_size, pdao.getRawTextSize());
 			
-			if (DeviceSettings.hasVibrator(activity)) {
+			if (DeviceSettings.hasVibrator(getActivity())) {
 				setSummary(vibrate, pdao.isVibrate());
 			} else {
 				vibrate.setEnabled(false);
@@ -330,7 +343,7 @@ public class PrefActivity extends PreferenceActivity {
 			
 			setSummary(statusbar_visibility, pdao.isStatusbarVisibility());
 
-			if (DeviceSettings.hasInvisibleAppWidget(activity)) {
+			if (DeviceSettings.hasInvisibleAppWidget(getActivity())) {
 				setSummary(invisible_appwidget_background_visibility,
 						pdao.isInvisibleAppWidgetBackgroundVisibility());
 			} else {
@@ -338,7 +351,7 @@ public class PrefActivity extends PreferenceActivity {
 				setSummary(invisible_appwidget_background_visibility, null);
 			}
 			
-			if (DeviceSettings.hasExternalStorage(activity)) {
+			if (DeviceSettings.hasExternalStorage(getActivity())) {
 				setSummary(backup_restore, true);
 			} else {
 				backup_restore.setEnabled(false);
@@ -375,12 +388,12 @@ public class PrefActivity extends PreferenceActivity {
 					}
 
 				} else if (preference == invisible_appwidget_background_visibility) {
-					AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(activity);
-					ComponentName compName = new ComponentName(activity, InvisibleAppWidget.class);
+					AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity());
+					ComponentName compName = new ComponentName(getActivity(), InvisibleAppWidget.class);
 					int appWidgetIds[] = appWidgetManager.getAppWidgetIds(compName);
 					InvisibleAppWidgetSettings settings = new InvisibleAppWidgetSettings((Boolean) newValue);
 					new InvisibleAppWidget().viewInvisibleAppWidget(
-							activity, appWidgetManager, appWidgetIds, settings);
+							getActivity(), appWidgetManager, appWidgetIds, settings);
 
 				}
 
@@ -472,10 +485,10 @@ public class PrefActivity extends PreferenceActivity {
 				switch (Integer.parseInt((String) value)) {
 					case 10:
 						text_size.setSummary(getString(R.string.text_size_small));
-						break;				
+						break;
 					case 12:
 						text_size.setSummary(getString(R.string.text_size_medium));
-						break;				
+						break;
 					case 14:
 						text_size.setSummary(getString(R.string.text_size_large));
 						break;

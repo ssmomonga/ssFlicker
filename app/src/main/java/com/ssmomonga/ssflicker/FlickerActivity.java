@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -19,8 +18,6 @@ import android.widget.Toast;
 
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.AppList;
-import com.ssmomonga.ssflicker.data.FunctionInfo;
-import com.ssmomonga.ssflicker.data.IconList;
 import com.ssmomonga.ssflicker.data.IntentAppInfo;
 import com.ssmomonga.ssflicker.data.MenuList;
 import com.ssmomonga.ssflicker.data.Pointer;
@@ -41,8 +38,8 @@ import com.ssmomonga.ssflicker.view.PointerWindow;
  */
 public class FlickerActivity extends Activity {
 
-	public static final int REQUEST_PERMISSION_CODE_WRITE_SETTINGS = 0;
-	public static final int REQUEST_PERMISSION_CODE_CALL_PHONE = 0;
+	public static final int REQUEST_CODE_WRITE_SETTINGS = 0;
+	public static final int REQUEST_PERMISSION_CODE_CALL_PHONE = 1;
 
 	private FrameLayout fl_all;
 	private AppWidgetLayer app_widget_layer;
@@ -59,7 +56,7 @@ public class FlickerActivity extends Activity {
 
 	private int pointerId;
 	private int appId;
-	private boolean flickable = true;
+//	private boolean flickable = true;
 
 	/**
 	 * onCreate()
@@ -85,7 +82,7 @@ public class FlickerActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 
-		flickable = true;
+//		flickable = true;
 
 		pointerList = sdao.selectPointerTable();
 		appListList = sdao.selectAppTable();
@@ -131,10 +128,10 @@ public class FlickerActivity extends Activity {
 	/**
 	 * finish()
 	 */
-	@Override
-	public void finish() {
-		if (flickable) super.finish();
-	}
+//	@Override
+//	public void finish() {
+//		if (flickable) super.finish();
+//	}
 
 	/**
 	 * onKeyDown()
@@ -167,25 +164,16 @@ public class FlickerActivity extends Activity {
 			case RESULT_CANCELED:
 
 				switch (requestCode) {
-					case REQUEST_PERMISSION_CODE_WRITE_SETTINGS:
+					case REQUEST_CODE_WRITE_SETTINGS:
 						if (DeviceSettings.checkPermission(this, Manifest.permission.WRITE_SETTINGS )) {
-							Resources r = this.getResources();
-							l.launch(new App(this,
-											App.APP_TYPE_FUNCTION,
-											null,
-											r.getString(R.string.rotate),
-											IconList.LABEL_ICON_TYPE_ORIGINAL,
-											r.getDrawable(R.mipmap.icon_23_function_rotate, null),
-											IconList.LABEL_ICON_TYPE_ORIGINAL,
-											new FunctionInfo(FunctionInfo.FUNCTION_TYPE_ROTATE)),
-									new Rect(0, 0, 0, 0));
+							l.launch(appListList[pointerId][appId], new Rect(0, 0, 0, 0));
 						}
 						break;
 				}
 				break;
 		}
 
-		flickable = true;
+//		flickable = true;
 	}
 
 	/**
@@ -211,7 +199,7 @@ public class FlickerActivity extends Activity {
 				break;
 		}
 
-		flickable = true;
+//		flickable = true;
 	}
 
 	/**
@@ -296,7 +284,8 @@ public class FlickerActivity extends Activity {
 		 */
 		@Override
 		public boolean isEnable() {
-			return flickable;
+			return true;
+//			return flickable;
 		}
 
 		/**
@@ -357,7 +346,7 @@ public class FlickerActivity extends Activity {
 			if (position == -1 ) {
 				dock_window.setDockPointed(false, appId);
 				if (dock.getAppType() != App.APP_TYPE_APPWIDGET) {
-					checkPermissionAndLaunch(dock, r);
+					l.launch(dock, r);
 				} else {
 					viewAppWidget(appListList[pointerId][appId]);
 				}
@@ -396,7 +385,8 @@ public class FlickerActivity extends Activity {
 		 */
 		@Override
 		public boolean isEnable() {
-			return flickable;
+			return true;
+//			return flickable;
 		}
 
 		/**
@@ -467,7 +457,7 @@ public class FlickerActivity extends Activity {
 				App app = appListList[pointerId][appId];
 				if (app != null) {
 					if (app.getAppType() != App.APP_TYPE_APPWIDGET) {
-						checkPermissionAndLaunch(app, r);
+						l.launch(app, r);
 					} else {
 						viewAppWidget(app);
 					}
@@ -482,53 +472,6 @@ public class FlickerActivity extends Activity {
 		 */
 		@Override
 		public void onCancel(int position) {}
-	}
-
-	/**
-	 * checkPermission()
-	 *
-	 * @param app
-	 * @return
-	 */
-	private void checkPermissionAndLaunch(App app, Rect r) {
-		switch (app.getAppType()) {
-			case App.APP_TYPE_INTENT_APP:
-
-				IntentAppInfo intentApp = app.getIntentAppInfo();
-				if (intentApp.getIntent().getAction().equals(Intent.ACTION_CALL) &&
-						!DeviceSettings.checkPermission(this, Manifest.permission.CALL_PHONE)) {
-
-					requestPermissions(new String[] { Manifest.permission.CALL_PHONE },
-							FlickerActivity.REQUEST_PERMISSION_CODE_CALL_PHONE);
-					flickable = false;
-
-				} else {
-					l.launch(app, r);
-					finish();
-				}
-
-				break;
-
-			case App.APP_TYPE_FUNCTION:
-
-				FunctionInfo functionApp = app.getFunctionInfo();
-				if (functionApp.getFunctionType() == FunctionInfo.FUNCTION_TYPE_ROTATE &&
-						!DeviceSettings.checkPermission(this, Manifest.permission.WRITE_SETTINGS)) {
-
-					l.launchWriteSettingsPermission(REQUEST_PERMISSION_CODE_WRITE_SETTINGS);
-					Toast.makeText(this, R.string.require_permission_write_settings, Toast.LENGTH_SHORT).show();
-					flickable = false;
-
-				} else {
-					l.launch(app, r);
-				}
-
-				break;
-
-			default:
-				l.launch(app, r);
-				break;
-		}
 	}
 
 	/**
@@ -552,7 +495,8 @@ public class FlickerActivity extends Activity {
 		 */
 		@Override
 		public boolean isEnable() {
-			return flickable;
+//			return flickable;
+			return true;
 		}
 
 		/**

@@ -35,7 +35,6 @@ import com.ssmomonga.ssflicker.set.DeviceSettings;
  */
 public class Launch {
 	
-	private static final int JOB_ID = 1;
 	private static final int VIBRATE_TIME = 30;
 	
 //	public static final String NOTIFICATION_CHANNEL_ID_PACKAGE_OBSERVE = "notification_channel_id_package_observe";
@@ -86,39 +85,28 @@ public class Launch {
 	 * @param r
 	 */
 	private void launchIntentApp(IntentAppInfo intentApp, Rect r) {
-		try {
-			Intent intent = intentApp.getIntent();
-			intent.setSourceBounds(r);
-//			((Activity) context).startActivityForResult(intent, 99);
-			context.startActivity(intent);
-			((Activity) context).overridePendingTransition(R.anim.activity_start, R.anim.activity_finish);
-			((Activity) context).finish();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-/*			try {
-				
-				Intent intent = new Intent(Intent.ACTION_MAIN)
-						.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED)
-						.setPackage(intentApp.getIntent().getComponent().getPackageName());
+		
+		if (intentApp.getIntent().getAction().equals(Intent.ACTION_CALL) &&
+				!DeviceSettings.checkPermission(context, Manifest.permission.CALL_PHONE)) {
+			
+			((Activity) context).requestPermissions(new String[] { Manifest.permission.CALL_PHONE },
+					FlickerActivity.REQUEST_PERMISSION_CODE_CALL_PHONE);
+			
+		} else {
+			
+			try {
+				Intent intent = intentApp.getIntent();
 				intent.setSourceBounds(r);
-				
-				PackageManager pm = context.getPackageManager();
-				List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(intent, 0);
-				intent.setClassName(resolveInfoList.get(0).activityInfo.packageName,
-						resolveInfoList.get(0).activityInfo.name);
-				
-//				((Activity) context).startActivityForResult(intent, 99);
-				(context).startActivity(intent);
-				((Activity) context).overridePendingTransition(R.anim.enter_activity, R.anim.exit_activity);
+				context.startActivity(intent);
+				((Activity) context).overridePendingTransition(R.anim.activity_start, R.anim.activity_finish);
 				((Activity) context).finish();
-*/
-//			} catch (Exception e2) {
-//				e2.printStackTrace();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
 				Toast.makeText(context, R.string.launch_app_error, Toast.LENGTH_SHORT).show();
-
-//			}
+			}
 		}
+		
 	}
 
 	/**
@@ -277,6 +265,11 @@ public class Launch {
 				Settings.System.putInt(context.getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 1);
 				Toast.makeText(context, R.string.rotate_on, Toast.LENGTH_SHORT).show();
 			}
+			
+		} else {
+			launchWriteSettingsPermission(FlickerActivity.REQUEST_CODE_WRITE_SETTINGS);
+			Toast.makeText(context, R.string.require_permission_write_settings, Toast.LENGTH_SHORT).show();
+			
 		}
 	}
 

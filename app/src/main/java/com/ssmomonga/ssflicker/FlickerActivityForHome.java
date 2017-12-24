@@ -3,7 +3,7 @@ package com.ssmomonga.ssflicker;
 /**
  * FlickerActivityHK
  */
-public class FlickerActivityHK extends FlickerActivity{
+public class FlickerActivityForHome extends FlickerActivity{
 	
 	/**
 	 * finish()

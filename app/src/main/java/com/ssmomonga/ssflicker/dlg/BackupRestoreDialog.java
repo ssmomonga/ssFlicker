@@ -27,8 +27,7 @@ import com.ssmomonga.ssflicker.set.DeviceSettings;
 public class BackupRestoreDialog extends AlertDialog{
 	
 	private static Resources r;
-
-	private View view;
+	
 	private Spinner sp_select_restore_file;
 	private StorageBackupRestore backup;
 	
@@ -54,13 +53,16 @@ public class BackupRestoreDialog extends AlertDialog{
 		final Context context = getContext();
 		
 		LayoutInflater inflater = LayoutInflater.from(context);
-		view = inflater.inflate(R.layout.backup_restore_dialog, null);
+		View view = inflater.inflate(R.layout.backup_restore_dialog, null);
 		setView(view);
 			
 		TextView tv_backup_dir = view.findViewById(R.id.tv_backup_dir);
 		tv_backup_dir.setText(DeviceSettings.getExternalDir(context));
 			
-		setAdapter();
+		sp_select_restore_file = view.findViewById(R.id.sp_select_restore_file);
+		sp_select_restore_file.setEnabled(false);
+		ArrayAdapter<String> adapter = backup.getBackupFileList();
+		sp_select_restore_file.setAdapter(adapter);
 
 		final RadioGroup rg_backup_restore = view.findViewById(R.id.rg_backup_restore);
 		rg_backup_restore.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -99,7 +101,7 @@ public class BackupRestoreDialog extends AlertDialog{
 							Toast.makeText(context, R.string.select_backup_restore, Toast.LENGTH_SHORT).show();
 
 						} else if (radioButtonId == R.id.rb_restore &&
-								((String) sp_select_restore_file.getSelectedItem()).equals(context.getResources().getString(R.string.no_restore_file))) {
+								(sp_select_restore_file.getSelectedItem()).equals(context.getResources().getString(R.string.no_restore_file))) {
 							Toast.makeText(context, R.string.no_restore_file, Toast.LENGTH_SHORT).show();
 
 						} else {
@@ -118,16 +120,6 @@ public class BackupRestoreDialog extends AlertDialog{
 		
 	}
 
-	/**
-	 * setAdapter()
-	 */
-	private void setAdapter() {
-		ArrayAdapter<String> adapter = backup.getBackupFileList();
-		sp_select_restore_file = view.findViewById(R.id.sp_select_restore_file);
-		sp_select_restore_file.setEnabled(false);
-		sp_select_restore_file.setAdapter(adapter);
-	}
-	
 	/**
 	 * dismiss()
 	 */
@@ -176,7 +168,6 @@ public class BackupRestoreDialog extends AlertDialog{
 							result = backup.backup();
 							
 							if (result) {
-								BackupRestoreDialog.this.setAdapter();
 								message = r.getString(R.string.backup_complete);
 							} else {
 								message = r.getString(R.string.fail_backup);
@@ -184,8 +175,7 @@ public class BackupRestoreDialog extends AlertDialog{
 							break;
 						
 						case R.id.rb_restore:
-							String fileName = (String) ((Spinner) view.findViewById(R.id.sp_select_restore_file))
-									.getSelectedItem();
+							String fileName = (String) sp_select_restore_file.getSelectedItem();
 							result =  backup.restore(fileName);
 
 							if (result) {
@@ -252,7 +242,7 @@ public class BackupRestoreDialog extends AlertDialog{
 		 */
 		@Override
 		protected Boolean doInBackground(Void... v) {
-			String fileName = (String) ((Spinner) view.findViewById(R.id.sp_select_restore_file))
+			String fileName = (String) ((Spinner) findViewById(R.id.sp_select_restore_file))
 					.getSelectedItem();
 			return backup.restore(fileName);
 		}

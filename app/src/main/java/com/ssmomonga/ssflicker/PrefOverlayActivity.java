@@ -35,10 +35,36 @@ public class PrefOverlayActivity extends PreferenceActivity {
 
 	public static final int REQUEST_CODE_ANDROID_OVERLAY_SETTINGS = 0;
 
+//	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_OVERLAY_POINT_BACKGROUND_COLOR = 0;
+	
+	private static SwitchPreference[] overlay_point = new SwitchPreference[OverlayParams.OVERLAY_POINT_COUNT];
+	private static ListPreference[] overlay_point_side = new ListPreference[OverlayParams.OVERLAY_POINT_COUNT];
+	private static ListPreference[] overlay_point_position = new ListPreference[OverlayParams.OVERLAY_POINT_COUNT];
+	private static ListPreference[] overlay_point_width = new ListPreference[OverlayParams.OVERLAY_POINT_COUNT];
+	private static ColorPreference overlay_point_background_color;
+//		private ListPreference overlay_point_action;
+//		private SwitchPreference overlay_animation;
+//		private SwitchPreference overlay_foreground;
+	
 	private static PrefDAO pdao;
 	private static Launch l;
 	private static boolean b_overlay_permission;
-
+	
+	private static Intent bindOverlayServiceIntent;
+	private static Messenger overlayServiceMessenger;
+	private static ServiceConnection overlayServiceConn = new ServiceConnection() {
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			overlayServiceMessenger = new Messenger(service);
+		}
+		
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			overlayServiceMessenger = null;
+		}
+	};
+	
+	
 	/**
 	 * onCreate()
 	 *
@@ -50,7 +76,41 @@ public class PrefOverlayActivity extends PreferenceActivity {
 
 		pdao = new PrefDAO(this);
 		l = new Launch(this);
-		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefSubFragment()).commit();
+		bindOverlayServiceIntent = new Intent().setClass(this, OverlayService.class);
+		
+		b_overlay_permission = DeviceSettings.checkPermission(this, Manifest.permission.SYSTEM_ALERT_WINDOW);
+		if (!b_overlay_permission) {
+			OneTimeDialog dialog = new OneTimeDialog(
+					this, PrefDAO.ONE_TIME_DIALOG_OVERLAY_SETTINGS,
+					getString(R.string.one_time_message_overlay_settings)) {
+				@Override
+				public void onOK() {
+					l.launchOverlayPermission(REQUEST_CODE_ANDROID_OVERLAY_SETTINGS);
+				}
+			};
+			dialog.show();
+		}
+		
+		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefFragment()).commit();
+	}
+	
+	/**
+	 * onResume()
+	 */
+	@Override
+	public void onResume() {
+		super.onResume();
+		b_overlay_permission = DeviceSettings.checkPermission(this, Manifest.permission.SYSTEM_ALERT_WINDOW);
+		bindService(bindOverlayServiceIntent, overlayServiceConn, BIND_AUTO_CREATE);
+	}
+	
+	/**
+	 * onPause()
+	 */
+	@Override
+	public void onPause() {
+		super.onPause();
+		unbindService(overlayServiceConn);
 	}
 
 	/**
@@ -68,21 +128,43 @@ public class PrefOverlayActivity extends PreferenceActivity {
 			case Activity.RESULT_CANCELED:
 				switch (requestCode) {
 					case REQUEST_CODE_ANDROID_OVERLAY_SETTINGS:
+						/*
+						パーミッションが許可されていない場合は前の画面に戻る。
+						が、なぜか許可されても「不許可」となってしまうので、必ずfinish()が呼ばれる。多分Oreo（8.0）のバグ
+						8.1では直っているっぽい。
+						 */
+//						b_overlay_permission = DeviceSettings.checkPermission(this, Manifest.permission.SYSTEM_ALERT_WINDOW);
+//						if (!b_overlay_permission) {
+//							finish();
+//						}
 						break;
 				}
 		}
-
-		/*
-		パーミッションが許可されていない場合は前の画面に戻る。
-		が、なぜか許可されても「不許可」となってしまうので、必ずfinish()が呼ばれる。多分Oreoのバグ
-		 */
-		b_overlay_permission = DeviceSettings.checkPermission(this, Manifest.permission.SYSTEM_ALERT_WINDOW);
-		if (!b_overlay_permission) {
-			finish();
-		}
-
 	}
-
+	
+	/**
+	 * onRequestPermissionResult()
+	 *
+	 * @param requestCode
+	 * @param permissions
+	 * @param grantResults
+	 */
+/*	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		
+		switch(requestCode) {
+			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_OVERLAY_POINT_BACKGROUND_COLOR:
+				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					overlay_point_background_color.showColorPicker(overlay_point_background_color);
+					
+				} else {
+					Toast.makeText(this, getResources().getString(R.string.require_permission_write_external_storage),
+							Toast.LENGTH_SHORT).show();
+				}
+				break;
+		}
+	}
+*/
 	/**
 	 * onCreateOptionsMenu()
 	 *
@@ -112,32 +194,7 @@ public class PrefOverlayActivity extends PreferenceActivity {
 	/**
 	 * PrefFragment
 	 */
-	public static class PrefSubFragment extends PreferenceFragment {
-
-		private SwitchPreference[] overlay_point = new SwitchPreference[OverlayParams.OVERLAY_POINT_COUNT];
-		private ListPreference[] overlay_point_side = new ListPreference[OverlayParams.OVERLAY_POINT_COUNT];
-		private ListPreference[] overlay_point_position = new ListPreference[OverlayParams.OVERLAY_POINT_COUNT];
-		private ListPreference[] overlay_point_width = new ListPreference[OverlayParams.OVERLAY_POINT_COUNT];
-		private ColorPreference overlay_point_background_color;
-//		private ListPreference overlay_point_action;
-//		private SwitchPreference overlay_animation;
-//		private SwitchPreference overlay_foreground;
-
-		private Activity activity;
-
-		private Intent bindOverlayServiceIntent;
-		private Messenger overlayServiceMessenger;
-		private ServiceConnection overlayServiceConn = new ServiceConnection() {
-			@Override
-			public void onServiceConnected(ComponentName name, IBinder service) {
-				overlayServiceMessenger = new Messenger(service);
-			}
-
-			@Override
-			public void onServiceDisconnected(ComponentName name) {
-				overlayServiceMessenger = null;
-			}
-		};
+	public static class PrefFragment extends PreferenceFragment {
 
 		/**
 		 * onCreate()
@@ -147,9 +204,6 @@ public class PrefOverlayActivity extends PreferenceActivity {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-
-			activity = getActivity();
-			bindOverlayServiceIntent = new Intent().setClass(activity, OverlayService.class);
 			setInitialLayout();
 		}
 
@@ -159,30 +213,7 @@ public class PrefOverlayActivity extends PreferenceActivity {
 		@Override
 		public void onResume() {
 			super.onResume();
-			b_overlay_permission = DeviceSettings.checkPermission(activity, Manifest.permission.SYSTEM_ALERT_WINDOW);
-
-			if (!b_overlay_permission) {
-				OneTimeDialog dialog = new OneTimeDialog(
-						activity, PrefDAO.ONE_TIME_DIALOG_OVERLAY_SETTINGS,
-						getString(R.string.one_time_message_overlay_settings)) {
-					@Override
-					public void onOK() {
-						l.launchOverlayPermission(REQUEST_CODE_ANDROID_OVERLAY_SETTINGS);
-					}
-				};
-				dialog.show();
-			}
-			activity.bindService(bindOverlayServiceIntent, overlayServiceConn, BIND_AUTO_CREATE);
 			setLayout();
-		}
-
-		/**
-		 * onPause()
-		 */
-		@Override
-		public void onPause() {
-			super.onPause();
-			activity.unbindService(overlayServiceConn);
 		}
 
 		/**
@@ -198,7 +229,7 @@ public class PrefOverlayActivity extends PreferenceActivity {
 		 * setInitialLayout()
 		 */
 		private void setInitialLayout() {
-			activity.setTitle(getString(launch_from_overlay));
+			getActivity().setTitle(getString(launch_from_overlay));
 			addPreferencesFromResource(R.xml.pref_overlay_activity);
 			overlay_point[0] = (SwitchPreference) findPreference(PrefDAO.OVERLAY_POINT_0);
 			overlay_point[0].setOnPreferenceChangeListener(new PreferenceChangeListener());
@@ -224,6 +255,7 @@ public class PrefOverlayActivity extends PreferenceActivity {
 //			overlay_animation.setOnPreferenceChangeListener(new PreferenceChangeListener());
 //			overlay_foreground = (SwitchPreference) findPreference(PrefDAO.OVERLAY_FOREGROUND);
 //			overlay_foreground.setOnPreferenceChangeListener(new PreferenceChangeListener());
+			
 		}
 
 		/**

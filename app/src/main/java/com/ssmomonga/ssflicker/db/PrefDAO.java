@@ -19,7 +19,6 @@ public class PrefDAO {
 	public static final String HOME_KEY = "home_key";
 	public static final String HOME_KEY_ANOTHER_HOME = "home_key_another_home";
 	public static final String HOME_KEY_CLICK_MODE = "home_key_click_mode";
-	public static final String HOME_KEY_CLICK_INTERVAL = "home_key_click_interval";
 	public static final String SEARCH_KEY = "search_key";
 
 	public static final String OVERLAY ="overlay";

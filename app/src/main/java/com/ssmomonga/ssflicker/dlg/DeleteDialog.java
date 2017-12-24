@@ -90,7 +90,7 @@ public abstract class DeleteDialog extends AlertDialog {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
 				onDismissDialog();
-			}			
+			}
 		});
 		
 		setOnCancelListener(new DialogInterface.OnCancelListener() {

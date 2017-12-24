@@ -3,16 +3,25 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<PreferenceCategory android:title="@string/launch">
-		<PreferenceScreen android:key="default_settings" android:title="@string/launch_by_default" />
-		<PreferenceScreen android:key="overlay" android:title="@string/launch_from_overlay" />
-		<SwitchPreference android:key="statusbar" android:title="@string/launch_from_statusbar" android:defaultValue="false" />
+		<PreferenceScreen
+			android:key="default_settings"
+			android:title="@string/launch_by_default" />
+		<PreferenceScreen
+			android:key="overlay"
+			android:title="@string/launch_from_overlay" />
+		<SwitchPreference
+			android:key="statusbar"
+			android:title="@string/launch_from_statusbar"
+			android:defaultValue="false" />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/view_action" >
 		<PreferenceScreen android:title="@string/window" >
 			<PreferenceCategory android:title="@string/window" >
 				<com.ssmomonga.ssflicker.pref.ColorPreference
-                    android:key="window_background_color" android:title="@string/background_color" android:defaultValue="@color/window_background_color_default_value"/>
+					android:key="window_background_color"
+					android:title="@string/background_color"
+					android:defaultValue="@color/window_background_color_default_value"/>
 	    	</PreferenceCategory>
 			<PreferenceCategory android:title="@string/display_position_portrait">
 				<ListPreference
@@ -50,7 +59,8 @@
 		
 		<PreferenceScreen android:title="@string/icon_text" >
 			<PreferenceCategory android:title="@string/icon" >
-			   	<ListPreference android:key="icon_size"
+			   	<ListPreference
+					android:key="icon_size"
 					android:title="@string/icon_size"
 					android:dialogTitle="@string/icon_size"
 					android:entries="@array/icon_size_entries"
@@ -58,10 +68,17 @@
 					android:defaultValue="40" />
 			</PreferenceCategory>
 			<PreferenceCategory android:title="@string/text" >
-				<SwitchPreference android:key="text_visibility" android:title="@string/text_visibility" android:defaultValue="true" />
+				<SwitchPreference
+					android:key="text_visibility"
+					android:title="@string/text_visibility"
+					android:defaultValue="true" />
 				<com.ssmomonga.ssflicker.pref.ColorPreference
-                    android:key="text_color" android:title="@string/text_color" android:defaultValue="@android:color/white" android:dependency="text_visibility" />
-				<ListPreference android:key="text_size"
+                    android:key="text_color"
+					android:title="@string/text_color"
+					android:defaultValue="@android:color/white"
+					android:dependency="text_visibility" />
+				<ListPreference
+					android:key="text_size"
 					android:title="@string/text_size"
 					android:dialogTitle="@string/text_size"
 					android:entries="@array/text_size_entries"
@@ -72,15 +89,29 @@
 		</PreferenceScreen>
 		
 		<PreferenceScreen android:title="@string/etc..." >
-			<SwitchPreference android:key="vibrate" android:title="@string/vibrate_when_tapping" android:defaultValue="false" />
-			<SwitchPreference android:key="statusbar_visibility" android:title="@string/statusbar_visibility" android:summary="@string/statusbar_visibility_summary" android:defaultValue="false" />
-			<SwitchPreference android:key="invisible_appwidget_background_visibility" android:title="@string/invisible_appwidget_background_visibility" android:defaultValue="false" />
+			<SwitchPreference
+				android:key="vibrate"
+				android:title="@string/vibrate_when_tapping"
+				android:defaultValue="false" />
+			<SwitchPreference
+				android:key="statusbar_visibility"
+				android:title="@string/statusbar_visibility"
+				android:summary="@string/statusbar_visibility_summary"
+				android:defaultValue="false" />
+			<SwitchPreference
+				android:key="invisible_appwidget_background_visibility"
+				android:title="@string/invisible_appwidget_background_visibility"
+				android:defaultValue="false" />
 		</PreferenceScreen>
 	</PreferenceCategory>
 	
 	<PreferenceCategory android:title="@string/etc">
-		<PreferenceScreen android:key="backup_restore" android:title="@string/backup_restore" />
-		<PreferenceScreen android:key="donation" android:title="@string/donation" />
+		<PreferenceScreen
+			android:key="backup_restore"
+			android:title="@string/backup_restore" />
+		<PreferenceScreen
+			android:key="donation"
+			android:title="@string/donation" />
 	</PreferenceCategory>
 	
 </PreferenceScreen>

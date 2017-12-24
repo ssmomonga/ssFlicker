@@ -90,14 +90,15 @@ public final class R {
     public static final int corner_radius=0x7f04000a;
     public static final int flick_distance=0x7f04000b;
     public static final int icon_size=0x7f04000c;
-    public static final int int_12_dp=0x7f04000d;
-    public static final int int_160_dp=0x7f04000e;
-    public static final int int_16_dp=0x7f04000f;
-    public static final int int_240_dp=0x7f040010;
-    public static final int int_32_dp=0x7f040011;
-    public static final int int_48_dp=0x7f040012;
-    public static final int int_80_dp=0x7f040013;
-    public static final int int_8_dp=0x7f040014;
+    public static final int int_120_dp=0x7f04000d;
+    public static final int int_12_dp=0x7f04000e;
+    public static final int int_160_dp=0x7f04000f;
+    public static final int int_16_dp=0x7f040010;
+    public static final int int_240_dp=0x7f040011;
+    public static final int int_32_dp=0x7f040012;
+    public static final int int_48_dp=0x7f040013;
+    public static final int int_80_dp=0x7f040014;
+    public static final int int_8_dp=0x7f040015;
   }
   public static final class drawable {
     public static final int invisible=0x7f050000;
@@ -653,7 +654,7 @@ public final class R {
     public static final int Theme_Base_Light=0x7f0b000b;
     public static final int Theme_Editor=0x7f0b000c;
     public static final int Theme_Flicker=0x7f0b000d;
-    public static final int Theme_Flicker_Wallpaper=0x7f0b000e;
+    public static final int Theme_Flicker_Home=0x7f0b000e;
     public static final int Theme_Pref=0x7f0b000f;
     public static final int divider=0x7f0b0010;
     public static final int lp_0_wc=0x7f0b0011;

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
     
 	<dimen name="cell_size_width_portrait">80dp</dimen>
@@ -25,6 +26,7 @@
 	<dimen name="int_32_dp">32dp</dimen>
 	<dimen name="int_48_dp">48dp</dimen>
 	<dimen name="int_80_dp">80dp</dimen>
+	<dimen name="int_120_dp">120dp</dimen>
 	<dimen name="int_160_dp">160dp</dimen>
 	<dimen name="int_240_dp">240dp</dimen>
 

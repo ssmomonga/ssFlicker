@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -33,6 +34,7 @@ import com.ssmomonga.ssflicker.set.DeviceSettings;
 public class EditDialog extends AlertDialog {
 	
 	private static Resources r;
+	private static Context context;
 	
 	private LinearLayout.LayoutParams params;
 	private Pointer pointer;
@@ -48,6 +50,8 @@ public class EditDialog extends AlertDialog {
 	private Spinner sp_appwidget_position_x, sp_appwidget_position_y;
 	private Spinner sp_appwidget_cell_width, sp_appwidget_cell_height;
 
+	private static IconDialog.IconChooser iconChooser;
+	
 	/**
 	 * Constructor
 	 *
@@ -57,6 +61,9 @@ public class EditDialog extends AlertDialog {
 	 */
 	public EditDialog(Context context, Pointer pointer, EditPointerIf editPointerIf) {
 		super(context);
+		Log.v("ssFlicker", "class= " + context.getClass());
+		
+		this.context = context;
 		this.pointer = pointer;
 		this.editPointerIf = editPointerIf;
 		setInitialLayout();
@@ -72,6 +79,7 @@ public class EditDialog extends AlertDialog {
 	 */
 	public EditDialog(Context context, App app, EditAppIf editAppIf) {
 		super(context);
+		this.context = context;
 		this.app = app;
 		this.editAppIf = editAppIf;
 		setInitialLayout();
@@ -83,12 +91,11 @@ public class EditDialog extends AlertDialog {
 	 */
 	private void setInitialLayout() {
 		
-		Context context = getContext();
 		r = context.getResources();
 		LayoutInflater inflater = LayoutInflater.from(context);
 		view = inflater.inflate(R.layout.edit_dialog, null);
 		setView(view);
-				
+		
 		int iconSize = new PrefDAO(context).getIconPlusSize();
 		params = new LinearLayout.LayoutParams(iconSize, iconSize);
 
@@ -118,7 +125,7 @@ public class EditDialog extends AlertDialog {
 			 */
 			@Override
 			public void onClick(View v) {
-				viewSelectIconTypeDialog(getContext(), IconList.TARGET_ICON_POINTER, pointer.getPointerType());
+				viewSelectIconTypeDialog(IconList.TARGET_ICON_POINTER, pointer.getPointerType());
 			}
 		});
 			
@@ -155,8 +162,6 @@ public class EditDialog extends AlertDialog {
 	 */
 	private void setAppLayout() {
 		
-		Context context = getContext();
-		
 		ib_icon.setImageDrawable(app.getIcon());
 		ib_icon.setOnClickListener(new View.OnClickListener() {
 			/**
@@ -166,7 +171,7 @@ public class EditDialog extends AlertDialog {
 			 */
 			@Override
 			public void onClick(View v) {
-				viewSelectIconTypeDialog(getContext(), IconList.TARGET_ICON_APP, Pointer.POINTER_TYPE_CUSTOM);
+				viewSelectIconTypeDialog(IconList.TARGET_ICON_APP, Pointer.POINTER_TYPE_CUSTOM);
 			}
 		});
 			
@@ -177,7 +182,7 @@ public class EditDialog extends AlertDialog {
 		if (app.getAppType() == App.APP_TYPE_INTENT_APP &&
 				app.getIntentAppInfo().getIntentAppType() == IntentAppInfo.INTENT_APP_TYPE_SEND) {
 			view.findViewById(R.id.ll_send_template).setVisibility(View.VISIBLE);
-			et_send_template = (EditText) view.findViewById(R.id.et_send_template);
+			et_send_template = view.findViewById(R.id.et_send_template);
 			et_send_template.setText(app.getIntentAppInfo().getSendTemplate());
 		}
 
@@ -188,8 +193,8 @@ public class EditDialog extends AlertDialog {
 			
 			//ウィジェット位置
 			view.findViewById(R.id.ll_appwidget_position).setVisibility(View.VISIBLE);
-			sp_appwidget_position_y = (Spinner) view.findViewById(R.id.sp_appwidget_position_y);
-			sp_appwidget_position_x = (Spinner) view.findViewById(R.id.sp_appwidget_position_x);
+			sp_appwidget_position_y = view.findViewById(R.id.sp_appwidget_position_y);
+			sp_appwidget_position_x = view.findViewById(R.id.sp_appwidget_position_x);
 				
 			ArrayAdapter<Integer> adapterPositionX = new ArrayAdapter<Integer> (
 					context, android.R.layout.simple_spinner_item);
@@ -217,8 +222,8 @@ public class EditDialog extends AlertDialog {
 				view.findViewById(R.id.ll_appwidget_size).setVisibility(View.VISIBLE);
 			}
 
-			sp_appwidget_cell_width = (Spinner) view.findViewById(R.id.sp_appwidget_cell_width);
-			sp_appwidget_cell_height = (Spinner) view.findViewById(R.id.sp_appwidget_cell_height);
+			sp_appwidget_cell_width = view.findViewById(R.id.sp_appwidget_cell_width);
+			sp_appwidget_cell_height = view.findViewById(R.id.sp_appwidget_cell_height);
 
 			ArrayAdapter<Integer> adapterWidth = new ArrayAdapter<Integer> (
 					context, android.R.layout.simple_spinner_item);
@@ -403,7 +408,7 @@ public class EditDialog extends AlertDialog {
 	 * @param iconTarget
 	 * @param pointerType
 	 */
-	private void viewSelectIconTypeDialog(final Context context, final int iconTarget, int pointerType) {
+	private void viewSelectIconTypeDialog(final int iconTarget, int pointerType) {
 		new IconDialog.SelectIconTypeDialog(context, iconTarget, pointerType) {
 
 			/**
@@ -417,7 +422,7 @@ public class EditDialog extends AlertDialog {
 				
 				switch (iconType) {
 					case IconList.LABEL_ICON_TYPE_ORIGINAL:
-						viewIconChooser(context, IconList.getOriginalIconList(context) ,iconTarget, iconType);
+						viewIconChooser(IconList.getOriginalIconList(context) ,iconTarget, iconType);
 						break;
 				
 					case IconList.LABEL_ICON_TYPE_MULTI_APPS:
@@ -428,7 +433,7 @@ public class EditDialog extends AlertDialog {
 				
 					case IconList.LABEL_ICON_TYPE_APP:
 						appList = editPointerIf.getAppList();
-						viewIconChooser(context, IconList.getAppIconsList(appList), iconTarget, iconType);
+						viewIconChooser(IconList.getAppIconsList(appList), iconTarget, iconType);
 						break;
 				
 					case IconList.LABEL_ICON_TYPE_CUSTOM:
@@ -453,13 +458,12 @@ public class EditDialog extends AlertDialog {
 	/**
 	 * viewIconChooser()
 	 *
-	 * @param context
 	 * @param iconList
 	 * @param iconTarget
 	 * @param iconType
 	 */
-	private void viewIconChooser(Context context, BaseData[] iconList, final int iconTarget, final int iconType) {
-		new IconDialog.IconChooser(context, iconList, iconType) {
+	private void viewIconChooser(BaseData[] iconList, final int iconTarget, final int iconType) {
+		iconChooser = new IconDialog.IconChooser(context, iconList, iconType) {
 			/**
 			 * onSelectedIcon()
 			 *
@@ -470,7 +474,8 @@ public class EditDialog extends AlertDialog {
 			public void onSelectIcon(Drawable icon, int appId) {
 				setIconDrawable(icon, iconTarget, iconType, appId);
 			}
-		}.show();
+		};
+		iconChooser.show();
 	}
 
 	/**
@@ -482,7 +487,7 @@ public class EditDialog extends AlertDialog {
 	 * @param appId
 	 */
 	public void setIconBitmap(Bitmap icon, int iconTarget, int iconType, int appId) {
-		setIconDrawable(ImageConverter.createDrawable(getContext(), icon), iconTarget, iconType, appId);
+		setIconDrawable(ImageConverter.createDrawable(context, icon), iconTarget, iconType, appId);
 	}
 
 	/**
@@ -511,6 +516,14 @@ public class EditDialog extends AlertDialog {
 		}
 		
 	}
+	
+	/**
+	 * showIconColorPicker()
+	 */
+	public void showIconColorPicker() {
+		Log.v("ssFlicker", "EditDialog#showIconColorPicker()");
+		iconChooser.showIconColorPicker();
+	}
 
 	/**
 	 * EditPointerIf
@@ -529,6 +542,6 @@ public class EditDialog extends AlertDialog {
 		void onTrimmingImage(int iconTarget, int iconType);
 		void onSettings(App app);
 		void onDismissDialog();
-	}	
-
+	}
+	
 }

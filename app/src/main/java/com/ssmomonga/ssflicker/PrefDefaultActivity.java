@@ -1,6 +1,5 @@
 package com.ssmomonga.ssflicker;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
@@ -20,7 +19,11 @@ import com.ssmomonga.ssflicker.set.DeviceSettings;
 public class PrefDefaultActivity extends PreferenceActivity {
 
 	private static Launch l;
-
+	
+	private static SwitchPreference home_key;
+	private static SwitchPreference search_key;
+	
+	
 	/**
 	 * onCreate()
 	 *
@@ -29,9 +32,18 @@ public class PrefDefaultActivity extends PreferenceActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		l = new Launch(this);
-		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefSubFragment()).commit();
+		OneTimeDialog dialog = new OneTimeDialog(
+				this, PrefDAO.ONE_TIME_DIALOG_DEFAULT_SETTINGS,
+				getString(R.string.one_time_message_default_settings)) {
+			@Override
+			public void onOK() {
+			}
+		};
+		dialog.show();
+		
+		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefFragment()).commit();
 	}
 
 	/**
@@ -63,12 +75,7 @@ public class PrefDefaultActivity extends PreferenceActivity {
 	/**
 	 * PrefFragment
 	 */
-	public static class PrefSubFragment extends PreferenceFragment {
-
-		private SwitchPreference home_key;
-		private SwitchPreference search_key;
-
-		private Activity activity;
+	public static class PrefFragment extends PreferenceFragment {
 
 		/**
 		 * onCreate()
@@ -78,17 +85,7 @@ public class PrefDefaultActivity extends PreferenceActivity {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
-
-			activity = getActivity();
 			setInitialLayout();
-			OneTimeDialog dialog = new OneTimeDialog(
-					activity, PrefDAO.ONE_TIME_DIALOG_DEFAULT_SETTINGS,
-					getString(R.string.one_time_message_default_settings)) {
-				@Override
-				public void onOK() {
-				}
-			};
-			dialog.show();
 		}
 
 		/**
@@ -104,7 +101,7 @@ public class PrefDefaultActivity extends PreferenceActivity {
 		 * setInitialLayout()
 		 */
 		private void setInitialLayout() {
-			activity.setTitle(getString(R.string.launch_by_default));
+			getActivity().setTitle(getString(R.string.launch_by_default));
 			addPreferencesFromResource(R.xml.pref_default_activity);
 			home_key = (SwitchPreference) findPreference(PrefDAO.HOME_KEY);
 			search_key = (SwitchPreference) findPreference(PrefDAO.SEARCH_KEY);
@@ -114,8 +111,8 @@ public class PrefDefaultActivity extends PreferenceActivity {
 		 * setLayout()
 		 */
 		private void setLayout() {
-			home_key.setChecked(DeviceSettings.isDefaultHome(activity));
-			search_key.setChecked(DeviceSettings.isDefaultSearch(activity));
+			home_key.setChecked(DeviceSettings.isDefaultHome(getActivity()));
+			search_key.setChecked(DeviceSettings.isDefaultSearch(getActivity()));
 		}
 	}
 }

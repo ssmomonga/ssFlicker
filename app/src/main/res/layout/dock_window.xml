@@ -6,69 +6,82 @@
 		style="@style/lp_0_wc"
 		android:layout_weight="0.5" />
 
-	<LinearLayout android:id="@+id/ll_parent"
+	<LinearLayout
+		android:id="@+id/ll_parent"
 		style="@style/lp_0_wc"
 		android:layout_weight="6"
 		android:gravity="center"
 		android:orientation="horizontal" >
 
-		<LinearLayout android:id="@+id/ll_dock_0"
+		<LinearLayout
+			android:id="@+id/ll_dock_0"
 			style="@style/lp_wc_wc"
 			android:layout_weight="1"
 			android:tag="0"
 			android:padding="4dp"
 			android:gravity="center" >
-			<ImageView android:id="@+id/iv_dock_0"
+			<ImageView
+				android:id="@+id/iv_dock_0"
 				style="@style/lp_wc_wc" />
 		</LinearLayout>
 
-		<LinearLayout android:id="@+id/ll_dock_1"
+		<LinearLayout
+			android:id="@+id/ll_dock_1"
 			style="@style/lp_wc_wc"
 			android:layout_weight="1"
 			android:tag="1"
 			android:padding="4dp"
 			android:gravity="center" >
-			<ImageView android:id="@+id/iv_dock_1"
+			<ImageView
+				android:id="@+id/iv_dock_1"
 				style="@style/lp_wc_wc" />
 		</LinearLayout>
 
-		<LinearLayout android:id="@+id/ll_dock_2"
+		<LinearLayout
+			android:id="@+id/ll_dock_2"
 			style="@style/lp_wc_wc"
 			android:layout_weight="1"
 			android:tag="2"
 			android:padding="4dp"
 			android:gravity="center" >
-			<ImageView android:id="@+id/iv_dock_2"
+			<ImageView
+				android:id="@+id/iv_dock_2"
 				style="@style/lp_wc_wc" />
 		</LinearLayout>
 
-		<LinearLayout android:id="@+id/ll_dock_3"
+		<LinearLayout
+			android:id="@+id/ll_dock_3"
 			style="@style/lp_wc_wc"
 			android:layout_weight="1"
 			android:tag="3"
 			android:padding="4dp"
 			android:gravity="center" >
-			<ImageView android:id="@+id/iv_dock_3"
-			style="@style/lp_wc_wc" />
+			<ImageView
+				android:id="@+id/iv_dock_3"
+				style="@style/lp_wc_wc" />
 		</LinearLayout>
 
-		<LinearLayout android:id="@+id/ll_dock_4"
+		<LinearLayout
+			android:id="@+id/ll_dock_4"
 			style="@style/lp_wc_wc"
 			android:layout_weight="1"
 			android:tag="4"
 			android:padding="4dp"
 			android:gravity="center" >
-			<ImageView android:id="@+id/iv_dock_4"
+			<ImageView
+				android:id="@+id/iv_dock_4"
 				style="@style/lp_wc_wc" />
 		</LinearLayout>
 
-		<LinearLayout android:id="@+id/ll_menu"
+		<LinearLayout
+			android:id="@+id/ll_menu"
 			style="@style/lp_wc_wc"
 			android:layout_weight="1"
 			android:tag="0"
 			android:padding="4dp"
 			android:gravity="center" >
-			<ImageView android:id="@+id/iv_menu"
+			<ImageView
+				android:id="@+id/iv_menu"
 				style="@style/lp_wc_wc"
 				android:src="@mipmap/icon_30_menu_menu" />
 		</LinearLayout>

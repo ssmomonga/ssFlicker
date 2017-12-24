@@ -26,7 +26,7 @@ public abstract class AppChooser extends AlertDialog {
 	private AppChooserAdapter adapter;
 	private PreviewAppChooserAdapter previewAppChooserAdapter;
 	private GridView gv_app;
-
+	
 	/**
 	 * Constructor
 	 *
@@ -45,18 +45,18 @@ public abstract class AppChooser extends AlertDialog {
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout() {
-
+		
 		Context context = getContext();
 		
 		View view;
 		LayoutInflater inflater = LayoutInflater.from(context);
-
+		
 		if ((appType == App.APP_TYPE_INTENT_APP && intentAppType != IntentAppInfo.INTENT_APP_TYPE_LEGACY_SHORTCUT) ||
 				appType == App.APP_TYPE_FUNCTION) {
 			view = inflater.inflate(R.layout.app_chooser, null);
 			adapter = new AppChooserAdapter(context, R.layout.app_chooser_grid_view);
 			gv_app = view.findViewById(R.id.gv_app);
-
+			
 		} else {
 			view = inflater.inflate(R.layout.preview_app_chooser, null);
 			previewAppChooserAdapter = new PreviewAppChooserAdapter(context, R.layout.preview_app_chooser_grid_view, appType);
@@ -64,7 +64,7 @@ public abstract class AppChooser extends AlertDialog {
 		}
 		
 		setView(view);
-
+		
 		setButton(BUTTON_NEGATIVE, context.getResources().getText(R.string.cancel), new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick(DialogInterface dialog, int id) {}
@@ -78,13 +78,13 @@ public abstract class AppChooser extends AlertDialog {
 		});
 		
 	}
-
+	
 	/**
 	 * execute()
 	 */
 	public void execute() {
 		new GetAppListTask(getContext()) {
-
+			
 			/**
 			 * asyncComplete()
 			 *
@@ -92,7 +92,7 @@ public abstract class AppChooser extends AlertDialog {
 			 */
 			@Override
 			public void asyncComplete(App[] appList) {
-
+				
 				if ((appType == App.APP_TYPE_INTENT_APP && intentAppType != IntentAppInfo.INTENT_APP_TYPE_LEGACY_SHORTCUT) ||
 						appType == App.APP_TYPE_FUNCTION) {
 					for (App app: appList) adapter.add(app);
@@ -104,11 +104,11 @@ public abstract class AppChooser extends AlertDialog {
 				}
 				
 				gv_app.setOnItemClickListener(onItemClickListener);
-
+				
 				show();
 				
 			}
-
+			
 			/**
 			 * asyncCancel()
 			 */
@@ -117,30 +117,30 @@ public abstract class AppChooser extends AlertDialog {
 				onAsyncCanceled(appType, intentAppType);
 				onDismissDialog(appType, intentAppType);
 			}
-
+			
 		}.execute(appType, intentAppType);
-
+		
 	}
-
+	
 	private AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+			
 			App app = (App) parent.getItemAtPosition(position);
-
+			
 			switch (appType) {
 				case App.APP_TYPE_INTENT_APP:
 					onSelectIntentApp(app);
 					break;
-			
+				
 				case App.APP_TYPE_APPWIDGET:
 					onSelectAppWidget(app);
 					break;
-
+				
 				case App.APP_TYPE_APPSHORTCUT:
 					onSelectAppShortcut(app);
 					break;
-
+				
 				case App.APP_TYPE_FUNCTION:
 					onSelectFunction(app);
 					break;
@@ -149,7 +149,7 @@ public abstract class AppChooser extends AlertDialog {
 			AppChooser.this.dismiss();
 		}
 	};
-
+	
 	/**
 	 * onAsyncCanceled()
 	 *
@@ -157,35 +157,35 @@ public abstract class AppChooser extends AlertDialog {
 	 * @param intentAppType
 	 */
 	public abstract void onAsyncCanceled(int appType, int intentAppType);
-
+	
 	/**
 	 * onSelectIntentApp()
 	 *
 	 * @param app
 	 */
 	public abstract void onSelectIntentApp(App app);
-
+	
 	/**
 	 * onSelectAppWidget()
 	 *
 	 * @param app
 	 */
 	public abstract void onSelectAppWidget(App app);
-
+	
 	/**
 	 * onSelectAppShortcut()
 	 *
 	 * @param app
 	 */
 	public abstract void onSelectAppShortcut(App app);
-
+	
 	/**
 	 * onSelectFunction()
 	 *
 	 * @param app
 	 */
 	public abstract void onSelectFunction(App app);
-
+	
 	/**
 	 * onDismissDialog()
 	 *

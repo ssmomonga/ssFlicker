@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ProgressBar;
 
@@ -34,16 +33,16 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 	 */
 	@Override
 	protected void onPreExecute() {
-
+		
 		//プログレスダイアログを表示。
+		int padding = context.getResources().getDimensionPixelSize(R.dimen.int_16_dp);
+		int size = context.getResources().getDimensionPixelSize(R.dimen.int_120_dp);
+		ProgressBar progress = new ProgressBar(context);
+		progress.setPadding(padding, padding, padding, padding);
 		progressDialog = new Dialog(context);
 		progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		ProgressBar progress = new ProgressBar(context);
-		progress.setLayoutParams(new ViewGroup.LayoutParams(
-				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-		int padding = context.getResources().getDimensionPixelSize(R.dimen.int_16_dp);
-		progress.setPadding(padding, padding, padding, padding);
 		progressDialog.setContentView(progress);
+		progressDialog.getWindow().setLayout(size, size);
 		progressDialog.setCancelable(true);
 		progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 			@Override

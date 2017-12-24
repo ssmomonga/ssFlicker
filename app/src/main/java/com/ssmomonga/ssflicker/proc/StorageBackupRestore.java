@@ -18,6 +18,8 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -27,7 +29,7 @@ public class StorageBackupRestore {
 	
 	private Context context;
 	private static String backupDirPath;
-	private static String backupDirPath2;
+//	private static String backupDirPath2;
 	private static String dbFileName;
 
 	/**
@@ -38,7 +40,7 @@ public class StorageBackupRestore {
 	public StorageBackupRestore(Context context) {
 		this.context = context;
 		backupDirPath = DeviceSettings.getExternalDir(context);
-		backupDirPath2 = DeviceSettings.getExternalDir2(context);
+//		backupDirPath2 = DeviceSettings.getExternalDir2(context);
 		dbFileName = context.getDatabasePath(SQLiteDBH1.DATABASE_FILE_NAME).getPath();
 	}
 	
@@ -71,14 +73,14 @@ public class StorageBackupRestore {
 	public boolean restore(String fileName) {
 
 		String restoreFileName = backupDirPath + "/" + fileName;
-		String restoreFileName2 = backupDirPath2 + "/" + fileName;
+//		String restoreFileName2 = backupDirPath2 + "/" + fileName;
 		
 		boolean b = false;
 		try {
 			if ((new File(restoreFileName)).exists()) {
 				b = fileCopy(restoreFileName, dbFileName);
-			} else if ((new File(restoreFileName2)).exists()) {
-				b = fileCopy(restoreFileName2, dbFileName);
+//			} else if ((new File(restoreFileName2)).exists()) {
+//				b = fileCopy(restoreFileName2, dbFileName);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -142,8 +144,18 @@ public class StorageBackupRestore {
 			};
 			File backupDir = new File(backupDirPath);
 			File[] files = backupDir.listFiles(filter);
-			File backupDir2 = new File(backupDirPath2);
-			File[] files2 = backupDir2.listFiles(filter);
+			
+			Arrays.sort(files, new Comparator() {
+				@Override
+				public int compare(Object file1, Object file2) {
+					Long lastModified1 = new Long(((File) file1).lastModified());
+					Long lastModified2 = new Long(((File) file2).lastModified());
+					return lastModified1.compareTo(lastModified2);
+				}
+			});
+			
+//			File backupDir2 = new File(backupDirPath2);
+//			File[] files2 = backupDir2.listFiles(filter);
 
 			if (files != null) {
 				for (int i = files.length - 1; i >= 0; i--) {
@@ -151,11 +163,11 @@ public class StorageBackupRestore {
 				}
 			}
 
-			if (files2 != null) {
-				for (int i = files2.length - 1; i >= 0; i--) {
-					adapter.add(files2[i].getName());
-				}
-			}
+//			if (files2 != null) {
+//				for (int i = files2.length - 1; i >= 0; i--) {
+//					adapter.add(files2[i].getName());
+//				}
+//			}
 		}
 
 		if (adapter.isEmpty()) adapter.add(context.getResources().getString(R.string.no_restore_file));

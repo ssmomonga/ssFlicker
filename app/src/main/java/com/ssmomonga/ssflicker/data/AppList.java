@@ -182,6 +182,29 @@ public class AppList {
 	 * @return
 	 */
 	public static ArrayList<App> sort(int appType, int intentAppType, ArrayList<App> appList) {
+		
+		Collections.sort(appList, new Comparator<App>() {
+			Collator collator = Collator.getInstance();
+			@Override
+			public int compare(App a, App b) {
+				return collator.compare(a.getLabel(), b.getLabel());
+			}
+		});
+		
+		if ((appType == App.APP_TYPE_INTENT_APP && intentAppType == IntentAppInfo.INTENT_APP_TYPE_LEGACY_SHORTCUT)
+			|| appType == App.APP_TYPE_APPWIDGET) {
+
+			Collections.sort(appList, new Comparator<App>() {
+				Collator collator = Collator.getInstance();
+				@Override
+				public int compare(App a, App b) {
+					return collator.compare(a.getApplicationLabel(), b.getApplicationLabel());
+				}
+			});
+			
+		}
+		
+/*
 		if ((appType == App.APP_TYPE_INTENT_APP && intentAppType != IntentAppInfo.INTENT_APP_TYPE_LEGACY_SHORTCUT) ||
 				appType == App.APP_TYPE_FUNCTION) {
 			Collections.sort(appList, new AppComparator(AppComparator.LABEL_TYPE_LABEL));
@@ -190,7 +213,7 @@ public class AppList {
 			Collections.sort(appList, new AppComparator(AppComparator.LABEL_TYPE_LABEL));
 			Collections.sort(appList, new AppComparator(AppComparator.LABEL_TYPE_APPLICATION_LABEL));
 		}
-		
+*/
 		return appList;
 	}
 	

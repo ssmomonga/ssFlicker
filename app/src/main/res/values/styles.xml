@@ -45,7 +45,7 @@
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
 	</style>
-	<style name="Theme.Flicker.Wallpaper" parent="Theme.Flicker">
+	<style name="Theme.Flicker.Home" parent="Theme.Flicker">
 		<item name="android:windowBackground">@android:color/transparent</item>
 		<item name="android:windowIsTranslucent">false</item>
 		<item name="android:windowShowWallpaper">true</item>
