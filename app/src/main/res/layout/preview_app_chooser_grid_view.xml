@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/lp_mp_wc" >
-
 	<LinearLayout
 		style="@style/lp_mp_wc"
 		android:gravity="center"
@@ -11,7 +9,6 @@
 		android:paddingRight="8dp"
 		android:paddingBottom="8dp"
 		android:orientation="vertical" >
-
 		<LinearLayout
 			style="@style/lp_mp_wc"
 			android:paddingLeft="48dp"
@@ -26,7 +23,6 @@
 				android:textSize="12sp"
 				android:textColor="?android:textColorPrimary" />
 		</LinearLayout>
-
 		<ImageView
 			android:id="@+id/iv_preview_image"
 			style="@style/lp_128_96"
@@ -34,7 +30,6 @@
 			android:paddingTop="4dp"
 			android:scaleType="centerInside"
 			android:background="@color/preview_app_chooser_background" />
-
 		<LinearLayout
 			style="@style/lp_mp_wc"
 			android:paddingTop="4dp" >
@@ -54,13 +49,10 @@
 				android:ellipsize="end"
 				android:textSize="12sp" />
 		</LinearLayout>
-
 	</LinearLayout>
-
 	<ImageView
 		android:id="@+id/iv_icon"
 		style="@style/lp_40_40"
 		android:layout_marginLeft="8dp"
 		android:layout_marginTop="8dp" />
-
 </FrameLayout>

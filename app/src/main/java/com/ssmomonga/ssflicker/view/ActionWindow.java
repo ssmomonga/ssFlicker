@@ -14,10 +14,10 @@ import android.widget.TextView;
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
 import com.ssmomonga.ssflicker.data.BaseData;
-import com.ssmomonga.ssflicker.data.EditList;
-import com.ssmomonga.ssflicker.data.MenuList;
 import com.ssmomonga.ssflicker.data.Pointer;
-import com.ssmomonga.ssflicker.set.WindowParams;
+import com.ssmomonga.ssflicker.datalist.EditList;
+import com.ssmomonga.ssflicker.datalist.MenuList;
+import com.ssmomonga.ssflicker.params.WindowParams;
 
 /**
  * ActionWindow
@@ -31,12 +31,13 @@ public class ActionWindow extends TableLayout {
 	private ImageView[] iv_action = new ImageView[App.FLICK_APP_COUNT];
 	private TextView[] tv_action = new TextView[App.FLICK_APP_COUNT];
 	
-	private static Animation anim_center_pointed;
-	private static Animation anim_center_unpointed;
-	private static Animation[] anim_action_pointed = new Animation[App.FLICK_APP_COUNT];
-	private static Animation[] anim_action_unpointed = new Animation[App.FLICK_APP_COUNT];
-	private static Animation anim_window_open;
-	private static Animation anim_window_close;
+	private Animation anim_center_pointed;
+	private Animation anim_center_unpointed;
+	private Animation[] anim_action_pointed = new Animation[App.FLICK_APP_COUNT];
+	private Animation[] anim_action_unpointed = new Animation[App.FLICK_APP_COUNT];
+	private Animation anim_window_open;
+	private Animation anim_window_close;
+	
 	
 	/**
 	 * Constructor
@@ -49,19 +50,18 @@ public class ActionWindow extends TableLayout {
 		setInitialLayout();
 	}
 	
+	
 	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout() {
-
 		Context context = getContext();
-		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater =
+				(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.action_window, this, true);
-
 		ll_center = findViewById(R.id.ll_center);
 		iv_center = findViewById(R.id.iv_center);
 		tv_center = findViewById(R.id.tv_center);
-
 		ll_action[0] = findViewById(R.id.ll_action_0);
 		ll_action[1] = findViewById(R.id.ll_action_1);
 		ll_action[2] = findViewById(R.id.ll_action_2);
@@ -70,7 +70,6 @@ public class ActionWindow extends TableLayout {
 		ll_action[5] = findViewById(R.id.ll_action_5);
 		ll_action[6] = findViewById(R.id.ll_action_6);
 		ll_action[7] = findViewById(R.id.ll_action_7);
-		
 		iv_action[0] = findViewById(R.id.iv_action_0);
 		iv_action[1] = findViewById(R.id.iv_action_1);
 		iv_action[2] = findViewById(R.id.iv_action_2);
@@ -79,7 +78,6 @@ public class ActionWindow extends TableLayout {
 		iv_action[5] = findViewById(R.id.iv_action_5);
 		iv_action[6] = findViewById(R.id.iv_action_6);
 		iv_action[7] = findViewById(R.id.iv_action_7);
-		
 		tv_action[0] = findViewById(R.id.tv_action_0);
 		tv_action[1] = findViewById(R.id.tv_action_1);
 		tv_action[2] = findViewById(R.id.tv_action_2);
@@ -88,7 +86,6 @@ public class ActionWindow extends TableLayout {
 		tv_action[5] = findViewById(R.id.tv_action_5);
 		tv_action[6] = findViewById(R.id.tv_action_6);
 		tv_action[7] = findViewById(R.id.tv_action_7);
-
 		anim_center_pointed = AnimationUtils.loadAnimation(context, R.anim.icon_pointed);
 		anim_center_unpointed = AnimationUtils.loadAnimation(context, R.anim.icon_unpointed);
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
@@ -97,8 +94,8 @@ public class ActionWindow extends TableLayout {
 		}
 		anim_window_open = AnimationUtils.loadAnimation(context, R.anim.window_open);
 		anim_window_close = AnimationUtils.loadAnimation(context, R.anim.window_close);
-		
 	}
+	
 	
 	/**
 	 * setLayout()
@@ -106,14 +103,12 @@ public class ActionWindow extends TableLayout {
 	 * @param params
 	 */
 	public void setLayout(WindowParams params) {
-
 		LinearLayout.LayoutParams appLP = params.getAppLP();
 		LinearLayout.LayoutParams iconLP = params.getIconLP();
 		LinearLayout.LayoutParams textLP = params.getTextLP();
 		boolean textVisibility = params.isTextVisibility();
 		int textColor = params.getTextColor();
 		int textSize = params.getTextSize();
-
 		ll_center.setLayoutParams(appLP);
 		iv_center.setLayoutParams(iconLP);
 		if (textVisibility) {
@@ -124,7 +119,6 @@ public class ActionWindow extends TableLayout {
 		} else {
 			tv_center.setVisibility(View.GONE);
 		}
-
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
 			ll_action[i].setLayoutParams(appLP);
 			iv_action[i].setLayoutParams(iconLP);
@@ -137,9 +131,9 @@ public class ActionWindow extends TableLayout {
 				tv_action[i].setVisibility(View.GONE);
 			}
 		}
-
 		setBackground(params.getActionWindowBackground());
 	}
+	
 	
 	/**
 	 * setApp()
@@ -148,8 +142,8 @@ public class ActionWindow extends TableLayout {
 	 * @param appList
 	 */
 	public void setApp(Pointer pointer, App[] appList) {
-		tv_center.setText(pointer.getPointerLabel());
-		iv_center.setImageDrawable(pointer.getPointerIcon());
+		tv_center.setText(pointer.getLabel());
+		iv_center.setImageDrawable(pointer.getIcon());
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
 			App app = appList[i];
 			if (app != null) {
@@ -159,9 +153,9 @@ public class ActionWindow extends TableLayout {
 				tv_action[i].setText(null);
 				iv_action[i].setImageDrawable(null);
 			}
-			
 		}
 	}
+	
 	
 	/**
 	 * setEditPointer()
@@ -173,14 +167,15 @@ public class ActionWindow extends TableLayout {
 		Context context = getContext();
 		if (pointer == null) {
 			tv_center.setText(R.string.add);
-			iv_center.setImageResource(R.mipmap.icon_40_edit_add);
+			iv_center.setImageResource(R.mipmap.ic_40_edit_add);
 			setEdit(EditList.getAddPointerList(context));
 		} else {
-			tv_center.setText(pointer.getPointerLabel());
-			iv_center.setImageDrawable(pointer.getPointerIcon());
+			tv_center.setText(pointer.getLabel());
+			iv_center.setImageDrawable(pointer.getIcon());
 			setEdit(EditList.getEditPointerList(context, pointer, pointerWindowVisibility));
 		}
 	}
+	
 	
 	/**
 	 * setEditApp()
@@ -191,7 +186,7 @@ public class ActionWindow extends TableLayout {
 		Context context = getContext();
 		if (app == null) {
 			tv_center.setText(R.string.add);
-			iv_center.setImageResource(R.mipmap.icon_40_edit_add);
+			iv_center.setImageResource(R.mipmap.ic_40_edit_add);
 			setEdit(EditList.getAddAppList(context));
 		} else {
 			tv_center.setText(app.getLabel());
@@ -200,6 +195,7 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 
+	
 	/**
 	 * setEditDock()
 	 *
@@ -210,7 +206,7 @@ public class ActionWindow extends TableLayout {
 		Context context = getContext();
 		if (app == null) {
 			tv_center.setText(R.string.add);
-			iv_center.setImageResource(R.mipmap.icon_40_edit_add);
+			iv_center.setImageResource(R.mipmap.ic_40_edit_add);
 			setEdit(EditList.getAddDockList(context));
 		} else {
 			tv_center.setText(app.getLabel());
@@ -219,22 +215,24 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 	
+	
 	/**
 	 * setEdit()
 	 *
-	 * @param edit
+	 * @param editList
 	 */
-	private void setEdit(BaseData[] edit) {
+	private void setEdit(BaseData[] editList) {
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
-			if (edit[i] != null) {
-				tv_action[i].setText(edit[i].getLabel());
-				iv_action[i].setImageDrawable(edit[i].getIcon());
+			if (editList[i] != null) {
+				tv_action[i].setText(editList[i].getLabel());
+				iv_action[i].setImageDrawable(editList[i].getIcon());
 			} else {
 				tv_action[i].setText(null);
 				iv_action[i].setImageDrawable(null);
 			}
 		}
 	}
+	
 	
 	/**
 	 * setMenuForEdit()
@@ -243,12 +241,14 @@ public class ActionWindow extends TableLayout {
 		setMenu(MenuList.getEditorMenuList(getContext()));
 	}
 	
+	
 	/**
 	 * setMenuForFlick()
 	 */
 	public void setMenuForFlick() {
 		setMenu(MenuList.getFlickerMenuList(getContext()));
 	}
+	
 	
 	/**
 	 * setMenu()
@@ -257,7 +257,7 @@ public class ActionWindow extends TableLayout {
 	 */
 	private void setMenu(BaseData[] menuList) {
 		tv_center.setText(getResources().getString(R.string.menu));
-		iv_center.setImageResource(R.mipmap.icon_30_menu_menu);
+		iv_center.setImageResource(R.mipmap.ic_30_menu_menu);
 		for (int i = 0; i < App.FLICK_APP_COUNT; i ++) {
 			BaseData menu = menuList[i];
 			if (menu != null) {
@@ -270,6 +270,7 @@ public class ActionWindow extends TableLayout {
 		}
 	}
 
+	
 	/**
 	 * setPointed()
 	 *
@@ -289,13 +290,13 @@ public class ActionWindow extends TableLayout {
 			} else {
 				ll_action[position].startAnimation(anim_action_pointed[position]);
 			}
-
 		} else {
 			if (oldPosition == -1 || position == -1) ll_center.clearAnimation();
 			if (oldPosition != -1) ll_action[oldPosition].clearAnimation();
 			if (position != -1) ll_action[position].clearAnimation();
 		}
 	}
+	
 	
 	/**
 	 * setVisibility()
@@ -311,5 +312,4 @@ public class ActionWindow extends TableLayout {
 			startAnimation(anim_window_close);
 		}
 	}
-	
 }

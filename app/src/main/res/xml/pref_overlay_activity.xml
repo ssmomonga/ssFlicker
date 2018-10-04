@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
 	<PreferenceCategory android:title="@string/overlay_point_0">
 		<SwitchPreference
 			android:key="overlay_point_0"
@@ -32,7 +30,6 @@
 			android:entryValues="@array/overlay_point_width_entryvalues"
 			android:defaultValue="16" />
 	</PreferenceCategory>
-	
 	<PreferenceCategory android:title="@string/overlay_point_1">
 		<SwitchPreference
 			android:key="overlay_point_1"
@@ -63,20 +60,10 @@
 			android:entryValues="@array/overlay_point_width_entryvalues"
 			android:defaultValue="16" />
 	</PreferenceCategory>
-	
 	<PreferenceCategory android:title="@string/view_action">
-		<com.ssmomonga.ssflicker.pref.ColorPreference
+		<com.ssmomonga.ssflicker.preference.ColorPreference
             android:key="overlay_point_background_color"
 			android:title="@string/background_color"
 			android:defaultValue="@color/overlay_point_background_color_default_value"/>
-		<!--ListPreference android:key="overlay_point_action"
-			android:title="@string/overlay_point_action"
-			android:dialogTitle="@string/overlay_point_action"
-			android:entries="@array/overlay_point_action_entries"
-			android:entryValues="@array/overlay_point_action_entryvalues"
-			android:defaultValue="0" /-->
-		<!-- SwitchPreference android:key="overlay_animation" android:title="@string/animation" android:defaultValue="true"/-->
-		<!--SwitchPreference android:key="overlay_foreground" android:title="@string/running_foreground" android:defaultValue="true" android:summary="@string/running_foreground_summary"/-->
 	</PreferenceCategory>
-	
 </PreferenceScreen>

@@ -1,7 +1,6 @@
 package com.ssmomonga.ssflicker.view;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -15,8 +14,8 @@ import android.widget.TextView;
 
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.Pointer;
+import com.ssmomonga.ssflicker.params.WindowParams;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
-import com.ssmomonga.ssflicker.set.WindowParams;
 
 import static com.ssmomonga.ssflicker.R.color.material_gray;
 
@@ -29,10 +28,11 @@ public class PointerWindow extends TableLayout {
 	private ImageView[] iv_pointer = new ImageView[Pointer.FLICK_POINTER_COUNT];
 	private TextView[] tv_pointer = new TextView[Pointer.FLICK_POINTER_COUNT];
 	
-	private static Animation[] animPointerPointed = new Animation[Pointer.FLICK_POINTER_COUNT];
-	private static Animation[] animPointerUnpointed = new Animation[Pointer.FLICK_POINTER_COUNT];
-	private static Animation animWindowOpen;
+	private Animation[] animPointerPointed = new Animation[Pointer.FLICK_POINTER_COUNT];
+	private Animation[] animPointerUnpointed = new Animation[Pointer.FLICK_POINTER_COUNT];
+	private Animation animWindowOpen;
 
+	
 	/**
 	 * Constructor
 	 *
@@ -44,15 +44,15 @@ public class PointerWindow extends TableLayout {
 		setInitialLayout();
 	}
 	
+	
 	/**
 	 * setInitialLayout()
 	 */
 	private void setInitialLayout() {
-
 		Context context = getContext();
-		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater =
+				(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.pointer_window, this, true);
-
 		ll_pointer[0] = findViewById(R.id.ll_pointer_0);
 		ll_pointer[1] = findViewById(R.id.ll_pointer_1);
 		ll_pointer[2] = findViewById(R.id.ll_pointer_2);
@@ -69,7 +69,6 @@ public class PointerWindow extends TableLayout {
 		ll_pointer[13] = findViewById(R.id.ll_pointer_13);
 		ll_pointer[14] = findViewById(R.id.ll_pointer_14);
 		ll_pointer[15] = findViewById(R.id.ll_pointer_15);
-
 		iv_pointer[0] = findViewById(R.id.iv_pointer_0);
 		iv_pointer[1] = findViewById(R.id.iv_pointer_1);
 		iv_pointer[2] = findViewById(R.id.iv_pointer_2);
@@ -86,7 +85,6 @@ public class PointerWindow extends TableLayout {
 		iv_pointer[13] = findViewById(R.id.iv_pointer_13);
 		iv_pointer[14] = findViewById(R.id.iv_pointer_14);
 		iv_pointer[15] = findViewById(R.id.iv_pointer_15);
-		
 		tv_pointer[0] = findViewById(R.id.tv_pointer_0);
 		tv_pointer[1] = findViewById(R.id.tv_pointer_1);
 		tv_pointer[2] = findViewById(R.id.tv_pointer_2);
@@ -103,13 +101,13 @@ public class PointerWindow extends TableLayout {
 		tv_pointer[13] = findViewById(R.id.tv_pointer_13);
 		tv_pointer[14] = findViewById(R.id.tv_pointer_14);
 		tv_pointer[15] = findViewById(R.id.tv_pointer_15);
-		
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
 			animPointerPointed[i] = AnimationUtils.loadAnimation(context, R.anim.icon_pointed);
 			animPointerUnpointed[i] = AnimationUtils.loadAnimation(context, R.anim.icon_unpointed);
 		}
 		animWindowOpen = AnimationUtils.loadAnimation(context, R.anim.window_open);
 	}
+	
 
 	/**
 	 * setOnFlickListener()
@@ -120,13 +118,13 @@ public class PointerWindow extends TableLayout {
 		for (LinearLayout ll: ll_pointer) ll.setOnTouchListener(listener);
 	}
 	
+	
 	/**
 	 * setLayout()
 	 *
 	 * @param params
 	 */
 	public void setLayout(WindowParams params) {
-
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
 			ll_pointer[i].setLayoutParams(params.getAppLP());
 			iv_pointer[i].setLayoutParams(params.getIconLP());
@@ -141,6 +139,7 @@ public class PointerWindow extends TableLayout {
 		}
 		setBackground(params.getPointerWindowBackground());
 	}
+	
 
 	/**
 	 * setPointer()
@@ -151,23 +150,24 @@ public class PointerWindow extends TableLayout {
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
 			Pointer pointer = pointerList[i];
 			if (pointer != null) {
-				setPointer(i, pointer.getPointerIcon(), pointer.getPointerLabel());
+				setPointer(i, pointer.getIcon(), pointer.getLabel());
 			} else {
 				setPointer(i, null, null);
 			}
 			ll_pointer[i].setVisibility(View.VISIBLE);
 		}
-
 		for (int i = 0; i < 4; i ++) {
-			if (pointerList[4 * i] == null && pointerList[4 * i + 1] == null && pointerList[4 * i + 2] == null && pointerList[4 * i + 3] == null) {
+			if (pointerList[4 * i] == null && pointerList[4 * i + 1] == null
+					&& pointerList[4 * i + 2] == null && pointerList[4 * i + 3] == null) {
 				for (int j = 0; j < 4; j ++) ll_pointer[4 * i + j].setVisibility(View.GONE);
 			}
-			if (pointerList[i] == null && pointerList[i + 4] == null && pointerList[i + 8] == null && pointerList[i + 12] == null) {
+			if (pointerList[i] == null && pointerList[i + 4] == null
+					&& pointerList[i + 8] == null && pointerList[i + 12] == null) {
 				for (int j = 0; j < 4; j ++) ll_pointer[i + 4 * j].setVisibility(View.GONE);
 			}
 		}
-
 	}
+	
 	
 	/**
 	 * setPointerForEdit()
@@ -175,23 +175,18 @@ public class PointerWindow extends TableLayout {
 	 * @param pointerList
 	 */
 	public void setPointerForEdit(Pointer[] pointerList) {
-
-		Context context = getContext();
-		Resources r = context.getResources();
-		Drawable d = r.getDrawable(R.mipmap.icon_40_edit_add, null);
-		d = ImageConverter.changeIconColor(context, d, r.getColor(material_gray, null));
-
+		Drawable d = getContext().getDrawable(R.mipmap.ic_40_edit_add);
+		d = ImageConverter.changeIconColor(getContext(), d, getContext().getColor(material_gray));
 		for (int i = 0; i < Pointer.FLICK_POINTER_COUNT; i ++) {
 			Pointer pointer = pointerList[i];
-
 			if (pointer != null) {
-				setPointer(i, pointer.getPointerIcon(), pointer.getPointerLabel());
-
+				setPointer(i, pointer.getIcon(), pointer.getLabel());
 			} else {
-				setPointer(i, d, r.getString(R.string.add));
+				setPointer(i, d, getContext().getString(R.string.add));
 			}
 		}
 	}
+	
 
 	/**
 	 * setPointer()
@@ -205,6 +200,7 @@ public class PointerWindow extends TableLayout {
 		tv_pointer[pointerId].setText(appLabel);
 	}
 
+	
 	/**
 	 * setPointed()
 	 *
@@ -218,6 +214,7 @@ public class PointerWindow extends TableLayout {
 			ll_pointer[pointerId].startAnimation(animPointerUnpointed[pointerId]);
 		}
 	}
+	
 
 	/**
 	 * setVisibility()
@@ -229,5 +226,4 @@ public class PointerWindow extends TableLayout {
 		super.setVisibility(visibility);
 		if (visibility == View.VISIBLE) startAnimation(animWindowOpen);
 	}
-
 }

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
 	<PreferenceCategory android:title="@string/launch">
 		<PreferenceScreen
 			android:key="default_settings"
@@ -14,11 +12,10 @@
 			android:title="@string/launch_from_statusbar"
 			android:defaultValue="false" />
 	</PreferenceCategory>
-
 	<PreferenceCategory android:title="@string/view_action" >
 		<PreferenceScreen android:title="@string/window" >
 			<PreferenceCategory android:title="@string/window" >
-				<com.ssmomonga.ssflicker.pref.ColorPreference
+				<com.ssmomonga.ssflicker.preference.ColorPreference
 					android:key="window_background_color"
 					android:title="@string/background_color"
 					android:defaultValue="@color/window_background_color_default_value"/>
@@ -56,7 +53,6 @@
 					android:defaultValue="5" />
 			</PreferenceCategory>
 		</PreferenceScreen>
-		
 		<PreferenceScreen android:title="@string/icon_text" >
 			<PreferenceCategory android:title="@string/icon" >
 			   	<ListPreference
@@ -72,7 +68,7 @@
 					android:key="text_visibility"
 					android:title="@string/text_visibility"
 					android:defaultValue="true" />
-				<com.ssmomonga.ssflicker.pref.ColorPreference
+				<com.ssmomonga.ssflicker.preference.ColorPreference
                     android:key="text_color"
 					android:title="@string/text_color"
 					android:defaultValue="@android:color/white"
@@ -87,7 +83,6 @@
 					android:dependency="text_visibility" />
 			</PreferenceCategory>
 		</PreferenceScreen>
-		
 		<PreferenceScreen android:title="@string/etc..." >
 			<SwitchPreference
 				android:key="vibrate"
@@ -104,7 +99,6 @@
 				android:defaultValue="false" />
 		</PreferenceScreen>
 	</PreferenceCategory>
-	
 	<PreferenceCategory android:title="@string/etc">
 		<PreferenceScreen
 			android:key="backup_restore"
@@ -113,5 +107,4 @@
 			android:key="donation"
 			android:title="@string/donation" />
 	</PreferenceCategory>
-	
 </PreferenceScreen>

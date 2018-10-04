@@ -8,6 +8,6 @@ public final class BuildConfig {
   public static final String APPLICATION_ID = "com.ssmomonga.ssflicker";
   public static final String BUILD_TYPE = "debug";
   public static final String FLAVOR = "";
-  public static final int VERSION_CODE = 89;
-  public static final String VERSION_NAME = "v1.6.3";
+  public static final int VERSION_CODE = 90;
+  public static final String VERSION_NAME = "v1.6.4";
 }

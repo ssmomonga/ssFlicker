@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Message;
@@ -18,13 +19,14 @@ import android.preference.SwitchPreference;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.ssmomonga.ssflicker.db.PrefDAO;
-import com.ssmomonga.ssflicker.dlg.OneTimeDialog;
-import com.ssmomonga.ssflicker.pref.ColorPreference;
+import com.ssmomonga.ssflicker.settings.PrefDAO;
+import com.ssmomonga.ssflicker.dialog.OneTimeDialog;
+import com.ssmomonga.ssflicker.params.OverlayPointParams;
+import com.ssmomonga.ssflicker.preference.ColorPreference;
 import com.ssmomonga.ssflicker.proc.Launch;
-import com.ssmomonga.ssflicker.set.DeviceSettings;
-import com.ssmomonga.ssflicker.set.OverlayParams;
+import com.ssmomonga.ssflicker.settings.DeviceSettings;
 
 import static com.ssmomonga.ssflicker.R.string.launch_from_overlay;
 
@@ -35,24 +37,25 @@ public class PrefOverlayActivity extends PreferenceActivity {
 
 	public static final int REQUEST_CODE_ANDROID_OVERLAY_SETTINGS = 0;
 
-//	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_OVERLAY_POINT_BACKGROUND_COLOR = 0;
+	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_OVERLAY_POINT_BACKGROUND_COLOR = 0;
 	
-	private static SwitchPreference[] overlay_point = new SwitchPreference[OverlayParams.OVERLAY_POINT_COUNT];
-	private static ListPreference[] overlay_point_side = new ListPreference[OverlayParams.OVERLAY_POINT_COUNT];
-	private static ListPreference[] overlay_point_position = new ListPreference[OverlayParams.OVERLAY_POINT_COUNT];
-	private static ListPreference[] overlay_point_width = new ListPreference[OverlayParams.OVERLAY_POINT_COUNT];
+	private static SwitchPreference[] overlay_point =
+			new SwitchPreference[OverlayPointParams.OVERLAY_POINT_COUNT];
+	private static ListPreference[] overlay_point_side =
+			new ListPreference[OverlayPointParams.OVERLAY_POINT_COUNT];
+	private static ListPreference[] overlay_point_position =
+			new ListPreference[OverlayPointParams.OVERLAY_POINT_COUNT];
+	private static ListPreference[] overlay_point_width =
+			new ListPreference[OverlayPointParams.OVERLAY_POINT_COUNT];
 	private static ColorPreference overlay_point_background_color;
-//		private ListPreference overlay_point_action;
-//		private SwitchPreference overlay_animation;
-//		private SwitchPreference overlay_foreground;
 	
 	private static PrefDAO pdao;
-	private static Launch l;
 	private static boolean b_overlay_permission;
 	
 	private static Intent bindOverlayServiceIntent;
 	private static Messenger overlayServiceMessenger;
 	private static ServiceConnection overlayServiceConn = new ServiceConnection() {
+		
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			overlayServiceMessenger = new Messenger(service);
@@ -73,26 +76,29 @@ public class PrefOverlayActivity extends PreferenceActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		pdao = new PrefDAO(this);
-		l = new Launch(this);
 		bindOverlayServiceIntent = new Intent().setClass(this, OverlayService.class);
-		
-		b_overlay_permission = DeviceSettings.checkPermission(this, Manifest.permission.SYSTEM_ALERT_WINDOW);
+		b_overlay_permission = DeviceSettings.checkPermission(
+				this,
+				Manifest.permission.SYSTEM_ALERT_WINDOW);
 		if (!b_overlay_permission) {
 			OneTimeDialog dialog = new OneTimeDialog(
-					this, PrefDAO.ONE_TIME_DIALOG_OVERLAY_SETTINGS,
+					this,
+					PrefDAO.ONE_TIME_DIALOG_OVERLAY_SETTINGS,
 					getString(R.string.one_time_message_overlay_settings)) {
 				@Override
 				public void onOK() {
-					l.launchOverlayPermission(REQUEST_CODE_ANDROID_OVERLAY_SETTINGS);
+					Launch.launchOverlayPermission(
+							PrefOverlayActivity.this,
+							REQUEST_CODE_ANDROID_OVERLAY_SETTINGS);
 				}
 			};
 			dialog.show();
 		}
-		
-		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefFragment()).commit();
+		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefFragment())
+				.commit();
 	}
+	
 	
 	/**
 	 * onResume()
@@ -100,9 +106,12 @@ public class PrefOverlayActivity extends PreferenceActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		b_overlay_permission = DeviceSettings.checkPermission(this, Manifest.permission.SYSTEM_ALERT_WINDOW);
+		b_overlay_permission = DeviceSettings.checkPermission(
+				this,
+				Manifest.permission.SYSTEM_ALERT_WINDOW);
 		bindService(bindOverlayServiceIntent, overlayServiceConn, BIND_AUTO_CREATE);
 	}
+	
 	
 	/**
 	 * onPause()
@@ -112,6 +121,7 @@ public class PrefOverlayActivity extends PreferenceActivity {
 		super.onPause();
 		unbindService(overlayServiceConn);
 	}
+	
 
 	/**
 	 * onActivityResult()
@@ -142,6 +152,7 @@ public class PrefOverlayActivity extends PreferenceActivity {
 		}
 	}
 	
+	
 	/**
 	 * onRequestPermissionResult()
 	 *
@@ -149,22 +160,27 @@ public class PrefOverlayActivity extends PreferenceActivity {
 	 * @param permissions
 	 * @param grantResults
 	 */
-/*	@Override
-	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-		
+	@Override
+	public void onRequestPermissionsResult(
+			int requestCode,
+			String[] permissions,
+			int[] grantResults) {
 		switch(requestCode) {
 			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_OVERLAY_POINT_BACKGROUND_COLOR:
 				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					overlay_point_background_color.showColorPicker(overlay_point_background_color);
-					
 				} else {
-					Toast.makeText(this, getResources().getString(R.string.require_permission_write_external_storage),
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(
+							this,
+							getString(R.string.require_permission_write_external_storage),
+							Toast.LENGTH_SHORT)
+							.show();
 				}
 				break;
 		}
 	}
-*/
+	
+
 	/**
 	 * onCreateOptionsMenu()
 	 *
@@ -178,6 +194,7 @@ public class PrefOverlayActivity extends PreferenceActivity {
 		return true;
 	}
 
+	
 	/**
 	 * onOptionsItemSelected()
 	 */
@@ -185,17 +202,19 @@ public class PrefOverlayActivity extends PreferenceActivity {
 	public boolean onOptionsItemSelected(final MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.menu_android_overlay_settings:
-				l.launchOverlayPermission(REQUEST_CODE_ANDROID_OVERLAY_SETTINGS);
+				Launch.launchOverlayPermission(this, REQUEST_CODE_ANDROID_OVERLAY_SETTINGS);
 				break;
 		}
 		return true;
 	}
 
+	
 	/**
 	 * PrefFragment
 	 */
 	public static class PrefFragment extends PreferenceFragment {
 
+		
 		/**
 		 * onCreate()
 		 *
@@ -207,6 +226,7 @@ public class PrefOverlayActivity extends PreferenceActivity {
 			setInitialLayout();
 		}
 
+		
 		/**
 		 * onResume()
 		 */
@@ -215,6 +235,7 @@ public class PrefOverlayActivity extends PreferenceActivity {
 			super.onResume();
 			setLayout();
 		}
+		
 
 		/**
 		 * onDestry()
@@ -224,62 +245,89 @@ public class PrefOverlayActivity extends PreferenceActivity {
 			super.onDestroy();
 			overlay_point_background_color.dismissColorPicker();
 		}
+		
+		
+		/**
+		 * onRequestPermissionResult()
+		 *
+		 * @param requestCode
+		 * @param permissions
+		 * @param grantResults
+		 */
+		@Override
+		public void onRequestPermissionsResult(
+				int requestCode,
+				String[] permissions,
+				int[] grantResults) {
+			switch(requestCode) {
+				case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_OVERLAY_POINT_BACKGROUND_COLOR:
+					if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+						overlay_point_background_color
+								.showColorPicker(overlay_point_background_color);
+					} else {
+						Toast.makeText(
+								getActivity(),
+								getString(R.string.require_permission_write_external_storage),
+								Toast.LENGTH_SHORT)
+								.show();
+					}
+					break;
+			}
+		}
 
+		
 		/**
 		 * setInitialLayout()
 		 */
 		private void setInitialLayout() {
 			getActivity().setTitle(getString(launch_from_overlay));
 			addPreferencesFromResource(R.xml.pref_overlay_activity);
-			overlay_point[0] = (SwitchPreference) findPreference(PrefDAO.OVERLAY_POINT_0);
-			overlay_point[0].setOnPreferenceChangeListener(new PreferenceChangeListener());
-			overlay_point_side[0] = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_SIDE_0);
-			overlay_point_side[0].setOnPreferenceChangeListener(new PreferenceChangeListener());
-			overlay_point_position[0] = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_POSITION_0);
-			overlay_point_position[0].setOnPreferenceChangeListener(new PreferenceChangeListener());
-			overlay_point_width[0] = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_WIDTH_0);
-			overlay_point_width[0].setOnPreferenceChangeListener(new PreferenceChangeListener());
-			overlay_point[1] = (SwitchPreference) findPreference(PrefDAO.OVERLAY_POINT_1);
-			overlay_point[1].setOnPreferenceChangeListener(new PreferenceChangeListener());
-			overlay_point_side[1] = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_SIDE_1);
-			overlay_point_side[1].setOnPreferenceChangeListener(new PreferenceChangeListener());
-			overlay_point_position[1] = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_POSITION_1);
-			overlay_point_position[1].setOnPreferenceChangeListener(new PreferenceChangeListener());
-			overlay_point_width[1] = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_WIDTH_1);
-			overlay_point_width[1].setOnPreferenceChangeListener(new PreferenceChangeListener());
-			overlay_point_background_color = (ColorPreference) findPreference(PrefDAO.OVERLAY_POINT_BACKGROUND_COLOR);
-			overlay_point_background_color.setOnPreferenceChangeListener(new PreferenceChangeListener());
-//			overlay_point_action = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_ACTION);
-//			overlay_point_action.setOnPreferenceChangeListener(new PreferenceChangeListener());
-//			overlay_animation = (SwitchPreference) findPreference(PrefDAO.OVERLAY_ANIMATION);
-//			overlay_animation.setOnPreferenceChangeListener(new PreferenceChangeListener());
-//			overlay_foreground = (SwitchPreference) findPreference(PrefDAO.OVERLAY_FOREGROUND);
-//			overlay_foreground.setOnPreferenceChangeListener(new PreferenceChangeListener());
 			
+			//Preferenceを取得
+			overlay_point[0] = (SwitchPreference) findPreference(PrefDAO.OVERLAY_POINT_0);
+			overlay_point_side[0] = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_SIDE_0);
+			overlay_point_position[0] =
+					(ListPreference) findPreference(PrefDAO.OVERLAY_POINT_POSITION_0);
+			overlay_point_width[0] = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_WIDTH_0);
+			overlay_point[1] = (SwitchPreference) findPreference(PrefDAO.OVERLAY_POINT_1);
+			overlay_point_side[1] = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_SIDE_1);
+			overlay_point_position[1] =
+					(ListPreference) findPreference(PrefDAO.OVERLAY_POINT_POSITION_1);
+			overlay_point_width[1] = (ListPreference) findPreference(PrefDAO.OVERLAY_POINT_WIDTH_1);
+			overlay_point_background_color =
+					(ColorPreference) findPreference(PrefDAO.OVERLAY_POINT_BACKGROUND_COLOR);
+
+			//PreferenceChangelistenerを設定
+			PreferenceChangeListener changeListener = new PreferenceChangeListener();
+			overlay_point[0].setOnPreferenceChangeListener(changeListener);
+			overlay_point_side[0].setOnPreferenceChangeListener(changeListener);
+			overlay_point_position[0].setOnPreferenceChangeListener(changeListener);
+			overlay_point_width[0].setOnPreferenceChangeListener(changeListener);
+			overlay_point[1].setOnPreferenceChangeListener(changeListener);
+			overlay_point_side[1].setOnPreferenceChangeListener(changeListener);
+			overlay_point_position[1].setOnPreferenceChangeListener(changeListener);
+			overlay_point_width[1].setOnPreferenceChangeListener(changeListener);
+			overlay_point_background_color.setOnPreferenceChangeListener(changeListener);
 		}
 
+		
 		/**
 		 * setLayout()
 		 */
 		private void setLayout() {
-
-			for (int i = 0; i < OverlayParams.OVERLAY_POINT_COUNT; i ++) {
+			for (int i = 0; i < OverlayPointParams.OVERLAY_POINT_COUNT; i ++) {
 				overlay_point[i].setEnabled(b_overlay_permission);
 				overlay_point[i].setChecked(pdao.isOverlayPoint(i));
 				setSummary(overlay_point_side[i], pdao.getRawOverlayPointSide(i));
 				setSummary(overlay_point_position[i], pdao.getRawOverlayPointPosition(i));
 				setSummary(overlay_point_width[i], pdao.getRawOverlayPointWidth(i));
 			}
-
-			boolean b = b_overlay_permission & (overlay_point[0].isChecked() | overlay_point[1].isChecked());
+			boolean b = b_overlay_permission &
+					(overlay_point[0].isChecked() | overlay_point[1].isChecked());
 			overlay_point_background_color.setEnabled(b);
-//			overlay_point_action.setEnabled(b);
-//			overlay_animation.setEnabled(b);
-//			overlay_foreground.setEnabled(b);
-//			setSummary(overlay_foreground, pdao.isOverlayForeground());
-//			setSummary(overlay_point_action, pdao.getRawOverlayPointAction());
 		}
 
+		
 		/**
 		 * PeferenceChangeListener
 		 */
@@ -287,20 +335,13 @@ public class PrefOverlayActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				setSummary(preference, newValue);
-
 				Message msg = Message.obtain();
 				Bundle b = new Bundle();
 				if (preference == overlay_point[0] || preference == overlay_point[1]) {
-
 					if ((Boolean) newValue) {
-
 						overlay_point_background_color.setEnabled(true);
-//						overlay_animation.setEnabled(true);
-//						overlay_point_action.setEnabled(true);
-//						overlay_foreground.setEnabled(true);
-
-						getContext().startForegroundService(new Intent(getContext(), OverlayService.class));
-						
+						getContext().startForegroundService(
+								new Intent(getContext(), OverlayService.class));
 						b.putBoolean(preference.getKey(), (Boolean) newValue);
 						msg.setData(b);
 						try {
@@ -308,9 +349,7 @@ public class PrefOverlayActivity extends PreferenceActivity {
 						} catch (RemoteException e) {
 							e.printStackTrace();
 						}
-
 					} else {
-
 						b.putBoolean(preference.getKey(), (Boolean) newValue);
 						msg.setData(b);
 						try {
@@ -322,22 +361,18 @@ public class PrefOverlayActivity extends PreferenceActivity {
 						//オーバーレイポイントが全てfalseとなった場合
 						if ((preference == overlay_point[0] && !overlay_point[1].isChecked()) ||
 								(preference == overlay_point[1] && !overlay_point[0].isChecked())) {
-
 							overlay_point_background_color.setEnabled(false);
-//							overlay_animation.setEnabled(false);
-//							overlay_point_action.setEnabled(false);
-//							overlay_foreground.setEnabled(false);
-							
-							getContext().stopService(new Intent(getContext(), OverlayService.class));
-
+							getContext().stopService(
+									new Intent(getContext(), OverlayService.class));
 						}
 					}
-
-				} else if (preference == overlay_point_side[0] || preference == overlay_point_side[1] ||
-						preference == overlay_point_position[0] || preference == overlay_point_position[1] ||
-						preference == overlay_point_width[0] || preference == overlay_point_width[1] ||
-						preference == overlay_point_background_color) { //|| preference == overlay_point_action ) {
-
+				} else if (preference == overlay_point_side[0]
+						|| preference == overlay_point_side[1]
+						|| preference == overlay_point_position[0]
+						|| preference == overlay_point_position[1]
+						|| preference == overlay_point_width[0]
+						|| preference == overlay_point_width[1]
+						|| preference == overlay_point_background_color) {
 					if (overlayServiceMessenger != null) {
 						b.putInt(preference.getKey(), Integer.parseInt(newValue.toString()));
 						msg.setData(b);
@@ -347,23 +382,11 @@ public class PrefOverlayActivity extends PreferenceActivity {
 							e.printStackTrace();
 						}
 					}
-					
-//				} else if (preference == overlay_icon_visibility || preference == overlay_foreground) {
-//				} else if (preference == overlay_animation) {
-//					if (overlayServiceMessenger != null) {
-//						b.putBoolean(preference.getKey(), (Boolean) newValue);
-//						msg.setData(b);
-//						try {
-//							overlayServiceMessenger.send(msg);
-//						} catch (RemoteException e) {
-//							e.printStackTrace();
-//						}
-//					}
 				}
-
 				return true;
 			}
 		}
+		
 
 		/**
 		 * setSummary()
@@ -373,7 +396,6 @@ public class PrefOverlayActivity extends PreferenceActivity {
 		 */
 		private void setSummary(Preference preference, Object value) {
 			if (preference == overlay_point_side[0] || preference == overlay_point_side[1]) {
-
 				switch (Integer.valueOf((String) value)) {
 					case 0:
 						preference.setSummary(R.string.left);
@@ -388,10 +410,9 @@ public class PrefOverlayActivity extends PreferenceActivity {
 						preference.setSummary(R.string.lower);
 						break;
 				}
-
-			} else if (preference == overlay_point_position[0] || preference == overlay_point_position[1]) {
+			} else if (preference == overlay_point_position[0]
+					|| preference == overlay_point_position[1]) {
 				switch (Integer.valueOf((String) value)) {
-
 					case 0:
 						preference.setSummary(R.string.overlay_point_position_0);
 						break;
@@ -429,9 +450,8 @@ public class PrefOverlayActivity extends PreferenceActivity {
 						preference.setSummary(R.string.overlay_point_position_11);
 						break;
 				}
-
-			} else if (preference == overlay_point_width[0] || preference == overlay_point_width[1]) {
-
+			} else if (preference == overlay_point_width[0]
+					|| preference == overlay_point_width[1]) {
 				switch (Integer.valueOf((String) value)) {
 					case 8:
 						preference.setSummary(R.string.overlay_point_width_thin);
@@ -446,18 +466,6 @@ public class PrefOverlayActivity extends PreferenceActivity {
 						preference.setSummary(R.string.overlay_point_width_thickest);
 						break;
 				}
-
-/*			} else if (preference == overlay_point_action) {
-
-				switch (Integer.valueOf((String) value)) {
-					case 0:
-						preference.setSummary(R.string.swipe);
-						break;
-					case 1:
-						preference.setSummary(R.string.tap);
-						break;
-				}
-*/
 			}
 		}
 	}

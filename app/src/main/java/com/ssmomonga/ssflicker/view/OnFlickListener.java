@@ -2,98 +2,108 @@ package com.ssmomonga.ssflicker.view;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.ssmomonga.ssflicker.EditorActivity;
 import com.ssmomonga.ssflicker.R;
-import com.ssmomonga.ssflicker.db.PrefDAO;
-import com.ssmomonga.ssflicker.proc.Launch;
+import com.ssmomonga.ssflicker.params.FlickListenerParams;
 
 /**
  * OnFlickListener
  */
 abstract public class OnFlickListener implements View.OnTouchListener {
-
-	private Launch l;
-	private Position position;
+	
+	private static int flickDistance;
+	private static int vibrateTime;
 	
 	private boolean editorMode;
-	private int flickDistance;
 	private boolean isVibrate;
-
+	private Vibrator vibrate;
+	private Position position;
+	
+	
 	/**
 	 * Constructor
 	 *
 	 * @param context
+	 * @param params
 	 */
-	public OnFlickListener(Context context) {
-		PrefDAO pdao = new PrefDAO(context);
-		l = new Launch(context);
-		editorMode = context.getClass() == EditorActivity.class;
+	public OnFlickListener(Context context, FlickListenerParams params) {
 		flickDistance = context.getResources().getDimensionPixelSize(R.dimen.flick_distance);
-		isVibrate = pdao.isVibrate();
+		vibrateTime = context.getResources().getInteger(R.integer.vibrate_time);
+		editorMode = context.getClass() == EditorActivity.class;
+		this.isVibrate = params.isVibrate();
+		vibrate = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 	}
 
-	/**
-	 * Constructor
-	 *
-	 * @param context
-	 * @param isVibrate
-	 */
-	public OnFlickListener(Context context, boolean isVibrate) {
-		l = new Launch(context);
-		editorMode = context.getClass() == EditorActivity.class;
-		flickDistance = context.getResources().getDimensionPixelSize(R.dimen.flick_distance);
-		this.isVibrate = isVibrate;
-	}
-
+	
 	/**
 	 * onTouch()
 	 *
-	 * @param v
+	 * @param view
 	 * @param event
 	 * @return
 	 */
 	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-
+	public boolean onTouch(View view, MotionEvent event) {
 		if (!isEnable()) return true;
-
 		switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:
-				if (v.getTag() != null) setId(Integer.valueOf((String) v.getTag()));
+				if (view.getTag() != null) setId(Integer.valueOf((String) view.getTag()));
 				break;
 		}
-
 		if (hasData() || editorMode) {
-			Rect rect = new Rect((int) event.getRawX(), (int) event.getRawY(), (int) event.getRawX(), (int) event.getRawY());
+			Rect rect = new Rect(
+					(int) event.getRawX(),
+					(int) event.getRawY(),
+					(int) event.getRawX(),
+					(int) event.getRawY());
 			switch (event.getAction()) {
-				case MotionEvent.ACTION_DOWN:						//ACTION_DOWN
-					l.vibrate(isVibrate);
+				case MotionEvent.ACTION_DOWN:
+					if (isVibrate) {
+						vibrate.vibrate(VibrationEffect.createOneShot(
+								vibrateTime,
+								VibrationEffect.DEFAULT_AMPLITUDE));
+					};
 					position = new Position(event.getX(), event.getY());
 					onDown(position.getPosition());
 					break;
-
-				case MotionEvent.ACTION_MOVE:						//ACTION_MOVE
+				case MotionEvent.ACTION_MOVE:
+					// 不具合対応
+					// あるPIPアプリを起動した状態でホームキーでssF起動し、PIPアプリが最小化した後に、
+					// 約5秒以内にポインタをタップすると、positionがnullとなってnull pointer exceptionで
+					// 落ちる不具合の対応。
+					// ホームキーで起動した後に、なぜかonResumeが2回呼ばれている。
+					if (position == null) {
+						if (isVibrate) {
+							vibrate.vibrate(VibrationEffect.createOneShot(
+									vibrateTime,
+									VibrationEffect.DEFAULT_AMPLITUDE));
+						};
+						position = new Position(event.getX(), event.getY());
+						onDown(position.getPosition());
+					}
+					//不具合対応ここまで
+					
 					if (position.setPosition(event.getX(), event.getY())) {
 						onMove(position.getPrePosition(), position.getPosition());
 					}
 					break;
-
-				case MotionEvent.ACTION_UP:							//ACTION_UP
+				case MotionEvent.ACTION_UP:
 					onUp(position.getPosition(), rect);
 					break;
-
-				case MotionEvent.ACTION_CANCEL:						//ACTION_CANCEL
+				case MotionEvent.ACTION_CANCEL:
 					onCancel(position.getPosition());
 					break;
 			}
 		}
-
 		return true;
 	}
-
+	
+	
 	/**
 	 * isEnable()
 	 *
@@ -101,6 +111,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	 */
 	abstract public boolean isEnable();
 
+	
 	/**
 	 * setId()
 	 *
@@ -108,6 +119,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	 */
 	abstract public void setId(int id);
 
+	
 	/**
 	 * hasData()
 	 *
@@ -115,6 +127,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	 */
 	abstract public boolean hasData();
 
+	
 	/**
 	 * onDown()
 	 *
@@ -122,6 +135,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	 */
 	abstract public void onDown(int position);
 
+	
 	/**
 	 * onMove()
 	 *
@@ -130,6 +144,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	 */
 	abstract public void onMove(int oldPosition, int position);
 
+	
 	/**
 	 * onUp()
 	 *
@@ -138,6 +153,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	 */
 	abstract public void onUp(int position, Rect r);
 
+	
 	/**
 	 * onCancel()
 	 *
@@ -145,6 +161,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 	 */
 	abstract public void onCancel(int position);
 
+	
 	/**
 	 * Position
 	 */
@@ -155,6 +172,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		private int prePosition = -1;
 		private int position = -1;
 
+		
 		/**
 		 * Constructor
 		 *
@@ -166,6 +184,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 			this.iniY = iniY;
 		}
 
+		
 		/**
 		 * setPosition()
 		 *
@@ -174,16 +193,12 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 		 * @return
 		 */
 		public boolean setPosition(float X, float Y) {
-			
 			prePosition = position;
-			
 			X = X - iniX;
 			Y = Y - iniY;
 			double distance = Math.pow((Math.pow(X, 2) + Math.pow(Y, 2)), 0.5);
 			double arcCos = Math.toDegrees(Math.acos(X / distance));
-			
 			if (distance > flickDistance) {
-				
 				if (Y < 0) {
 					if (arcCos > 157.5) {
 						position = 3;
@@ -209,16 +224,15 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 						position = 4;
 					}
 				}
-
 			} else {
 				position = -1;
 			}
-			
 			return position != prePosition;
 		}
 		
+		
 		/**
-		 getPosition()
+		 * getPosition()
 		 *
 		 * @return
 		 */
@@ -226,6 +240,7 @@ abstract public class OnFlickListener implements View.OnTouchListener {
 			return position;
 		}
 
+		
 		/**
 		 * getOldPosition()
 		 *

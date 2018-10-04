@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
 	<item
 		android:id="@+id/menu_android_default_settings"
 		android:title="@string/menu_android_default_settings"
-		android:icon="@mipmap/icon_33_menu_settings"
+		android:icon="@drawable/ic_menu_settings"
 		android:showAsAction="always" />
-
 </menu>

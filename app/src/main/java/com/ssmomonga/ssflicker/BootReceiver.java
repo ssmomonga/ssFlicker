@@ -4,17 +4,16 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.ssmomonga.ssflicker.data.AppList;
-import com.ssmomonga.ssflicker.data.IntentAppInfo;
-import com.ssmomonga.ssflicker.db.SQLiteDAO;
-import com.ssmomonga.ssflicker.proc.Launch;
-import com.ssmomonga.ssflicker.set.BootSettings;
+import com.ssmomonga.ssflicker.db.SQLiteDAO2nd;
+import com.ssmomonga.ssflicker.settings.PrefDAO;
+import com.ssmomonga.ssflicker.notification.Notification;
 
 /**
  * BootReceiver
  */
 public class BootReceiver extends BroadcastReceiver {
-
+	
+	
 	/**
 	 * onReceive()
 	 *
@@ -22,31 +21,28 @@ public class BootReceiver extends BroadcastReceiver {
 	 * @param intent
 	 */
 	@Override
-	public void onReceive(Context context, Intent intent) {
-		
-		context.startForegroundService(new Intent(context, PackageObserveService.class));
-
-		BootSettings settings = new BootSettings(context);
-		new Launch(context).startStatusbar(settings.isStatusbar());
-		if (settings.isOverlay()) context.startForegroundService(new Intent(context, OverlayService.class));
-		
-		String action = intent.getAction();
-		if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
-			rebuildAppCacheTable(context);
-
-		} else if (action.equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
-			
-		}
+	public void onReceive(final Context context, final Intent intent) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				
+				//BOOT_COMPLETE、MY_PACKAGE_REPLACEDの場合
+				context.startForegroundService(new Intent(context, AppManagementService.class));
+				PrefDAO pdao = new PrefDAO(context);
+				if (pdao.isStatusbar()) {
+					new Notification(context, Notification.NOTIFICATION_CHANNEL_ID_STATUSBAR)
+							.startLaunchFromStatusbar();
+				}
+				if (pdao.isOverlay()) {
+					context.startForegroundService(new Intent(context, OverlayService.class));
+				}
+				
+				//BOOT_COMPLETEDの場合
+				String action = intent.getAction();
+				if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
+					SQLiteDAO2nd.rebuildAllAppsTable(context);
+				}
+			}
+		}).start();
 	}
-
-	/**
-	 * rebuildAppCacheTable()
-	 *
-	 * @param context
-	 */
-	private void rebuildAppCacheTable(Context context) {
-		SQLiteDAO.deleteAllAppTable(context);
-		AppList.getIntentAppList(context, IntentAppInfo.INTENT_APP_TYPE_LAUNCHER, 0);
-	}
-
 }

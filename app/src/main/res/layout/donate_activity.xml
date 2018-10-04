@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/lp_mp_mp"
 	android:gravity="center"
 	android:orientation="vertical" >
-
 	<TextView
 		android:id="@+id/tv_please"
 		style="@style/lp_wc_wc"
 		android:gravity="center"
 		android:textSize="18sp"
 		android:text="@string/please_donation"
-		android:visibility="gone" />	
-
+		android:visibility="gone" />
 	<TextView
 		android:id="@+id/tv_price"
 		style="@style/lp_wc_wc"
 		android:gravity="center"
 		android:textSize="16sp"
-		android:visibility="gone" />	
-			
+		android:visibility="gone" />
 	<Button
 		android:id="@+id/b_donate"
 		style="@style/lp_wc_wc"
 		android:text="@string/donate"
-		android:visibility="gone" />	
-
+		android:visibility="gone" />
 	<TextView
 		android:id="@+id/tv_thanks"
 		style="@style/lp_wc_wc"
 		android:gravity="center"
 		android:textSize="18sp"
 		android:text="@string/thanks_donation"
-		android:visibility="gone" />	
-	
+		android:visibility="gone" />
 	<Button
 		android:id="@+id/b_consume"
 		style="@style/lp_wc_wc"
 		android:text="consume"
 		android:visibility="gone" />
-	
 </LinearLayout>

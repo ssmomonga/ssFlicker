@@ -24,13 +24,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.ssmomonga.ssflicker.db.PrefDAO;
-import com.ssmomonga.ssflicker.dlg.AboutDialog;
-import com.ssmomonga.ssflicker.dlg.BackupRestoreDialog;
-import com.ssmomonga.ssflicker.pref.ColorPreference;
+import com.ssmomonga.ssflicker.settings.PrefDAO;
+import com.ssmomonga.ssflicker.dialog.AboutDialog;
+import com.ssmomonga.ssflicker.dialog.BackupRestoreDialog;
+import com.ssmomonga.ssflicker.preference.ColorPreference;
 import com.ssmomonga.ssflicker.proc.Launch;
-import com.ssmomonga.ssflicker.set.DeviceSettings;
-import com.ssmomonga.ssflicker.set.InvisibleAppWidgetSettings;
+import com.ssmomonga.ssflicker.notification.Notification;
+import com.ssmomonga.ssflicker.settings.DeviceSettings;
 
 /**
  * PrefActivity
@@ -38,11 +38,11 @@ import com.ssmomonga.ssflicker.set.InvisibleAppWidgetSettings;
 public class PrefActivity extends PreferenceActivity {
 
 	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_BACKUP_RESTORE = 0;
-//	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_WINDOW_BACKGROUND_COLOR = 1;
-//	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_TEXT_COLOR = 2;
+	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_WINDOW_BACKGROUND_COLOR = 1;
+	public static final int REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_TEXT_COLOR = 2;
 
 	private static PrefDAO pdao;
-	private static Launch l;
+	private static Notification notification;
 	
 	private static PreferenceScreen launch_by_default;
 	private static PreferenceScreen launch_from_overlay;
@@ -72,15 +72,18 @@ public class PrefActivity extends PreferenceActivity {
 	private static Messenger overlayServiceMessenger;
 	
 	private static ServiceConnection overlayServiceConn = new ServiceConnection() {
+
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			overlayServiceMessenger = new Messenger(service);
 		}
+
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
 			overlayServiceMessenger = null;
 		}
 	};
+	
 	
 	/**
 	 * onCreate()
@@ -90,12 +93,14 @@ public class PrefActivity extends PreferenceActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		pdao = new PrefDAO(this);
-		l = new Launch(this);
+		notification =
+				new Notification(this, Notification.NOTIFICATION_CHANNEL_ID_STATUSBAR);
 		bindOverlayServiceIntent = new Intent().setClass(this, OverlayService.class);
-		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefFragment()).commit();
+		getFragmentManager().beginTransaction().replace(android.R.id.content, new PrefFragment())
+				.commit();
 	}
+	
 	
 	/**
 	 * onResume()
@@ -103,13 +108,14 @@ public class PrefActivity extends PreferenceActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		startForegroundService(new Intent(this, PackageObserveService.class));
-		l.startStatusbar(pdao.isStatusbar());
+		startForegroundService(new Intent(this, AppManagementService.class));
+		if (pdao.isStatusbar()) notification.startLaunchFromStatusbar();
 		if (pdao.isOverlay()) {
 			startForegroundService(new Intent(this, OverlayService.class));
 			bindService(bindOverlayServiceIntent, overlayServiceConn, BIND_AUTO_CREATE);
 		}
 	}
+	
 
 	/**
 	 * onRequestPermissionResult()
@@ -119,42 +125,47 @@ public class PrefActivity extends PreferenceActivity {
 	 * @param grantResults
 	 */
 	@Override
-	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-		
+	public void onRequestPermissionsResult(
+			int requestCode,String[] permissions, int[] grantResults) {
 		switch(requestCode) {
 			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_BACKUP_RESTORE:
 				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					dialog = new BackupRestoreDialog(this);
 					dialog.show();
-					
 				} else {
-					Toast.makeText(this, getResources().getString(R.string.require_permission_write_external_storage), Toast.LENGTH_SHORT).show();
+					Toast.makeText(
+							this,
+							getString(R.string.require_permission_write_external_storage),
+							Toast.LENGTH_SHORT)
+							.show();
 				}
 				break;
-			
-/*			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_WINDOW_BACKGROUND_COLOR:
+			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_WINDOW_BACKGROUND_COLOR:
 				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					window_background_color.showColorPicker(window_background_color);
-					
 				} else {
-					Toast.makeText(this, getResources().getString(R.string.require_permission_write_external_storage),
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(
+							this,
+							getString(R.string.require_permission_write_external_storage),
+							Toast.LENGTH_SHORT)
+							.show();
 				}
 				break;
-			
 			case REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_TEXT_COLOR:
 				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					text_color.showColorPicker(text_color);
-					
 				} else {
-					Toast.makeText(this, getResources().getString(R.string.require_permission_write_external_storage),
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(
+							this,
+							getString(R.string.require_permission_write_external_storage),
+							Toast.LENGTH_SHORT)
+							.show();
 				}
 				break;
-*/
 		}
 	}
 
+	
 	/**
 	 * onCreateOptionsMenu()
 	 *
@@ -168,6 +179,7 @@ public class PrefActivity extends PreferenceActivity {
 		return true;
 	}
 
+	
 	/**
 	 * onOptionsItemSelected()
 	 */
@@ -178,18 +190,19 @@ public class PrefActivity extends PreferenceActivity {
 				dialog = new AboutDialog(this);
 				dialog.show();
 				break;
-
 			case R.id.menu_android_app_info:
-				l.launchAppInfo();
+				Launch.launchAppInfo(this);
 				break;
 		}
 		return true;
 	}
+	
 
 	/**
 	 * PrefFragment
 	 */
 	public static class PrefFragment extends PreferenceFragment {
+		
 		
 		/**
 		 * onCreate()
@@ -201,6 +214,7 @@ public class PrefActivity extends PreferenceActivity {
 			super.onCreate(savedInstanceState);
 			setInitialLayout();
 		}
+		
 
 		/**
 		 * onResume()
@@ -211,6 +225,7 @@ public class PrefActivity extends PreferenceActivity {
 			setLayout();
 		}
 		
+		
 		/**
 		 * onPause()
 		 */
@@ -219,6 +234,7 @@ public class PrefActivity extends PreferenceActivity {
 			super.onPause();
 			if (pdao.isOverlay()) getActivity().unbindService(overlayServiceConn);
 		}
+		
 		
 		/**
 		 * onDestry()
@@ -231,6 +247,113 @@ public class PrefActivity extends PreferenceActivity {
 			text_color.dismissColorPicker();
 //			new BackupManager(activity).dataChanged();	BackupAgentを停止
 		}
+
+		
+		/**
+		 * setInitialLayout()
+		 */
+		private void setInitialLayout() {
+			addPreferencesFromResource(R.xml.pref_activity);
+			
+			//Preferenceを取得
+			launch_by_default = (PreferenceScreen) findPreference(PrefDAO.DEFAULT_SETTINGS);
+			launch_from_overlay = (PreferenceScreen) findPreference(PrefDAO.OVERLAY);
+			launch_from_statusbar = (SwitchPreference) findPreference(PrefDAO.STATUSBAR);
+			window_background_color =
+					(ColorPreference) findPreference(PrefDAO.WINDOW_BACKGROUND_COLOR);
+			pointer_window_position_portrait =
+					(ListPreference) findPreference(PrefDAO.POINTER_WINDOW_POSITION_PORTRAIT);
+			dock_window_position_portrait =
+					(ListPreference) findPreference(PrefDAO.DOCK_WINDOW_POSITION_PORTRAIT);
+			pointer_window_position_landscape =
+					(ListPreference) findPreference(PrefDAO.POINTER_WINDOW_POSITION_LANDSCAPE);
+			dock_window_position_landscape =
+					(ListPreference) findPreference(PrefDAO.DOCK_WINDOW_POSITION_LANDSCAPE);
+			icon_size = (ListPreference) findPreference(PrefDAO.ICON_SIZE);
+			text_visibility = (SwitchPreference) findPreference(PrefDAO.TEXT_VISIBILITY);
+			text_color = (ColorPreference) findPreference(PrefDAO.TEXT_COLOR);
+			text_size = (ListPreference) findPreference(PrefDAO.TEXT_SIZE);
+			vibrate = (SwitchPreference) findPreference(PrefDAO.VIBRATE);
+			statusbar_visibility = (SwitchPreference) findPreference(PrefDAO.STATUSBAR_VISIBILITY);
+			invisible_appwidget_background_visibility =
+					(SwitchPreference) findPreference(
+							PrefDAO.INVISIBLE_APPWIDGET_BACKGROUND_VISIBILITY);
+			backup_restore = (PreferenceScreen) findPreference(PrefDAO.BACKUP_RESTORE);
+			donation = (PreferenceScreen) findPreference(PrefDAO.DONATION);
+			
+			//PreferenceClickListenerを設定
+			PreferenceClickListener clickListener = new PreferenceClickListener();
+			launch_by_default.setOnPreferenceClickListener(clickListener);
+			launch_from_overlay.setOnPreferenceClickListener(clickListener);
+			backup_restore.setOnPreferenceClickListener(clickListener);
+			donation.setOnPreferenceClickListener(clickListener);
+			
+			//PreferenceChangeListenerを設定
+			PreferenceChangeListener changeListener = new PreferenceChangeListener();
+			launch_from_statusbar.setOnPreferenceChangeListener(changeListener);
+			window_background_color.setOnPreferenceChangeListener(changeListener);
+			pointer_window_position_portrait.setOnPreferenceChangeListener(changeListener);
+			dock_window_position_portrait.setOnPreferenceChangeListener(changeListener);
+			pointer_window_position_landscape.setOnPreferenceChangeListener(changeListener);
+			dock_window_position_landscape.setOnPreferenceChangeListener(changeListener);
+			icon_size.setOnPreferenceChangeListener(changeListener);
+			text_visibility.setOnPreferenceChangeListener(changeListener);
+			text_color.setOnPreferenceChangeListener(changeListener);
+			text_size.setOnPreferenceChangeListener(changeListener);
+			vibrate.setOnPreferenceChangeListener(changeListener);
+			statusbar_visibility.setOnPreferenceChangeListener(changeListener);
+			invisible_appwidget_background_visibility.setOnPreferenceChangeListener(changeListener);
+		}
+
+		
+		/**
+		 * setLayout()
+		 */
+		private void setLayout() {
+			setSummary(
+					pointer_window_position_portrait,
+					pdao.getRawPointerWindowPositionPortrait());
+			setSummary(dock_window_position_portrait, pdao.getRawDockWindowPositionPortrait());
+			setSummary(
+					pointer_window_position_landscape,
+					pdao.getRawPointerWindowPositionLandscape());
+			setSummary(dock_window_position_landscape, pdao.getRawDockWindowPositionLandscape());
+			setSummary(icon_size, pdao.getRawIconSize());
+			setSummary(text_size, pdao.getRawTextSize());
+			if (DeviceSettings.hasVibrator(getActivity())) {
+				setSummary(vibrate, pdao.isVibrate());
+			} else {
+				vibrate.setEnabled(false);
+				setSummary(vibrate, null);
+			}
+			setSummary(statusbar_visibility, pdao.isStatusbarVisibility());
+			if (hasInvisibleAppWidget()) {
+				setSummary(invisible_appwidget_background_visibility,
+						pdao.isInvisibleAppWidgetBackgroundVisibility());
+			} else {
+				invisible_appwidget_background_visibility.setEnabled(false);
+				setSummary(invisible_appwidget_background_visibility, null);
+			}
+			if (DeviceSettings.hasExternalStorage()) {
+				setSummary(backup_restore, true);
+			} else {
+				backup_restore.setEnabled(false);
+				setSummary(backup_restore, false);
+			}
+		}
+		
+		
+		/**
+		 * hasInbisibleAppWidget()
+		 *
+		 * @return
+		 */
+		private boolean hasInvisibleAppWidget() {
+			ComponentName componentName = new ComponentName(getActivity(), InvisibleAppWidget.class);
+			int[] appWidgetIds = AppWidgetManager.getInstance(getActivity()).getAppWidgetIds(componentName);
+			return appWidgetIds.length > 0;
+		}
+		
 		
 		/**
 		 * PreferenceClickListener
@@ -242,122 +365,24 @@ public class PrefActivity extends PreferenceActivity {
 					startActivity(new Intent().setClass(getContext(), PrefDefaultActivity.class));
 				} else if (preference == launch_from_overlay) {
 					startActivity(new Intent().setClass(getContext(), PrefOverlayActivity.class));
+				} else if (preference == backup_restore) {
+					if (DeviceSettings.checkPermission(
+							getActivity(),
+							Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+						dialog = new BackupRestoreDialog(getActivity());
+						dialog.show();
+					} else {
+						getActivity().requestPermissions(
+								new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE},
+								PrefActivity.REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_BACKUP_RESTORE);
+					}
+				} else if (preference == donation) {
+					startActivity(new Intent().setClass(getContext(), DonateActivity.class));
 				}
-				
 				return false;
 			}
 		}
-
-		/**
-		 * setInitialLayout()
-		 */
-		private void setInitialLayout() {
-			addPreferencesFromResource(R.xml.pref_activity);
-			
-			launch_by_default = (PreferenceScreen) findPreference(PrefDAO.DEFAULT_SETTINGS);
-			launch_by_default.setOnPreferenceClickListener(new PreferenceClickListener());
-			launch_from_overlay = (PreferenceScreen) findPreference(PrefDAO.OVERLAY);
-			launch_from_overlay.setOnPreferenceClickListener(new PreferenceClickListener());
-			launch_from_statusbar = (SwitchPreference) findPreference(PrefDAO.STATUSBAR);
-			launch_from_statusbar.setOnPreferenceChangeListener(new PreferenceChangeListener());
-
-			window_background_color =
-					(ColorPreference) findPreference(PrefDAO.WINDOW_BACKGROUND_COLOR);
-			window_background_color.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			pointer_window_position_portrait =
-					(ListPreference) findPreference(PrefDAO.POINTER_WINDOW_POSITION_PORTRAIT);
-			pointer_window_position_portrait.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			dock_window_position_portrait =
-					(ListPreference) findPreference(PrefDAO.DOCK_WINDOW_POSITION_PORTRAIT);
-			dock_window_position_portrait.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			pointer_window_position_landscape =
-					(ListPreference) findPreference(PrefDAO.POINTER_WINDOW_POSITION_LANDSCAPE);
-			pointer_window_position_landscape.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			dock_window_position_landscape =
-					(ListPreference) findPreference(PrefDAO.DOCK_WINDOW_POSITION_LANDSCAPE);
-			dock_window_position_landscape.setOnPreferenceChangeListener(new PreferenceChangeListener());
-
-			icon_size = (ListPreference) findPreference(PrefDAO.ICON_SIZE);
-			icon_size.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			text_visibility = (SwitchPreference) findPreference(PrefDAO.TEXT_VISIBILITY);
-			text_visibility.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			text_color = (ColorPreference) findPreference(PrefDAO.TEXT_COLOR);
-			text_color.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			text_size = (ListPreference) findPreference(PrefDAO.TEXT_SIZE);
-			text_size.setOnPreferenceChangeListener(new PreferenceChangeListener());
-
-			vibrate = (SwitchPreference) findPreference(PrefDAO.VIBRATE);
-			vibrate.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			statusbar_visibility = (SwitchPreference) findPreference(PrefDAO.STATUSBAR_VISIBILITY);
-			statusbar_visibility.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			invisible_appwidget_background_visibility =
-					(SwitchPreference) findPreference(PrefDAO.INVISIBLE_APPWIDGET_BACKGROUND_VISIBILITY);
-			invisible_appwidget_background_visibility
-					.setOnPreferenceChangeListener(new PreferenceChangeListener());
-			
-			backup_restore = (PreferenceScreen) findPreference(PrefDAO.BACKUP_RESTORE);
-			backup_restore.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-
-					if (DeviceSettings.checkPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-						dialog = new BackupRestoreDialog(getActivity());
-						dialog.show();
-
-					} else {
-						getActivity().requestPermissions(new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE},
-								PrefActivity.REQUEST_PERMISSION_CODE_WRITE_EXTERNAL_STORAGE_BACKUP_RESTORE);
-					}
-
-					return false;
-				}
-			});
-			
-			donation = (PreferenceScreen) findPreference(PrefDAO.DONATION);
-			donation.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-				@Override
-				public boolean onPreferenceClick(Preference preference) {
-					startActivity(new Intent().setClass(getContext(), DonateActivity.class));
-					return false;
-				}
-			});
-		}
-
-		/**
-		 * setLayout()
-		 */
-		private void setLayout() {
-			setSummary(pointer_window_position_portrait, pdao.getRawPointerWindowPositionPortrait());
-			setSummary(dock_window_position_portrait, pdao.getRawDockWindowPositionPortrait());
-			setSummary(pointer_window_position_landscape, pdao.getRawPointerWindowPositionLandscape());
-			setSummary(dock_window_position_landscape, pdao.getRawDockWindowPositionLandscape());
-			setSummary(icon_size, pdao.getRawIconSize());
-			setSummary(text_size, pdao.getRawTextSize());
-			
-			if (DeviceSettings.hasVibrator(getActivity())) {
-				setSummary(vibrate, pdao.isVibrate());
-			} else {
-				vibrate.setEnabled(false);
-				setSummary(vibrate, null);
-			}
-			
-			setSummary(statusbar_visibility, pdao.isStatusbarVisibility());
-
-			if (DeviceSettings.hasInvisibleAppWidget(getActivity())) {
-				setSummary(invisible_appwidget_background_visibility,
-						pdao.isInvisibleAppWidgetBackgroundVisibility());
-			} else {
-				invisible_appwidget_background_visibility.setEnabled(false);
-				setSummary(invisible_appwidget_background_visibility, null);
-			}
-			
-			if (DeviceSettings.hasExternalStorage(getActivity())) {
-				setSummary(backup_restore, true);
-			} else {
-				backup_restore.setEnabled(false);
-				setSummary(backup_restore, false);
-			}
-		}
+		
 
 		/**
 		 * PreferenceChangeListener
@@ -366,14 +391,12 @@ public class PrefActivity extends PreferenceActivity {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				setSummary(preference, newValue);
-
 				if (preference == launch_from_statusbar) {
 					if ((Boolean) newValue) {
-						l.startStatusbar(true);
+						notification.startLaunchFromStatusbar();
 					} else {
-						l.stopStatusbar();
+						notification.stopLaunchFromStatusbar();
 					}
-
 				} else if (preference == vibrate) {
 					if (overlayServiceMessenger != null) {
 						Message msg = Message.obtain();
@@ -386,21 +409,14 @@ public class PrefActivity extends PreferenceActivity {
 							e.printStackTrace();
 						}
 					}
-
 				} else if (preference == invisible_appwidget_background_visibility) {
-					AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getActivity());
-					ComponentName compName = new ComponentName(getActivity(), InvisibleAppWidget.class);
-					int appWidgetIds[] = appWidgetManager.getAppWidgetIds(compName);
-					InvisibleAppWidgetSettings settings = new InvisibleAppWidgetSettings((Boolean) newValue);
-					new InvisibleAppWidget().viewInvisibleAppWidget(
-							getActivity(), appWidgetManager, appWidgetIds, settings);
-
+					InvisibleAppWidget.viewInvisibleAppWidget(getActivity(), (Boolean) newValue);
 				}
-
 				return true;
 			}
 		}
 
+		
 		/**
 		 * setSummary()
 		 *
@@ -408,10 +424,8 @@ public class PrefActivity extends PreferenceActivity {
 		 * @param value
 		 */
 		private void setSummary(Preference preference, Object value) {
-
 			if (preference == pointer_window_position_portrait ||
 					preference == pointer_window_position_landscape) {
-
 				switch (Integer.parseInt((String) value)) {
 					case 19:
 						preference.setSummary(getString(R.string.left));
@@ -441,10 +455,8 @@ public class PrefActivity extends PreferenceActivity {
 						preference.setSummary(getString(R.string.center));
 						break;
 				}
-
 			} else if (preference == dock_window_position_portrait ||
 					preference == dock_window_position_landscape) {
-
 				switch (Integer.parseInt((String) value)) {
 					case 3:
 						preference.setSummary(getString(R.string.left_of_pointer_window));
@@ -459,9 +471,7 @@ public class PrefActivity extends PreferenceActivity {
 						preference.setSummary(getString(R.string.below_pointer_window));
 						break;
 				}
-				
 			} else if (preference == icon_size) {
-
 				switch (Integer.parseInt((String) value)) {
 					case 24:
 						preference.setSummary(getString(R.string.icon_size_tiny));
@@ -479,9 +489,7 @@ public class PrefActivity extends PreferenceActivity {
 						preference.setSummary(getString(R.string.icon_size_huge));
 						break;
 				}
-				
 			} else if (preference == text_size) {
-
 				switch (Integer.parseInt((String) value)) {
 					case 10:
 						text_size.setSummary(getString(R.string.text_size_small));
@@ -493,15 +501,11 @@ public class PrefActivity extends PreferenceActivity {
 						text_size.setSummary(getString(R.string.text_size_large));
 						break;
 				}
-
 			} else if (preference == vibrate) {
-
 				if (value == null) {
 					preference.setSummary(R.string.no_vibrator);
 				}
-
 			} else if (preference == invisible_appwidget_background_visibility) {
-
 				if (value != null) {
 					if ((Boolean) value) {
 						preference.setSummary(R.string.image);
@@ -511,9 +515,7 @@ public class PrefActivity extends PreferenceActivity {
 				} else {
 					preference.setSummary(R.string.no_invisible_appwidget);
 				}
-
 			} else if (preference == backup_restore) {
-
 				if ((Boolean) value) {
 					preference.setSummary(null);
 				}else {
@@ -522,5 +524,4 @@ public class PrefActivity extends PreferenceActivity {
 			}
 		}
 	}
-	
 }

@@ -30,7 +30,6 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.android.vending.BILLING" />
-
     <!-- uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" マナーモードの設定変更に必要/ -->
     <!--
  application
@@ -47,10 +46,9 @@
         android:allowBackup="true"
         android:debuggable="true"
         android:fullBackupContent="@xml/backup_rules"
-        android:fullBackupOnly="true"
-        android:icon="@mipmap/icon_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/icon_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:testOnly="true" >
         <activity
@@ -81,7 +79,7 @@
 
             <meta-data
                 android:name="com.android.systemui.action_assist_icon"
-                android:resource="@mipmap/icon_assist" />
+                android:resource="@mipmap/ic_assist" />
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
@@ -146,15 +144,15 @@
             android:theme="@style/Theme.Pref" />
 
         <service
+            android:name="com.ssmomonga.ssflicker.AppManagementService"
+            android:exported="false"
+            android:label="@string/service_name_app_management" />
+        <service
             android:name="com.ssmomonga.ssflicker.OverlayService"
             android:exported="false"
             android:label="@string/service_name_overlay" />
         <!-- android:process=":OverlayService" -->
 
-        <service
-            android:name="com.ssmomonga.ssflicker.PackageObserveService"
-            android:exported="false"
-            android:label="@string/service_name_package_observe" />
 
         <!--
             service
@@ -187,6 +185,16 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/invisible_appwidget" />
         </receiver>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.ssmomonga.ssflicker.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

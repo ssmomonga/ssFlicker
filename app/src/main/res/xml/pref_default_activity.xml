@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 	android:key="launch_by_default" >
-
 	<PreferenceCategory android:title="@string/home_key">
 		<SwitchPreference
 			android:key="home_key"
 			android:title="@string/home_key"
 			android:enabled="false"/>
 	</PreferenceCategory>
-
 	<PreferenceCategory android:title="@string/assist">
 		<PreferenceScreen
 			android:key="assist"
 			android:title="@string/assist"
 			android:enabled="false"/>
 	</PreferenceCategory>
-
 	<PreferenceCategory android:title="@string/search_key">
 		<SwitchPreference
 			android:key="search_key"
 			android:title="@string/search_key"
 			android:enabled="false"/>
 	</PreferenceCategory>
-
 </PreferenceScreen>

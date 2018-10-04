@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <Shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
-
 	<shortcut
 		android:shortcutId="edit_mode"
 		android:shortcutShortLabel="@string/shortcut_edit_mode_short_label"
 		android:shortcutLongLabel="@string/shortcut_edit_mode_long_label"
-		android:icon="@mipmap/icon_app_shortcut_edit_mode"
+		android:icon="@drawable/ic_appshortcut_edit"
 		android:enabled="true">
 		<intent
 			android:action="android.intent.action.VIEW"
@@ -17,12 +15,11 @@
 				android:value="true" />
 		</intent>
 	</shortcut>
-
 	<shortcut
 		android:shortcutId="ssflicker_settings"
 		android:shortcutShortLabel="@string/shortcut_ssflicker_settings_short_label"
 		android:shortcutLongLabel="@string/shortcut_ssflicker_settings_long_label"
-		android:icon="@mipmap/icon_app_shortcut_ssflicker_settings"
+		android:icon="@drawable/ic_appshortcut_settings"
 		android:enabled="true" >
 		<intent
 			android:action="android.intent.action.VIEW"
@@ -30,5 +27,4 @@
 			android:targetClass="com.ssmomonga.ssflicker.PrefActivity" >
 		</intent>
 	</shortcut>
-
-</Shortcuts>	
+</Shortcuts>

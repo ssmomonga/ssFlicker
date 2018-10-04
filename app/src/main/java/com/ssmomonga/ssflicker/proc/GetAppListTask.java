@@ -1,24 +1,22 @@
 package com.ssmomonga.ssflicker.proc;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.view.Window;
-import android.widget.ProgressBar;
 
-import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
-import com.ssmomonga.ssflicker.data.AppList;
+import com.ssmomonga.ssflicker.datalist.AppList;
+import com.ssmomonga.ssflicker.dialog.ProgressDialog;
 
 /**
  * GetAppListTask
  */
 public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
-
+	
 	private Context context;
-	private static Dialog progressDialog;
-
+	
+	private ProgressDialog progressDialog;
+	
+	
 	/**
 	 * Constructor
 	 *
@@ -28,32 +26,21 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 		this.context = context;
 	}
 
+	
 	/**
 	 * onPreExecute()
 	 */
 	@Override
 	protected void onPreExecute() {
-		
-		//プログレスダイアログを表示。
-		int padding = context.getResources().getDimensionPixelSize(R.dimen.int_16_dp);
-		int size = context.getResources().getDimensionPixelSize(R.dimen.int_120_dp);
-		ProgressBar progress = new ProgressBar(context);
-		progress.setPadding(padding, padding, padding, padding);
-		progressDialog = new Dialog(context);
-		progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		progressDialog.setContentView(progress);
-		progressDialog.getWindow().setLayout(size, size);
-		progressDialog.setCancelable(true);
-		progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+		progressDialog =  new ProgressDialog(context) {
 			@Override
-			public void onCancel(DialogInterface dialog) {
-				cancel(true);
-				asyncCancel();
+			public void onCancelDialog() {
+				GetAppListTask.this.cancel(true);
 			}
-		});
+		};
 		progressDialog.show();
-			
 	}
+	
 
 	/**
 	 * doInBackground()
@@ -65,28 +52,25 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 	protected App[] doInBackground(Integer... integer) {
 		int appType = integer[0];
 		int intentType = integer[1];
-		
 		App[] appList = null;
 		switch (appType) {
 			case App.APP_TYPE_INTENT_APP:
 				appList = AppList.getIntentAppList(context, intentType, 0);
 				break;
-		
 			case App.APP_TYPE_APPWIDGET:
 				appList = AppList.getAppWidgetList(context);
 				break;
-
 			case App.APP_TYPE_APPSHORTCUT:
 				appList = AppList.getAppShortcutList(context);
 				break;
-
 			case App.APP_TYPE_FUNCTION:
 				appList = AppList.getFunctionList(context);
 				break;
 		}
 		return appList;
 	}
-
+	
+	
 	/**
 	 * onPostExecute()
 	 *
@@ -97,17 +81,28 @@ public abstract class GetAppListTask extends AsyncTask<Integer, Void, App[]> {
 		progressDialog.dismiss();
 		asyncComplete(appList);
 	}
-
+	
+	
 	/**
-	 * asyncCancel()
+	 * onCancelled()
 	 */
-	protected abstract void asyncCancel();
+	@Override
+	protected void onCancelled() {
+		super.onCancelled();
+		asyncCancelled();
+	}
 
+	
 	/**
 	 * asyncComplete()
 	 *
 	 * @param appList
 	 */
 	protected abstract void asyncComplete(App[] appList);
-
+	
+	
+	/**
+	 * asyncCancel()
+	 */
+	protected abstract void asyncCancelled();
 }

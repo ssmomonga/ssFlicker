@@ -1,7 +1,6 @@
 package com.ssmomonga.ssflicker.view;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -12,9 +11,9 @@ import android.widget.LinearLayout;
 
 import com.ssmomonga.ssflicker.R;
 import com.ssmomonga.ssflicker.data.App;
+import com.ssmomonga.ssflicker.params.WindowOrientationParams;
+import com.ssmomonga.ssflicker.params.WindowParams;
 import com.ssmomonga.ssflicker.proc.ImageConverter;
-import com.ssmomonga.ssflicker.set.WindowOrientationParams;
-import com.ssmomonga.ssflicker.set.WindowParams;
 
 import static com.ssmomonga.ssflicker.R.color.material_gray;
 
@@ -29,13 +28,14 @@ public class DockWindow extends LinearLayout {
 	private LinearLayout ll_menu;
 	private ImageView iv_menu;
 
-	private static final Animation[] anim_dock_pointed = new Animation[App.DOCK_APP_COUNT];
-	private static final Animation[] anim_dock_unfocused = new Animation[App.DOCK_APP_COUNT];
-	private static Animation anim_menu_focused;
-	private static Animation anim_menu_unfocused;
+	private Animation[] anim_dock_pointed = new Animation[App.DOCK_APP_COUNT];
+	private Animation[] anim_dock_unfocused = new Animation[App.DOCK_APP_COUNT];
+	private Animation anim_menu_focused;
+	private Animation anim_menu_unfocused;
 
+	
 	/**
-	 * Constructor
+	 * DockWindow()
 	 *
 	 * @param context
 	 * @param attrs
@@ -44,40 +44,46 @@ public class DockWindow extends LinearLayout {
 		super (context, attrs);
 		setInitialLayout();
 	}
+	
 
 	/**
 	 * setInitialLayout()
 	 */
-	public void setInitialLayout() {
-
+	private void setInitialLayout() {
 		Context context = getContext();
-		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater =
+				(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		inflater.inflate(R.layout.dock_window, this, true);
-
 		ll_parent = findViewById(R.id.ll_parent);
-
 		ll_dock[0] = findViewById(R.id.ll_dock_0);
 		ll_dock[1] = findViewById(R.id.ll_dock_1);
 		ll_dock[2] = findViewById(R.id.ll_dock_2);
 		ll_dock[3] = findViewById(R.id.ll_dock_3);
 		ll_dock[4] = findViewById(R.id.ll_dock_4);
 		ll_menu = findViewById(R.id.ll_menu);
-			
 		iv_dock[0] = findViewById(R.id.iv_dock_0);
 		iv_dock[1] =  findViewById(R.id.iv_dock_1);
 		iv_dock[2] = findViewById(R.id.iv_dock_2);
 		iv_dock[3] = findViewById(R.id.iv_dock_3);
 		iv_dock[4] = findViewById(R.id.iv_dock_4);
 		iv_menu = findViewById(R.id.iv_menu);
-
 		for (int i = 0; i < App.DOCK_APP_COUNT; i ++) {
 			anim_dock_pointed[i] = AnimationUtils.loadAnimation(context, R.anim.icon_pointed);
 			anim_dock_unfocused[i] = AnimationUtils.loadAnimation(context, R.anim.icon_unpointed);
 		}
 		anim_menu_focused = AnimationUtils.loadAnimation(context, R.anim.icon_pointed);
 		anim_menu_unfocused = AnimationUtils.loadAnimation(context, R.anim.icon_unpointed);
-		
 	}
+	
+	
+	/**
+	 * resetInitialLayout()
+	 */
+	public void resetInitialLayout() {
+		removeAllViews();
+		setInitialLayout();
+	}
+	
 	
 	/**
 	 * setOnFlickListener()
@@ -89,7 +95,19 @@ public class DockWindow extends LinearLayout {
 		for (LinearLayout ll: ll_dock) ll.setOnTouchListener(listener);
 		ll_menu.setOnTouchListener(listener2);
 	}
-
+	
+	
+	/**
+	 * setLayout()
+	 *
+	 * @param params
+	 */
+	public void setLayout(WindowParams params) {
+		for (ImageView iv: iv_dock) iv.setLayoutParams(params.getIconLP());
+		iv_menu.setLayoutParams(params.getIconLP());
+	}
+	
+	
 	/**
 	 * setLayout()
 	 *
@@ -102,16 +120,7 @@ public class DockWindow extends LinearLayout {
 		ll_menu.setLayoutParams(dockAppLP);
 	}
 
-	/**
-	 * setLayout()
-	 *
-	 * @param params
-	 */
-	public void setLayout(WindowParams params) {
-		for (ImageView iv: iv_dock) iv.setLayoutParams(params.getIconLP());
-		iv_menu.setLayoutParams(params.getIconLP());
-	}
-
+	
 	/**
 	 * setApp()
 	 *
@@ -128,16 +137,15 @@ public class DockWindow extends LinearLayout {
 		}		
 	}
 	
+	
 	/**
 	 * setAppForEdit()
 	 *
 	 * @param appList
 	 */
 	public void setAppForEdit(App[] appList) {
-		Context context = getContext();
-		Resources r = context.getResources();
-		Drawable d = r.getDrawable(R.mipmap.icon_40_edit_add, null);
-		d = ImageConverter.changeIconColor(context, d, r.getColor(material_gray, null));
+		Drawable d = getContext().getDrawable(R.mipmap.ic_40_edit_add);
+		d = ImageConverter.changeIconColor(getContext(), d, getContext().getColor(material_gray));
 		for (int i = 0; i < App.DOCK_APP_COUNT; i ++) {
 			App app = appList[i];
 			if (app != null) {
@@ -147,6 +155,7 @@ public class DockWindow extends LinearLayout {
 			}
 		}
 	}
+	
 
 	/**
 	 * setDockPointed()
@@ -162,6 +171,7 @@ public class DockWindow extends LinearLayout {
 		}
 	}
 
+	
 	/**
 	 * setMenuPointed()
 	 *

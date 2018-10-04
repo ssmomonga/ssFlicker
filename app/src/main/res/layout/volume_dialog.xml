@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/lp_mp_wc" >
 	<LinearLayout
 		style="@style/lp_mp_wc"
 		android:padding="16dp"
 		android:orientation="vertical" >
-
 		<LinearLayout
 			style="@style/lp_mp_wc"
 			android:layout_marginTop="8dp"
@@ -19,7 +17,6 @@
 					 style="@style/lp_mp_wc"
 					 android:padding="8dp" />
 		</LinearLayout>
-
 		<LinearLayout
 			style="@style/lp_mp_wc"
 			android:layout_marginTop="8dp"
@@ -33,7 +30,6 @@
 				style="@style/lp_mp_wc"
 				android:padding="8dp" />
 		</LinearLayout>
-	
 		<LinearLayout
 			style="@style/lp_mp_wc"
 			android:layout_marginTop="8dp"
@@ -49,6 +45,5 @@
 				android:paddingTop="8dp"
 				android:paddingRight="8dp" />
 		</LinearLayout>
-
 	</LinearLayout>
 </ScrollView>

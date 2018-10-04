@@ -1,0 +1,20 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+		android:width="48dp"
+		android:height="48dp"
+		android:viewportWidth="48.0"
+		android:viewportHeight="48.0">
+	<path
+		android:fillColor="@color/appshortcut_background_color"
+		android:pathData="M 30.80,3.07
+           C 34.09,4.16 37.14,5.94 39.60,8.40
+             47.87,16.67 48.15,30.16 40.31,38.80
+             38.60,40.68 36.56,42.31 34.30,43.47
+             30.62,45.37 27.21,46.05 23.10,46.00
+             21.23,45.98 18.77,45.46 17.00,44.87
+             13.81,43.80 10.79,41.98 8.40,39.60
+             1.88,33.07 0.20,23.04 4.03,14.70
+             6.39,9.57 10.82,5.44 16.10,3.44
+             17.84,2.79 19.66,2.35 21.50,2.13
+             21.50,2.13 22.50,2.04 22.50,2.04
+             24.87,1.75 28.53,2.31 30.80,3.07 Z" />
+</vector>

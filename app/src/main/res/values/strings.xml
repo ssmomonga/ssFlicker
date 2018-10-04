@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <resources>
-    
 <!-- AndroidManifest.xml -->
     <string name="app_name">ssFlicker</string>
 	<string name="activity_name_flick">ssFlicker</string>
@@ -9,8 +7,7 @@
     <string name="activity_name_pref">ssFlicker - Settings</string>
     <string name="activity_name_donate">ssFlicker - Donate</string>
     <string name="service_name_overlay">Overlay service</string>
-	<string name="service_name_package_observe">Package observe service</string>
-	<string name="service_name_package_observe_job">Package observe job</string>
+	<string name="service_name_app_management">App management service</string>
     <string name="receiver_name_boot">Boot receiver</string>
 	<string name="receiver_name_invisible_appwidget">ssFlicker - Invisible widget</string>
 
@@ -44,6 +41,7 @@
 	<string name="cancel">Cancel</string>
 
 	<string name="fail_set_image">Failed to set a image</string>
+	<string name="not_found_trimming_app">Not found trimming app</string>
 	
 <!-- EditDialog -->
 	<string name="edit_send_text_template">Template</string>
@@ -122,16 +120,10 @@
 	<string name="overlay_point_position">Position</string>
 	<string name="overlay_point_width">Width</string>
 	<string name="background_color">Background color</string>
-	<string name="overlay_point_action">Swipe / Tap</string>
 	<string name="animation">Animation</string>
-	<string name="running_foreground">Run in foreground</string>
-	<string name="running_foreground_summary">Run service as high priority, will be hard to kill</string>
 	<string name="one_time_message_overlay_settings">Require \&quot;Display over other apps\&quot; permission</string>
 
 <!-- arrays.xml -->
-	<string name="tap">Tap</string>
-	<string name="swipe">Swipe</string>
-
 	<string name="overlay_point_position_0">Corner 1</string>
 	<string name="overlay_point_position_1">Corner 2</string>
 	<string name="overlay_point_position_2">Quarter 1</string>
@@ -199,7 +191,7 @@
 	<string name="ver_3">- Android 5.0 - 7.x : The end of development is in v1.5.15.</string>
 	<string name="permission">Permissions</string>
 	<string name="prm_0">- Directly call phone numbers: For direct dial of shortcut.</string>
-	<string name="prm_1">- Modify or delete the contents of your USB storage / Read the contents of your USB storage: For storage backup, trimming image.</string>
+	<string name="prm_1">- Modify or delete the contents of your USB storage / Read the contents of your USB storage: For storage backup, get wallpaper.</string>
 	<string name="prm_2">- Display over other apps: For overlay.</string>
 	<string name="prm_3">- Modify system settings: For lotate function.</string>
 	<string name="prm_4">- Run at startup: For running launch from overlay or status bar when start the device.</string>
@@ -263,6 +255,8 @@
 	<string name="require_permission_write_settings">Require \&quot;Modify system settings\&quot; permission</string>
 	<string name="rotate_off">Turn off auto rotate</string>
 	<string name="rotate_on">Turn on auto rotate</string>
+	
+<!-- Notification -->
 	<string name="notification_channel_name">Foreground service</string>
 
 <!-- VolumeDialog -->
@@ -300,5 +294,4 @@
 	<string name="shortcut_edit_mode_long_label">Edit pointers and apps</string>
 	<string name="shortcut_ssflicker_settings_short_label">Settings</string>
 	<string name="shortcut_ssflicker_settings_long_label">ssFlicker settings</string>
-
 </resources>

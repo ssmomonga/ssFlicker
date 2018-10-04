@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/lp_mp_0" >
-		
 	<LinearLayout
 		style="@style/lp_mp_wc"
 		android:padding="16dp"
 		android:orientation="vertical" >
-
 		<LinearLayout
 			style="@style/lp_mp_wc"
 			android:orientation="vertical" >
@@ -39,9 +36,7 @@
 					android:autoLink="web" />
 			</LinearLayout>
 		</LinearLayout>
-		
 		<LinearLayout style="@style/divider" />
-
 		<LinearLayout
 			style="@style/lp_mp_wc"
 			android:orientation="vertical"
@@ -84,9 +79,7 @@
 					android:autoLink="web" />
 			</LinearLayout>
 		</LinearLayout>
-		
 		<LinearLayout style="@style/divider" />
-
 		<LinearLayout
 			style="@style/lp_mp_wc"
 			android:orientation="vertical"
@@ -110,9 +103,7 @@
 					android:autoLink="web" />
 			</LinearLayout>
 		</LinearLayout>
-		
 		<LinearLayout style="@style/divider" />
-
 		<LinearLayout
 		   	style="@style/lp_mp_wc"
 			android:orientation="vertical" >
@@ -142,9 +133,7 @@
 					android:text="@string/ver_3" />
 			</LinearLayout>
 		</LinearLayout>
-		
 		<LinearLayout style="@style/divider" />
-
 		<LinearLayout
 			style="@style/lp_mp_wc"
 			android:orientation="vertical"
@@ -191,9 +180,7 @@
 					android:text="@string/prm_7" />
 			</LinearLayout>
 		</LinearLayout>
-		
 		<LinearLayout style="@style/divider" />
-
 		<LinearLayout
 			style="@style/lp_mp_wc"
 			android:orientation="vertical"
@@ -220,9 +207,7 @@
 					android:text="@string/hint_2" />
 			</LinearLayout>
 		</LinearLayout>
-		
 		<LinearLayout style="@style/divider" />
-		
 		<LinearLayout
 		   	style="@style/lp_mp_wc"
 			android:orientation="vertical"
@@ -242,6 +227,5 @@
 					android:text="@string/thanks_0" />
 			</LinearLayout>
 		</LinearLayout>
-
 	</LinearLayout>
 </ScrollView>
